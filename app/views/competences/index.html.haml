@@ -1,0 +1,23 @@
+%h1 Listing competences
+
+%table
+  %thead
+    %tr
+      %th Title
+      %th Competence
+      %th
+      %th
+      %th
+
+  %tbody
+    - @competences.each do |competence|
+      %tr
+        %td= competence.title
+        %td= competence.competence_id
+        %td= link_to 'Show', competence
+        %td= link_to 'Edit', edit_competence_path(competence)
+        %td= link_to 'Destroy', competence, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Competence', new_competence_path

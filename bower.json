@@ -1,0 +1,24 @@
+{
+  "name": "komp",
+  "authors": [
+    "dsads"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor/assets/components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "milligram": "^1.1.0",
+    "axios": "^0.9.1"
+  }
+}
