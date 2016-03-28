@@ -25,24 +25,16 @@ window.Competence=React.createClass({
           {this.props.competence.title} {this.props.competence.id} {this.props.competence.isAssigned} {this.props.isPending}
         </div>
         <div className="column column-40">
-          <a href="#" className="button"
-            onClick={this.setLevel.bind(this, 1)}>junior</a>
-          <a href="#" className="button"
-            onClick={this.setLevel.bind(this, 2)}>senior</a>
-          <a href="#" className="button"
-            onClick={this.setLevel.bind(this, 3)}>1337</a>
+          {this.props.competence.tiers.map(tier=>{
+            return <CompetenceTierButton key={`${this.props.competence.id}-${tier.level}`}
+              competence={this.props.competence} tier={tier} user={this.props.user}></CompetenceTierButton>;
+          })}
         </div>
         <div className="column column-10">
           {removeButton}
         </div>
       </div>
     </div>;
-  },
-  
-  setLevel(level, e){
-    console.log("args");
-    console.log(arguments);
-    competenceActions.setLevel(this.props.competence.id, this.props.user.id, level);
   },
   
   removeAssigned(e){

@@ -43,15 +43,23 @@ window.CompetenceChooser=React.createClass({
   },
   
   render(){
+    let competenceGroups=_.groupBy(this.state.parsedCompetences, 'type');
     return <div>
       <div>
         Chooser
       </div>
       <CompetenceSearchField searchChanged={this.onSearchChanged}></CompetenceSearchField>
       <div>
-        {this.state.parsedCompetences.map(competence=>{
-          return <Competence competence={competence} user={this.props.user} key={competence.id}></Competence>;
-        })}
+        {
+          _.keys(competenceGroups).map(groupName=>{
+            return <div key={`competence-group-${groupName}`}>
+              <h2>{groupName}</h2>
+              {competenceGroups[groupName].map(competence=>{
+                return <Competence competence={competence} user={this.props.user} key={competence.id}></Competence>;
+              })}
+            </div>;
+          })
+        }
       </div>
     </div>;
   },

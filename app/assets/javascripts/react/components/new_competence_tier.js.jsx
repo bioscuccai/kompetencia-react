@@ -1,7 +1,7 @@
 window.NewCompetenceTier=React.createClass({
   render(){
     return <div>
-      <form onChange={this.handleFormSubmit}>
+      <form onSubmit={this.handleFormSubmit}>
         <div>
           <input type='text' ref='title' placeholder='Megnevezés'></input>
         </div>
@@ -17,5 +17,10 @@ window.NewCompetenceTier=React.createClass({
   
   handleFormSubmit(e){
     e.preventDefault();
+    competenceTierActions.createCompetenceTier(
+      this.refs.title.value,
+      this.refs.description.value,
+      this.props.group.id
+    );
   }
 });

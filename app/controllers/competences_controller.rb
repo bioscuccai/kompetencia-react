@@ -9,11 +9,18 @@ class CompetencesController < ApplicationController
 
   #az api-nak specko formatumban kell, az eredeti buidert meg nem piszkaljuk
   def all
-    competences=Competence.all.map do |competence|
+    competences=Competence.includes(competence_type: [:competence_tier_group]).all.map do |competence|
       {
         id: competence.id,
         title: competence.title,
-        type: competence&.competence_type&.title
+        type: competence&.competence_type&.title,
+        tiers: competence&.competence_type&.competence_tier_group&.competence_tiers&.map do |tier|
+          {
+            level: tier.level,
+            title: tier.title,
+            description: tier.description
+          }
+        end
       }
     end
     render json: competences

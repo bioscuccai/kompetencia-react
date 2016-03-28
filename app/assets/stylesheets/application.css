@@ -22,3 +22,7 @@
 .pending-competence{
   background-color: #faff06;
 }
+
+.selected-tier{
+  background-color: rgb(6, 255, 0) !important;
+}

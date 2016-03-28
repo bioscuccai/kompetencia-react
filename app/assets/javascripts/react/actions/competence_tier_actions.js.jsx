@@ -20,6 +20,24 @@ class CompetenceTierActions{
     };
   }
   
+  createCompetenceTier(title, description, competenceTierGroupId){
+    return dispatch=>{
+      axios.post('/competence_tiers.json', {
+        competence_tier: {
+          title,
+          description,
+          competence_tier_group_id: competenceTierGroupId
+        }
+      }, {
+          responseType: 'json'
+      })
+      .then(data=>{
+        console.log(data);
+        dispatch(data);
+      });
+    };
+  }
+  
   error(err){
     return err;
   }

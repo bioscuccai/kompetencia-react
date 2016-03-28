@@ -1,5 +1,6 @@
 class CompetenceTiersController < ApplicationController
   before_action :set_competence_tier, only: [:show, :edit, :update, :destroy]
+  skip_before_filter :verify_authenticity_token
 
   # GET /competence_tiers
   # GET /competence_tiers.json

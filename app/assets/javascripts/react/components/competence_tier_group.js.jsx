@@ -4,7 +4,7 @@ window.CompetenceTierGroup=React.createClass({
       <h3>{this.props.group.title}</h3>
       <ul>
         {this.props.group.tiers.map(tier=>{
-          return <li key={tier.title}>{title} ({tier.level})</li>;
+          return <li key={tier.title}>{tier.title} ({tier.level})</li>;
         })}
       </ul>
       <NewCompetenceTier group={this.props.group}></NewCompetenceTier>

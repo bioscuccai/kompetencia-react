@@ -4,6 +4,7 @@ Rails.application.routes.draw do
       get 'all'
     end
   end
+  resources :competence_types
   resources :competence_tiers
   resources :competences do
     collection do

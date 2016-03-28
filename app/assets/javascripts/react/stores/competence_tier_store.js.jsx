@@ -9,6 +9,14 @@ class CompetenceTierStore{
     this.competenceTierGroups=competenceTierGroups;
   }
   
+  createCompetenceTier(){
+    this.getInstance().fetchCompetenceTiers();
+  }
+  
+  createCompetenceTierGroup(){
+    this.getInstance().fetchCompetenceTiers();
+  }
+  
   error(err){
     console.log(err);
   }
