@@ -7,6 +7,18 @@ class CompetencesController < ApplicationController
     @competences = Competence.all
   end
 
+  #az api-nak specko formatumban kell, az eredeti buidert meg nem piszkaljuk
+  def all
+    competences=Competence.all.map do |competence|
+      {
+        id: competence.id,
+        title: competence.title,
+        type: competence&.competence_type&.title
+      }
+    end
+    render json: competences
+  end
+  
   # GET /competences/1
   # GET /competences/1.json
   def show

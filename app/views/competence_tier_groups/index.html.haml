@@ -1,0 +1,25 @@
+%h1 Listing competence_tier_groups
+
+%table
+  %thead
+    %tr
+      %th Title
+      %th Description
+      %th
+      %th
+      %th
+
+  %tbody
+    - @competence_tier_groups.each do |competence_tier_group|
+      %tr
+        %td= competence_tier_group.title
+        %td= competence_tier_group.description
+        %td= link_to 'Show', competence_tier_group
+        %td= link_to 'Edit', edit_competence_tier_group_path(competence_tier_group)
+        %td= link_to 'Destroy', competence_tier_group, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Competence tier group', new_competence_tier_group_path
+
+=react_component("CompetenceTierGroups")

@@ -13,3 +13,12 @@
  *= require_self
  *= require milligram/dist/milligram
  */
+
+
+.assigned-competence{
+  background-color: #67da16;
+}
+
+.pending-competence{
+  background-color: #faff06;
+}

@@ -1,0 +1,19 @@
+= form_for @competence_tier do |f|
+  - if @competence_tier.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@competence_tier.errors.count, "error")} prohibited this competence_tier from being saved:"
+      %ul
+        - @competence_tier.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :title
+    = f.text_field :title
+  .field
+    = f.label :description
+    = f.text_area :description
+  .field
+    = f.label :competence_tier_group_id
+    = f.number_field :competence_tier_group_id
+  .actions
+    = f.submit 'Save'

@@ -19,6 +19,8 @@
   ],
   "dependencies": {
     "milligram": "^1.1.0",
-    "axios": "^0.9.1"
+    "axios": "^0.9.1",
+    "alt": "^0.18.4",
+    "lodash": "^4.6.1"
   }
 }

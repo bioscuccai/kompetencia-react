@@ -1,6 +1,15 @@
 Rails.application.routes.draw do
-  resources :competences
-  resources :competence_types
+  resources :competence_tier_groups do
+    collection do
+      get 'all'
+    end
+  end
+  resources :competence_tiers
+  resources :competences do
+    collection do
+      get 'all'
+    end
+  end
   devise_for :users
   
   resources :users do
@@ -12,6 +21,8 @@ Rails.application.routes.draw do
       post 'add_pending_competence'
       post 'accept_pending_competence'
       post 'reject_pending_competence'
+      
+      post 'remove_competence'
     end
   end
   # The priority is based upon order of creation: first created -> highest priority.

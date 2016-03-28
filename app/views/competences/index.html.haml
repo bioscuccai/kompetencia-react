@@ -13,7 +13,7 @@
     - @competences.each do |competence|
       %tr
         %td= competence.title
-        %td= competence.competence_id
+        %td= competence.competence_type_id
         %td= link_to 'Show', competence
         %td= link_to 'Edit', edit_competence_path(competence)
         %td= link_to 'Destroy', competence, :method => :delete, :data => { :confirm => 'Are you sure?' }
