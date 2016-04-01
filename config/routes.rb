@@ -4,7 +4,11 @@ Rails.application.routes.draw do
       get 'all'
     end
   end
-  resources :competence_types
+  resources :competence_types do
+    collection do
+      get 'all'
+    end
+  end
   resources :competence_tiers
   resources :competences do
     collection do
@@ -24,8 +28,13 @@ Rails.application.routes.draw do
       post 'reject_pending_competence'
       
       post 'remove_competence'
+      
+      get 'add_admin'
+      get 'remove_admin'
     end
   end
+  
+  root 'users#home'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -7,8 +7,8 @@ window.CompetenceChooser=React.createClass({
       return _.assign({}, competence, {
         isPending: !_.isUndefined(pending),
         isAssigned: !_.isUndefined(assigned),
-        //a pending kerul elore arra az esetre ha felhasznalo modositani akarja a sajat kompetenciajat
-        level: _.get(pending, 'level') || _.get(assigned, 'level')
+        level: _.get(assigned, 'level'),
+        pendingLevel: _.get(pending, 'level')
       });
     });
   },
@@ -55,7 +55,10 @@ window.CompetenceChooser=React.createClass({
             return <div key={`competence-group-${groupName}`}>
               <h2>{groupName}</h2>
               {competenceGroups[groupName].map(competence=>{
-                return <Competence competence={competence} user={this.props.user} key={competence.id}></Competence>;
+                return <Competence competence={competence}
+                  user={this.props.user}
+                  directlyEdit={this.props.directlyEdit}
+                  key={competence.id}></Competence>;
               })}
             </div>;
           })

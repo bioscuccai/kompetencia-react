@@ -26,3 +26,11 @@
 .selected-tier{
   background-color: rgb(6, 255, 0) !important;
 }
+
+.pending-tier{
+  background-color: rgb(231, 173, 62) !important;
+}
+
+.button{
+  padding: 0px 1rem!important;
+}

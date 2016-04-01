@@ -1,12 +1,32 @@
 class CompetenceTypesController < ApplicationController
   before_action :set_competence_type, only: [:show, :edit, :update, :destroy]
-
+  
+  skip_before_filter :verify_authenticity_token
+  
   # GET /competence_types
   # GET /competence_types.json
   def index
     @competence_types = CompetenceType.all
   end
 
+  def all
+    competence_types=CompetenceType.includes(:competences, :competence_tier_group).all.map do |competence_type|
+      {
+        id: competence_type.id,
+        title: competence_type.title,
+        competence_tier_group: competence_type.competence_tier_group,
+        competences: competence_type.competences.map do |competence|
+          {
+            id: competence.id,
+            title: competence.title
+          }
+        end
+      }
+    end
+    render json: competence_types
+  end
+  
+  
   # GET /competence_types/1
   # GET /competence_types/1.json
   def show
@@ -69,6 +89,6 @@ class CompetenceTypesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def competence_type_params
-      params.require(:competence_type).permit(:title)
+      params.require(:competence_type).permit(:title, :competence_tier_group_id)
     end
 end

@@ -21,16 +21,20 @@ class UsersController < ApplicationController
   def add_pending_competence
     @user=User.find params[:id]
     @competence=Competence.find params[:competence_id]
-    User.add_pending_competence @competence, params[:level].to_i
+    @user.add_pending_competence @competence, params[:level].to_i
     render json: @competence
   end
   
   def accept_pending_competence
-    
+    @user=User.find params[:id]
+    @user.accept_pending_competence params[:competence_id].to_i
+    render json: {status: :ok}
   end
   
   def reject_pending_competence
-    
+    @user=User.find params[:id]
+    @user.remove_pending_competence params[:competence_id].to_i
+    render json: {status: :ok}
   end
   
   def remove_competence
@@ -48,8 +52,28 @@ class UsersController < ApplicationController
     render json: {status: :ok}
   end
   
+  def index
+    @users=User.all
+  end
+  
   def show
     @user=User.find params[:id]
     @all_competences=Competence.all
+  end
+  
+  def home
+    
+  end
+  
+  def add_admin
+    @user=User.find params[:id]
+    @user.add_role :admin
+    redirect_to users_path
+  end
+  
+  def remove_admin
+    @user=User.find params[:id]
+    @user.remove_role :admin
+    redirect_to users_path
   end
 end

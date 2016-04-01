@@ -30,7 +30,53 @@ class CompetenceActions{
           level
         });
       });
-      
+    };
+  }
+
+  setPendingLevel(competenceId, userId, level){
+    return dispatch=>{
+      axios.post(`/users/${userId}/add_pending_competence`, {
+        competence_id: competenceId,
+        user_id: userId,
+        level
+      })
+      .then(data=>{
+        dispatch({
+          competenceId,
+          userId,
+          level
+        });
+      });
+    };
+  }
+  
+  acceptPending(competenceId, userId){
+    return dispatch=>{
+      axios.post(`/users/${userId}/accept_pending_competence`, {
+        user_id: userId,
+        competence_id: competenceId
+      })
+      .then(data=>{
+        dispatch({
+          competenceId,
+          userId
+        });
+      });
+    };
+  }
+  
+  rejectPending(competenceId, userId){
+    return dispatch=>{
+      axios.post(`/users/${userId}/reject_pending_competence`, {
+        user_id: userId,
+        competence_id: competenceId
+      })
+      .then(data=>{
+        dispatch({
+          competenceId,
+          userId
+        });
+      });
     };
   }
   
@@ -47,16 +93,6 @@ class CompetenceActions{
           competenceId,
           userId
         });
-      });
-      
-    };
-  }
-  
-  removePending(competenceId, userId){
-    return dispatch=>{
-      dispatch({
-        competenceId,
-        userId
       });
     };
   }

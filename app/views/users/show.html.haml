@@ -1,1 +1,1 @@
-=react_component("CompetenceChooser", {allCompetences: @all_competences, user: @user, observingUser: current_user, hasAuthority: current_user&.has_authority_over(@user)})
+=react_component("CompetenceChooser", {allCompetences: @all_competences, user: @user, directlyEdit: current_user&.has_role?(:admin)})

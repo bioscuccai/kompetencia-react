@@ -3,11 +3,34 @@
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
     %title Komp
-    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = stylesheet_link_tag    'application', media: 'all'
     = javascript_include_tag 'application'
     = csrf_meta_tags
   %body
     .container
-      .column.column-10
-      .column.column-90
-        = yield
+      .row
+        .column.column-25
+          -if user_signed_in?
+            %div
+              %strong
+                =current_user.email
+            %div
+              =link_to 'Profilom', user_path(current_user)
+            %div
+              =link_to 'Kijelentkezés', destroy_user_session_path, method: :delete
+          -else
+            %div
+              =link_to 'Bejelentkezés', new_user_session_path
+            %div
+              =link_to 'Regisztráció', new_user_registration_path
+          %ul
+            %li
+              =link_to 'Kompetenciák', competence_types_path
+            %li
+              =link_to 'Válaszlehetőségek', competence_tier_groups_path
+            %li
+              =link_to 'Felhasználók', users_path
+            %li
+              =link_to 'Kereső', '#'
+        .column.column-75
+          = yield

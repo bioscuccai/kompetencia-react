@@ -28,14 +28,24 @@ class CompetenceStore{
     this.getInstance().fetchPendingCompetences(levelData.userId);
   }
   
+  setPendingLevel(levelData){
+    this.getInstance().fetchCompetences(levelData.userId);
+    this.getInstance().fetchPendingCompetences(levelData.userId);
+  }
+  
   removeAssigned(removalData){
     this.getInstance().fetchCompetences(removalData.userId);
     this.getInstance().fetchPendingCompetences(removalData.userId);
   }
   
-  removePending(removalData){
+  rejectPending(removalData){
     this.getInstance().fetchCompetences(removalData.userId);
     this.getInstance().fetchPendingCompetences(removalData.userId);
+  }
+  
+  acceptPending(acceptanceData){
+    this.getInstance().fetchCompetences(acceptanceData.userId);
+    this.getInstance().fetchPendingCompetences(acceptanceData.userId);
   }
   
   error(err){

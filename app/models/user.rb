@@ -22,11 +22,11 @@ class User < ActiveRecord::Base
     end
   end
   
-  def add_pending_competence(pending_competence, level)
+  def add_pending_competence(competence, level)
     ActiveRecord::Base.transaction do
-      self.assigned_competence_levels.where(competence: competence).delete_all
+      #self.assigned_competence_levels.where(competence: competence).delete_all
       self.pending_competence_levels.where(competence: competence).delete_all
-      self.pending_competence_levels.create(competence: pending_competence, level: level)
+      self.pending_competence_levels.create(competence: competence, level: level)
     end
   end
   
@@ -42,6 +42,16 @@ class User < ActiveRecord::Base
   
   def remove_pending_competence(competence)
     self.pending_competence_levels.where(competence: competence).delete_all
+  end
+  
+  def accept_pending_competence(competence_id)
+    competence=Competence.find competence_id
+    level=self.pending_competence_levels.where(competence: competence).first.level
+    ActiveRecord::Base.transaction do
+      self.pending_competence_levels.where(competence: competence).delete_all
+      self.assigned_competence_levels.where(competence: competence).delete_all
+      self.assigned_competence_levels.create(level: level, competence: competence)
+    end
   end
   
   def has_authority_over(other)
