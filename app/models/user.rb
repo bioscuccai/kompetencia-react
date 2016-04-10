@@ -14,6 +14,12 @@ class User < ActiveRecord::Base
   has_many :assigned_competence_levels
   has_many :competences, through: :assigned_competence_levels
   
+  has_many :availabilities
+  
+  scope :has_level, ->(competence_id, level){joins(:assigned_competence_levels).where("assigned_competence_levels.level>=? AND assigned_competence_levels.competence_id=?", level, competence_id)}
+  scope :free_between_closed, ->(start_at, ends_at){all}
+  scope :free_between_open, ->(starts_at){all}
+  
   def add_competence(competence, level)
     ActiveRecord::Base.transaction do
       self.assigned_competence_levels.where(competence: competence).delete_all
@@ -57,5 +63,11 @@ class User < ActiveRecord::Base
   def has_authority_over(other)
     return true if self.has_role?(:admin)
     return true if self.followers.include?(other)
+  end
+  
+  def available?
+    open_interval=self.availabilities.where("starts_at<? AND ends_at IS NULL", Time.now).count!=0
+    closed_interval=self.availabilities.where("starts_at<? AND ends_at>?", Time.now, Time.now).count!=0
+    open_interval || closed_interval
   end
 end

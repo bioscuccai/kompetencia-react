@@ -1,1 +1,18 @@
-=react_component("CompetenceChooser", {allCompetences: @all_competences, user: @user, directlyEdit: current_user&.has_role?(:admin)})
+%h1
+  =@user.email
+%div.clearfix
+  %h2.float-left Kompetenciák
+  =link_to 'Kompetenciák', competences_user_path(@user), class: 'button float-right'
+%ul
+  -@user.assigned_competence_levels.each do |acl|
+    %li
+      %strong
+        =acl.competence.title
+      =@tier_names&.fetch(acl.competence.competence_type.competence_tier_group_id)&.fetch(acl.level)
+%div.clearfix
+  %h2.float-left
+    -if @user.available?
+      RENDELEKZÉSRE ÁLL
+    -else
+      Nem áll rendelkezésre
+  =link_to 'Rendelkezésre állás', user_availabilities_path(@user), class: 'button float-right'

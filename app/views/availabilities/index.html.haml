@@ -1,0 +1,27 @@
+%h1 Listing availabilities
+
+%table
+  %thead
+    %tr
+      %th User
+      %th Start
+      %th End
+      %th Comment
+      %th
+      %th
+      %th
+
+  %tbody
+    - @availabilities.each do |availability|
+      %tr
+        %td= availability.user_id
+        %td= availability.starts_at
+        %td= availability.ends_at
+        %td= availability.comment
+        %td= link_to 'Show', user_availability_path(@user, availability)
+        %td= link_to 'Edit', edit_user_availability_path(@user, availability)
+        %td= link_to 'Destroy', user_availability_path(@user, availability), :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Availability', new_user_availability_path

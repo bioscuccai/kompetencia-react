@@ -34,3 +34,25 @@
 .button{
   padding: 0px 1rem!important;
 }
+
+.mini-competence{
+  margin-left: 3px;
+  margin-right: 3px;
+  background-color: rgb(200,200,200);
+  padding: 3px;
+  border-radius: 5px;
+  display: inline;
+}
+
+.result-competence{
+  margin-left: 3px;
+  margin-right: 3px;
+  background-color: rgb(11, 251, 6);
+  padding: 3px;
+  border-radius: 5px;
+}
+
+.result-box{
+  background-color: rgb(221, 217, 217);
+  border-radius: 15px;
+}

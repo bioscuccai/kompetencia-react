@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = @availability.user_id
+%p
+  %b Start:
+  = @availability.start
+%p
+  %b End:
+  = @availability.end
+%p
+  %b Comment:
+  = @availability.comment
+
+= link_to 'Edit', edit_user_availability_path(@availability)
+\|
+= link_to 'Back', user_availabilities_path

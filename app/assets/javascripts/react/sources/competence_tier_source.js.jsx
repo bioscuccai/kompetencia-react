@@ -6,7 +6,16 @@ window.competenceTierSource={
           responseType: 'json'
         })
         .then(data=>{
-          return resolve(data.data);
+          let ctgs=data.data.map(ctg=>{ //jeloljuk, hogy egyik sincs aktualisan kijelolve szerkeszteshez
+            return _.assign({}, ctg, {selected: false}, (function(){
+              return {
+                tiers: ctg.tiers.map(tier=>{
+                  return _.assign({}, tier, {selected: false});
+                })
+              };
+            })());
+          });
+          return resolve(ctgs);
         });
       });
     },

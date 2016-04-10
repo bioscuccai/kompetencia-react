@@ -1,0 +1,6 @@
+%h1
+  Rendelkezésreállás
+%ul
+  -@user.availabilities.each do |a|
+    %li
+      =a.starts_at

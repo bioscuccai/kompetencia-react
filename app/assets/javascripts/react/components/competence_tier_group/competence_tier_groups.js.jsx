@@ -16,7 +16,7 @@ window.CompetenceTierGroups=React.createClass({
   
   render(){
     return <div>
-      <h1>Tier groups</h1>
+      <h1>Válasz sablonok</h1>
       {this.state.competenceTierGroups.map(group=>{
         return <CompetenceTierGroup group={group} key={group.id}></CompetenceTierGroup>;
       })}

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160328020008) do
+ActiveRecord::Schema.define(version: 20160410010442) do
 
   create_table "assigned_competence_levels", force: :cascade do |t|
     t.integer  "competence_id"
@@ -19,6 +19,15 @@ ActiveRecord::Schema.define(version: 20160328020008) do
     t.integer  "level"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+  end
+
+  create_table "availabilities", force: :cascade do |t|
+    t.integer  "user_id",                 null: false
+    t.datetime "starts_at",               null: false
+    t.datetime "ends_at"
+    t.text     "comment",    default: "", null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "competence_tier_groups", force: :cascade do |t|
