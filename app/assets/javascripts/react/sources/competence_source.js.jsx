@@ -18,7 +18,7 @@ window.competenceSource={
   fetchCompetences: {
     remote(state, userId){
       return new Promise((resolve, reject)=>{
-        axios.get(`/users/${userId}/competences`, {
+        axios.get(`/users/${userId}/assigned_competences`, {
           responseType: 'json'
         })
         .then(data=>{

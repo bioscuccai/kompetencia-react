@@ -56,3 +56,23 @@
   background-color: rgb(221, 217, 217);
   border-radius: 15px;
 }
+
+.other-godfather{
+  background-color: rgb(157, 156, 156);
+  color: rgb(37, 37, 37);
+  border-radius: 5px;
+}
+
+.godfather-icon{
+  max-height: 30px;
+  padding: 2px;
+}
+
+.user-name{
+  font-weight: bold;
+  font-size: 130%;
+}
+
+.available-label{
+  color: rgb(29, 162, 12);
+}

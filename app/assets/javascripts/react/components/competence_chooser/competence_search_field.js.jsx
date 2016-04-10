@@ -1,7 +1,7 @@
 window.CompetenceSearchField=React.createClass({
   render(){
     return <div>
-      <input type="text" placeholder="Keresés" onChange={this.handleSearchChange}/>
+      <input type="text" placeholder="Szűrés" onChange={this.handleSearchChange}/>
     </div>;
   },
   

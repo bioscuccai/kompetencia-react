@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   skip_before_filter :verify_authenticity_token
   include CompetenceFormatter
   
-  def competences
+  def assigned_competences
     user=User.find params[:id]
     render json: format_competence_list(user.assigned_competence_levels)
   end
@@ -55,6 +55,53 @@ class UsersController < ApplicationController
   
   def index
     @users=User.all
+    user_data=User.includes(:godfather, assigned_competence_levels: [:competence]).all.map do |u|
+      #TODO: rolify-al megoldani a keresztapasagot, csak nagyon nem tetszik neki
+      #hogy ugyanarra a modelre vonatkozik a resourcify es a rolify-va
+      #ugyhogy marad az old-school relacio
+      {
+        id: u.id,
+        email: u.email,
+        available: u.available?,
+        competences: (u.assigned_competence_levels.map do |acl|
+          {
+            id: acl.competence_id,
+            title: acl.competence.title,
+            level: acl.level
+          }
+        end),
+        godfather_id: u.godfather_id,
+        godfather: (u.godfather.nil? ? nil : ({
+          id: u.godfather.id,
+          email: u.godfather.email
+        }))
+      }
+    end
+    respond_to do |format|
+      format.html{}
+      format.json do
+        render json: user_data
+      end
+    end
+  end
+  
+  def add_godfather
+    user=User.find params[:id]
+    godfather=User.find params[:godfather_id]
+    if godfather.has_role?(:godfather)
+      user.godfather=godfather
+      user.save!
+      render json: {status: :ok}
+    else
+      render json: {status: :error}
+    end
+  end
+  
+  def remove_godfather
+    user=User.find params[:id]
+    user.godfather=nil
+    user.save!
+    render json: {status: :ok}
   end
   
   def competences
@@ -88,5 +135,9 @@ class UsersController < ApplicationController
     @user=User.find params[:id]
     @user.remove_role :admin
     redirect_to users_path
+  end
+  
+  def subordinates
+    @user=User.find params[:id]
   end
 end

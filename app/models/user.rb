@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  resourcify
+  
   rolify
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -15,6 +17,9 @@ class User < ActiveRecord::Base
   has_many :competences, through: :assigned_competence_levels
   
   has_many :availabilities
+  
+  belongs_to :godfather, class_name: 'User', foreign_key: :godfather_id
+  has_many :subordinates, class_name: 'User', foreign_key: :godfather_id
   
   scope :has_level, ->(competence_id, level){joins(:assigned_competence_levels).where("assigned_competence_levels.level>=? AND assigned_competence_levels.competence_id=?", level, competence_id)}
   scope :free_between_closed, ->(start_at, ends_at){all}

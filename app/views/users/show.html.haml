@@ -12,7 +12,17 @@
 %div.clearfix
   %h2.float-left
     -if @user.available?
-      RENDELEKZÉSRE ÁLL
+      Rendelkezésre áll
     -else
       Nem áll rendelkezésre
   =link_to 'Rendelkezésre állás', user_availabilities_path(@user), class: 'button float-right'
+%div
+  -if @user.has_role?(:godfather)
+    %div.clearfix
+      %h2.float-left Keresztapa
+      =link_to 'Família', subordinates_user_path(@user), class: 'button float-right'
+    -#family=User.where("id IN (?)", @user.roles.where(resource_type: 'User').map(&:resource_id))
+    A família:
+    %ul
+      -@user.subordinates.each do |u|
+        %li=link_to u.email, u

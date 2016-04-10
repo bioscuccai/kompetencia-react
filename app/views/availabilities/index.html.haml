@@ -1,12 +1,11 @@
-%h1 Listing availabilities
+%h1 Rendelkezésreállás történet
 
 %table
   %thead
     %tr
-      %th User
-      %th Start
-      %th End
-      %th Comment
+      %th Kezdés
+      %th Befejezés
+      %th Megjegyzés
       %th
       %th
       %th
@@ -14,14 +13,17 @@
   %tbody
     - @availabilities.each do |availability|
       %tr
-        %td= availability.user_id
         %td= availability.starts_at
-        %td= availability.ends_at
+        %td
+          -if availability.ends_at.nil?
+            N/A
+          -else
+            =availability.ends_at
         %td= availability.comment
-        %td= link_to 'Show', user_availability_path(@user, availability)
-        %td= link_to 'Edit', edit_user_availability_path(@user, availability)
-        %td= link_to 'Destroy', user_availability_path(@user, availability), :method => :delete, :data => { :confirm => 'Are you sure?' }
+        %td= link_to 'Részletek', user_availability_path(@user, availability)
+        %td= link_to 'Szeresztés', edit_user_availability_path(@user, availability)
+        %td= link_to 'Visszavon', user_availability_path(@user, availability), :method => :delete, :data => { :confirm => 'Biztos?' }
 
 %br
 
-= link_to 'New Availability', new_user_availability_path
+= link_to 'Új rendelkezésre állás', new_user_availability_path

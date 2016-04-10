@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   resources :users do
     resources :availabilities
     member do
-      get 'competences'
+      get 'assigned_competences'
       post 'add_competence'
       
       get 'pending_competences'
@@ -32,6 +32,13 @@ Rails.application.routes.draw do
       
       get 'add_admin'
       get 'remove_admin'
+      
+      get 'subordinates'
+      
+      get 'competences'
+      
+      post 'add_godfather'
+      post 'remove_godfather'
     end
   end
   

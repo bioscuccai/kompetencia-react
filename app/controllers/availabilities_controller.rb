@@ -26,6 +26,7 @@ class AvailabilitiesController < ApplicationController
   # POST /availabilities.json
   def create
     @availability = Availability.new(availability_params)
+    @availability.user_id=@user.id
 
     respond_to do |format|
       if @availability.save
@@ -41,8 +42,10 @@ class AvailabilitiesController < ApplicationController
   # PATCH/PUT /availabilities/1
   # PATCH/PUT /availabilities/1.json
   def update
+    @availability.assign_attributes(availability_params)
+    @availability.user_id=@user.id
     respond_to do |format|
-      if @availability.update(availability_params)
+      if @availability.save
         format.html { redirect_to [@user, @availability], notice: 'Availability was successfully updated.' }
         format.json { render :show, status: :ok, location: @availability }
       else

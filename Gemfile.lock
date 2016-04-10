@@ -210,7 +210,7 @@ DEPENDENCIES
   quiet_assets
   rails (= 4.2.6)
   react-rails
-  rolify
+  rolify (~> 5.0.0)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   spring

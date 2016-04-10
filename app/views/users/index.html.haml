@@ -13,6 +13,10 @@
         %td
           =link_to user.email, user_path(user)
         %td
+          -if user.has_role?(:godfather)
+            Igen
+          -else
+            Nem
         %td
           -if current_user&.has_role? :admin
             -if user&.has_role? :admin

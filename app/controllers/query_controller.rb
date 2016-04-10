@@ -20,6 +20,7 @@ class QueryController < ApplicationController
       {
         id: u.id,
         email: u.email,
+        available: u.available?,
         found: result_per_user[u.id].map do |r|
           {
             competence_id: r,
