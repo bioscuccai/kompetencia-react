@@ -1,3 +1,6 @@
+import alt from '../alt/alt.js.jsx';
+import axios from 'axios';
+
 class CompetenceTierActions{
   updateCompetenceTierGroups(competenceTierGroups){
     return competenceTierGroups;
@@ -105,4 +108,4 @@ class CompetenceTierActions{
   }
 }
 
-window.competenceTierActions=alt.createActions(CompetenceTierActions);
+export default alt.createActions(CompetenceTierActions);

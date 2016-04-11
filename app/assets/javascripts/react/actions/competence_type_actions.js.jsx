@@ -1,3 +1,6 @@
+import alt from '../alt/alt.js.jsx';
+import axios from 'axios';
+
 class CompetenceTypeActions{
   updateCompetenceTypes(competenceTypes){
     return competenceTypes;
@@ -41,4 +44,4 @@ class CompetenceTypeActions{
   }
 }
 
-window.competenceTypeActions=alt.createActions(CompetenceTypeActions);
+export default alt.createActions(CompetenceTypeActions);

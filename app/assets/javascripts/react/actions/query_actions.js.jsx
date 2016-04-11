@@ -1,3 +1,6 @@
+import alt from '../alt/alt.js.jsx';
+import axios from 'axios';
+
 class QueryActions{
   setCompetenceLevel(id, level, state){
     return {
@@ -16,4 +19,4 @@ class QueryActions{
   }
 }
 
-window.queryActions=alt.createActions(QueryActions);
+export default alt.createActions(QueryActions);

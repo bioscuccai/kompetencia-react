@@ -1,4 +1,7 @@
-window.CompetenceAdministrationButtons=React.createClass({
+import React from 'react';
+import competenceActions from '../../actions/competence_actions.js.jsx';
+
+export default React.createClass({
   render(){
     let removeButton=null;
     let pendingButton=null;

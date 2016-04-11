@@ -1,5 +1,12 @@
-var rh;
-window.Query=React.createClass({
+import React from 'react';
+import _ from 'lodash';
+import queryStore from '../../stores/query_store.js.jsx';
+
+import CompetenceQueryResult from './competence_query_result.js.jsx';
+import QueryResult from './query_result.js.jsx';
+import MiniSelectedCompetences from './mini_selected_competences.js.jsx';
+
+export default React.createClass({
   getInitialState() {
     return {
       competences: [], //osszes kompetencia
@@ -20,11 +27,7 @@ window.Query=React.createClass({
   
   render(){
     let resultGroups=_.groupBy(this.state.results, res=>res.found.length);
-    rh=resultGroups;
     let resultHitGroups=_.keys(resultGroups).reverse();
-    console.log("rg: ");
-    console.log(resultGroups);
-    console.log(resultHitGroups);
     return <div>
       <div>
         <h4>Dátum</h4>
@@ -38,10 +41,10 @@ window.Query=React.createClass({
         
         {
           this.state.filteredCompetences.map(competence=>{
-            return <CompetenceQuery
+            return <CompetenceQueryResult
               competence={competence}
               key={`competence-query-${competence.id}`}
-              handleCompetenceSelection={this.handleCompetenceSelection}></CompetenceQuery>;
+              handleCompetenceSelection={this.handleCompetenceSelection}></CompetenceQueryResult>;
           })
         }
       </div>

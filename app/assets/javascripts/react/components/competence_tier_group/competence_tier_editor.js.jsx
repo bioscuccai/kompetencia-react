@@ -1,9 +1,12 @@
-window.CompetenceTierEditor=React.createClass({
+import React from 'react';
+import competenceTierActions from '../../actions/competence_tier_actions.js.jsx';
+
+export default React.createClass({
   render(){
     return <div>
       <input ref='title' type='text' defaultValue={this.props.tier.title}></input>
-        <button onClick={this.onSave}>Módosít</button>
-        <button>Töröl</button>
+      <button onClick={this.onSave}>Módosít</button>
+      <button>Töröl</button>
     </div>;
   },
   

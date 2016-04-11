@@ -1,4 +1,11 @@
-window.CompetenceTierGroup=React.createClass({
+import React from 'react';
+import competenceTierActions from '../../actions/competence_tier_actions.js.jsx';
+import NewCompetenceTier from './new_competence_tier.js.jsx';
+import CompetenceTierEditor from './competence_tier_editor.js.jsx';
+import CompetenceTierGroupEditor from './competence_tier_group_editor.js.jsx';
+import CompetenceTierLabel from './competence_tier_label.js.jsx';
+
+export default React.createClass({
   render(){
     let title;
     if(this.props.group.selected){

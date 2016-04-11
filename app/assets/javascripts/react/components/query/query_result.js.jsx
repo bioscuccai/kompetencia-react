@@ -1,4 +1,6 @@
-window.QueryResult=React.createClass({
+import React from 'react';
+
+export default React.createClass({
   render(){
     return <div className='result-box'>
       <h6>

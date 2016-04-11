@@ -12,6 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require react
-//= require react_ujs
-//= require components
+//fdff= require react
+//fff= require react_ujs
+//fff= require components

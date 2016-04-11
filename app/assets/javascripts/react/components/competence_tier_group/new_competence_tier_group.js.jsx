@@ -1,7 +1,11 @@
-window.NewCompetenceTierGroup=React.createClass({
+import React from 'react';
+
+import competenceTierActions from '../../actions/competence_tier_actions.js.jsx';
+
+export default React.createClass({
   render(){
     return <div>
-      <h5>New tier group</h5>
+      <h5>Új sablon</h5>
       <form onSubmit={this.handleFormSubmit}>
         <div>
           <input ref='title' type='text' placeholder='Cím'></input>

@@ -16,3 +16,5 @@
 !/log/.keep
 /tmp
 /vendor/assets/components
+/app/assets/javascripts/react_old
+/node_modules/

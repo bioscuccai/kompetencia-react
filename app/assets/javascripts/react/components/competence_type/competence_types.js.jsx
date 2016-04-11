@@ -1,4 +1,11 @@
-window.CompetenceTypes=React.createClass({
+import React from 'react';
+import competenceTypeStore from '../../stores/competence_type_store.js.jsx';
+import competenceTierStore from '../../stores/competence_tier_store.js.jsx';
+
+import CompetenceType from './competence_type.js.jsx';
+import NewCompetenceType from './new_competence_type.js.jsx';
+
+export default React.createClass({
   getInitialState(){
     return {
       competenceTypes: [],
@@ -20,6 +27,7 @@ window.CompetenceTypes=React.createClass({
   
   render(){
     return <div>
+      <h1>Kompetenciák</h1>
       {this.state.competenceTypes.map(competenceType=>{
         return <CompetenceType competenceType={competenceType} key={`comp-type-${competenceType.id}`}></CompetenceType>;
       })}

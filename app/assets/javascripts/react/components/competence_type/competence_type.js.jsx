@@ -1,8 +1,11 @@
-window.CompetenceType=React.createClass({
-  
+import React from 'react';
+import NewCompetence from './new_competence.js.jsx';
+import CompetenceMember from './competence_member.js.jsx';
+
+export default React.createClass({
   render(){
     return <div>
-      <h4>{this.props.competenceType.title} ({_.get(this.props.competenceType, "competence_tier_group.title")})</h4>
+      <h5>{this.props.competenceType.title} ({_.get(this.props.competenceType, "competence_tier_group.title")})</h5>
       {this.props.competenceType.competences.map(competence=>{
         return <CompetenceMember competence={competence}
           key={`competence-${this.props.competenceType.id}-${competence.id}`}></CompetenceMember>;

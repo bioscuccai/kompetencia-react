@@ -1,3 +1,6 @@
+import alt from '../alt/alt.js.jsx';
+import axios from 'axios';
+
 class CompetenceActions{
   updateAllCompetences(allCompetences){
     return allCompetences;
@@ -98,4 +101,4 @@ class CompetenceActions{
   }
 }
 
-window.competenceActions=alt.createActions(CompetenceActions);
+export default alt.createActions(CompetenceActions);

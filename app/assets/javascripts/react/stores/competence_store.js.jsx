@@ -1,3 +1,7 @@
+import alt from '../alt/alt.js.jsx';
+import competenceActions from '../actions/competence_actions.js.jsx';
+import competenceSource from '../sources/competence_source.js.jsx';
+
 //nyersen tarolja a szerverrol kapott adatokat
 //amit kell majd a komponens ami felhasznalja majd elore feldolgozza
 
@@ -53,4 +57,4 @@ class CompetenceStore{
   }
 }
 
-window.competenceStore=alt.createStore(CompetenceStore);
+export default alt.createStore(CompetenceStore);

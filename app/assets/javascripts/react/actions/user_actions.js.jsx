@@ -1,3 +1,6 @@
+import alt from '../alt/alt.js.jsx';
+import axios from 'axios';
+
 class UserActions{
   updateAllUsers(users){
     return users;
@@ -44,4 +47,4 @@ class UserActions{
   }
 }
 
-window.userActions=alt.createActions(UserActions);
+export default alt.createActions(UserActions);

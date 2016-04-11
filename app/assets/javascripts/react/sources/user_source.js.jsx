@@ -1,4 +1,8 @@
-window.userSource={
+import axios from 'axios';
+
+import userActions from '../actions/user_actions.js.jsx';
+
+export default {
   fetchAllUsers: {
     remote(){
       return new Promise((resolve, reject) => {

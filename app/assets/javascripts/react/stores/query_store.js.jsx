@@ -1,3 +1,10 @@
+import alt from '../alt/alt.js.jsx';
+import querySource from '../sources/query_source.js.jsx';
+import queryActions from '../actions/query_actions.js.jsx';
+import competenceSource from '../sources/competence_source.js.jsx';
+import competenceActions from '../actions/competence_actions.js.jsx';
+import _ from 'lodash';
+
 class QueryStore{
   constructor(){
     this.results=[];
@@ -27,4 +34,4 @@ class QueryStore{
   }
 }
 
-window.queryStore=alt.createStore(QueryStore);
+export default alt.createStore(QueryStore);

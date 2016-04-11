@@ -1,4 +1,11 @@
-window.CompetenceChooser=React.createClass({
+import React from 'react';
+import _ from 'lodash';
+
+import competenceStore from '../../stores/competence_store.js.jsx';
+import CompetenceSearchField from './competence_search_field.js.jsx';
+import Competence from './competence.js.jsx';
+
+export default React.createClass({
   parseCompetences(){
     let storeState=competenceStore.getState();
     return storeState.allCompetences.map(competence=>{
@@ -25,17 +32,17 @@ window.CompetenceChooser=React.createClass({
   },
   
   componentDidMount(){
-    competenceStore.listen(this.onCompetenceStoreChange);
+    competenceStore.listen(this.handleCompetenceStoreChange);
     competenceStore.fetchAllCompetences();
     competenceStore.fetchCompetences(this.props.user.id);
     competenceStore.fetchPendingCompetences(this.props.user.id);
   },
   
   componentWillUnmount(){
-    competenceStore.unlisten(this.onCompetenceStoreChange);
+    competenceStore.unlisten(this.handleCompetenceStoreChange);
   },
   
-  onCompetenceStoreChange(){
+  handleCompetenceStoreChange(){
     console.log("store changed");
     this.setState({
       parsedCompetences: this.parseCompetences()

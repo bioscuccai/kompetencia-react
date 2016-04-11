@@ -1,4 +1,9 @@
-window.Subordinates=React.createClass({
+import React from 'react';
+import userStore from '../../stores/user_store.js.jsx';
+import NotSubordinateItem from './not_subordinate_item.js.jsx';
+import SubordinateItem from './subordinate_item.js.jsx';
+
+export default React.createClass({
   getInitialState(){
     return {
       allUsers: [],

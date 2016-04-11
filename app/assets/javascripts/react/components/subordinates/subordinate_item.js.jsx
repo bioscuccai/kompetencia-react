@@ -1,4 +1,8 @@
-window.SubordinateItem=React.createClass({
+import React from 'react';
+import UserBulletPoints from './user_bulletpoints.js.jsx';
+import userActions from '../../actions/user_actions.js.jsx';
+
+export default React.createClass({
   render(){
     return <div className="row">
       <div className="column column-80">

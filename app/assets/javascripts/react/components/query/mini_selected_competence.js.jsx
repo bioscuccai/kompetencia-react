@@ -1,4 +1,7 @@
-window.MiniSelectedCompetence=React.createClass({
+import React from 'react';
+import queryActions from '../../actions/query_actions.js.jsx';
+
+export default React.createClass({
   italicStyle: {
     fontStyle: 'italic'
   },

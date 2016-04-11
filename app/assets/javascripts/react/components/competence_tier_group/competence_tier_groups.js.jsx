@@ -1,4 +1,11 @@
-window.CompetenceTierGroups=React.createClass({
+import React from 'react';
+import competenceTierStore from '../../stores/competence_tier_store.js.jsx';
+
+import CompetenceTierGroup from './competence_tier_group.js.jsx';
+import NewCompetenceTierGroup from './new_competence_tier_group.js.jsx';
+
+
+export default React.createClass({
   getInitialState(){
     return {
       competenceTierGroups: []

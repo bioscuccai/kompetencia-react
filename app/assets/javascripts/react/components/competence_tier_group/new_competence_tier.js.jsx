@@ -1,4 +1,7 @@
-window.NewCompetenceTier=React.createClass({
+import React from 'react';
+import competenceTierActions from '../../actions/competence_tier_actions.js.jsx';
+
+export default React.createClass({
   render(){
     return <div>
       <form onSubmit={this.handleFormSubmit}>

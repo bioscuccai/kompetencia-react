@@ -1,4 +1,7 @@
-window.CompetenceTierGroupEditor=React.createClass({
+import React from 'react';
+import competenceTierActions from '../../actions/competence_tier_actions.js.jsx';
+
+export default React.createClass({
   render(){
     return <div>
       <input ref='title' type='text' defaultValue={this.props.group.title}></input>

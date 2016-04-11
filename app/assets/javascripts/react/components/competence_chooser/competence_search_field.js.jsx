@@ -1,4 +1,6 @@
-window.CompetenceSearchField=React.createClass({
+import React from 'react';
+
+export default React.createClass({
   render(){
     return <div>
       <input type="text" placeholder="Szűrés" onChange={this.handleSearchChange}/>

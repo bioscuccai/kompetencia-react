@@ -1,4 +1,7 @@
-window.UserBulletPoints=React.createClass({
+import React from 'react';
+
+
+export default React.createClass({
   render(){
     let godfather;
     if(this.props.user.godfather){

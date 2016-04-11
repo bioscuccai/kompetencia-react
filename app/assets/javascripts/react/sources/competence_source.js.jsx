@@ -1,4 +1,8 @@
-window.competenceSource={
+import axios from 'axios';
+
+import competenceActions from '../actions/competence_actions.js.jsx';
+
+export default {
   fetchAllCompetences: {
     remote(state){
       return new Promise((resolve, reject)=>{

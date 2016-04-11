@@ -1,4 +1,7 @@
-window.MiniSelectedCompetences=React.createClass({
+import React from 'react';
+import MiniSelectedCompetence from './mini_selected_competence.js.jsx';
+
+export default React.createClass({
   render() {
     return <div>
       Kiválaszott komepetenciák:

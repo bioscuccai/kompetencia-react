@@ -1,4 +1,9 @@
-window.competenceTierSource={
+import axios from 'axios';
+import _ from 'lodash';
+
+import competenceTierActions from '../actions/competence_tier_actions.js.jsx';
+
+export default {
   fetchCompetenceTiers: {
     remote(){
       return new Promise((resolve, reject) => {

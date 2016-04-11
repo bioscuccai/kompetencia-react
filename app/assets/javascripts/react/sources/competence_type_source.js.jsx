@@ -1,4 +1,8 @@
-window.competenceTypeSource={
+import axios from 'axios';
+
+import competenceTypeActions from '../actions/competence_type_actions.js.jsx';
+
+export default {
   fetchCompetenceTypes: {
     remote(){
       return new Promise((resolve, reject) => {

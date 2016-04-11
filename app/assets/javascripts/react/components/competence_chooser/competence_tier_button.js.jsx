@@ -1,4 +1,7 @@
-window.CompetenceTierButton=React.createClass({
+import React from 'react';
+import competenceActions from '../../actions/competence_actions.js.jsx';
+
+export default React.createClass({
   render(){
     let buttonClass='';
     if(this.props.competence.level==this.props.tier.level){
