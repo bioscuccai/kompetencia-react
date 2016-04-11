@@ -1,6 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import queryStore from '../../stores/query_store.js.jsx';
+import DateTime from 'react-datetime';
 
 import CompetenceQueryResult from './competence_query_result.js.jsx';
 import QueryResult from './query_result.js.jsx';
@@ -12,7 +13,9 @@ export default React.createClass({
       competences: [], //osszes kompetencia
       filteredCompetences: [], //szurt kompetenciak
       selectedCompetences: [], //kivalasztott kompetenciak
-      results: []
+      results: [],
+      startsAt: null,
+      endsAt: null
     };
   },
   
@@ -29,10 +32,25 @@ export default React.createClass({
     let resultGroups=_.groupBy(this.state.results, res=>res.found.length);
     let resultHitGroups=_.keys(resultGroups).reverse();
     return <div>
+      <h1>Keresés</h1>
       <div>
         <h4>Dátum</h4>
-        <input type='datetime' ref='startsAt' placeholder='Kezdet'></input>
-        <input type='datetime' ref='endsAt' placeholder='Vég'></input>
+        <div className='row'>
+          <div className='column column-20'>
+            Kezdés:
+          </div>
+          <div className='column column-80'>
+            <DateTime timeFormat={false} onChange={this.onStartChange} closeOnSelect={true}></DateTime>
+          </div>
+        </div>
+        <div className='row'>
+          <div className='column column-20'>
+            Befejezés:
+          </div>
+          <div className='column column-80'>
+            <DateTime timeFormat={false} onChange={this.onEndChange} closeOnSelect={true}></DateTime>
+          </div>
+        </div>
       </div>
       <div>
         <h4>Kompetencia</h4>
@@ -84,6 +102,18 @@ export default React.createClass({
     });
   },
   
+  onStartChange(md){
+    this.setState({
+      startsAt: md.toDate()
+    });
+  },
+  
+  onEndChange(){
+    this.setState({
+      endsAt: md.toDate()
+    });
+  },
+  
   onQuery(e){
     e.preventDefault();
     let requested=this.state.selectedCompetences.map(competence=>{
@@ -92,7 +122,7 @@ export default React.createClass({
         level: competence.selectedLevel
       };
     });
-    queryStore.fetchQuery(requested);
+    queryStore.fetchQuery(requested, this.state.startsAt, this.state.endsAt);
     console.log(requested);
   }
 });

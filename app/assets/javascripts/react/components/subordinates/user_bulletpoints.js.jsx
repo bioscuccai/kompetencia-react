@@ -7,7 +7,9 @@ export default React.createClass({
     if(this.props.user.godfather){
       godfather=<span>
         <img src='/godfather.gif' className='godfather-icon'></img>
-        {this.props.user.godfather.email}
+        <a href={`/users/${this.props.user.godfather.id}`}>
+          {this.props.user.godfather.email}
+        </a>
       </span>;
     }
     

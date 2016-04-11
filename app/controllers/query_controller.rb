@@ -1,4 +1,5 @@
 class QueryController < ApplicationController
+  include UserFormatter
   skip_before_filter :verify_authenticity_token
   
   def index
@@ -6,10 +7,11 @@ class QueryController < ApplicationController
   end
   
   def query
+    pp params
     result_per_user=Hash.new{|h,k| h[k]=[]}
     users=[]
     params[:competences].each do |c|
-      res=User.includes(assigned_competence_levels: [:competence]).has_level(c["competence_id"], c["level"])
+      res=User.includes(:godfather, assigned_competence_levels: [:competence]).has_level(c["competence_id"], c["level"])
       users.push res
       res.each do |u|
         (result_per_user[u.id]).push c["competence_id"]
@@ -17,10 +19,7 @@ class QueryController < ApplicationController
     end
     users=users.flatten.uniq
     user_results=users.map do |u|
-      {
-        id: u.id,
-        email: u.email,
-        available: u.available?,
+      format_user(u).merge({
         found: result_per_user[u.id].map do |r|
           {
             competence_id: r,
@@ -29,7 +28,7 @@ class QueryController < ApplicationController
             wanted: params[:competences].select{|c| c["competence_id"]==r}&.first&.fetch("level")
           }
         end
-      }
+      })
     end
     pp user_results
     render json: user_results

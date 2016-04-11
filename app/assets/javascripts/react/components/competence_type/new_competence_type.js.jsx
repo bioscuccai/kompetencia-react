@@ -9,7 +9,7 @@ export default React.createClass({
         <input type='text' ref='title' placeholder='Megnevezés'/>
         <select ref='tierGroup'>
           {this.props.competenceTierGroups.map(tierGroup=>{
-            return <option value={tierGroup.id}>{tierGroup.title}</option>;
+            return <option value={tierGroup.id} key={`tier-group-select-${tierGroup.id}`}>{tierGroup.title}</option>;
           })}
         </select>
         <div>

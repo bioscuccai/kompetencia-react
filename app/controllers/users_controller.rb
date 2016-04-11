@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   skip_before_filter :verify_authenticity_token
   include CompetenceFormatter
+  include UserFormatter
   
   def assigned_competences
     user=User.find params[:id]
@@ -59,23 +60,7 @@ class UsersController < ApplicationController
       #TODO: rolify-al megoldani a keresztapasagot, csak nagyon nem tetszik neki
       #hogy ugyanarra a modelre vonatkozik a resourcify es a rolify-va
       #ugyhogy marad az old-school relacio
-      {
-        id: u.id,
-        email: u.email,
-        available: u.available?,
-        competences: (u.assigned_competence_levels.map do |acl|
-          {
-            id: acl.competence_id,
-            title: acl.competence.title,
-            level: acl.level
-          }
-        end),
-        godfather_id: u.godfather_id,
-        godfather: (u.godfather.nil? ? nil : ({
-          id: u.godfather.id,
-          email: u.godfather.email
-        }))
-      }
+      format_user u
     end
     respond_to do |format|
       format.html{}

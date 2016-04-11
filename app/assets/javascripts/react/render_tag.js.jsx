@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import Query from './components/query/query.js.jsx';
 import CompetenceChooser from './components/competence_chooser/competence_chooser.js.jsx';
 import CompetenceTierGroups from './components/competence_tier_group/competence_tier_groups.js.jsx';
-import CompeteneTypes from './components/competence_type/competence_types.js.jsx';
+import CompetenceTypes from './components/competence_type/competence_types.js.jsx';
 import Subordinates from './components/subordinates/subordinates.js.jsx';
 
 // var Query=require('./components/query/query.js.jsx');
@@ -20,7 +20,7 @@ export default function renderTag(tag, props, selector){
     case 'Subordinates':
       elem=Subordinates;
       break;
-    case 'competenceTypes':
+    case 'CompetenceTypes':
       elem=CompetenceTypes;
       break;
     case 'CompetenceTierGroups':
