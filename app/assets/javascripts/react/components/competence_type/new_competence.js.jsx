@@ -1,3 +1,5 @@
+"use strict";
+
 import React from 'react';
 import competenceTypeActions from '../../actions/competence_type_actions.js.jsx';
 

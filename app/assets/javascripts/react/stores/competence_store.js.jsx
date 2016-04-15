@@ -1,3 +1,5 @@
+"use strict";
+
 import alt from '../alt/alt.js.jsx';
 import competenceActions from '../actions/competence_actions.js.jsx';
 import competenceSource from '../sources/competence_source.js.jsx';

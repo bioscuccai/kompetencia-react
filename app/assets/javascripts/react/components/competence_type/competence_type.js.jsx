@@ -1,6 +1,9 @@
+"use strict";
+
 import React from 'react';
 import NewCompetence from './new_competence.js.jsx';
 import CompetenceMember from './competence_member.js.jsx';
+import _ from 'lodash';
 
 export default React.createClass({
   render(){

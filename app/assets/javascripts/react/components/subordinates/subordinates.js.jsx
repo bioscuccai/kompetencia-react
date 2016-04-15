@@ -1,3 +1,5 @@
+"use strict";
+
 import React from 'react';
 import userStore from '../../stores/user_store.js.jsx';
 import NotSubordinateItem from './not_subordinate_item.js.jsx';

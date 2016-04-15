@@ -1,3 +1,5 @@
+"use strict";
+
 import React from 'react';
 import UserBulletPoints from './user_bulletpoints.js.jsx';
 import userActions from '../../actions/user_actions.js.jsx';

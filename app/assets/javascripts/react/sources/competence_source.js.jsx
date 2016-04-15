@@ -1,3 +1,5 @@
+"use strict";
+
 import axios from 'axios';
 
 import competenceActions from '../actions/competence_actions.js.jsx';

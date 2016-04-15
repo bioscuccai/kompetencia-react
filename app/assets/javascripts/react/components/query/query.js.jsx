@@ -1,3 +1,5 @@
+"use strict";
+
 import React from 'react';
 import _ from 'lodash';
 import queryStore from '../../stores/query_store.js.jsx';
@@ -31,6 +33,9 @@ export default React.createClass({
   render(){
     let resultGroups=_.groupBy(this.state.results, res=>res.found.length);
     let resultHitGroups=_.keys(resultGroups).reverse();
+    
+    let filteredCompetenceGroups=_.groupBy(this.state.filteredCompetences, e=>e.type);
+    let filteredCompetenceTypes=_.keys(filteredCompetenceGroups);
     return <div>
       <h1>Keresés</h1>
       <div>
@@ -56,15 +61,22 @@ export default React.createClass({
         <h4>Kompetencia</h4>
         <input type='text' placeholder='Kompetencia szűrő' onChange={this.onFilterChange} ref='filter'></input>
         <MiniSelectedCompetences competences={this.state.selectedCompetences}></MiniSelectedCompetences>
-        
         {
-          this.state.filteredCompetences.map(competence=>{
-            return <CompetenceQueryResult
-              competence={competence}
-              key={`competence-query-${competence.id}`}
-              handleCompetenceSelection={this.handleCompetenceSelection}></CompetenceQueryResult>;
+          filteredCompetenceTypes.map(type=>{
+            return <div key={`query-competence-type-${type}`}>
+              <h5>{type}</h5>
+              {
+                filteredCompetenceGroups[type].map(competence=>{
+                  return <CompetenceQueryResult
+                    competence={competence}
+                    key={`competence-query-${competence.id}`}
+                    handleCompetenceSelection={this.handleCompetenceSelection}></CompetenceQueryResult>;
+                })
+              }
+            </div>;
           })
         }
+        
       </div>
       <div>
         <button onClick={this.onQuery}>Keresés</button>
@@ -108,7 +120,7 @@ export default React.createClass({
     });
   },
   
-  onEndChange(){
+  onEndChange(md){
     this.setState({
       endsAt: md.toDate()
     });

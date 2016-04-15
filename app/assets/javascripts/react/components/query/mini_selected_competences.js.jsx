@@ -1,3 +1,5 @@
+"use strict";
+
 import React from 'react';
 import MiniSelectedCompetence from './mini_selected_competence.js.jsx';
 

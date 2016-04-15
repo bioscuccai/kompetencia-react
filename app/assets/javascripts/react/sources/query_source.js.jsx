@@ -1,3 +1,5 @@
+"use strict";
+
 import axios from 'axios';
 
 import queryActions from '../actions/query_actions.js.jsx';

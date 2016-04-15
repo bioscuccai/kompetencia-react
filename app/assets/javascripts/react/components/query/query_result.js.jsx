@@ -1,3 +1,5 @@
+"use strict";
+
 import React from 'react';
 import UserBulletPoints from '../subordinates/user_bulletpoints.js.jsx';
 

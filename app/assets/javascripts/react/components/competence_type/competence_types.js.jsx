@@ -1,3 +1,5 @@
+"use strict";
+
 import React from 'react';
 import competenceTypeStore from '../../stores/competence_type_store.js.jsx';
 import competenceTierStore from '../../stores/competence_tier_store.js.jsx';

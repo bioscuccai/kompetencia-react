@@ -1,3 +1,5 @@
+"use strict";
+
 import React from 'react';
 import CompetenceAdministrationButtons from './competence_administration_buttons.js.jsx';
 import CompetenceTierButton from './competence_tier_button.js.jsx';

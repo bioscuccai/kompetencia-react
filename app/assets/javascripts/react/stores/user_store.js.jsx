@@ -1,3 +1,5 @@
+"use strict";
+
 import alt from '../alt/alt.js.jsx';
 import userActions from '../actions/user_actions.js.jsx';
 import userSource from '../sources/user_source.js.jsx';

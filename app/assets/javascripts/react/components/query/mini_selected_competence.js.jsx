@@ -1,5 +1,8 @@
+"use strict";
+
 import React from 'react';
 import queryActions from '../../actions/query_actions.js.jsx';
+import _ from 'lodash';
 
 export default React.createClass({
   italicStyle: {

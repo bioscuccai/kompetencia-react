@@ -1,3 +1,5 @@
+"use strict";
+
 import alt from '../alt/alt.js.jsx';
 import querySource from '../sources/query_source.js.jsx';
 import queryActions from '../actions/query_actions.js.jsx';
