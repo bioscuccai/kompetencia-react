@@ -6,12 +6,7 @@ import CompetenceChooser from './components/competence_chooser/competence_choose
 import CompetenceTierGroups from './components/competence_tier_group/competence_tier_groups.js.jsx';
 import CompetenceTypes from './components/competence_type/competence_types.js.jsx';
 import Subordinates from './components/subordinates/subordinates.js.jsx';
-
-// var Query=require('./components/query/query.js.jsx');
-// var CompetenceChooser=require('./components/competence_chooser/competence_chooser.js.jsx');
-// var CompetenceTierGroups =require('./components/competence_tier_group/competence_tier_groups.js.jsx');
-// var CompeteneType=require('./components/competence_type/competence_types.js.jsx');
-// var Subordinates=require('./components/subordinates/subordinates.js.jsx');
+import Availabilities from './components/availabilites/availabilities.js.jsx';
 
 export default function renderTag(tag, props, selector){
   //eval nem muxik
@@ -31,6 +26,9 @@ export default function renderTag(tag, props, selector){
       break;
     case 'Query':
       elem=Query;
+      break;
+    case 'Availabilities':
+      elem=Availabilities;
       break;
   }
   //TODO: a selector egy id

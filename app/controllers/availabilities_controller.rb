@@ -1,11 +1,14 @@
 class AvailabilitiesController < ApplicationController
   before_action :set_availability, only: [:show, :edit, :update, :destroy]
   before_action :set_user
+  skip_before_filter :verify_authenticity_token
+  
 
   # GET /availabilities
   # GET /availabilities.json
   def index
     @availabilities = Availability.all
+    pp current_user
   end
 
   # GET /availabilities/1
@@ -31,7 +34,7 @@ class AvailabilitiesController < ApplicationController
     respond_to do |format|
       if @availability.save
         format.html { redirect_to @availability, notice: 'Availability was successfully created.' }
-        format.json { render :show, status: :created, location: @availability }
+        format.json { render :show, status: :created, location: user_availability_path(@user.id, @availability.id) }
       else
         format.html { render :new }
         format.json { render json: @availability.errors, status: :unprocessable_entity }
