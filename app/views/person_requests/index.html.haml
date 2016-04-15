@@ -1,0 +1,33 @@
+%h1 Listing person_requests
+
+%table
+  %thead
+    %tr
+      %th User
+      %th Target
+      %th Starts at
+      %th Ends at
+      %th Chance
+      %th Title
+      %th Comment
+      %th
+      %th
+      %th
+
+  %tbody
+    - @person_requests.each do |person_request|
+      %tr
+        %td= person_request.user.email
+        %td= person_request.target.email
+        %td= person_request.starts_at
+        %td= person_request.ends_at
+        %td= person_request.chance
+        %td= person_request.title
+        %td= person_request.comment
+        %td= link_to 'Show', user_person_request_path(@user, person_request)
+        %td= link_to 'Edit', edit_user_person_request_path(@user, person_request)
+        %td= link_to 'Destroy', user_person_requests_path(@user), :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Person request', new_user_person_request_path(@user)
