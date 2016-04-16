@@ -3,12 +3,14 @@
 %div.clearfix
   %h2.float-left Kompetenciák
   =link_to 'Kompetenciák', competences_user_path(@user), class: 'button float-right'
-%ul
-  -@user.assigned_competence_levels.each do |acl|
-    %li
-      %strong
-        =acl.competence.title
-      =@tier_names&.fetch(acl.competence.competence_type.competence_tier_group_id)&.fetch(acl.level)
+-@tier_group_names.each do |tgn|
+  %h5
+    =tgn
+  %ul
+    -@tier_groups[tgn].each do |tg|
+      %li
+        ="#{tg[:title]} (#{@tier_names[tg[:group_id]][tg[:level]]})"
+          
 %div.clearfix
   %h2.float-left
     -if @user.available?

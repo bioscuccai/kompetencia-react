@@ -1,4 +1,3 @@
 json.array!(@availabilities) do |availability|
-  json.extract! availability, :id, :user_id, :start, :end, :comment
-  json.url availability_url(availability, format: :json)
+  json.extract! availability, :id, :user_id, :starts_at, :ends_at, :comment
 end

@@ -17,7 +17,7 @@ export default React.createClass({
     
     return <div className='container'>
       <div className={`row ${highlighClass}`}>
-        <div className="column column-40">
+        <div className="column column-30">
           {this.props.competence.title} {this.props.competence.id} {this.props.competence.isAssigned} {this.props.isPending}
         </div>
         <div className="column column-50">
@@ -27,7 +27,7 @@ export default React.createClass({
               competence={this.props.competence} tier={tier} user={this.props.user}></CompetenceTierButton>;
           })}
         </div>
-        <div className="column column-10">
+        <div className="column column-20">
           <CompetenceAdministrationButtons
             directlyEdit={this.props.directlyEdit}
             competence={this.props.competence}

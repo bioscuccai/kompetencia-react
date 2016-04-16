@@ -8,18 +8,18 @@ export default React.createClass({
     let removeButton=null;
     let pendingButton=null;
     if(this.props.competence.isAssigned){
-      removeButton=<a className='button' href="#" onClick={this.removeAssigned}>Töröl</a>;
+      removeButton=<a className='button' href="#" onClick={this.removeAssigned}><i className='icon ion-trash-a'></i></a>;
     }
     if(this.props.competence.isPending && this.props.directlyEdit){
-      pendingButton=<div>
-        <a href="#" className='button' onClick={this.rejectPending}>Visszautasít</a>
-        <a href="#" className='button' onClick={this.acceptPending}>Elfogad</a>
-      </div>;
+      pendingButton=<span>
+        <a href="#" className='button' onClick={this.rejectPending}><i className='icon ion-close'></i></a>
+        <a href="#" className='button' onClick={this.acceptPending}><i className='icon ion-checkmark'></i></a>
+      </span>;
     }
-    return <div>
+    return <span>
       {removeButton}
       {pendingButton}
-    </div>;
+    </span>;
   },
   
   removeAssigned(e){

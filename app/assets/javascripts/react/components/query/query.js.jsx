@@ -87,7 +87,10 @@ export default React.createClass({
           return <div key={`hits-${rhg}`}>
             <h5>{rhg} Találat</h5>
               {resultGroups[rhg].map(result=>{
-                return <QueryResult result={result} key={`result-${result.id}`}></QueryResult>;
+                return <QueryResult
+                  currentUser={this.props.currentUser}
+                  result={result} 
+                  key={`result-${result.id}`}></QueryResult>;
               })}
           </div>;
         })}

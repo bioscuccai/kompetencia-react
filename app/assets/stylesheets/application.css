@@ -78,3 +78,11 @@
 .available-label{
   color: rgb(29, 162, 12);
 }
+
+.current-date{
+  color: rgb(29, 162, 12);
+}
+
+.expired-date{
+  color: rgb(83, 83, 83);
+}

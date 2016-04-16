@@ -19,6 +19,11 @@ Rails.application.routes.draw do
   
   resources :users do
     resources :availabilities
+    resources :person_requests do
+      collection do
+        get 'relevant'
+      end
+    end
     member do
       get 'assigned_competences'
       post 'add_competence'

@@ -5,13 +5,20 @@ import competenceTierStore from '../../stores/competence_tier_store.js.jsx';
 
 import CompetenceTierGroup from './competence_tier_group.js.jsx';
 import NewCompetenceTierGroup from './new_competence_tier_group.js.jsx';
+import Modal from 'react-modal';
+import modalStyle from '../../styles/modal';
 
 
 export default React.createClass({
   getInitialState(){
     return {
-      competenceTierGroups: []
+      competenceTierGroups: [],
+      newModal: false
     };
+  },
+  
+  componentWillMount(){
+    Modal.setAppElement("body");
   },
   
   componentDidMount(){
@@ -29,13 +36,31 @@ export default React.createClass({
       {this.state.competenceTierGroups.map(group=>{
         return <CompetenceTierGroup group={group} key={group.id}></CompetenceTierGroup>;
       })}
-      <NewCompetenceTierGroup></NewCompetenceTierGroup>
+      <button onClick={this.onNewModal}>Új...</button>
+      <Modal
+        isOpen={this.state.newModal}
+        style={modalStyle}
+        onRequestClose={this.onRequestClose}>
+        <NewCompetenceTierGroup closeModal={this.onRequestClose}></NewCompetenceTierGroup>
+      </Modal>
     </div>;
   },
   
   handleStoreChange(){
     this.setState({
       competenceTierGroups: competenceTierStore.getState().competenceTierGroups
+    });
+  },
+  
+  onNewModal(){
+    this.setState({
+      newModal: true
+    });
+  },
+  
+  onRequestClose(){
+    this.setState({
+      newModal: false
     });
   }
 });

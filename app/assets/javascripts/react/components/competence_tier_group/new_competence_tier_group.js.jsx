@@ -19,6 +19,7 @@ export default React.createClass({
           <input type='submit' value='Új típus'></input>
         </div>
       </form>
+      <button onClick={this.onClose}>Bezár</button>
     </div>;
   },
 
@@ -29,5 +30,11 @@ export default React.createClass({
       description: this.refs.description.value
     });
     competenceTierActions.createCompetenceTierGroup(this.refs.title.value, this.refs.description.value);
+  },
+  
+  onClose(){
+    if(this.props.closeModal){
+      this.props.closeModal();
+    }
   }
 });

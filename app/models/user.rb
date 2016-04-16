@@ -21,8 +21,11 @@ class User < ActiveRecord::Base
   belongs_to :godfather, class_name: 'User', foreign_key: :godfather_id
   has_many :subordinates, class_name: 'User', foreign_key: :godfather_id
   
+  has_many :person_requests
+  has_many :targeted_requests, class_name: 'User', foreign_key: :target_id
+  
   scope :has_level, ->(competence_id, level){joins(:assigned_competence_levels).where("assigned_competence_levels.level>=? AND assigned_competence_levels.competence_id=?", level, competence_id)}
-  scope :free_between_closed, ->(start_at, ends_at){all}
+  scope :free_between_closed, ->(start_at, ends_at){joins(:availabilities)}
   scope :free_between_open, ->(starts_at){all}
   
   def add_competence(competence, level)

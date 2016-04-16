@@ -23,11 +23,18 @@ export default React.createClass({
         </div>
         <input type='submit' value='Új kompetencia kategória'/>
       </form>
+      <button onClick={this.onCloseModal}>Bezár</button>
     </div>;
   },
   
   onFormSubmit(e){
     e.preventDefault();
     competenceTypeActions.createCompetenceType(this.refs.title.value, this.refs.tierGroup.value);
+  },
+  
+  onCloseModal(){
+    if(this.props.closeModal){
+      this.props.closeModal();
+    }
   }
 });

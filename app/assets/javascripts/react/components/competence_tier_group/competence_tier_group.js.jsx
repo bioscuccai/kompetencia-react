@@ -7,7 +7,18 @@ import CompetenceTierEditor from './competence_tier_editor.js.jsx';
 import CompetenceTierGroupEditor from './competence_tier_group_editor.js.jsx';
 import CompetenceTierLabel from './competence_tier_label.js.jsx';
 
+import Modal from 'react-modal';
+import modalStyle from '../../styles/modal';
+
 export default React.createClass({
+  getInitialState(){
+    return {newModal: false};
+  },
+  
+  componentWillMount(){
+    Modal.setAppElement("body");
+  },
+  
   render(){
     let title;
     if(this.props.group.selected){
@@ -43,9 +54,28 @@ export default React.createClass({
             })}
           </tbody>
         </table>
-        <NewCompetenceTier group={this.props.group}></NewCompetenceTier>
+        <button onClick={this.onNewModal}>Új...</button>
+        <Modal
+          onRequestClose={this.onRequestClose}
+          isOpen={this.state.newModal}
+          style={modalStyle}>
+          <NewCompetenceTier group={this.props.group}></NewCompetenceTier>
+          <button onClick={this.onRequestClose}>Bezár</button>
+        </Modal>
       </blockquote>
     </div>;
+  },
+  
+  onRequestClose(){
+    this.setState({
+      newModal: false
+    });
+  },
+  
+  onNewModal(){
+    this.setState({
+      newModal: true
+    });
   },
   
   onClick(){

@@ -6,13 +6,19 @@ import competenceTierStore from '../../stores/competence_tier_store.js.jsx';
 
 import CompetenceType from './competence_type.js.jsx';
 import NewCompetenceType from './new_competence_type.js.jsx';
+import Modal from 'react-modal';
 
 export default React.createClass({
   getInitialState(){
     return {
       competenceTypes: [],
-      competenceTierGroups: []
+      competenceTierGroups: [],
+      newModal: false
     };
+  },
+  
+  componentWillMount(){
+    Modal.setAppElement("body");
   },
   
   componentDidMount(){
@@ -33,7 +39,16 @@ export default React.createClass({
       {this.state.competenceTypes.map(competenceType=>{
         return <CompetenceType competenceType={competenceType} key={`comp-type-${competenceType.id}`}></CompetenceType>;
       })}
-      <NewCompetenceType competenceTierGroups={this.state.competenceTierGroups}></NewCompetenceType>
+      <button onClick={this.onNewModal}>Új...</button>
+      <Modal
+        onRequestClose={this.onRequestClose}
+        isOpen={this.state.newModal}
+        style={this.modalStyle}>
+        <NewCompetenceType
+          competenceTierGroups={this.state.competenceTierGroups}
+          closeModal={this.onRequestClose}
+          ></NewCompetenceType>
+      </Modal>
     </div>;
   },
   
@@ -46,6 +61,18 @@ export default React.createClass({
   handleCompetenceTierStoreChange(){
     this.setState({
       competenceTierGroups: competenceTierStore.getState().competenceTierGroups
+    });
+  },
+  
+  onNewModal(){
+    this.setState({
+      newModal: true
+    });
+  },
+  
+  onRequestClose(){
+    this.setState({
+      newModal: false
     });
   }
 });
