@@ -2,8 +2,8 @@ import alt from '../alt/alt.js.jsx';
 import axios from 'axios';
 
 class CompetenceTypeActions{
-  updateCompetenceTypes(competenceTypes){
-    return competenceTypes;
+  constructor(){
+    this.generateActions("error", "updateCompetenceTypes");
   }
   
   createCompetenceType(title, competenceTierGroupId){
@@ -20,10 +20,6 @@ class CompetenceTypeActions{
         });
       });
     };
-  }
-  
-  error(err){
-    return err;
   }
   
   createCompetence(title, competenceTypeId){

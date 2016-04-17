@@ -4,8 +4,8 @@ import alt from '../alt/alt.js.jsx';
 import axios from 'axios';
 
 class AvailabilityActions{
-  updateAvailabilities(availabilities){
-    return availabilities;
+  constructor(){
+    this.generateActions("error", "updateAvailabilities");
   }
   
   newAvailability(userId, startsAt, endsAt, comment){
@@ -28,10 +28,6 @@ class AvailabilityActions{
         });
       });
     };
-  }
-  
-  error(err){
-    return err;
   }
 }
 

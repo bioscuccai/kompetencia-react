@@ -2,8 +2,8 @@ import alt from '../alt/alt.js.jsx';
 import axios from 'axios';
 
 class CompetenceTierActions{
-  updateCompetenceTierGroups(competenceTierGroups){
-    return competenceTierGroups;
+  contructor(){
+    this.generateActions("error", "selectTier", "selectTierGroup", "updateCompetenceTierGroups");
   }
   
   createCompetenceTierGroup(title, description){
@@ -39,14 +39,6 @@ class CompetenceTierActions{
         dispatch(data);
       });
     };
-  }
-  
-  selectTier(id){
-    return id;
-  }
-  
-  selectTierGroup(id){
-    return id;
   }
   
   updateTier(id, title, level){
@@ -101,10 +93,6 @@ class CompetenceTierActions{
         dispatch(id);
       });
     };
-  }
-  
-  error(err){
-    return err;
   }
 }
 

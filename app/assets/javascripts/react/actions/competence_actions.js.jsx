@@ -2,20 +2,8 @@ import alt from '../alt/alt.js.jsx';
 import axios from 'axios';
 
 class CompetenceActions{
-  updateAllCompetences(allCompetences){
-    return allCompetences;
-  }
-  
-  updatePendingCompetences(pendingCompetences){
-    return pendingCompetences;
-  }
-  
-  updateCompetences(competences){
-    return competences;
-  }
-  
-  error(err){
-    return err;
+  constructor(){
+    this.generateActions("error", "updateAllCompetences", "updateCompetences", "updatePendingCompetences");
   }
   
   //ezen keresztul szol a store-nak, hogy frissitse az user kompetenciait miutan visszajelzett a szero

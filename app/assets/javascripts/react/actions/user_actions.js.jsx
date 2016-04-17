@@ -2,12 +2,8 @@ import alt from '../alt/alt.js.jsx';
 import axios from 'axios';
 
 class UserActions{
-  updateAllUsers(users){
-    return users;
-  }
-  
-  updateSubordinates(subordinates){
-    return subordinates;
+  constructor(){
+    this.generateActions("error", "updateAllUsers", "updateSubordinates");
   }
   
   //ezek a felhasznalonak a keresztapjat allitjak be
@@ -40,10 +36,6 @@ class UserActions{
         });
       });
     };
-  }
-  
-  error(err){
-    
   }
 }
 
