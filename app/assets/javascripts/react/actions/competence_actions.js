@@ -1,4 +1,4 @@
-import alt from '../alt/alt.js.jsx';
+import alt from '../alt/alt';
 import axios from 'axios';
 
 class CompetenceActions{
