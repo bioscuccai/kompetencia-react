@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 
-import queryActions from '../actions/query_actions.js.jsx';
+import queryActions from '../actions/query_actions';
 
 export default {
   fetchQuery: {

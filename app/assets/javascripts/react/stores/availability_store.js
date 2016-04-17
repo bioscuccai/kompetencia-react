@@ -1,8 +1,8 @@
 "use strict";
 
-import alt from '../alt/alt.js.jsx';
-import availabilitySource from '../sources/availability_source.js.jsx';
-import availabilityActions from '../actions/availability_actions.js.jsx';
+import alt from '../alt/alt';
+import availabilitySource from '../sources/availability_source';
+import availabilityActions from '../actions/availability_actions';
 
 class AvailabilityStore{
   constructor(){

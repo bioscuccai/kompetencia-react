@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 
-import competenceActions from '../actions/competence_actions.js.jsx';
+import competenceActions from '../actions/competence_actions';
 
 export default {
   fetchAllCompetences: {

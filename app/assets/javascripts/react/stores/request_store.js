@@ -1,6 +1,6 @@
 "use strict";
 
-import alt from '../alt/alt.js.jsx';
+import alt from '../alt/alt';
 
 import requestActions from '../actions/request_actions';
 import requestSource from '../sources/request_source';

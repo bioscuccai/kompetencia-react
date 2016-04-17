@@ -1,8 +1,8 @@
 "use strict";
 
-import alt from '../alt/alt.js.jsx';
-import competenceActions from '../actions/competence_actions.js.jsx';
-import competenceSource from '../sources/competence_source.js.jsx';
+import alt from '../alt/alt';
+import competenceActions from '../actions/competence_actions';
+import competenceSource from '../sources/competence_source';
 
 //nyersen tarolja a szerverrol kapott adatokat
 //amit kell majd a komponens ami felhasznalja majd elore feldolgozza

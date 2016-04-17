@@ -1,10 +1,10 @@
 "use strict";
 
-import alt from '../alt/alt.js.jsx';
-import querySource from '../sources/query_source.js.jsx';
-import queryActions from '../actions/query_actions.js.jsx';
-import competenceSource from '../sources/competence_source.js.jsx';
-import competenceActions from '../actions/competence_actions.js.jsx';
+import alt from '../alt/alt';
+import querySource from '../sources/query_source';
+import queryActions from '../actions/query_actions';
+import competenceSource from '../sources/competence_source';
+import competenceActions from '../actions/competence_actions';
 import _ from 'lodash';
 
 class QueryStore{

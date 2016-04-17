@@ -1,6 +1,6 @@
 "use strict";
 
-import availabilityActions from '../actions/availability_actions.js.jsx';
+import availabilityActions from '../actions/availability_actions';
 import axios from 'axios';
 
 export default {

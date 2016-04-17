@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 
-import userActions from '../actions/user_actions.js.jsx';
+import userActions from '../actions/user_actions';
 
 export default {
   fetchAllUsers: {

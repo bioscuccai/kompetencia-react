@@ -1,4 +1,4 @@
-import alt from '../alt/alt.jsx';
+import alt from '../alt/alt';
 
 class AppStore{
   

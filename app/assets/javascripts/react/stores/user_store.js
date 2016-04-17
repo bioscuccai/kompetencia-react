@@ -1,8 +1,8 @@
 "use strict";
 
-import alt from '../alt/alt.js.jsx';
-import userActions from '../actions/user_actions.js.jsx';
-import userSource from '../sources/user_source.js.jsx';
+import alt from '../alt/alt';
+import userActions from '../actions/user_actions';
+import userSource from '../sources/user_source';
 
 class UserStore{
   constructor(){

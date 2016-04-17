@@ -1,8 +1,8 @@
 "use strict";
 
-import alt from '../alt/alt.js.jsx';
-import competenceTypeActions from '../actions/competence_type_actions.js.jsx';
-import competenceTypeSource from '../sources/competence_type_source.js.jsx';
+import alt from '../alt/alt';
+import competenceTypeActions from '../actions/competence_type_actions';
+import competenceTypeSource from '../sources/competence_type_source';
 
 
 class CompetenceTypeStore{
