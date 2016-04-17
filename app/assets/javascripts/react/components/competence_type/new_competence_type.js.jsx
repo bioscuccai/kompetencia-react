@@ -1,7 +1,7 @@
 "use strict";
 
 import React from 'react';
-import competenceTypeActions from '../../actions/competence_type_actions.js.jsx';
+import competenceTypeActions from '../../actions/competence_type_actions';
 
 export default React.createClass({
   render(){

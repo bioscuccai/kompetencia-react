@@ -1,7 +1,7 @@
 "use strict";
 
 import React from 'react';
-import availabilityStore from '../../stores/availability_store.js.jsx';
+import availabilityStore from '../../stores/availability_store';
 import Availability from './availability.js.jsx';
 import NewAvailability from './new_availability.js.jsx';
 import modalStyle from '../../styles/modal';

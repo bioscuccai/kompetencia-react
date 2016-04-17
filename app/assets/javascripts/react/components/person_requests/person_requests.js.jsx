@@ -5,12 +5,14 @@ import requestStore from '../../stores/request_store';
 
 import RequestItem from './request_item.js.jsx';
 import RelevantItem from './relevant_item.js.jsx';
+import Collisions from './collisions.jsx';
 
 export default React.createClass({
   getInitialState(){
     return {
       requested: [],
-      relevant: []
+      relevant: [],
+      collisions: []
     };
   },
   
@@ -61,20 +63,21 @@ export default React.createClass({
         <tbody>
           {this.state.relevant.map(request=>{
             return <RelevantItem
+              collisions={this.state.collisions}
               key={`relevant-${request.id}`}
               request={request}></RelevantItem>;
           })}
         </tbody>
       </table>
+      <Collisions collisions={this.state.collisions}></Collisions>
     </div>;
   },
   
   handleStoreChange(state){
-    console.log("relevant:");
-    console.log(state.relevant);
     this.setState({
       relevant: state.relevant,
-      requested: state.requested
+      requested: state.requested,
+      collisions: state.collisions
     });
   }
 });

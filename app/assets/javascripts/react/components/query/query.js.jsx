@@ -2,7 +2,7 @@
 
 import React from 'react';
 import _ from 'lodash';
-import queryStore from '../../stores/query_store.js.jsx';
+import queryStore from '../../stores/query_store';
 import DateTime from 'react-datetime';
 
 import CompetenceQueryResult from './competence_query_result.js.jsx';

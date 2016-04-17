@@ -1,7 +1,7 @@
 "use strict";
 
 import React from 'react';
-import competenceTierActions from '../../actions/competence_tier_actions.js.jsx';
+import competenceTierActions from '../../actions/competence_tier_actions';
 import NewCompetenceTier from './new_competence_tier.js.jsx';
 import CompetenceTierEditor from './competence_tier_editor.js.jsx';
 import CompetenceTierGroupEditor from './competence_tier_group_editor.js.jsx';

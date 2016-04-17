@@ -8,11 +8,17 @@ import RequestDetail from './request_detail.js.jsx';
 
 import ConfirmedMarker from './confirmed_marker.js.jsx';
 import _ from 'lodash';
+import DateLabel from '../date/date_label.jsx';
+import Collisions from './collisions.jsx';
+
+import requestActions from '../../actions/request_actions';
+import requestStore from '../../stores/request_store';
 
 export default React.createClass({
   getInitialState(){
     return {
-      detailModal: false
+      detailModal: false,
+      collisionsModal: false
     };
   },
   
@@ -22,14 +28,32 @@ export default React.createClass({
     });
   },
   
+  onCollisionModal(){
+    this.setState({
+      collisionsModal: true
+    });
+  },
+  
   onRequestClose(){
     this.setState({
       detailModal: false
     });
   },
   
+  onRequestCloseCollisionModal(){
+    this.setState({
+      collisionsModal: false
+    });
+  },
+  
   componentWillMount(){
     Modal.setAppElement("body");
+  },
+  
+  onCollision(){
+    requestActions.resetCollisions();
+    requestStore.fetchCollisions(this.props.request.user_id, this.props.request.starts_at, this.props.request.ends_at);
+    this.onCollisionModal();
   },
   
   render(){
@@ -41,7 +65,9 @@ export default React.createClass({
         {this.props.request.comment}
       </td>
       <td>
-        {this.props.request.starts_at} &mdash; {this.props.request.ends_at}
+        <DateLabel date={this.props.request.starts_at}></DateLabel>
+        &mdash;
+        <DateLabel date={this.props.request.ends_at}></DateLabel>
       </td>
       <td>
         <ConfirmedMarker request={this.props.request}></ConfirmedMarker>
@@ -50,9 +76,16 @@ export default React.createClass({
         <button onClick={this.onDetailModal}>
           <i className='icon ion-eye'></i>
         </button>
-        <button>
+        <button onClick={this.onCollision}>
           <i className='icon ion-checkmark'></i>
         </button>
+        <Modal
+          isOpen={this.state.collisionsModal}
+          onRequestClose={this.onRequestCloseCollisionModal}
+          style={this.modalStyle}>
+          <Collisions collisions={this.props.collisions}></Collisions>
+        </Modal>
+        
         <button>
           <i className='icon ion-close'></i>
         </button>

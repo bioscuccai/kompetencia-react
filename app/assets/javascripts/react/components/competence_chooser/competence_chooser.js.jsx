@@ -3,7 +3,7 @@
 import React from 'react';
 import _ from 'lodash';
 
-import competenceStore from '../../stores/competence_store.js.jsx';
+import competenceStore from '../../stores/competence_store';
 import CompetenceSearchField from './competence_search_field.js.jsx';
 import Competence from './competence.js.jsx';
 

@@ -3,7 +3,7 @@
 import React from 'react';
 import DateTime from 'react-datetime';
 
-import availabilityActions from '../../actions/availability_actions.js.jsx';
+import availabilityActions from '../../actions/availability_actions';
 
 export default React.createClass({
   getInitialState(){

@@ -1,7 +1,7 @@
 "use strict";
 
 import React from 'react';
-import queryActions from '../../actions/query_actions.js.jsx';
+import queryActions from '../../actions/query_actions';
 
 export default React.createClass({
   render() {

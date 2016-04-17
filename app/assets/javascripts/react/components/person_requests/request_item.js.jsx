@@ -8,6 +8,7 @@ import modalStyle from '../../styles/modal';
 import ConfirmedMarker from './confirmed_marker.js.jsx';
 
 import requestActions from '../../actions/request_actions';
+import DateLabel from '../date/date_label.jsx';
 
 import _ from 'lodash';
 
@@ -44,7 +45,11 @@ export default React.createClass({
         <h5>{this.props.request.description}</h5>
         {this.props.request.title}
       </td>
-      <td>{this.props.request.starts_at} &mdash; {this.props.request.ends_at}</td>
+      <td>
+        <DateLabel date={this.props.request.starts_at}></DateLabel>
+        &mdash;
+        <DateLabel date={this.props.request.ends_at}></DateLabel>
+      </td>
       <td><ConfirmedMarker request={this.props.request}></ConfirmedMarker></td>
       <td>
         <button onClick={this.onDeleteRequest}>
