@@ -9,6 +9,7 @@ class RequestStore{
   constructor(){
     this.requested=[];
     this.relevant=[];
+    this.collisions=[];
     this.bindActions(requestActions);
     this.registerAsync(requestSource);
   }
@@ -21,9 +22,17 @@ class RequestStore{
     this.relevant=relevant;
   }
   
+  updateCollisions(collisions){
+    this.collisions=collisions;
+  }
+  
   deleteRequest(deleteData){
     console.log("store delete");
     this.getInstance().fetchRequested(deleteData.userId);
+  }
+  
+  resetCollisions(){
+    this.collisions=[];
   }
   
   error(err){
