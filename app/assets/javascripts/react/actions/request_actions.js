@@ -36,7 +36,7 @@ class RequestActions{
     };
   }
   
-  deleteRequest(userId, requestId){
+  deleteRequest(userId, requestId, requesterId){
     return dispatch=>{
       axios.delete(`/users/${userId}/person_requests/${requestId}.json`, {
         responseType: 'json'
@@ -44,43 +44,47 @@ class RequestActions{
       .then(data=>{
         return dispatch({
           userId,
-          requestId
+          requestId,
+          requesterId
         });
       });
     };
   }
   
-  acceptRequest(userId, requestId){
+  acceptRequest(userId, requestId, requesterId){
     return dispatch=>{
-      axios.get(`/users/${userId}/person_request/${requestId}/accept`)
+      axios.post(`/users/${userId}/person_requests/${requestId}/accept`)
       .then(data=>{
         return dispatch({
           userId,
-          requestId
+          requestId,
+          requesterId
         });
       });
     };
   }
   
-  acceptRequestNoCollisions(userId, requestId){
+  acceptRequestNoCollisions(userId, requestId, requesterId){
     return dispatch=>{
-      axios.get(`/users/${userId}/person_request/${requestId}/accept_no_collision`)
+      axios.post(`/users/${userId}/person_requests/${requestId}/accept_no_collision`)
       .then(data=>{
         return dispatch({
           userId,
-          requestId
+          requestId,
+          requesterId
         });
       });
     };
   }
   
-  rejectId(userId, requestId){
+  rejectRequest(userId, requestId, requesterId){
     return dispatch=>{
-      axios.get(`/users/${userId}/person_request/${requestId}/reject`)
+      axios.post(`/users/${userId}/person_requests/${requestId}/reject`)
       .then(data=>{
         return dispatch({
           userId,
-          requestId
+          requestId,
+          requesterId
         });
       });
     };

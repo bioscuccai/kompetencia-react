@@ -18,10 +18,24 @@ Rails.application.routes.draw do
   devise_for :users
   
   resources :users do
-    resources :availabilities
+    resources :availabilities do
+      collection do
+        get 'godfather_availabilities'
+      end
+      member do
+        post 'turn_on'
+        post 'turn_off'
+      end
+    end
     resources :person_requests do
       collection do
         get 'relevant'
+        post 'collisions'
+      end
+      member do
+        post 'accept'
+        post 'accept_no_collision'
+        post 'reject'
       end
     end
     member do

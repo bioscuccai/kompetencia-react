@@ -41,8 +41,8 @@ export default React.createClass({
       <h1>Hírdetések</h1>
       <ReactTabs.Tabs>
         <ReactTabs.TabList>
-          <ReactTabs.Tab>Én kértem</ReactTabs.Tab>
-          <ReactTabs.Tab>Tőlem kérték</ReactTabs.Tab>
+          <ReactTabs.Tab>Én kértem (requested)</ReactTabs.Tab>
+          <ReactTabs.Tab>Tőlem kérték (relevant)</ReactTabs.Tab>
           <ReactTabs.Tab>Hírdetéseim</ReactTabs.Tab>
         </ReactTabs.TabList>
         
@@ -61,6 +61,7 @@ export default React.createClass({
             <tbody>
               {this.state.requested.map(req=>{
                 return <RequestItem
+                  user={this.props.user}
                   key={`request-${req.id}`}
                   request={req}></RequestItem>;
               })}
@@ -86,7 +87,8 @@ export default React.createClass({
                 return <RelevantItem
                   collisions={this.state.collisions}
                   key={`relevant-${request.id}`}
-                  request={request}></RelevantItem>;
+                  request={request}
+                  user={this.props.user}></RelevantItem>;
               })}
             </tbody>
           </table>
@@ -106,6 +108,7 @@ export default React.createClass({
             <tbody>
               {this.state.godfatherAvailabilities.map(availability=>{
                 return <GodfatherAvailabilityItem
+                  user={this.props.user}
                   key={`godfather-availability-${availability.id}`}
                   availability={availability}></GodfatherAvailabilityItem>;
               })}
@@ -117,6 +120,8 @@ export default React.createClass({
   },
   
   handleRequestStoreChange(state){
+    console.log("request change");
+    console.log(state.relevant);
     this.setState({
       relevant: state.relevant,
       requested: state.requested,

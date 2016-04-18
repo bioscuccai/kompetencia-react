@@ -13,15 +13,13 @@ export default React.createClass({
       buttonClass='pending-tier';
     }
     
-    return <a href='#' className={`button ${buttonClass}`}
+    return <a href='#' className={`button ${buttonClass} button-competence-selector`}
       onClick={this.setLevel}>
       {this.props.tier.title}
     </a>;
   },
   
   setLevel(e){
-    console.log("args");
-    console.log(arguments);
     e.preventDefault();
     if(this.props.directlyEdit){
       competenceActions.setLevel(this.props.competence.id, this.props.user.id, this.props.tier.level);

@@ -7,7 +7,7 @@ import AvailabilityButtons from '../availabilites/availability_buttons.jsx';
 
 export default React.createClass({
   render(){
-    return <tr>
+    return <tr className={this.props.availability.active? "" : "inactive-availability"}>
       <td>
         <a href={`/users/${this.props.availability.user.id}`}>
           {this.props.availability.user.email}

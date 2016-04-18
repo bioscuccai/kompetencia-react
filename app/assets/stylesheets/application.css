@@ -18,11 +18,13 @@
 
 
 .assigned-competence{
-  background-color: #67da16;
+  /*background-color: #67da16;*/
+  font-weight: bold;
 }
 
 .pending-competence{
-  background-color: #faff06;
+  /*background-color: #faff06;*/
+  font-style: italic;
 }
 
 .selected-tier{
@@ -47,11 +49,7 @@
 }
 
 .result-competence{
-  margin-left: 3px;
-  margin-right: 3px;
   background-color: rgb(11, 251, 6);
-  padding: 3px;
-  border-radius: 5px;
 }
 
 .result-box{
@@ -85,4 +83,31 @@
 
 .expired-date{
   color: rgb(83, 83, 83);
+}
+
+.icon-button{
+  padding-left: 3px;
+  padding-right: 3px;
+  font-size: 150%;
+}
+
+.icon-button-large{
+  font-size: 200%;
+}
+
+strong{
+  font-weight: bold;
+}
+
+.button-competence-selector{
+  border-radius: 5px;
+  font-size: 50%;
+  min-width: 60px;
+  padding: 0px;
+}
+
+.inactive-availability{
+  color: rgb(124, 124, 124);
+  font-style: italic;
+  font-size: 75%;
 }

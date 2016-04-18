@@ -46,7 +46,7 @@ export default React.createClass({
             <th>Kezdés</th>
             <th>Befejezés</th>
             <th>Komment</th>
-            <th></th>
+            <th>Műveletek</th>
           </tr>
         </thead>
         <tbody>
@@ -56,10 +56,9 @@ export default React.createClass({
         </tbody>
       </table>
       <button onClick={this.onNewModal}>
-        <span className='icon-button'>
-          <i className='icon ion-plus'></i>
-        </span>
-        Új...</button>
+        <i className='icon ion-plus'></i>
+        Új...
+      </button>
       <Modal
         isOpen={this.state.newModal}
         style={modalStyle}

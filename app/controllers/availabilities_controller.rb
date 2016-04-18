@@ -1,14 +1,29 @@
 class AvailabilitiesController < ApplicationController
-  before_action :set_availability, only: [:show, :edit, :update, :destroy]
+  before_action :set_availability, only: [:show, :edit, :update, :destroy, :turn_on, :turn_off]
   before_action :set_user
   skip_before_filter :verify_authenticity_token
   
-
+  include AvailabilityFormatter
+  
+  def godfather_availabilities
+    @availabilities=Availability.includes(user: [:godfather]).for_godfather params[:user_id]
+    render json: @availabilities.map{|a| format_availability a}
+  end
+  
+  def turn_on
+    @availability.update(active: true)
+    render json: {status: :ok}
+  end
+  
+  def turn_off
+    @availability.update(active: false)
+    render json: {status: :ok}
+  end
+  
   # GET /availabilities
   # GET /availabilities.json
   def index
     @availabilities = Availability.where(user_id: @user.id)
-    pp current_user
   end
 
   # GET /availabilities/1
@@ -50,7 +65,7 @@ class AvailabilitiesController < ApplicationController
     respond_to do |format|
       if @availability.save
         format.html { redirect_to [@user, @availability], notice: 'Availability was successfully updated.' }
-        format.json { render :show, status: :ok, location: @availability }
+        format.json { render :show, status: :ok, location: [@user, @availability ]}
       else
         format.html { render :edit }
         format.json { render json: @availability.errors, status: :unprocessable_entity }

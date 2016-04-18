@@ -1,10 +1,33 @@
 class PersonRequestsController < ApplicationController
-  before_action :set_person_request, only: [:show, :edit, :update, :destroy]
-  before_action :set_user, only: [:index, :show, :edit, :update, :destroy, :create, :new, :relevant]
+  before_action :set_person_request, only: [:show, :edit, :update, :destroy,
+    :accept, :accept_no_collision, :reject]
+  before_action :set_user, only: [:index, :show, :edit, :update, :destroy, :create, :new,
+    :relevant, :collisions,
+    :accept, :accept_no_collision, :reject]
+
   skip_before_filter :verify_authenticity_token
   
   include UserFormatter
   include PersonRequestFormatter
+  
+  def accept
+    ActiveRecord::Base.transaction do
+      collisions=Availability.where(user_id: @user.id).where('ends_at IS NOT NULL').collisions_two(@person_request.starts_at, @person_request.ends_at)
+      collisions.update_all(active: false)
+      @person_request.update(confirmed: true)
+    end
+    render json: {status: :ok}
+  end
+  
+  def accept_no_collision
+    @person_request.update!(confirmed: true)
+    render json: {status: :ok}
+  end
+  
+  def reject
+    @person_request.update!(confirmed: false)
+    render json: {status: :ok}
+  end
   
   # GET /person_requests
   # GET /person_requests.json
@@ -22,11 +45,24 @@ class PersonRequestsController < ApplicationController
   end
   
   def relevant
-    PersonRequest.joins(target: [:godfather])
-    @formatted=PersonRequest.relevant_for(@user.id).map{|p| format_person_request(p)}
+    @formatted=PersonRequest.joins(target: [:godfather]).relevant_for(@user.id).map{|p| format_person_request(p)}
     render json: @formatted
   end
 
+  def collisions
+    #if !params[:ends_at].nil?
+      
+    #else
+    #  @collisions=PersonRequest.collisions_one(Time.parse(params[:starts_at]))
+    #end
+    @collisions=[
+      *Availability.where(user_id: @user.id).where('ends_at IS NOT NULL').collisions_two(Time.parse(params[:starts_at]), Time.parse(params[:ends_at])).to_a,
+      #*Availablity.where('ends_at IS NULL').collisions_two(Time.parse(params[:starts_at]), Time.parse(params[:ends_at])).to_a
+    ].flatten.uniq
+    render json: @collisions
+  end
+  
+  
   # GET /person_requests/1
   # GET /person_requests/1.json
   def show

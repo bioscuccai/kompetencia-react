@@ -50,7 +50,7 @@ export default React.createClass({
       parsedCompetences: this.parseCompetences()
     });
   },
-  
+
   render(){
     let competenceGroups=_.groupBy(this.state.parsedCompetences, 'type');
     return <div>
@@ -63,12 +63,22 @@ export default React.createClass({
           _.keys(competenceGroups).map(groupName=>{
             return <div key={`competence-group-${groupName}`}>
               <h4>{groupName}</h4>
-              {competenceGroups[groupName].map(competence=>{
-                return <Competence competence={competence}
-                  user={this.props.user}
-                  directlyEdit={this.props.directlyEdit}
-                  key={competence.id}></Competence>;
-              })}
+              <table>
+                <thead>
+                  <th>Kompetencia</th>
+                  <th>Szint</th>
+                  <th>Műveletek</th>
+                </thead>
+                <tbody>
+                  {competenceGroups[groupName].map(competence=>{
+                    return <Competence competence={competence}
+                      user={this.props.user}
+                      directlyEdit={this.props.directlyEdit}
+                      key={competence.id}></Competence>;
+                  })}
+                </tbody>
+              </table>
+              
             </div>;
           })
         }

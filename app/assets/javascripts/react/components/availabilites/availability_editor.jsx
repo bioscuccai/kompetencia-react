@@ -42,6 +42,7 @@ export default React.createClass({
       this.state.startsAt,
       this.state.endsAt,
       this.refs.comment.value);
+    this.onClose();
   },
   
   onStartChange(md){
@@ -54,5 +55,11 @@ export default React.createClass({
     this.setState({
       endsAt: md.toDate()
     });
+  },
+  
+  onClose(){
+    if(this.props.onClose){
+      this.props.onClose();
+    }
   }
 });

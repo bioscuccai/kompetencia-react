@@ -75,10 +75,10 @@ export default React.createClass({
         <ConfirmedMarker request={this.props.request}></ConfirmedMarker>
       </td>
       <td>
-        <button onClick={this.onDetailModal}>
+        <button onClick={this.onDetailModal} className='icon-button'>
           <i className='icon ion-eye'></i>
         </button>
-        <button onClick={this.onCollision}>
+        <button onClick={this.onCollision} className='icon-button'>
           <i className='icon ion-checkmark'></i>
         </button>
         <Modal
@@ -86,12 +86,14 @@ export default React.createClass({
           onRequestClose={this.onRequestCloseCollisionModal}
           style={this.modalStyle}>
           <Collisions
+            user={this.props.user}
+            onClose={this.onRequestCloseCollisionModal}
             request={this.props.request}
             collisions={this.props.collisions}></Collisions>
         </Modal>
         
-        <button>
-          <i className='icon ion-close icon-button'></i>
+        <button className='icon-button'>
+          <i className='icon ion-close'></i>
         </button>
         <Modal
           isOpen={this.state.detailModal}

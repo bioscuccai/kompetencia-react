@@ -11,7 +11,25 @@ class RequestStore{
     this.relevant=[];
     this.collisions=[];
     this.bindActions(requestActions);
+    this.bindListeners({
+      reloadRelevant: [
+        requestActions.DELETE_REQUEST,
+        requestActions.ACCEPT_REQUEST,
+        requestActions.ACCEPT_REQUEST_NO_COLLISIONS,
+        requestActions.REJECT_REQUEST
+      ]
+    });
     this.registerAsync(requestSource);
+  }
+  
+  reloadRequests(rData){
+    this.getInstance().fetchRequested(rData.userId);
+    return false;
+  }
+  
+  reloadRelevant(rData){
+    this.getInstance().fetchRelevant(rData.requesterId);
+    return false;
   }
   
   updateRequested(requested){
@@ -24,11 +42,6 @@ class RequestStore{
   
   updateCollisions(collisions){
     this.collisions=collisions;
-  }
-  
-  deleteRequest(deleteData){
-    this.getInstance().fetchRequested(deleteData.userId);
-    return false;
   }
   
   resetCollisions(){

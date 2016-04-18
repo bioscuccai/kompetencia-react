@@ -28,6 +28,7 @@ class User < ActiveRecord::Base
   scope :free_between_closed, ->(start_at, ends_at){joins(:availabilities)}
   scope :free_between_open, ->(starts_at){all}
   
+  
   def add_competence(competence, level)
     ActiveRecord::Base.transaction do
       self.assigned_competence_levels.where(competence: competence).delete_all
@@ -74,8 +75,8 @@ class User < ActiveRecord::Base
   end
   
   def available?
-    open_interval=self.availabilities.where("starts_at<? AND ends_at IS NULL", Time.now).count!=0
-    closed_interval=self.availabilities.where("starts_at<? AND ends_at>?", Time.now, Time.now).count!=0
+    open_interval=self.availabilities.active_availabilities.where("starts_at<? AND ends_at IS NULL", Time.now).count!=0
+    closed_interval=self.availabilities.active_availabilities.where("starts_at<? AND ends_at>?", Time.now, Time.now).count!=0
     open_interval || closed_interval
   end
 end

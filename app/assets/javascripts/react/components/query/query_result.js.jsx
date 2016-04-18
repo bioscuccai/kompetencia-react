@@ -36,23 +36,12 @@ export default React.createClass({
     return <div className='result-box'>
       <div className='row'>
         <div className='column column-80'>
-          <div>
-            <UserBulletPoints
-              highlightedIds={highlightedIds}
-              user={this.props.result}></UserBulletPoints>
-          </div>
-          <div>
-            {this.props.result.found.map(found=>{
-              return <span
-                  key={`result-competence-${this.props.result.id}-${found.competence_id}`}
-                  className='result-competence'>
-                {found.title} ({found.level})
-              </span>;
-            })}
-          </div>
+          <UserBulletPoints
+            highlightedIds={highlightedIds}
+            user={this.props.result}></UserBulletPoints>
         </div>
         <div className='column column-20'>
-          <button onClick={this.onNewModal} className='icon-button icon-large'><i className='icon ion-person-add'></i></button>
+          <button onClick={this.onNewModal} className='icon-button icon-button-large'><i className='icon ion-person-add'></i></button>
         </div>
       </div>
       

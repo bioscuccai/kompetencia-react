@@ -15,25 +15,23 @@ export default React.createClass({
       highlighClass='pending-competence';
     }
     
-    return <div className='container'>
-      <div className={`row ${highlighClass}`}>
-        <div className="column column-30">
+    return <tr className={`${highlighClass}`}>
+        <td>
           {this.props.competence.title} {this.props.competence.id} {this.props.competence.isAssigned} {this.props.isPending}
-        </div>
-        <div className="column column-50">
+        </td>
+        <td>
           {this.props.competence.tiers.map(tier=>{
             return <CompetenceTierButton key={`${this.props.competence.id}-${tier.level}`}
               directlyEdit={this.props.directlyEdit}
               competence={this.props.competence} tier={tier} user={this.props.user}></CompetenceTierButton>;
           })}
-        </div>
-        <div className="column column-20">
+        </td>
+        <td>
           <CompetenceAdministrationButtons
             directlyEdit={this.props.directlyEdit}
             competence={this.props.competence}
             user={this.props.user}></CompetenceAdministrationButtons>
-        </div>
-      </div>
-    </div>;
+        </td>
+      </tr>;
   }
 });

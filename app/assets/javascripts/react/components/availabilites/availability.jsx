@@ -14,7 +14,7 @@ export default React.createClass({
     if(moment().isAfter(this.props.availability.ends_at)){
       highlightClass="expired-date";
     }
-    return <tr className={highlightClass}>
+    return <tr className={`highlightClass ${this.props.availability.active ? "" : "inactive-availability"}`}>
       <td>
         <DateLabel date={this.props.availability.starts_at}></DateLabel>
       </td>

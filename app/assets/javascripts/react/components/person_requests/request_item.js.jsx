@@ -54,13 +54,13 @@ export default React.createClass({
       </td>
       <td><ConfirmedMarker request={this.props.request}></ConfirmedMarker></td>
       <td>
-        <button onClick={this.onDeleteRequest}>
+        <button onClick={this.onDeleteRequest} className='icon-button'>
           <i className='icon ion-trash-a'></i>
         </button>
-        <button onClick={this.onDetailModal}>
+        <button onClick={this.onDetailModal} className='icon-button'>
           <i className='icon ion-eye'></i>
         </button>
-        <button>
+        <button className='icon-button'>
           <i className='icon ion-compose'></i>
         </button>
         <Modal isOpen={this.state.detailModal}
