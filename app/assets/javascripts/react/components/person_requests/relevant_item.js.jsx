@@ -62,7 +62,9 @@ export default React.createClass({
       <td>{this.props.request.user.email}</td>
       <td>
         <h5>{this.props.request.title}</h5>
-        {this.props.request.comment}
+        <small>
+          {this.props.request.comment}
+        </small>
       </td>
       <td>
         <DateLabel date={this.props.request.starts_at}></DateLabel>
@@ -83,11 +85,13 @@ export default React.createClass({
           isOpen={this.state.collisionsModal}
           onRequestClose={this.onRequestCloseCollisionModal}
           style={this.modalStyle}>
-          <Collisions collisions={this.props.collisions}></Collisions>
+          <Collisions
+            request={this.props.request}
+            collisions={this.props.collisions}></Collisions>
         </Modal>
         
         <button>
-          <i className='icon ion-close'></i>
+          <i className='icon ion-close icon-button'></i>
         </button>
         <Modal
           isOpen={this.state.detailModal}

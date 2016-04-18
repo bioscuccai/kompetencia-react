@@ -6,18 +6,52 @@ import availabilityActions from '../actions/availability_actions';
 
 class AvailabilityStore{
   constructor(){
-    this.availabilities=[];
+    //TODO: ez valami istentelen ganyolas
+    this.godfatherId=null; //ha ez be van allitva, akkor nem szur felhasznalo id-re
+    this.userId=null;
     
+    this.availabilities=[]; //egy felhasznaloe
+    this.godfatherAvailabilities=[]; //az aktualis keresztapa osszes dolgozojanak
+    //technikalilag minden mehetne az elso tombbe, de igy tobbet mond
     this.bindActions(availabilityActions);
+    this.bindListeners({
+      refreshAvailabilities: [
+          availabilityActions.NEW_AVAILABILITY,
+          availabilityActions.TURN_ON_AVAILABILITY,
+          availabilityActions.TURN_OFF_AVAILABILITY,
+          availabilityActions.EDIT_AVAILABILITY,
+          availabilityActions.DELETE_AVAILABILITY]
+    });
     this.registerAsync(availabilitySource);
+  }
+  
+  refreshAvailabilities(refreshData){
+    if(this.godfatherId!==null){
+      this.getInstance().fetchGodfatherAvailabilities(this.godfatherId);
+    } else {
+      this.getInstance().fetchAvailabilities(this.userId);
+    }
+    return false;
   }
   
   updateAvailabilities(availabilities){
     this.availabilities=availabilities;
   }
   
-  newAvailability(naData){
-    this.getInstance().fetchAvailabilities(naData.userId);
+  updateGodfatherAvailabilities(godfatherAvailabilities){
+    this.godfatherAvailabilities=godfatherAvailabilities;
+  }
+  
+  setGodfatherId(godfatherId){
+    this.godfatherId=godfatherId;
+  }
+  
+  setUserId(userId){
+    this.userId=userId;
+  }
+  
+  error(err){
+    console.log(err);
   }
 }
 

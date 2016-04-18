@@ -1,6 +1,8 @@
 "use strict";
 
 import React from 'react';
+import CompetenceBreadcrumb from './competence_breadcrumb.jsx';
+import _ from 'lodash';
 
 export default React.createClass({
   render(){
@@ -31,11 +33,11 @@ export default React.createClass({
       <div>
         <small>
           {this.props.user.competences.map(competence=>{
-            return <span
-                key={`subordinate-mini-competence-${this.props.user.id}-${competence.id}`}
-                className='mini-competence'>
-                  {competence.title} ({competence.level})
-                </span>;
+            return <CompetenceBreadcrumb
+              key={`subordinate-mini-competence-${this.props.user.id}-${competence.id}`}
+              competence={competence}
+              highlight={_.get(this.props, "highlightedIds", []).indexOf(competence.id)!==-1}
+              ></CompetenceBreadcrumb>;
           })}
         </small>
       </div>

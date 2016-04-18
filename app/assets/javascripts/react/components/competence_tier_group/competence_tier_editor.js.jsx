@@ -10,8 +10,12 @@ export default React.createClass({
         <input ref='title' type='text' defaultValue={this.props.tier.title}></input>
       </div>
       <div className='column column-50'>
-        <button onClick={this.onSave}>Módosít</button>
-        <button>Töröl</button>
+        <button onClick={this.onSave} className='icon-button'>
+          <i className='icon ion-checkmark'></i>
+        </button>
+        <button className='icon-button'>
+          <i className='icon ion-trash-a'></i>
+        </button>
       </div>
     </div>;
   },

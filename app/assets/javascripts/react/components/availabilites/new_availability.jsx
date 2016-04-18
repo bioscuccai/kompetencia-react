@@ -22,7 +22,7 @@ export default React.createClass({
         <DateTime onChange={this.onStartChange} timeFormat={false} closeOnSelect={true}></DateTime>
         Befejezés:
         <DateTime onChange={this.onEndChange} timeFormat={false} closeOnSelect={true}></DateTime>
-        <textarea value={this.state.comment} onChange={this.onCommentChange}></textarea>
+        <textarea ref='comment' placeholder='Komment'></textarea>
         <input type='submit' value="Új rendelkezésreállás"></input>
       </form>
     </div>;
@@ -30,7 +30,7 @@ export default React.createClass({
   
   onSubmit(e){
     e.preventDefault();
-    availabilityActions.newAvailability(this.props.user.id, this.state.startsAt, this.state.endsAt, this.state.comment);
+    availabilityActions.newAvailability(this.props.user.id, this.state.startsAt, this.state.endsAt, this.refs.comment.value);
     if(this.props.closeModal){
       this.props.closeModal();
     }
@@ -45,12 +45,6 @@ export default React.createClass({
   onEndChange(md){
     this.setState({
       endsAt: md.toDate()
-    });
-  },
-  
-  onCommentChange(e){
-    this.setState({
-      comment: e.value
     });
   }
 });

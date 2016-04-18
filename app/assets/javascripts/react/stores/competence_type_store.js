@@ -9,6 +9,12 @@ class CompetenceTypeStore{
   constructor(){
     this.competenceTypes=[];
     this.bindActions(competenceTypeActions);
+    this.bindListeners({
+      reloadCompetenceTypes: [
+        competenceTypeActions.CREATE_COMPETENCE_TYPE,
+        competenceTypeActions.CREATE_COMPETENCE
+      ]
+    });
     this.registerAsync(competenceTypeSource);
   }
   
@@ -16,12 +22,9 @@ class CompetenceTypeStore{
     this.competenceTypes=competenceTypes;
   }
   
-  createCompetenceType(competenceTypeData){
+  reloadCompetenceTypes(){
     this.getInstance().fetchCompetenceTypes();
-  }
-  
-  createCompetence(competenceData){
-    this.getInstance().fetchCompetenceTypes();
+    return false;
   }
   
   error(err){

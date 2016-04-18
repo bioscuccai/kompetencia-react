@@ -36,7 +36,7 @@ export default React.createClass({
       {this.state.competenceTierGroups.map(group=>{
         return <CompetenceTierGroup group={group} key={group.id}></CompetenceTierGroup>;
       })}
-      <button onClick={this.onNewModal}>Új...</button>
+      <button onClick={this.onNewModal}><i className='icon ion-plus'></i>Új kérdés sablon...</button>
       <Modal
         isOpen={this.state.newModal}
         style={modalStyle}

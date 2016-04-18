@@ -13,6 +13,15 @@ class CompetenceStore{
     this.pendingCompetences=[];
     this.competences=[];
     this.bindActions(competenceActions);
+    this.bindListeners({
+      reloadUserCompetences: [
+        competenceActions.SET_LEVEL,
+        competenceActions.SET_PENDING_LEVEL,
+        competenceActions.REMOVE_ASSIGNED,
+        competenceActions.REJECT_PENDING,
+        competenceActions.ACCEPT_PENDING
+      ]
+    });
     this.registerAsync(competenceSource);
   }
   
@@ -28,30 +37,10 @@ class CompetenceStore{
     this.pendingCompetences=pendingCompetences;
   }
   
-  //csak annyit tud h szint valtozas tortent, ezert lekeri a szerverrol az uj allapotot
-  setLevel(levelData){
-    this.getInstance().fetchCompetences(levelData.userId);
-    this.getInstance().fetchPendingCompetences(levelData.userId);
-  }
-  
-  setPendingLevel(levelData){
-    this.getInstance().fetchCompetences(levelData.userId);
-    this.getInstance().fetchPendingCompetences(levelData.userId);
-  }
-  
-  removeAssigned(removalData){
-    this.getInstance().fetchCompetences(removalData.userId);
-    this.getInstance().fetchPendingCompetences(removalData.userId);
-  }
-  
-  rejectPending(removalData){
-    this.getInstance().fetchCompetences(removalData.userId);
-    this.getInstance().fetchPendingCompetences(removalData.userId);
-  }
-  
-  acceptPending(acceptanceData){
-    this.getInstance().fetchCompetences(acceptanceData.userId);
-    this.getInstance().fetchPendingCompetences(acceptanceData.userId);
+  reloadUserCompetences(userData){
+    this.getInstance().fetchCompetences(userData.userId);
+    this.getInstance().fetchPendingCompetences(userData.userId);
+    return false;
   }
   
   error(err){

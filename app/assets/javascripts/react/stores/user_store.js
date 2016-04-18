@@ -9,15 +9,18 @@ class UserStore{
     this.allUsers=[];
     this.subordinates=[];
     this.bindActions(userActions);
+    this.bindListeners({
+      reloadUsers: [
+        userActions.ADD_SUBORDINATE,
+        userActions.REMOVE_SUBORDINATE
+      ]
+    });
     this.registerAsync(userSource);
   }
   
-  addSubordinate(){
+  reloadUsers(){
     this.getInstance().fetchAllUsers();
-  }
-  
-  removeSubordinate(){
-    this.getInstance().fetchAllUsers();
+    return false;
   }
   
   updateAllUsers(allUsers){

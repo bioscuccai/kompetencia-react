@@ -27,8 +27,8 @@ class RequestStore{
   }
   
   deleteRequest(deleteData){
-    console.log("store delete");
     this.getInstance().fetchRequested(deleteData.userId);
+    return false;
   }
   
   resetCollisions(){

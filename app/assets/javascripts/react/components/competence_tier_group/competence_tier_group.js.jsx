@@ -54,7 +54,7 @@ export default React.createClass({
             })}
           </tbody>
         </table>
-        <button onClick={this.onNewModal}>Új...</button>
+        <button onClick={this.onNewModal}><i className='icon ion-plus'></i>Új válaszlehetőség...</button>
         <Modal
           onRequestClose={this.onRequestClose}
           isOpen={this.state.newModal}

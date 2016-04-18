@@ -2,7 +2,7 @@ import alt from '../alt/alt';
 import axios from 'axios';
 
 class CompetenceTierActions{
-  contructor(){
+  constructor(){
     this.generateActions("error", "selectTier", "selectTierGroup", "updateCompetenceTierGroups");
   }
   
@@ -35,7 +35,6 @@ class CompetenceTierActions{
           responseType: 'json'
       })
       .then(data=>{
-        console.log(data);
         dispatch(data);
       });
     };

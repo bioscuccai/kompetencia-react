@@ -9,6 +9,7 @@ export default React.createClass({
       <p>{this.props.request.comment}</p>
       <p>{this.props.request.starts_at}</p>
       <p>{this.props.request.ends_at}</p>
+      <p>{this.props.request.target.email}</p>
       <p>{this.props.request.user.email}</p>
     </div>;
   }

@@ -9,19 +9,21 @@ class CompetenceTierStore{
   constructor(){
     this.competenceTierGroups=[];
     this.bindActions(competenceTierActions);
+    this.bindListeners({
+      reloadCompetenceTiers: [
+        competenceTierActions.CREATE_COMPETENCE_TIER,
+        competenceTierActions.CREATE_COMPETENCE_TIER_GROUP,
+        competenceTierActions.UPDATE_TIER,
+        competenceTierActions.DELETE_TIER,
+        competenceTierActions.UPDATE_TIER_GROUP,
+        competenceTierActions.DELETE_TIER_GROUP
+      ]
+    });
     this.registerAsync(competenceTierSource);
   }
   
   updateCompetenceTierGroups(competenceTierGroups){
     this.competenceTierGroups=competenceTierGroups;
-  }
-  
-  createCompetenceTier(){
-    this.getInstance().fetchCompetenceTiers();
-  }
-  
-  createCompetenceTierGroup(){
-    this.getInstance().fetchCompetenceTiers();
   }
   
   selectTier(id){
@@ -37,25 +39,10 @@ class CompetenceTierStore{
       ctg.selected=(ctg.id===id);
     });
   }
-  
-  updateTier(tierData){
+
+  reloadCompetenceTiers(){
     this.getInstance().fetchCompetenceTiers();
-  }
-  
-  deleteTier(id){
-    this.getInstance().fetchCompetenceTiers();
-  }
-  
-  updateTierGroup(tierGroupData){
-    this.getInstance().fetchCompetenceTiers();
-  }
-  
-  deleteTierGroup(id){
-    this.getInstance().fetchCompetenceTiers();
-  }
-  
-  refresh(){
-    this.getInstance().fetchCompetenceTiers();
+    return false;
   }
   
   error(err){

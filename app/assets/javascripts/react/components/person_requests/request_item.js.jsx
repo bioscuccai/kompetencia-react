@@ -42,8 +42,10 @@ export default React.createClass({
         <div><small>({_.get(this.props.request, "target.godfather.email")})</small></div>
       </td>
       <td>
-        <h5>{this.props.request.description}</h5>
-        {this.props.request.title}
+        <h5>{this.props.request.title}</h5>
+        <small>
+          {this.props.request.comment}
+        </small>
       </td>
       <td>
         <DateLabel date={this.props.request.starts_at}></DateLabel>

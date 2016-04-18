@@ -2,8 +2,9 @@
 
 import React from 'react';
 import availabilityStore from '../../stores/availability_store';
-import Availability from './availability.js.jsx';
-import NewAvailability from './new_availability.js.jsx';
+import availabilityActions from '../../actions/availability_actions';
+import Availability from './availability.jsx';
+import NewAvailability from './new_availability.jsx';
 import modalStyle from '../../styles/modal';
 import Modal from 'react-modal';
 
@@ -20,8 +21,8 @@ export default React.createClass({
   },
   
   componentDidMount(){
-    
     availabilityStore.listen(this.handleStoreChange);
+    availabilityActions.setUserId(this.props.user.id);
     availabilityStore.fetchAvailabilities(this.props.user.id);
   },
   
@@ -45,6 +46,7 @@ export default React.createClass({
             <th>Kezdés</th>
             <th>Befejezés</th>
             <th>Komment</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -53,7 +55,11 @@ export default React.createClass({
           })}
         </tbody>
       </table>
-      <button onClick={this.onNewModal}>Új...</button>
+      <button onClick={this.onNewModal}>
+        <span className='icon-button'>
+          <i className='icon ion-plus'></i>
+        </span>
+        Új...</button>
       <Modal
         isOpen={this.state.newModal}
         style={modalStyle}

@@ -12,7 +12,7 @@ export default React.createClass({
       <div>
         {this.props.competence.tiers.map(tier=>{
           return <button key={`tier-button-${this.props.competence.id}-${tier.level}`}
-              className={this.props.competence.selectedLevel==tier.level ? 'selected-tier' : ''}
+              className={`button-competence-selector ${(this.props.competence.selectedLevel==tier.level ? 'selected-tier' : '')}`}
               onClick={this.onLevelClick.bind(this, tier.level)}>
             {tier.title}
           </button>;
