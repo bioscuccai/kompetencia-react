@@ -44,10 +44,12 @@ class AvailabilityStore{
   
   setGodfatherId(godfatherId){
     this.godfatherId=godfatherId;
+    return false;
   }
   
   setUserId(userId){
     this.userId=userId;
+    return false;
   }
   
   error(err){

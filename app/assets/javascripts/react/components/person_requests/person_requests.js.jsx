@@ -12,6 +12,10 @@ import RelevantItem from './relevant_item.js.jsx';
 import Collisions from './collisions.jsx';
 import GodfatherAvailabilityItem from './godfather_availability_item.jsx';
 
+import GodfatherResults from './godfather_results.jsx';
+import RequestedResults from './requested_results.jsx';
+import RelevantResults from './relevant_results.jsx';
+
 export default React.createClass({
   getInitialState(){
     return {
@@ -47,74 +51,29 @@ export default React.createClass({
         </ReactTabs.TabList>
         
         <ReactTabs.TabPanel>
-          <h3>Kérvényezett</h3>
-          <table>
-            <thead>
-              <tr>
-                <td>Név</td>
-                <td>Munka</td>
-                <td>Időtartam</td>
-                <td>Állapot</td>
-                <td></td>
-              </tr>
-            </thead>
-            <tbody>
-              {this.state.requested.map(req=>{
-                return <RequestItem
-                  user={this.props.user}
-                  key={`request-${req.id}`}
-                  request={req}></RequestItem>;
-              })}
-            </tbody>
-          </table>
+          <RequestedResults
+            user={this.props.user}
+            requested={this.state.requested}
+          ></RequestedResults>
         </ReactTabs.TabPanel>
         
+        
         <ReactTabs.TabPanel>
-          <h3>Beérkezett kérvények</h3>
-          <table>
-            <thead>
-              <tr>
-                <td>Név</td>
-                <td>Kérvényező</td>
-                <td>Munka</td>
-                <td>Időtartam</td>
-                <td>Állapot</td>
-                <td></td>
-              </tr>
-            </thead>
-            <tbody>
-              {this.state.relevant.map(request=>{
-                return <RelevantItem
-                  collisions={this.state.collisions}
-                  key={`relevant-${request.id}`}
-                  request={request}
-                  user={this.props.user}></RelevantItem>;
-              })}
-            </tbody>
-          </table>
+          <RelevantResults
+            user={this.props.user}
+            relevant={this.state.relevant}
+            collisions={this.state.collisions}
+          ></RelevantResults>
         </ReactTabs.TabPanel>
+        
+        
         <ReactTabs.TabPanel>
-          <h3>Meghírdetett</h3>
-          <table>
-            <thead>
-              <tr>
-                <th>Dolgozó</th>
-                <th>Kezdés</th>
-                <th>Befejezés</th>
-                <th>Komment</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.state.godfatherAvailabilities.map(availability=>{
-                return <GodfatherAvailabilityItem
-                  user={this.props.user}
-                  key={`godfather-availability-${availability.id}`}
-                  availability={availability}></GodfatherAvailabilityItem>;
-              })}
-            </tbody>
-          </table>
+          <GodfatherResults
+            user={this.props.user}
+            godfatherAvailabilities={this.state.godfatherAvailabilities}
+          ></GodfatherResults>
         </ReactTabs.TabPanel>
+        
       </ReactTabs.Tabs>
     </div>;
   },

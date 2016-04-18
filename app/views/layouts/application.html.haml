@@ -33,5 +33,11 @@
               =link_to 'Felhasználók', users_path
             %li
               =link_to 'Kereső', query_path
+            -if user_signed_in?
+              %li
+                =link_to 'Hírdetések', user_person_requests_path(current_user)
+              %li
+                =link_to 'Dolgozók', subordinates_user_path(current_user)
+
         .column.column-75
           = yield

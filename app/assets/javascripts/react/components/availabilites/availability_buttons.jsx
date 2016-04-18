@@ -39,7 +39,7 @@ export default React.createClass({
         isOpen={this.state.editModal}
         onRequestClose={this.onRequestClose}
         style={modalStyle}>
-        <AvailabilityEditor availability={this.props.availability}></AvailabilityEditor>
+        <AvailabilityEditor availability={this.props.availability} onClose={this.onRequestClose}></AvailabilityEditor>
       </Modal>
       
       <button onClick={this.onDelete} className='icon-button'>

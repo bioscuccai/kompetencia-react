@@ -30,6 +30,7 @@ export default React.createClass({
         <DateTime value={this.props.availability.ends_at}></DateTime>
         <textarea defaultValue={this.props.availability.comment} ref='comment'></textarea>
         <input type='submit' value='Mentés'></input>
+        <button onClick={this.onClose}>Bezár</button>
       </form>
     </div>;
   },
