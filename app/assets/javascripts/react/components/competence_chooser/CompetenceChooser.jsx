@@ -4,8 +4,9 @@ import React from 'react';
 import _ from 'lodash';
 
 import competenceStore from '../../stores/competence_store';
-import CompetenceSearchField from './competence_search_field.js.jsx';
-import Competence from './competence.js.jsx';
+
+import CompetenceSearchField from './CompetenceSearchField.jsx';
+import Competence from './Competence.jsx';
 
 export default React.createClass({
   parseCompetences(){

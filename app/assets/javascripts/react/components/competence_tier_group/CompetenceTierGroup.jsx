@@ -2,10 +2,11 @@
 
 import React from 'react';
 import competenceTierActions from '../../actions/competence_tier_actions';
-import NewCompetenceTier from './new_competence_tier.js.jsx';
-import CompetenceTierEditor from './competence_tier_editor.js.jsx';
-import CompetenceTierGroupEditor from './competence_tier_group_editor.js.jsx';
-import CompetenceTierLabel from './competence_tier_label.js.jsx';
+
+import NewCompetenceTier from './NewCompetenceTier.jsx';
+import CompetenceTierEditor from './CompetenceTierEditor.jsx';
+import CompetenceTierGroupEditor from './CompetenceTierGroupEditor.jsx';
+import CompetenceTierLabel from './CompetenceTierLabel.jsx';
 
 import Modal from 'react-modal';
 import modalStyle from '../../styles/modal';

@@ -4,8 +4,8 @@ import React from 'react';
 import competenceTypeStore from '../../stores/competence_type_store';
 import competenceTierStore from '../../stores/competence_tier_store';
 
-import CompetenceType from './competence_type.js.jsx';
-import NewCompetenceType from './new_competence_type.js.jsx';
+import CompetenceType from './CompetenceType.jsx';
+import NewCompetenceType from './NewCompetenceType.jsx';
 import Modal from 'react-modal';
 
 export default React.createClass({

@@ -1,8 +1,8 @@
 "use strict";
 
 import React from 'react';
-import CompetenceAdministrationButtons from './competence_administration_buttons.js.jsx';
-import CompetenceTierButton from './competence_tier_button.js.jsx';
+import CompetenceAdministrationButtons from './CompetenceAdministrationButtons.jsx';
+import CompetenceTierButton from './CompetenceTierButton.jsx';
 
 export default React.createClass({
   render(){

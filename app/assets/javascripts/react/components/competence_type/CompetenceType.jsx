@@ -1,8 +1,8 @@
 "use strict";
 
 import React from 'react';
-import NewCompetence from './new_competence.js.jsx';
-import CompetenceMember from './competence_member.js.jsx';
+import NewCompetence from './NewCompetence.jsx';
+import CompetenceMember from './CompetenceMember.jsx';
 import _ from 'lodash';
 
 import Modal from 'react-modal';
