@@ -5,7 +5,8 @@ import React from 'react';
 import availabilityActions from '../../actions/availability_actions';
 import Modal from 'react-modal';
 import modalStyle from '../../styles/modal';
-import AvailabilityEditor from './availability_editor.jsx';
+
+import AvailabilityEditor from './AvailabilityEditor.jsx';
 
 export default React.createClass({
   getInitialState(){

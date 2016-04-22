@@ -3,8 +3,10 @@
 import React from 'react';
 import availabilityStore from '../../stores/availability_store';
 import availabilityActions from '../../actions/availability_actions';
-import Availability from './availability.jsx';
-import NewAvailability from './new_availability.jsx';
+
+import Availability from './Availability.jsx';
+import NewAvailability from './NewAvailability.jsx';
+
 import modalStyle from '../../styles/modal';
 import Modal from 'react-modal';
 

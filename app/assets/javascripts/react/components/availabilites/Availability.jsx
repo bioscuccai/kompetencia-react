@@ -2,8 +2,9 @@
 
 import React from 'react';
 import moment from 'moment';
+
 import DateLabel from '../date/DateLabel.jsx';
-import AvailabilityButtons from './availability_buttons.jsx';
+import AvailabilityButtons from './AvailabilityButtons.jsx';
 
 export default React.createClass({
   render(){

@@ -3,7 +3,7 @@
 import React from 'react';
 
 import DateLabel from '../date/DateLabel.jsx';
-import AvailabilityButtons from '../availabilites/availability_buttons.jsx';
+import AvailabilityButtons from '../availabilites/AvailabilityButtons.jsx';
 
 export default React.createClass({
   render(){
