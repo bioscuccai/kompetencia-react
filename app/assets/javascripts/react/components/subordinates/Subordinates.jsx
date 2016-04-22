@@ -2,8 +2,8 @@
 
 import React from 'react';
 import userStore from '../../stores/user_store';
-import NotSubordinateItem from './not_subordinate_item.js.jsx';
-import SubordinateItem from './subordinate_item.js.jsx';
+import NotSubordinateItem from './NotSubordinateItem.jsx';
+import SubordinateItem from './SubordinateItem.jsx';
 
 export default React.createClass({
   getInitialState(){

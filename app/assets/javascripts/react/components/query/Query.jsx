@@ -5,9 +5,9 @@ import _ from 'lodash';
 import queryStore from '../../stores/query_store';
 import DateTime from 'react-datetime';
 
-import CompetenceQueryResult from './competence_query_result.js.jsx';
-import QueryResult from './query_result.js.jsx';
-import MiniSelectedCompetences from './mini_selected_competences.js.jsx';
+import CompetenceQueryResult from './CompetenceQueryResult.jsx';
+import QueryResult from './QueryResult.jsx';
+import MiniSelectedCompetences from './MiniSelectedCompetences.jsx';
 
 export default React.createClass({
   getInitialState() {

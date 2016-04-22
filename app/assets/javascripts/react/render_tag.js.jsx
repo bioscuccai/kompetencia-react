@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Query from './components/query/query.js.jsx';
+import Query from './components/query/Query.jsx';
 import CompetenceChooser from './components/competence_chooser/competence_chooser.js.jsx';
 import CompetenceTierGroups from './components/competence_tier_group/competence_tier_groups.js.jsx';
 import CompetenceTypes from './components/competence_type/competence_types.js.jsx';
-import Subordinates from './components/subordinates/subordinates.js.jsx';
+import Subordinates from './components/subordinates/Subordinates.jsx';
 import Availabilities from './components/availabilites/availabilities.jsx';
 import PersonRequests from './components/person_requests/PersonRequests.jsx';
 

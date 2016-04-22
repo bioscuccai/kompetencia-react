@@ -1,7 +1,7 @@
 "use strict";
 
 import React from 'react';
-import MiniSelectedCompetence from './mini_selected_competence.js.jsx';
+import MiniSelectedCompetence from './MiniSelectedCompetence.jsx';
 
 export default React.createClass({
   render() {

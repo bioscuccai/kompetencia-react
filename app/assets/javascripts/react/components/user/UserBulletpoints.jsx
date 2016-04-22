@@ -1,7 +1,7 @@
 "use strict";
 
 import React from 'react';
-import CompetenceBreadcrumb from './competence_breadcrumb.jsx';
+import CompetenceBreadcrumb from './CompetenceBreadcrumb.jsx';
 import _ from 'lodash';
 
 export default React.createClass({
