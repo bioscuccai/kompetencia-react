@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import UserBulletPoints from '../user/user_bulletpoints.js.jsx';
+import UserBulletPoints from '../user/UserBulletpoints.jsx';
 import DateTime from 'react-datetime';
 
 import requestActions from '../../actions/request_actions';

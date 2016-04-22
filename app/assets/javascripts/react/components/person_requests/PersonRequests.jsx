@@ -7,14 +7,13 @@ import requestStore from '../../stores/request_store';
 import availabilityStore from '../../stores/availability_store';
 import availabilityActions from '../../actions/availability_actions';
 
-import RequestItem from './request_item.js.jsx';
-import RelevantItem from './relevant_item.js.jsx';
-import Collisions from './collisions.jsx';
-import GodfatherAvailabilityItem from './godfather_availability_item.jsx';
-
-import GodfatherResults from './godfather_results.jsx';
-import RequestedResults from './requested_results.jsx';
-import RelevantResults from './relevant_results.jsx';
+import RequestItem from './RequestItem.jsx';
+import RelevantItem from './RelevantItem.jsx';
+import Collisions from './Collisions.jsx';
+import GodfatherAvailabilityItem from './GodfatherAvailabilityItem.jsx';
+import GodfatherResults from './GodfatherResults.jsx';
+import RequestedResults from './RequestedResults.jsx';
+import RelevantResults from './RelevantResults.jsx';
 
 export default React.createClass({
   getInitialState(){

@@ -1,14 +1,14 @@
 "use strict";
 
 import React from 'react';
-import RequestDetail from './request_detail.js.jsx';
+import RequestDetail from './RequestDetail.jsx';
 
 import Modal from 'react-modal';
 import modalStyle from '../../styles/modal';
-import ConfirmedMarker from './confirmed_marker.js.jsx';
+import ConfirmedMarker from './ConfirmedMarker.jsx';
 
 import requestActions from '../../actions/request_actions';
-import DateLabel from '../date/date_label.jsx';
+import DateLabel from '../date/DateLabel.jsx';
 
 import _ from 'lodash';
 

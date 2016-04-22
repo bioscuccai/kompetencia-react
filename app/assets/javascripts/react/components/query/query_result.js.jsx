@@ -1,8 +1,8 @@
 "use strict";
 
 import React from 'react';
-import UserBulletPoints from '../user/user_bulletpoints.js.jsx';
-import NewPersonRequest from '../person_requests/new.js.jsx';
+import UserBulletPoints from '../user/UserBulletpoints.jsx';
+import NewPersonRequest from '../person_requests/New.jsx';
 
 import Modal from 'react-modal';
 import modalStyle from '../../styles/modal';

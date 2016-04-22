@@ -1,7 +1,7 @@
 "use strict";
 
 import React from 'react';
-import RequestItem from './request_item.js.jsx';
+import RequestItem from './RequestItem.jsx';
 
 export default React.createClass({
   render(){

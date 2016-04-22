@@ -4,12 +4,12 @@ import React from 'react';
 import Modal from 'react-modal';
 import modalStyle from '../../styles/modal';
 
-import RequestDetail from './request_detail.js.jsx';
+import RequestDetail from './RequestDetail.jsx';
 
-import ConfirmedMarker from './confirmed_marker.js.jsx';
+import ConfirmedMarker from './ConfirmedMarker.jsx';
 import _ from 'lodash';
-import DateLabel from '../date/date_label.jsx';
-import Collisions from './collisions.jsx';
+import DateLabel from '../date/DateLabel.jsx';
+import Collisions from './Collisions.jsx';
 
 import requestActions from '../../actions/request_actions';
 import requestStore from '../../stores/request_store';

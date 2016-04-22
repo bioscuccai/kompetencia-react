@@ -1,7 +1,7 @@
 "use strict";
 
 import React from 'react';
-import GodfatherAvailabilityItem from './godfather_availability_item.jsx';
+import GodfatherAvailabilityItem from './GodfatherAvailabilityItem.jsx';
 
 export default React.createClass({
   render(){
