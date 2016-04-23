@@ -1,3 +1,5 @@
+"use strict";
+
 import alt from '../alt/alt';
 import axios from 'axios';
 

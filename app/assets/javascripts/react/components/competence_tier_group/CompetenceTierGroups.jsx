@@ -1,6 +1,7 @@
 "use strict";
 
 import React from 'react';
+import alt from '../../alt/alt';
 import competenceTierStore from '../../stores/competence_tier_store';
 
 import CompetenceTierGroup from './CompetenceTierGroup.jsx';
@@ -22,6 +23,7 @@ export default React.createClass({
   },
   
   componentDidMount(){
+    alt.recycle(competenceTierStore);
     competenceTierStore.listen(this.handleStoreChange);
     competenceTierStore.fetchCompetenceTiers();
   },

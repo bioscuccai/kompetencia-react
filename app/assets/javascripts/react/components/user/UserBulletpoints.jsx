@@ -3,6 +3,7 @@
 import React from 'react';
 import CompetenceBreadcrumb from './CompetenceBreadcrumb.jsx';
 import _ from 'lodash';
+import {Link} from 'react-router';
 
 export default React.createClass({
   render(){
@@ -22,7 +23,7 @@ export default React.createClass({
     }
     return <span>
       <div className='user-name'>
-        <a href={`/users/${this.props.user.id}`}>{this.props.user.email}</a>
+        <Link to={`/users/${this.props.user.id}`}>{this.props.user.email}</Link>
       </div>
       <div>
         {available}

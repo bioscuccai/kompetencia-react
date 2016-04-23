@@ -1,11 +1,13 @@
 "use strict";
 
 import React from 'react';
+import alt from '../../alt/alt';
 import competenceTypeStore from '../../stores/competence_type_store';
 import competenceTierStore from '../../stores/competence_tier_store';
 
 import CompetenceType from './CompetenceType.jsx';
 import NewCompetenceType from './NewCompetenceType.jsx';
+
 import Modal from 'react-modal';
 
 export default React.createClass({
@@ -22,6 +24,7 @@ export default React.createClass({
   },
   
   componentDidMount(){
+    alt.recycle(competenceTierStore, competenceTypeStore);
     competenceTypeStore.listen(this.handleCompetenceTypeStoreChange);
     competenceTierStore.listen(this.handleCompetenceTierStoreChange);
     competenceTierStore.fetchCompetenceTiers();

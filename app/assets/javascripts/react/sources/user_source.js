@@ -35,5 +35,21 @@ export default {
     
     success: userActions.updateSubordinates,
     error: userActions.error
+  },
+  
+  fetchProfileUser: {
+    remote(state, userId){
+      return new Promise((resolve, reject) => {
+        axios.get(`/users/${userId}.json`, {
+          responseType: 'json'
+        })
+        .then(data=>{
+          return resolve(data.data);
+        });
+      });
+    },
+    
+    success: userActions.updateProfileUser,
+    error: userActions.error
   }
 };

@@ -8,6 +8,7 @@ import CompetenceTypes from './components/competence_type/CompetenceTypes.jsx';
 import Subordinates from './components/subordinates/Subordinates.jsx';
 import Availabilities from './components/availabilites/Availabilities.jsx';
 import PersonRequests from './components/person_requests/PersonRequests.jsx';
+import App from './components/app/App.jsx';
 
 export default function renderTag(tag, props, selector){
   //eval nem muxik
@@ -33,6 +34,9 @@ export default function renderTag(tag, props, selector){
       break;
     case 'PersonRequests':
       elem=PersonRequests;
+      break;
+    case 'App':
+      elem=App;
       break;
   }
   //TODO: a selector egy id

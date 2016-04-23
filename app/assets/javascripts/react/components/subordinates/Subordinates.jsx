@@ -1,9 +1,12 @@
 "use strict";
 
+import _ from 'lodash';
+
 import React from 'react';
 import userStore from '../../stores/user_store';
 import NotSubordinateItem from './NotSubordinateItem.jsx';
 import SubordinateItem from './SubordinateItem.jsx';
+import Loading from '../Loading.jsx';
 
 export default React.createClass({
   getInitialState(){
@@ -11,13 +14,15 @@ export default React.createClass({
       allUsers: [],
       subordinates: [],
       notSubordinates: [],
-      filteredNotSubordinates: []
+      filteredNotSubordinates: [],
+      profileUser: null
     };
   },
   
   componentDidMount() {
     userStore.listen(this.handleStoreChange);
     userStore.fetchAllUsers();
+    userStore.fetchProfileUser(this.props.params.profileUserId);
   },
   
   componentWillUnmount() {
@@ -25,12 +30,17 @@ export default React.createClass({
   },
   
   render(){
+    //ha nincs meg a lekert user profilja
+    if(!this.state.profileUser){
+      return <Loading></Loading>;
+    }
+    console.log(this.state);
     return <div>
       <h2>Família</h2>
       {this.state.subordinates.map(user=>{
         return <SubordinateItem
             key={`subordinate-${user.id}`}
-            profileUser={this.props.profileUser}
+            profileUser={this.state.profileUser}
             user={user}></SubordinateItem>;
       })}
       <h2>Új családtag</h2>
@@ -38,7 +48,7 @@ export default React.createClass({
       {this.state.notSubordinates.map(user=>{
         return <NotSubordinateItem
             key={`not-subordinate-${user.id}`}
-            profileUser={this.props.profileUser}
+            profileUser={this.state.profileUser}
             user={user}></NotSubordinateItem>;
       })
       }
@@ -46,14 +56,18 @@ export default React.createClass({
   },
   
   handleStoreChange(state){
+    console.log(this.props.params);
+    console.log(state);
+    let profileUser=state.profileUser;
     let allUsers=state.allUsers;
-    let subordinates=allUsers.filter(u=>u.godfather_id===this.props.profileUser.id);
-    let notSubordinates=allUsers.filter(u=>u.godfather_id!==this.props.profileUser.id);
+    let subordinates=allUsers.filter(u=>u.godfather_id===parseInt(this.props.params.profileUserId));
+    let notSubordinates=allUsers.filter(u=>u.godfather_id!==parseInt(this.props.params.profileUserId));
     let filteredNotSubordinates=notSubordinates;
     this.setState({
       allUsers,
       subordinates,
-      notSubordinates
+      notSubordinates,
+      profileUser
     });
   },
   

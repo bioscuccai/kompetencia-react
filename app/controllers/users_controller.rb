@@ -116,10 +116,20 @@ class UsersController < ApplicationController
     @tier_group_names=@tier_groups.keys
     pp @tier_groups
     pp @tier_group_names
+    respond_to do |fmt|
+      fmt.html{}
+      fmt.json do
+        render json: format_user(@user)
+      end
+    end
   end
   
   def home
     
+  end
+  
+  def landing
+    render 'landing', layout: 'app'
   end
   
   def add_admin

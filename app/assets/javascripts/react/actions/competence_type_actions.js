@@ -1,9 +1,11 @@
+"use strict";
+
 import alt from '../alt/alt';
 import axios from 'axios';
 
 class CompetenceTypeActions{
   constructor(){
-    this.generateActions("error", "updateCompetenceTypes");
+    this.generateActions("error", "updateCompetenceTypes", "selectType", "selectCompetence");
   }
   
   createCompetenceType(title, competenceTierGroupId){
@@ -35,6 +37,56 @@ class CompetenceTypeActions{
           title,
           competenceTypeId
         });
+      });
+    };
+  }
+  
+  updateCompetence(id, title){
+    return dispatch=>{
+      axios.put(`/competences/${id}.json`, {
+        competence: {
+          title
+        }
+      })
+      .then(data=>{
+        return dispatch({
+          id,
+          title
+        });
+      });
+    };
+  }
+  
+  updateCompetenceType(id, title){
+    return dispatch=>{
+      axios.put(`/competence_types/${id}.json`, {
+        competence_type: {
+          title
+        }
+      })
+      .then(data=>{
+        return dispatch({
+          id,
+          title
+        });
+      });
+    };
+  }
+  
+  deleteCompetenceType(id){
+    return dispatch=>{
+      axios.delete(`/competence_types/${id}.json`)
+      .then(data=>{
+        return dispatch(id);
+      });
+    };
+  }
+  
+  deleteCompetence(id){
+    return dispatch=>{
+      axios.delete(`/competences/${id}.json`)
+      .then(data=>{
+        return dispatch(id);
       });
     };
   }

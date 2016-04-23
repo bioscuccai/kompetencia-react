@@ -7,7 +7,10 @@ module UserFormatter
       email: u.email,
       available: u.available?,
       godfather_id: u.godfather_id,
+      is_godfather: u.has_role?(:godfather),
+      is_admin: u.admin
     }
+    
     if !wo.include? :godfather
       user.merge!({
           godfather: (u.godfather.nil? ? nil : ({

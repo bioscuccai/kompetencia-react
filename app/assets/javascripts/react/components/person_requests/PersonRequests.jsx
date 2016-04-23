@@ -3,6 +3,7 @@
 import React from 'react';
 import ReactTabs from 'react-tabs';
 
+import alt from '../../alt/alt';
 import requestStore from '../../stores/request_store';
 import availabilityStore from '../../stores/availability_store';
 import availabilityActions from '../../actions/availability_actions';
@@ -26,6 +27,7 @@ export default React.createClass({
   },
   
   componentDidMount(){
+    alt.recycle(requestStore, availabilityStore);
     requestStore.listen(this.handleRequestStoreChange);
     availabilityStore.listen(this.handleAvailabilityStoreChange);
     availabilityActions.setGodfatherId(this.props.user.id);

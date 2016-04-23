@@ -2,6 +2,9 @@
 
 import React from 'react';
 import _ from 'lodash';
+
+import alt from '../../alt/alt';
+
 import queryStore from '../../stores/query_store';
 import DateTime from 'react-datetime';
 
@@ -10,6 +13,9 @@ import QueryResult from './QueryResult.jsx';
 import MiniSelectedCompetences from './MiniSelectedCompetences.jsx';
 
 export default React.createClass({
+  contextTypes: {
+    currentUser: React.PropTypes.object
+  },
   getInitialState() {
     return {
       competences: [], //osszes kompetencia
@@ -22,6 +28,7 @@ export default React.createClass({
   },
   
   componentDidMount(){
+    alt.recycle(queryStore);
     queryStore.listen(this.handleStoreChange);
     queryStore.fetchAllCompetences(); //a QueryStore is figyel erre, oda jut
   },

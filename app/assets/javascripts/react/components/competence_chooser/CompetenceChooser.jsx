@@ -2,6 +2,7 @@
 
 import React from 'react';
 import _ from 'lodash';
+import alt from '../../alt/alt';
 
 import competenceStore from '../../stores/competence_store';
 
@@ -35,6 +36,7 @@ export default React.createClass({
   },
   
   componentDidMount(){
+    alt.recycle(competenceStore);
     competenceStore.listen(this.handleCompetenceStoreChange);
     competenceStore.fetchAllCompetences();
     competenceStore.fetchCompetences(this.props.user.id);

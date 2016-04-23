@@ -3,6 +3,8 @@
 import React from 'react';
 import UserBulletPoints from '../user/UserBulletpoints.jsx';
 import userActions from '../../actions/user_actions';
+import {Link} from 'react-router';
+
 
 export default React.createClass({
   render(){
@@ -11,10 +13,13 @@ export default React.createClass({
         <UserBulletPoints user={this.props.user}></UserBulletPoints>
       </div>
       <div className="column column-20">
-        <button onClick={this.onRemoveSubordinate}>-</button>
-        <a href={`/users/${this.props.user.id}/availabilities`} className='button icon-button'>
+        <button onClick={this.onRemoveSubordinate} className='icon-button'>
+          <i className='icon ion-trash-a'></i>
+        </button>
+        
+        <Link to={`/availabilities/${this.props.user.id}`} className='button icon-button'>
           <i className='icon ion-clock'></i>
-        </a>
+        </Link>
       </div>
     </div>;
   },

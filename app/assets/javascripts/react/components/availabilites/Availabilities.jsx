@@ -1,11 +1,14 @@
 "use strict";
 
 import React from 'react';
+import alt from '../../alt/alt';
 import availabilityStore from '../../stores/availability_store';
 import availabilityActions from '../../actions/availability_actions';
+import userStore from '../../stores/user_store';
 
 import Availability from './Availability.jsx';
 import NewAvailability from './NewAvailability.jsx';
+import Loading from '../Loading.jsx';
 
 import modalStyle from '../../styles/modal';
 import Modal from 'react-modal';
@@ -14,7 +17,8 @@ export default React.createClass({
   getInitialState(){
     return {
       availabilities: [],
-      newModal: false
+      newModal: false,
+      profileUser: null
     };
   },
   
@@ -23,13 +27,17 @@ export default React.createClass({
   },
   
   componentDidMount(){
-    availabilityStore.listen(this.handleStoreChange);
-    availabilityActions.setUserId(this.props.user.id);
-    availabilityStore.fetchAvailabilities(this.props.user.id);
+    alt.recycle(availabilityStore);
+    availabilityStore.listen(this.handleAvailabilityStoreChange);
+    availabilityActions.setUserId(parseInt(this.props.params.profileUserId));
+    availabilityStore.fetchAvailabilities(parseInt(this.props.params.profileUserId));
+    userStore.listen(this.handleUserStoreChange);
+    userStore.fetchProfileUser(parseInt(this.props.params.profileUserId));
   },
   
   componentWillUnmount(){
-    availabilityStore.unlisten(this.handleStoreChange);
+    availabilityStore.unlisten(this.handleAvailabilityStoreChange);
+    userStore.unlisten(this.handleUserStoreChange);
   },
   
   onNewModal(){
@@ -40,6 +48,9 @@ export default React.createClass({
   },
   
   render(){
+    if(!this.state.profileUser){
+      return <Loading></Loading>;
+    }
     return <div>
       <h1>Elérhetőségek</h1>
       <table>
@@ -68,7 +79,7 @@ export default React.createClass({
         <NewAvailability
           closeModal={this.onRequestClose}
           ref='newAvailability'
-          user={this.props.user}></NewAvailability>
+          user={this.state.profileUser}></NewAvailability>
         <button onClick={this.onRequestClose}>Bezár</button>
       </Modal>
       
@@ -81,10 +92,15 @@ export default React.createClass({
     });
   },
   
-  handleStoreChange(state){
-    console.log("store change");
+  handleAvailabilityStoreChange(state){
     this.setState({
       availabilities: state.availabilities
+    });
+  },
+  
+  handleUserStoreChange(state){
+    this.setState({
+      profileUser: state.profileUser
     });
   }
 });

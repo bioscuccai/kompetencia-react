@@ -7,6 +7,7 @@ import userSource from '../sources/user_source';
 class UserStore{
   constructor(){
     this.allUsers=[];
+    this.profileUser=null;
     this.subordinates=[];
     this.bindActions(userActions);
     this.bindListeners({
@@ -25,6 +26,10 @@ class UserStore{
   
   updateAllUsers(allUsers){
     this.allUsers=allUsers;
+  }
+  
+  updateProfileUser(profileUser){
+    this.profileUser=profileUser;
   }
   
   error(err){
