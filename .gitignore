@@ -18,3 +18,7 @@
 /vendor/assets/components
 /app/assets/javascripts/react_old
 /node_modules/
+
+.env
+/public/bundle.*
+/public/assets/*
