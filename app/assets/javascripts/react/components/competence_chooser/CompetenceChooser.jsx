@@ -13,11 +13,10 @@ import Competence from './Competence.jsx';
 import Loading from '../Loading.jsx';
 
 export default React.createClass({
-  parseCompetences(){
-    let storeState=competenceStore.getState();
-    return storeState.allCompetences.map(competence=>{
-      let pending=_.find(storeState.pendingCompetences, ['id', competence.id]);
-      let assigned=_.find(storeState.competences, ['id', competence.id]);
+  parseCompetences(state){
+    return state.allCompetences.map(competence=>{
+      let pending=_.find(state.pendingCompetences, ['id', competence.id]);
+      let assigned=_.find(state.competences, ['id', competence.id]);
       return _.assign({}, competence, {
         isPending: !_.isUndefined(pending),
         isAssigned: !_.isUndefined(assigned),
@@ -25,10 +24,6 @@ export default React.createClass({
         pendingLevel: _.get(pending, 'level')
       });
     });
-  },
-  
-  filterCompetences(){
-    
   },
   
   getInitialState(){
@@ -55,9 +50,9 @@ export default React.createClass({
   },
   
   handleCompetenceStoreChange(state){
-    console.log("store changed");
     this.setState({
-      parsedCompetences: this.parseCompetences()
+      parsedCompetences: this.parseCompetences(state),
+      filteredCompetences: this.parseCompetences(state)
     });
   },
   
@@ -72,12 +67,14 @@ export default React.createClass({
       return <Loading></Loading>;
     }
     
-    let competenceGroups=_.groupBy(this.state.parsedCompetences, 'type');
+    let competenceGroups=_.groupBy(this.state.filteredCompetences, 'type');
     return <div>
       <h1>
         Kompetenciák
       </h1>
-      <CompetenceSearchField searchChanged={this.onSearchChanged}></CompetenceSearchField>
+      <div>
+        <input type="text" placeholder="Szűrés" ref='filter' onChange={this.onSearchChanged}/>
+      </div>
       <div>
         {
           _.keys(competenceGroups).map(groupName=>{
@@ -109,6 +106,8 @@ export default React.createClass({
   },
   
   onSearchChanged(searchQuery){
-    this.filterCompetences();
+    this.setState({
+      filteredCompetences: this.state.parsedCompetences.filter(c=>c.title.contains(this.refs.filter.value) || c.type.contains(this.refs.filter.value))
+    });
   }
 });

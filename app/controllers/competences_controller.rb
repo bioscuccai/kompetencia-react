@@ -1,4 +1,6 @@
 class CompetencesController < ApplicationController
+  load_and_authorize_resource
+  
   before_action :set_competence, only: [:show, :edit, :update, :destroy]
   skip_before_filter :verify_authenticity_token
 

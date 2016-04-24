@@ -2,6 +2,8 @@
 
 import React from 'react';
 
+import DateLabel from '../date/DateLabel.jsx';
+
 import requestActions from '../../actions/request_actions';
 
 export default React.createClass({
@@ -13,19 +15,19 @@ export default React.createClass({
         <ul>
           {this.props.collisions.map(coll=>{
             return <li key={`coll-${coll.id}`}>
-              {coll.starts_at} / {coll.ends_at}
+              <DateLabel date={coll.starts_at}></DateLabel> &mdash; <DateLabel date={coll.ends_at}></DateLabel>
             </li>;
           })}
         </ul>
       </div>
       <div>
-        <button onClick={this.onAccept}>
+        <button onClick={this.onAccept} className='accept-background'>
           <i className='icon ion-checkmark'></i> Elfogadás + hírdetések kikapcsolása
         </button>
-        <button onClick={this.onAcceptNoCollision}>
+        <button onClick={this.onAcceptNoCollision} className='accept-background'>
           <i className='icon ion-checkmark'></i> Elfogadás + hírdetések kinthagyása
         </button>
-        <button onClick={this.onReject}>
+        <button onClick={this.onReject} className='reject-background'>
           <i className=''></i>Elutasít
         </button>
         <button onClick={this.onClose}>

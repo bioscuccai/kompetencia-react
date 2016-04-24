@@ -40,4 +40,8 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
   
   config.lograge.enabled=true
+  
+  Bullet.enable=true
+  Bullet.rails_logger=true
+  Bullet.n_plus_one_query_enable     = true
 end

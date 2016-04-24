@@ -48,4 +48,4 @@ class CompetenceStore{
   }
 }
 
-export default alt.createStore(CompetenceStore);
+export default alt.createStore(CompetenceStore, "competenceStore");

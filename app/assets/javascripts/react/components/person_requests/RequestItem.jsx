@@ -2,6 +2,7 @@
 
 import React from 'react';
 import RequestDetail from './RequestDetail.jsx';
+import {Link} from 'react-router';
 
 import Modal from 'react-modal';
 import modalStyle from '../../styles/modal';
@@ -38,7 +39,9 @@ export default React.createClass({
   render(){
     return <tr>
       <td>
-        {this.props.request.target.email}
+        <Link to={`/users/${this.props.request.target.id}`}>
+          {this.props.request.target.email}
+        </Link>
         <div><small>({_.get(this.props.request, "target.godfather.email")})</small></div>
       </td>
       <td>
@@ -48,9 +51,7 @@ export default React.createClass({
         </small>
       </td>
       <td>
-        <DateLabel date={this.props.request.starts_at}></DateLabel>
-        &mdash;
-        <DateLabel date={this.props.request.ends_at}></DateLabel>
+        <DateLabel date={this.props.request.starts_at}></DateLabel> &mdash; <DateLabel date={this.props.request.ends_at}></DateLabel>
       </td>
       <td><ConfirmedMarker request={this.props.request}></ConfirmedMarker></td>
       <td>

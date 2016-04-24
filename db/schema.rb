@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160417051329) do
+ActiveRecord::Schema.define(version: 20160422144450) do
 
   create_table "assigned_competence_levels", force: :cascade do |t|
     t.integer  "competence_id"
@@ -107,6 +107,8 @@ ActiveRecord::Schema.define(version: 20160417051329) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.integer  "godfather_id"
+    t.string   "first_name",             default: "", null: false
+    t.string   "last_name",              default: "", null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

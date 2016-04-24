@@ -24,10 +24,7 @@ export default React.createClass({
     return <span>
       <div className='user-name'>
         <Link to={`/users/${this.props.user.id}`}>
-          <div>{this.props.user.name}</div>
-          <div>
-            {this.props.user.email}
-          </div>
+          <div>{this.props.user.name} <small>({this.props.user.email})</small></div>
         </Link>
       </div>
       <div>

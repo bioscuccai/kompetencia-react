@@ -1,4 +1,6 @@
 class PersonRequestsController < ApplicationController
+  load_and_authorize_resource
+  
   before_action :set_person_request, only: [:show, :edit, :update, :destroy,
     :accept, :accept_no_collision, :reject]
   before_action :set_user, only: [:index, :show, :edit, :update, :destroy, :create, :new,

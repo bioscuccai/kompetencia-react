@@ -28,10 +28,16 @@ export default React.createClass({
     });
   },
   
+  onFilterChange(){
+    this.setState({
+      filteredUsers: this.filterNames(this.state.allUsers)
+    });
+  },
+  
   render(){
     return <div>
       <h1>Felhasználók</h1>
-      <input type='text' ref='filter' placeholder='Szűrő'></input>
+      <input type='text' ref='filter' placeholder='Szűrő' onChange={this.onFilterChange}></input>
       <table>
         <thead>
           <tr>
@@ -44,7 +50,7 @@ export default React.createClass({
           </tr>
         </thead>
         <tbody>
-          {this.state.allUsers.map(user=>{
+          {this.state.filteredUsers.map(user=>{
             return <UserItem user={user} key={`user-${user.id}`}></UserItem>;
           })}
         </tbody>
@@ -53,7 +59,6 @@ export default React.createClass({
   },
   
   filterNames(users){
-    return users;
+    return users.filter(u=>u.name.contains(this.refs.filter.value));
   }
 });
-

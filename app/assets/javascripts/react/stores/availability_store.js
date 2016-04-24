@@ -57,4 +57,4 @@ class AvailabilityStore{
   }
 }
 
-export default alt.createStore(AvailabilityStore);
+export default alt.createStore(AvailabilityStore, "availabilityStore");

@@ -1,5 +1,7 @@
 class AvailabilitiesController < ApplicationController
-  before_action :set_availability, only: [:show, :edit, :update, :destroy, :turn_on, :turn_off]
+  load_and_authorize_resource
+  
+  before_action :set_availability, only: [:show, :edit, :update, :destroy, :turn_on, :turn_off, :recent]
   before_action :set_user
   skip_before_filter :verify_authenticity_token
   
@@ -8,6 +10,10 @@ class AvailabilitiesController < ApplicationController
   def godfather_availabilities
     @availabilities=Availability.includes(user: [:godfather]).for_godfather params[:user_id]
     render json: @availabilities.map{|a| format_availability a}
+  end
+  
+  def recent
+    
   end
   
   def turn_on

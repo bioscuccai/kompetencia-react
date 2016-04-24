@@ -36,4 +36,4 @@ class QueryStore{
   }
 }
 
-export default alt.createStore(QueryStore);
+export default alt.createStore(QueryStore, "queryStore");

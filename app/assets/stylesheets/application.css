@@ -64,7 +64,7 @@
 }
 
 .godfather-icon{
-  max-height: 30px;
+  max-height: 20px;
   padding: 2px;
 }
 
@@ -110,4 +110,17 @@ strong{
   color: rgb(124, 124, 124);
   font-style: italic;
   font-size: 75%;
+}
+
+.accept-background{
+  background-color: rgb(11, 251, 6)!important;
+}
+
+.reject-background{
+  background-color: rgb(231, 18, 45)!important;
+}
+
+
+dd, dt, li{
+  margin-bottom: auto!important;
 }

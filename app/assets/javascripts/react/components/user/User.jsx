@@ -7,6 +7,7 @@ import Loading from '../Loading.jsx';
 import alt from '../../alt/alt';
 import _ from 'lodash';
 import UserBulletpoints from './UserBulletpoints.jsx';
+import classnames from 'classnames';
 
 export default React.createClass({
   contextTypes: {
@@ -22,10 +23,12 @@ export default React.createClass({
   },
   
   componentDidMount(){
+    alt.recycle(userStore);
     userStore.listen(this.handleUserStoreChange);
     userStore.fetchAllUsers(); //TODO: ideiglenesen a felhasznalo dolgozoi listazasahoz
     userStore.fetchProfileUser(parseInt(this.props.params.profileUserId));
   },
+  
   componentWillUnmount(){
     userStore.unlisten(this.handleUserStoreChange);
   },
@@ -37,7 +40,7 @@ export default React.createClass({
     
     let availabilityMarker;
     if(this.state.profileUser.available){
-      availabilityMarker=<h3>A felhasználó ELÉRHETŐ</h3>;
+      availabilityMarker=<h3 className='available-label'>A felhasználó ELÉRHETŐ</h3>;
     } else {
       availabilityMarker=<h3>A felhasználó foglalt</h3>;
     }

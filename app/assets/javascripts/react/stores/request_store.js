@@ -53,4 +53,4 @@ class RequestStore{
   }
 }
 
-export default alt.createStore(RequestStore);
+export default alt.createStore(RequestStore, "requestStore");

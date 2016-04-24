@@ -3,15 +3,14 @@
 import React from 'react';
 import competenceActions from '../../actions/competence_actions';
 
+import classnames from 'classnames';
+
 export default React.createClass({
   render(){
-    let buttonClass='';
-    if(this.props.competence.level==this.props.tier.level){
-      buttonClass='selected-tier';
-    }
-    if(this.props.competence.pendingLevel==this.props.tier.level){
-      buttonClass='pending-tier';
-    }
+    let buttonClass=classnames({
+      'selected-tier': (this.props.competence.level==this.props.tier.level),
+      'pending-tier': (this.props.competence.pendingLevel==this.props.tier.level)
+    });
     
     return <a href='#' className={`button ${buttonClass} button-competence-selector`}
       onClick={this.setLevel}>

@@ -3,6 +3,7 @@
 import React from 'react';
 import Modal from 'react-modal';
 import modalStyle from '../../styles/modal';
+import {Link} from 'react-router';
 
 import RequestDetail from './RequestDetail.jsx';
 
@@ -58,8 +59,16 @@ export default React.createClass({
   
   render(){
     return <tr>
-      <td>{this.props.request.target.email}</td>
-      <td>{this.props.request.user.email}</td>
+      <td>
+        <Link to={`/users/${this.props.request.target.id}`}>
+          {this.props.request.target.email}
+        </Link>
+      </td>
+      <td>
+        <Link to={`/users/${this.props.request.user.id}`}>
+          {this.props.request.user.email}
+        </Link>
+      </td>
       <td>
         <h5>{this.props.request.title}</h5>
         <small>
