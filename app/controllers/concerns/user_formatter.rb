@@ -8,7 +8,8 @@ module UserFormatter
       available: u.available?,
       godfather_id: u.godfather_id,
       is_godfather: u.has_role?(:godfather),
-      is_admin: u.admin
+      is_admin: u.has_role?(:admin),
+      name: u.name
     }
     
     if !wo.include? :godfather

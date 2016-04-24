@@ -5,9 +5,12 @@ import _ from 'lodash';
 import alt from '../../alt/alt';
 
 import competenceStore from '../../stores/competence_store';
+import userStore from '../../stores/user_store';
 
 import CompetenceSearchField from './CompetenceSearchField.jsx';
 import Competence from './Competence.jsx';
+
+import Loading from '../Loading.jsx';
 
 export default React.createClass({
   parseCompetences(){
@@ -31,30 +34,44 @@ export default React.createClass({
   getInitialState(){
     return {
       parsedCompetences: [], //az osszes kompetencia, jelolve, hogy milyen allapotban all
-      filteredCompetences: [] //a kereso altal szurve -> ezt hasznaljuk
+      filteredCompetences: [], //a kereso altal szurve -> ezt hasznaljuk
+      profileUser: null
     };
   },
   
   componentDidMount(){
-    alt.recycle(competenceStore);
+    alt.recycle(competenceStore, userStore);
+    userStore.listen(this.handleUserStoreChange);
+    userStore.fetchProfileUser(parseInt(this.props.params.profileUserId));
     competenceStore.listen(this.handleCompetenceStoreChange);
     competenceStore.fetchAllCompetences();
-    competenceStore.fetchCompetences(this.props.user.id);
-    competenceStore.fetchPendingCompetences(this.props.user.id);
+    competenceStore.fetchCompetences(parseInt(this.props.params.profileUserId));
+    competenceStore.fetchPendingCompetences(parseInt(this.props.params.profileUserId));
   },
   
   componentWillUnmount(){
     competenceStore.unlisten(this.handleCompetenceStoreChange);
+    userStore.unlisten(this.handleUserStoreChange);
   },
   
-  handleCompetenceStoreChange(){
+  handleCompetenceStoreChange(state){
     console.log("store changed");
     this.setState({
       parsedCompetences: this.parseCompetences()
     });
   },
+  
+  handleUserStoreChange(state){
+    this.setState({
+      profileUser: state.profileUser
+    });
+  },
 
   render(){
+    if(!this.state.profileUser){
+      return <Loading></Loading>;
+    }
+    
     let competenceGroups=_.groupBy(this.state.parsedCompetences, 'type');
     return <div>
       <h1>
@@ -68,14 +85,16 @@ export default React.createClass({
               <h4>{groupName}</h4>
               <table>
                 <thead>
-                  <th>Kompetencia</th>
-                  <th>Szint</th>
-                  <th>Műveletek</th>
+                  <tr>
+                    <th>Kompetencia</th>
+                    <th>Szint</th>
+                    <th>Műveletek</th>
+                  </tr>
                 </thead>
                 <tbody>
                   {competenceGroups[groupName].map(competence=>{
                     return <Competence competence={competence}
-                      user={this.props.user}
+                      user={this.state.profileUser}
                       directlyEdit={this.props.directlyEdit}
                       key={competence.id}></Competence>;
                   })}

@@ -17,7 +17,7 @@ export default React.createClass({
     
     return <tr className={`${highlighClass}`}>
         <td>
-          {this.props.competence.title} {this.props.competence.id} {this.props.competence.isAssigned} {this.props.isPending}
+          {this.props.competence.title}
         </td>
         <td>
           {this.props.competence.tiers.map(tier=>{

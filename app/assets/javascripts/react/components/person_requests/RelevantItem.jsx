@@ -75,10 +75,10 @@ export default React.createClass({
         <ConfirmedMarker request={this.props.request}></ConfirmedMarker>
       </td>
       <td>
-        <button onClick={this.onDetailModal} className='icon-button'>
+        <button onClick={this.onDetailModal} className='icon-button' title='Megtekint'>
           <i className='icon ion-eye'></i>
         </button>
-        <button onClick={this.onCollision} className='icon-button'>
+        <button onClick={this.onCollision} className='icon-button' title='Elfogad / Visszautasít'>
           <i className='icon ion-checkmark'></i>
         </button>
         <Modal

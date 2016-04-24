@@ -22,11 +22,11 @@ export default React.createClass({
       </div>
       
       <div className='column column-20'>
-        <button className='icon-button' onClick={this.onSave}>
+        <button className='icon-button' onClick={this.onSave} title='Mentés'>
           <i className='icon ion-checkmark'></i>
         </button>
         
-        <button className='icon-button' onClick={this.onDelete}>
+        <button className='icon-button' onClick={this.onDelete} title='Törlés'>
           <i className='icon ion-trash-a'></i>
         </button>
       </div>

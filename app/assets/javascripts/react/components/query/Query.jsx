@@ -12,6 +12,8 @@ import CompetenceQueryResult from './CompetenceQueryResult.jsx';
 import QueryResult from './QueryResult.jsx';
 import MiniSelectedCompetences from './MiniSelectedCompetences.jsx';
 
+import {Tabs, Tab, TabList, TabPanel} from 'react-tabs';
+
 export default React.createClass({
   contextTypes: {
     currentUser: React.PropTypes.object
@@ -23,7 +25,8 @@ export default React.createClass({
       selectedCompetences: [], //kivalasztott kompetenciak
       results: [],
       startsAt: null,
-      endsAt: null
+      endsAt: null,
+      selectedTabIndex: 0
     };
   },
   
@@ -45,63 +48,68 @@ export default React.createClass({
     let filteredCompetenceTypes=_.keys(filteredCompetenceGroups);
     return <div>
       <h1>Keresés</h1>
-      <div>
-        <h4>Dátum</h4>
-        <div className='row'>
-          <div className='column column-20'>
-            Kezdés:
+
+          <div>
+            <h4>Dátum</h4>
+            <div className='row'>
+              <div className='column column-20'>
+                Kezdés:
+              </div>
+              <div className='column column-80'>
+                <DateTime timeFormat={false} onChange={this.onStartChange} closeOnSelect={true}></DateTime>
+              </div>
+            </div>
+            <div className='row'>
+              <div className='column column-20'>
+                Befejezés:
+              </div>
+              <div className='column column-80'>
+                <DateTime timeFormat={false} onChange={this.onEndChange} closeOnSelect={true}></DateTime>
+              </div>
+            </div>
           </div>
-          <div className='column column-80'>
-            <DateTime timeFormat={false} onChange={this.onStartChange} closeOnSelect={true}></DateTime>
+          <div>
+            <h4>Kompetencia</h4>
+            <input type='text' placeholder='Kompetencia szűrő' onChange={this.onFilterChange} ref='filter'></input>
+            <MiniSelectedCompetences competences={this.state.selectedCompetences}></MiniSelectedCompetences>
+            {
+              filteredCompetenceTypes.map(type=>{
+                return <div key={`query-competence-type-${type}`}>
+                  <h5>{type}</h5>
+                  {
+                    filteredCompetenceGroups[type].map(competence=>{
+                      return <CompetenceQueryResult
+                        competence={competence}
+                        key={`competence-query-${competence.id}`}
+                        handleCompetenceSelection={this.handleCompetenceSelection}></CompetenceQueryResult>;
+                    })
+                  }
+                </div>;
+              })
+            }
+            
           </div>
-        </div>
-        <div className='row'>
-          <div className='column column-20'>
-            Befejezés:
+          <div>
+            <button onClick={this.onQuery}>Keresés</button>
           </div>
-          <div className='column column-80'>
-            <DateTime timeFormat={false} onChange={this.onEndChange} closeOnSelect={true}></DateTime>
+
+          <div>
+            <h4>Találatok</h4>
+            {resultHitGroups.map(rhg=>{
+              return <div key={`hits-${rhg}`}>
+                <h5>{rhg} Találat</h5>
+                  {resultGroups[rhg].map(result=>{
+                    return <QueryResult
+                      currentUser={this.props.currentUser}
+                      result={result} 
+                      key={`result-${result.id}`}></QueryResult>;
+                  })}
+              </div>;
+            })}
           </div>
-        </div>
-      </div>
-      <div>
-        <h4>Kompetencia</h4>
-        <input type='text' placeholder='Kompetencia szűrő' onChange={this.onFilterChange} ref='filter'></input>
-        <MiniSelectedCompetences competences={this.state.selectedCompetences}></MiniSelectedCompetences>
-        {
-          filteredCompetenceTypes.map(type=>{
-            return <div key={`query-competence-type-${type}`}>
-              <h5>{type}</h5>
-              {
-                filteredCompetenceGroups[type].map(competence=>{
-                  return <CompetenceQueryResult
-                    competence={competence}
-                    key={`competence-query-${competence.id}`}
-                    handleCompetenceSelection={this.handleCompetenceSelection}></CompetenceQueryResult>;
-                })
-              }
-            </div>;
-          })
-        }
-        
-      </div>
-      <div>
-        <button onClick={this.onQuery}>Keresés</button>
-      </div>
-      <div>
-        <h4>Találatok</h4>
-        {resultHitGroups.map(rhg=>{
-          return <div key={`hits-${rhg}`}>
-            <h5>{rhg} Találat</h5>
-              {resultGroups[rhg].map(result=>{
-                return <QueryResult
-                  currentUser={this.props.currentUser}
-                  result={result} 
-                  key={`result-${result.id}`}></QueryResult>;
-              })}
-          </div>;
-        })}
-      </div>
+
+      
+      
     </div>;
   },
   
@@ -146,5 +154,17 @@ export default React.createClass({
     });
     queryStore.fetchQuery(requested, this.state.startsAt, this.state.endsAt);
     console.log(requested);
+    
+    this.setState({
+      selectedTabIndex: 1
+    });
+  },
+  
+  onTabSelect(index){
+    if(index!==this.state.selectedTabIndex){
+      this.setState({
+        selectedTabIndex: index
+      });
+    }
   }
 });

@@ -7,7 +7,8 @@ import UserItem from './UserItem.jsx';
 export default React.createClass({
   getInitialState(){
     return {
-      allUsers: []
+      allUsers: [],
+      filteredUsers: []
     };
   },
   
@@ -22,13 +23,15 @@ export default React.createClass({
   
   handleUserStoreChange(state){
     this.setState({
-      allUsers: state.allUsers
+      allUsers: state.allUsers,
+      filteredUsers: this.filterNames(state.allUsers)
     });
   },
   
   render(){
     return <div>
       <h1>Felhasználók</h1>
+      <input type='text' ref='filter' placeholder='Szűrő'></input>
       <table>
         <thead>
           <tr>
@@ -47,6 +50,10 @@ export default React.createClass({
         </tbody>
       </table>
     </div>;
+  },
+  
+  filterNames(users){
+    return users;
   }
 });
 

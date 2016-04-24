@@ -79,4 +79,8 @@ class User < ActiveRecord::Base
     closed_interval=self.availabilities.active_availabilities.where("starts_at<? AND ends_at>?", Time.now, Time.now).count!=0
     open_interval || closed_interval
   end
+  
+  def name
+    "#{self.last_name} #{self.first_name}"
+  end
 end

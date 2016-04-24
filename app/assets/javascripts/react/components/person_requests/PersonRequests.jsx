@@ -1,12 +1,12 @@
 "use strict";
 
 import React from 'react';
-import ReactTabs from 'react-tabs';
 
 import alt from '../../alt/alt';
 import requestStore from '../../stores/request_store';
 import availabilityStore from '../../stores/availability_store';
 import availabilityActions from '../../actions/availability_actions';
+import userStore from '../../stores/user_store';
 
 import RequestItem from './RequestItem.jsx';
 import RelevantItem from './RelevantItem.jsx';
@@ -15,6 +15,9 @@ import GodfatherAvailabilityItem from './GodfatherAvailabilityItem.jsx';
 import GodfatherResults from './GodfatherResults.jsx';
 import RequestedResults from './RequestedResults.jsx';
 import RelevantResults from './RelevantResults.jsx';
+import Loading from '../Loading.jsx';
+
+import {Tabs, Tab, TabList, TabPanel} from 'react-tabs';
 
 export default React.createClass({
   getInitialState(){
@@ -22,66 +25,72 @@ export default React.createClass({
       requested: [],
       relevant: [],
       godfatherAvailabilities: [],
-      collisions: []
+      collisions: [],
+      profileUser: null
     };
   },
   
   componentDidMount(){
-    alt.recycle(requestStore, availabilityStore);
+    alt.recycle(requestStore, availabilityStore, userStore);
+    userStore.listen(this.handleUserStoreChange);
+    userStore.fetchProfileUser(parseInt(this.props.params.profileUserId));
     requestStore.listen(this.handleRequestStoreChange);
     availabilityStore.listen(this.handleAvailabilityStoreChange);
-    availabilityActions.setGodfatherId(this.props.user.id);
-    requestStore.fetchRequested(this.props.user.id);
-    requestStore.fetchRelevant(this.props.user.id);
-    availabilityStore.fetchGodfatherAvailabilities(this.props.user.id);
+    availabilityActions.setGodfatherId(parseInt(this.props.params.profileUserId));
+    requestStore.fetchRequested(parseInt(this.props.params.profileUserId));
+    requestStore.fetchRelevant(parseInt(this.props.params.profileUserId));
+    availabilityStore.fetchGodfatherAvailabilities(parseInt(this.props.params.profileUserId));
   },
   
   componentWillUnmount(){
     requestStore.unlisten(this.handleRequestStoreChange);
     availabilityStore.unlisten(this.handleAvailabilityStoreChange);
+    userStore.unlisten(this.handleUserStoreChange);
   },
   
   render(){
+    if(!this.state.profileUser){
+      return <Loading></Loading>;
+    }
+    
     return <div>
       <h1>Hírdetések</h1>
-      <ReactTabs.Tabs>
-        <ReactTabs.TabList>
-          <ReactTabs.Tab>Én kértem (requested)</ReactTabs.Tab>
-          <ReactTabs.Tab>Tőlem kérték (relevant)</ReactTabs.Tab>
-          <ReactTabs.Tab>Hírdetéseim</ReactTabs.Tab>
-        </ReactTabs.TabList>
+      <Tabs>
+        <TabList>
+          <Tab>Én kértem (requested)</Tab>
+          <Tab>Tőlem kérték (relevant)</Tab>
+          <Tab>Hírdetéseim</Tab>
+        </TabList>
         
-        <ReactTabs.TabPanel>
+        <TabPanel>
           <RequestedResults
             user={this.props.user}
             requested={this.state.requested}
           ></RequestedResults>
-        </ReactTabs.TabPanel>
+        </TabPanel>
         
         
-        <ReactTabs.TabPanel>
+        <TabPanel>
           <RelevantResults
             user={this.props.user}
             relevant={this.state.relevant}
             collisions={this.state.collisions}
           ></RelevantResults>
-        </ReactTabs.TabPanel>
+        </TabPanel>
         
         
-        <ReactTabs.TabPanel>
+        <TabPanel>
           <GodfatherResults
             user={this.props.user}
             godfatherAvailabilities={this.state.godfatherAvailabilities}
           ></GodfatherResults>
-        </ReactTabs.TabPanel>
+        </TabPanel>
         
-      </ReactTabs.Tabs>
+      </Tabs>
     </div>;
   },
   
   handleRequestStoreChange(state){
-    console.log("request change");
-    console.log(state.relevant);
     this.setState({
       relevant: state.relevant,
       requested: state.requested,
@@ -90,9 +99,14 @@ export default React.createClass({
   },
   
   handleAvailabilityStoreChange(state){
-    console.log(state.godfatherAvailabilities);
     this.setState({
       godfatherAvailabilities: state.godfatherAvailabilities
+    });
+  },
+  
+  handleUserStoreChange(state){
+    this.setState({
+      profileUser: state.profileUser
     });
   }
 });

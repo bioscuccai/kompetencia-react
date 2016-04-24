@@ -13,11 +13,11 @@ export default React.createClass({
         <UserBulletPoints user={this.props.user}></UserBulletPoints>
       </div>
       <div className="column column-20">
-        <button onClick={this.onRemoveSubordinate} className='icon-button'>
+        <a onClick={this.onRemoveSubordinate} className='button icon-button' title='Eltávolítás'>
           <i className='icon ion-trash-a'></i>
-        </button>
+        </a>
         
-        <Link to={`/availabilities/${this.props.user.id}`} className='button icon-button'>
+        <Link to={`/availabilities/${this.props.user.id}`} className='button icon-button' title='Rendelkezésreállás'>
           <i className='icon ion-clock'></i>
         </Link>
       </div>

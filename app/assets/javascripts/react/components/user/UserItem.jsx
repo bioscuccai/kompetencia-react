@@ -13,17 +13,13 @@ export default React.createClass({
       </td>
       
       <td>
-        <Link to={`/availabilities/${this.props.user.id}`} className='icon-button'>
+        <Link to={`/availabilities/${this.props.user.id}`} className='button icon-button' title='Rendelkezésreállás'>
           <i className='icon ion-clock'></i>
         </Link>
         
-        <button className='icon-button'>
-          <i className='icon ion-clock'></i>
-        </button>
-        
-        <button className='icon-button'>
-          <i className='icon ion-clock'></i>
-        </button>
+        <Link to={`/competence_chooser/${this.props.user.id}`} className='button icon-button' title='Kompetenciák'>
+          <i className='icon ion-android-color-palette'></i>
+        </Link>
       </td>
     </tr>;
   }

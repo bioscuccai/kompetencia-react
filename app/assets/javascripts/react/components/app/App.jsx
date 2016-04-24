@@ -11,6 +11,8 @@ import SubordinateUserLoader from '../subordinates/SubordinateUserLoader.jsx';
 import CompetenceTypes from '../competence_type/CompetenceTypes.jsx';
 import CompetenceTierGroups from '../competence_tier_group/CompetenceTierGroups.jsx';
 import Availability from '../availabilites/Availabilities.jsx';
+import CompetenceChooser from '../competence_chooser/CompetenceChooser.jsx';
+import PersonRequests from '../person_requests/PersonRequests.jsx';
 
 import {Router, Route, hashHistory} from 'react-router';
 
@@ -34,6 +36,8 @@ export default React.createClass({
           <Route path='/subordinates/:profileUserId' component={Subordinates}></Route>
           <Route path='/users/:profileUserId' component={User}></Route>
           <Route path='/availabilities/:profileUserId' component={Availability}></Route>
+          <Route path='/competence_chooser/:profileUserId' component={CompetenceChooser}></Route>
+          <Route path='/person_requests/:profileUserId' component={PersonRequests}></Route>
         </Route>
       </Router>;
   }

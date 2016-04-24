@@ -11,7 +11,9 @@ export default React.createClass({
         <UserBulletPoints user={this.props.user}></UserBulletPoints>
       </div>
       <div className="column column-20">
-        <button onClick={this.onAddSubordinate}>+</button>        
+        <button onClick={this.onAddSubordinate} className='button icon-button' title='Felvétel'>
+          <i className='icon ion-plus'></i>
+        </button>
       </div>
     </div>;
   },

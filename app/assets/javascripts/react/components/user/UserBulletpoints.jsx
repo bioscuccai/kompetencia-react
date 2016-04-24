@@ -23,7 +23,12 @@ export default React.createClass({
     }
     return <span>
       <div className='user-name'>
-        <Link to={`/users/${this.props.user.id}`}>{this.props.user.email}</Link>
+        <Link to={`/users/${this.props.user.id}`}>
+          <div>{this.props.user.name}</div>
+          <div>
+            {this.props.user.email}
+          </div>
+        </Link>
       </div>
       <div>
         {available}

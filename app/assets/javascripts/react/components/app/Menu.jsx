@@ -27,6 +27,12 @@ export default React.createClass({
       <div>
         <Link to={`/subordinates/${this.context.currentUser.id}`}>Dolgozóim</Link>
       </div>
+      <div>
+        <Link to={`/person_requests/${this.context.currentUser.id}`}>Hirdetések</Link>
+      </div>
+      <div>
+        <Link to={`/competence_chooser/${this.context.currentUser.id}`}>Kompetenciáim</Link>
+      </div>
     </div>;
   }
 });

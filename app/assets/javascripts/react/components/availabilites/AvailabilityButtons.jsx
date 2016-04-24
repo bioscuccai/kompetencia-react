@@ -22,18 +22,18 @@ export default React.createClass({
   render(){
     let stateButton;
     if(this.props.availability.active){
-      stateButton=<button onClick={this.onTurnOff} alt='Kikapcsol' className='icon-button'>
+      stateButton=<button onClick={this.onTurnOff} alt='Kikapcsol' className='icon-button' title='Kikapcsol'>
         <i className='icon ion-close-circled'></i>
         </button>;
     } else {
-      stateButton=<button onClick={this.onTurnOn} alt='Bekapcsol' className='icon-button'>
+      stateButton=<button onClick={this.onTurnOn} alt='Bekapcsol' className='icon-button' title='Bekapcsol'>
         <i className='icon ion-checkmark-circled'></i>
         </button>;
     }
     
     return <span>
       {stateButton}
-      <button onClick={this.onEditModal} className='icon-button'>
+      <button onClick={this.onEditModal} className='icon-button' title='Szerkeszt'>
         <i className='icon ion-compose'></i>
       </button>
       <Modal
@@ -43,7 +43,7 @@ export default React.createClass({
         <AvailabilityEditor availability={this.props.availability} onClose={this.onRequestClose}></AvailabilityEditor>
       </Modal>
       
-      <button onClick={this.onDelete} className='icon-button'>
+      <button onClick={this.onDelete} className='icon-button' title='Töröl'>
         <i className='icon ion-trash-a'></i>
       </button>
     </span>;
