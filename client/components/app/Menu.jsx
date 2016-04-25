@@ -23,6 +23,9 @@ export default React.createClass({
     }
     return <div>
       <div className='menu-item'>
+        <Link to='/'><i className='icon ion-android-calendar'></i> Friss hiredtések</Link>
+      </div>
+      <div className='menu-item'>
         <Link to='/users'><i className='icon ion-person-stalker'></i> Felhasználók</Link>
       </div>
       <div className='menu-item'>
