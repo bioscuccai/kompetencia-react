@@ -40,7 +40,7 @@ export default React.createClass({
     return <tr>
       <td>
         <Link to={`/users/${this.props.request.target.id}`}>
-          {this.prop.request.target.name}
+          {this.props.request.target.name}
           <div>
             <small>
               {this.props.request.target.email}
