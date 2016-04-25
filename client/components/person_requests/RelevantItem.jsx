@@ -65,12 +65,20 @@ export default React.createClass({
     return <tr>
       <td>
         <Link to={`/users/${this.props.request.target.id}`}>
-          {this.props.request.target.email}
+          {this.props.request.target.name}
+          <div>
+            <small>{this.props.request.target.email}</small>
+          </div>
         </Link>
       </td>
       <td>
         <Link to={`/users/${this.props.request.user.id}`}>
-          {this.props.request.user.email}
+          {this.props.request.user.name}
+          <div>
+            <small>
+              {this.props.request.user.email}
+            </small>
+          </div>
         </Link>
       </td>
       <td>

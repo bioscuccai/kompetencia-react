@@ -11,6 +11,9 @@ function canDeleteCompetenceOf(subject, actor){
   if(actor.is_admin){
     return true;
   }
+  if(actor.is_godfather && subject.id===actor.id){
+    return true;
+  }
   if(actor.is_godfather && subject.godfather_id===actor.id){
     return true;
   }
@@ -20,6 +23,9 @@ function canDeleteCompetenceOf(subject, actor){
 //elfogad/visszautasit
 function canAcceptCompetenceOf(subject, actor){
   if(actor.is_admin){
+    return true;
+  }
+  if(actor.is_godfather && subject.id===actor.id){
     return true;
   }
   if(actor.is_godfather && subject.godfather_id===actor.id){
@@ -39,6 +45,9 @@ function canSolicitCompetenceOf(subject, actor){
 //azonnal modosit
 function canAlterCompetenceOf(subject, actor){
   if(actor.is_admin){
+    return true;
+  }
+  if(actor.is_godfather && subject.id===actor.id){
     return true;
   }
   if(actor.is_godfather && subject.godfather_id===actor.id){

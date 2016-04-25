@@ -40,9 +40,14 @@ export default React.createClass({
     return <tr>
       <td>
         <Link to={`/users/${this.props.request.target.id}`}>
-          {this.props.request.target.email}
+          {this.prop.request.target.name}
+          <div>
+            <small>
+              {this.props.request.target.email}
+            </small>
+          </div>
         </Link>
-        <div><small>({_.get(this.props.request, "target.godfather.email")})</small></div>
+        <div><small>({_.get(this.props.request, "target.godfather.name")})</small></div>
       </td>
       <td>
         <h5>{this.props.request.title}</h5>
