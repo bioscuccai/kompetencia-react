@@ -21,5 +21,12 @@ export default React.createClass({
     e.preventDefault();
     competenceTypeActions.createCompetence(this.refs.title.value, this.props.competenceType.id);
     this.refs.title.value="";
+    this.onClose();
+  },
+  
+  onClose(){
+    if(this.props.onClose){
+      this.props.onClose();
+    }
   }
 });

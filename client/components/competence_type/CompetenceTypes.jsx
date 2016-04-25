@@ -42,7 +42,7 @@ export default React.createClass({
       {this.state.competenceTypes.map(competenceType=>{
         return <CompetenceType competenceType={competenceType} key={`comp-type-${competenceType.id}`}></CompetenceType>;
       })}
-      <button onClick={this.onNewModal}>Új...</button>
+      <button onClick={this.onNewModal}>Új kérdés...</button>
       <Modal
         onRequestClose={this.onRequestClose}
         isOpen={this.state.newModal}

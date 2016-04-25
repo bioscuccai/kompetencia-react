@@ -30,6 +30,7 @@ export default React.createClass({
   onFormSubmit(e){
     e.preventDefault();
     competenceTypeActions.createCompetenceType(this.refs.title.value, this.refs.tierGroup.value);
+    this.onCloseModal();
   },
   
   onCloseModal(){

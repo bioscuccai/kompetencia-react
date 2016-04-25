@@ -43,12 +43,12 @@ export default React.createClass({
           return comp;
         })}
       </blockquote>
-      <button onClick={this.onNewModal}>Új...</button>
+      <button onClick={this.onNewModal}>Új válasz...</button>
       <Modal
         style={modalStyle}
         onRequestClose={this.onRequestClose}
         isOpen={this.state.newModal}>
-        <NewCompetence competenceType={this.props.competenceType}></NewCompetence>
+        <NewCompetence competenceType={this.props.competenceType} onClose={this.onRequestClose}></NewCompetence>
         <button onClick={this.onRequestClose}>Bezár</button>
       </Modal>
     </div>;
