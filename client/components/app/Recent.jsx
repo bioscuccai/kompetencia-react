@@ -4,6 +4,7 @@ import React from 'react';
 import {Link} from 'react-router';
 import availabilityStore from '../../stores/availability_store';
 import alt from '../../alt/alt';
+import AnnouncedAvailability from '../availabilites/AnnouncedAvailability.jsx';
 
 export default React.createClass({
   getInitialState(){
@@ -15,15 +16,19 @@ export default React.createClass({
   componentDidMount(){
     alt.recycle(availabilityStore);
     availabilityStore.listen(this.handleAvailabilityStoreChange);
+    availabilityStore.fetchRecent();
   },
   
   componentWillUnmount(){
-    this.unlisten(this.handleAvailabilityStoreChange);
+    availabilityStore.unlisten(this.handleAvailabilityStoreChange);
   },
   
   render(){
     return <div>
-      Recent
+      <h1>Friss hirdetések</h1>
+      {this.state.recentAvailabilities.map(availability=>{
+        return <AnnouncedAvailability availability={availability} key={`announcement-${availability.id}`}></AnnouncedAvailability>;
+      })}
     </div>;
   },
   

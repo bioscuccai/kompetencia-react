@@ -8,7 +8,7 @@ import {Link} from 'react-router';
 
 export default React.createClass({
   render(){
-    return <div className="row">
+    return <div className="row profile-item">
       <div className="column column-80">
         <UserBulletPoints user={this.props.user}></UserBulletPoints>
       </div>

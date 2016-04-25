@@ -3,6 +3,7 @@
 import alt from '../alt/alt';
 import availabilitySource from '../sources/availability_source';
 import availabilityActions from '../actions/availability_actions';
+import _ from 'lodash';
 
 class AvailabilityStore{
   constructor(){
@@ -12,6 +13,7 @@ class AvailabilityStore{
     
     this.availabilities=[]; //egy felhasznaloe
     this.godfatherAvailabilities=[]; //az aktualis keresztapa osszes dolgozojanak
+    this.recentAvailabilities=[];
     //technikalilag minden mehetne az elso tombbe, de igy tobbet mond
     this.bindActions(availabilityActions);
     this.bindListeners({
@@ -26,7 +28,7 @@ class AvailabilityStore{
   }
   
   refreshAvailabilities(refreshData){
-    if(this.godfatherId!==null){
+    if(!_.isNil(this.godfatherId)){
       this.getInstance().fetchGodfatherAvailabilities(this.godfatherId);
     } else {
       this.getInstance().fetchAvailabilities(this.userId);
@@ -50,6 +52,10 @@ class AvailabilityStore{
   setUserId(userId){
     this.userId=userId;
     return false;
+  }
+  
+  updateRecentAvailabilities(recent){
+    this.recentAvailabilities=recent;
   }
   
   error(err){

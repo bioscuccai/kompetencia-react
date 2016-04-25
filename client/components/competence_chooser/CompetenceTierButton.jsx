@@ -2,7 +2,7 @@
 
 import React from 'react';
 import competenceActions from '../../actions/competence_actions';
-
+import auth from '../../lib/auth';
 import classnames from 'classnames';
 
 export default React.createClass({
@@ -20,9 +20,9 @@ export default React.createClass({
   
   setLevel(e){
     e.preventDefault();
-    if(this.props.directlyEdit){
+    if(auth.canAlterCompetenceOf(this.props.user, this.props.currentUser)){
       competenceActions.setLevel(this.props.competence.id, this.props.user.id, this.props.tier.level);
-    } else {
+    } else if(auth.canSolicitCompetenceOf(this.props.user, this.props.currentUser)){
       competenceActions.setPendingLevel(this.props.competence.id, this.props.user.id, this.props.tier.level);
     }
   }

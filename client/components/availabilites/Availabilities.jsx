@@ -27,7 +27,7 @@ export default React.createClass({
   },
   
   componentDidMount(){
-    alt.recycle(availabilityStore);
+    alt.recycle(availabilityStore, userStore);
     availabilityStore.listen(this.handleAvailabilityStoreChange);
     availabilityActions.setUserId(parseInt(this.props.params.profileUserId));
     availabilityStore.fetchAvailabilities(parseInt(this.props.params.profileUserId));

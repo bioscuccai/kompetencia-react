@@ -7,7 +7,7 @@ class CreatePersonRequests < ActiveRecord::Migration
       t.datetime :ends_at
       t.integer :chance, null: false, default: 100
       t.string :title, null: false, default: ""
-      t.text :comment, null: false, default: ""
+      t.text :comment
 
       t.timestamps null: false
     end

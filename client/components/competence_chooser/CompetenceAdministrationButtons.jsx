@@ -2,17 +2,18 @@
 
 import React from 'react';
 import competenceActions from '../../actions/competence_actions';
+import auth from '../../lib/auth';
 
 export default React.createClass({
   render(){
     let removeButton=null;
     let pendingButton=null;
-    if(this.props.competence.isAssigned){
+    if(this.props.competence.isAssigned && auth.canDeleteCompetenceOf(this.props.user, this.props.currentUser)){
       removeButton=<a className='button' href="#" onClick={this.removeAssigned} title='Töröl'>
         <i className='icon ion-trash-a'></i>
       </a>;
     }
-    if(this.props.competence.isPending && this.props.directlyEdit){
+    if(this.props.competence.isPending && auth.canAcceptCompetenceOf(this.props.user, this.props.currentUser)){
       pendingButton=<span>
         <a href="#" className='button' onClick={this.rejectPending} title='Visszautasít'><i className='icon ion-close'></i></a>
         <a href="#" className='button' onClick={this.acceptPending} title='Elfogad'><i className='icon ion-checkmark'></i></a>

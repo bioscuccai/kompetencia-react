@@ -34,5 +34,21 @@ export default {
     
     success: availabilityActions.updateGodfatherAvailabilities,
     error: availabilityActions.error
+  },
+  
+  fetchRecent: {
+    remote(state){
+      return new Promise((resolve, reject) => {
+        axios.get('/availabilities/recent', {
+          responseType: 'json'
+        })
+        .then(data=>{
+          return resolve(data.data);
+        });
+      });
+    },
+    
+    success: availabilityActions.updateRecentAvailabilities,
+    error: availabilityActions.error
   }
 };

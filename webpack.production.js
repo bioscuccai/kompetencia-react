@@ -2,7 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
-  entry: './app/assets/javascripts/react/main.js.jsx',
+  entry: './client/main.js.jsx',
   output: {
     path: __dirname,
     filename: './public/bundle.js'

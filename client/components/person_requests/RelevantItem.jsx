@@ -47,6 +47,10 @@ export default React.createClass({
     });
   },
   
+  onReject(){
+    requestActions.rejectRequest(this.props.request.user_id, this.props.request.id, this.props.user.id);
+  },
+  
   componentWillMount(){
     Modal.setAppElement("body");
   },
@@ -101,7 +105,7 @@ export default React.createClass({
             collisions={this.props.collisions}></Collisions>
         </Modal>
         
-        <button className='icon-button'>
+        <button className='icon-button' onClick={this.onReject}>
           <i className='icon ion-close'></i>
         </button>
         <Modal

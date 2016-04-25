@@ -10,7 +10,7 @@ class RequestActions{
   
   createRequest(userId, targetId, startsAt, endsAt, chance, title, comment){
     return dispatch=>{
-      axios.post(`/users/${userId}/person_requests`, {
+      axios.post(`/users/${userId}/person_requests.json`, {
         person_request: {
           target_id: targetId,
           starts_at: startsAt,

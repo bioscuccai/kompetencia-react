@@ -6,7 +6,7 @@ import axios from 'axios';
 class AvailabilityActions{
   constructor(){
     this.generateActions("error", "updateAvailabilities", "updateGodfatherAvailabilities",
-      "setUserId", "setGodfatherId");
+      "setUserId", "setGodfatherId", "updateRecentAvailabilities");
   }
   
   newAvailability(userId, startsAt, endsAt, comment, godfatherMode=false){

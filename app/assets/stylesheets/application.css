@@ -120,7 +120,51 @@ strong{
   background-color: rgb(231, 18, 45)!important;
 }
 
-
 dd, dt, li{
   margin-bottom: auto!important;
+}
+
+.admin-button{
+  background-color: rgb(60, 74, 255)!important;
+  border-color: rgb(60, 74, 255)!important;
+  padding: 0;
+}
+
+.profile-item{
+  border-radius: 5px;
+  border: rgb(210, 210, 210) 2px solid;
+  background-color: rgb(245, 245, 245);
+  margin: 3px;
+  padding: 3px;
+}
+
+body{
+  background-color: rgb(182, 182, 182);
+}
+
+aside{
+  border-right: 6px solid purple;
+  border-right: 2px solid gray;
+  background-color: rgb(221, 221, 221);
+}
+
+main{
+  background-color: white;
+  border-right: 2px solid gray;
+}
+
+.menu-item{
+  font-weight: bold;
+  font-size: 120%;
+  box-sizing: border-box;
+  padding-left: 3px;
+}
+
+.menu-item:hover{
+  margin-left: 3px;
+  border-left: 3px solid purple;
+}
+
+.center{
+  text-align: center;
 }

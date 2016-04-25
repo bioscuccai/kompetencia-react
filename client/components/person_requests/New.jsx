@@ -33,6 +33,9 @@ export default React.createClass({
       this.state.startsAt, this.state.endsAt,
       parseInt(this.refs.chance.value),
       this.refs.title.value, this.refs.comment.value);
+    if(this.props.onClose){
+      this.props.onClose();
+    }
   },
   
   render(){

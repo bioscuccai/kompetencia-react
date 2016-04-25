@@ -40,6 +40,58 @@ class UserActions{
       });
     };
   }
+  
+  makeAdmin(userId){
+    return dispatch=>{
+      axios.get(`/users/${userId}/make_admin`, {
+        responseType: 'json'
+      })
+      .then(data=>{
+        return dispatch({
+          userId
+        });
+      });
+    };
+  }
+  
+  revokeAdmin(userId){
+    return dispatch=>{
+      axios.get(`/users/${userId}/revoke_admin`, {
+        responseType: 'json'
+      })
+      .then(data=>{
+        return dispatch({
+          userId
+        });
+      });
+    };
+  }
+  
+  makeGodfather(userId){
+    return dispatch=>{
+      axios.get(`/users/${userId}/make_godfather`, {
+        responseType: 'json'
+      })
+      .then(data=>{
+        return dispatch({
+          userId
+        });
+      });
+    };
+  }
+  
+  revokeGodfather(userId){
+    return dispatch=>{
+      axios.get(`/users/${userId}/revoke_godfather`, {
+        responseType: 'json'
+      })
+      .then(data=>{
+        return dispatch({
+          userId
+        });
+      });
+    };
+  }
 }
 
 export default alt.createActions(UserActions);

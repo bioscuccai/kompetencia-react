@@ -8,9 +8,17 @@ export default React.createClass({
     currentUser: React.PropTypes.object
   },
   render(){
+    let rights;
+    if(this.context.currentUser.is_admin || this.context.currentUser.is_godfather){
+      rights=<span>( {this.context.currentUser.is_admin?'Admin':''} {this.context.currentUser.is_godfather?'Keresztapa':''} )</span>;
+    }
+    
     return <div>
       <h5>{this.context.currentUser.email}</h5>
-      <div><Link to={`users/${this.context.currentUser.id}`}>Profilom</Link></div>
+      {rights}
+      <div className='menu-item'>
+        <Link to={`users/${this.context.currentUser.id}`}><i className='icon ion-person'></i> Profilom</Link>
+      </div>
     </div>;
   }
 });

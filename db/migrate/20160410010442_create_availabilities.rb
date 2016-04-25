@@ -4,7 +4,7 @@ class CreateAvailabilities < ActiveRecord::Migration
       t.integer :user_id, null: false
       t.datetime :starts_at, null: false
       t.datetime :ends_at #ez lehet null, ha nem tudjuk meddig tart az uborkaszezon
-      t.text :comment, null: false, default: ""
+      t.text :comment
 
       t.timestamps null: false
     end

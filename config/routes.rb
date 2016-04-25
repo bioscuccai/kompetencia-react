@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  resources :availabilities, only: [:recent] do
+    collection do
+      get 'recent'
+    end
+  end
   resources :competence_tier_groups do
     collection do
       get 'all'
@@ -49,8 +54,11 @@ Rails.application.routes.draw do
       
       post 'remove_competence'
       
-      get 'add_admin'
-      get 'remove_admin'
+      get 'make_admin'
+      get 'revoke_admin'
+      
+      get 'make_godfather'
+      get 'revoke_godfather'
       
       get 'subordinates'
       

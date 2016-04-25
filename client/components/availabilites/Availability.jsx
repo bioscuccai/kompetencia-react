@@ -2,6 +2,7 @@
 
 import React from 'react';
 import moment from 'moment';
+import classnames from 'classnames';
 
 import DateLabel from '../date/DateLabel.jsx';
 import AvailabilityButtons from './AvailabilityButtons.jsx';

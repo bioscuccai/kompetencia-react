@@ -3,6 +3,7 @@
 import React from 'react';
 import _ from 'lodash';
 import alt from '../../alt/alt';
+import auth from '../../lib/auth';
 
 import competenceStore from '../../stores/competence_store';
 import userStore from '../../stores/user_store';
@@ -13,6 +14,9 @@ import Competence from './Competence.jsx';
 import Loading from '../Loading.jsx';
 
 export default React.createClass({
+  contextTypes: {
+    currentUser: React.PropTypes.object
+  },
   parseCompetences(state){
     return state.allCompetences.map(competence=>{
       let pending=_.find(state.pendingCompetences, ['id', competence.id]);
@@ -92,7 +96,7 @@ export default React.createClass({
                   {competenceGroups[groupName].map(competence=>{
                     return <Competence competence={competence}
                       user={this.state.profileUser}
-                      directlyEdit={this.props.directlyEdit}
+                      currentUser={this.context.currentUser}
                       key={competence.id}></Competence>;
                   })}
                 </tbody>

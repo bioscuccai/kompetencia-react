@@ -8,6 +8,8 @@ import Modal from 'react-modal';
 import modalStyle from '../../styles/modal';
 import _ from 'lodash';
 
+import auth from '../../lib/auth';
+
 export default React.createClass({
   getInitialState(){
     return {
@@ -32,6 +34,10 @@ export default React.createClass({
   },
   
   render(){
+    let requestButton;
+    if(auth.canRequestUsers(this.props.currentUser)){
+      requestButton=<button onClick={this.onNewModal} className='icon-button icon-button-large'><i className='icon ion-person-add'></i></button>;
+    }
     let highlightedIds=this.props.result.found.map(r=>r.competence_id);
     return <div className='result-box'>
       <div className='row'>
@@ -41,7 +47,7 @@ export default React.createClass({
             user={this.props.result}></UserBulletPoints>
         </div>
         <div className='column column-20'>
-          <button onClick={this.onNewModal} className='icon-button icon-button-large'><i className='icon ion-person-add'></i></button>
+          {requestButton}
         </div>
       </div>
       
@@ -50,6 +56,7 @@ export default React.createClass({
         onRequestClose={this.onRequestClose}>
         <NewPersonRequest
           currentUser={this.props.currentUser}
+          onClose={this.onRequestClose}
           user={this.props.result}></NewPersonRequest>
       </Modal>
     </div>;

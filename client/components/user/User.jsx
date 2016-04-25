@@ -53,7 +53,9 @@ export default React.createClass({
         <h3>A felhasználó keresztapa</h3>
         <div>A dolgozói: </div>
         {this.state.subordinates.map(user=>{
-          return <UserBulletpoints key={`subordinate-${user.id}`} user={user}></UserBulletpoints>;
+          return <div className='profile-item' key={`subordinate-${user.id}`}>
+              <UserBulletpoints user={user}></UserBulletpoints>
+            </div>;
         })};
       </div>;
     }
@@ -64,8 +66,7 @@ export default React.createClass({
     }
     
     return <div>
-      <h1>{this.state.profileUser.name}</h1>
-      <h3>{this.state.profileUser.email}</h3>
+      <h1>{this.state.profileUser.name} <small>{this.state.profileUser.email}</small></h1>
       
       <div className='clearfix'>
         <div className='float-left'>

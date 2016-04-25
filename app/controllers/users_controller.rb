@@ -80,7 +80,7 @@ class UsersController < ApplicationController
       user.save!
       render json: {status: :ok}
     else
-      render json: {status: :error}
+      render json: {status: :error, message: 'NOT_GODFATHER'}
     end
   end
   
@@ -134,16 +134,28 @@ class UsersController < ApplicationController
     render 'landing', layout: 'app'
   end
   
-  def add_admin
+  def make_admin
     @user=User.find params[:id]
     @user.add_role :admin
-    redirect_to users_path
+    render json: {status: :ok}
   end
   
-  def remove_admin
+  def revoke_admin
     @user=User.find params[:id]
     @user.remove_role :admin
-    redirect_to users_path
+    render json: {status: :ok}
+  end
+  
+  def make_godfather
+    @user=User.find params[:id]
+    @user.add_role :godfather
+    render json: {status: :ok}
+  end
+  
+  def revoke_godfather
+    @user=User.find params[:id]
+    @user.remove_role :godfather
+    render json: {status: :ok}
   end
   
   def subordinates

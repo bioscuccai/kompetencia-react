@@ -13,7 +13,11 @@ class UserStore{
     this.bindListeners({
       reloadUsers: [
         userActions.ADD_SUBORDINATE,
-        userActions.REMOVE_SUBORDINATE
+        userActions.REMOVE_SUBORDINATE,
+        userActions.MAKE_ADMIN,
+        userActions.REVOKE_ADMIN,
+        userActions.MAKE_GODFATHER,
+        userActions.REVOKE_GODFATHER
       ]
     });
     this.registerAsync(userSource);

@@ -61,9 +61,11 @@ export default React.createClass({
         <button onClick={this.onDetailModal} className='icon-button'>
           <i className='icon ion-eye'></i>
         </button>
+
         <button className='icon-button'>
           <i className='icon ion-compose'></i>
         </button>
+
         <Modal isOpen={this.state.detailModal}
           onRequestClose={this.onRequestClose}
           style={this.modalStyle}>
@@ -76,6 +78,6 @@ export default React.createClass({
   
   onDeleteRequest(e){
     e.preventDefault();
-    requestActions.deleteRequest(this.props.request.user.id, this.props.request.id);
+    requestActions.deleteRequest(this.props.request.user.id, this.props.request.id, this.props.user.id);
   }
 });

@@ -20,7 +20,7 @@ export default React.createClass({
         <tbody>
           {this.props.requested.map(req=>{
             return <RequestItem
-              user={this.props.user}
+              user={this.props.profileUser}
               key={`request-${req.id}`}
               request={req}></RequestItem>;
           })}

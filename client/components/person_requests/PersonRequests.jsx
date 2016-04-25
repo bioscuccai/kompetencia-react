@@ -54,17 +54,17 @@ export default React.createClass({
     }
     
     return <div>
-      <h1>Hírdetések</h1>
+      <h1>Hirdetések</h1>
       <Tabs>
         <TabList>
           <Tab>Én kértem (requested)</Tab>
           <Tab>Tőlem kérték (relevant)</Tab>
-          <Tab>Hírdetéseim</Tab>
+          <Tab>Hirdetéseim</Tab>
         </TabList>
         
         <TabPanel>
           <RequestedResults
-            user={this.props.user}
+            profileUser={this.state.profileUser}
             requested={this.state.requested}
           ></RequestedResults>
         </TabPanel>
@@ -72,7 +72,7 @@ export default React.createClass({
         
         <TabPanel>
           <RelevantResults
-            user={this.props.user}
+            profileUser={this.state.profileUser}
             relevant={this.state.relevant}
             collisions={this.state.collisions}
           ></RelevantResults>
@@ -81,7 +81,7 @@ export default React.createClass({
         
         <TabPanel>
           <GodfatherResults
-            user={this.props.user}
+            profileUser={this.state.profileUser}
             godfatherAvailabilities={this.state.godfatherAvailabilities}
           ></GodfatherResults>
         </TabPanel>

@@ -1,4 +1,6 @@
 module ApplicationHelper
+  include UserFormatter
+  
   def import_bundle
     if Rails.env.development?
       "<script type='text/javascript' src='http://localhost:8080/bundle.js'></script>".html_safe
@@ -14,5 +16,10 @@ module ApplicationHelper
     "renderTag('#{tag}', #{props.to_json}, '#{selector}');"+
     "});"+
     "</script>").html_safe
+  end
+  
+  
+  def format_user_instance u
+    format_user u
   end
 end

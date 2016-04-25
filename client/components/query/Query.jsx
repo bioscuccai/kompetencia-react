@@ -100,7 +100,7 @@ export default React.createClass({
                 <h5>{rhg} Találat</h5>
                   {resultGroups[rhg].map(result=>{
                     return <QueryResult
-                      currentUser={this.props.currentUser}
+                      currentUser={this.context.currentUser}
                       result={result} 
                       key={`result-${result.id}`}></QueryResult>;
                   })}

@@ -24,7 +24,7 @@ export default React.createClass({
               collisions={this.props.collisions}
               key={`relevant-${request.id}`}
               request={request}
-              user={this.props.user}></RelevantItem>;
+              user={this.props.profileUser}></RelevantItem>;
           })}
         </tbody>
       </table>
