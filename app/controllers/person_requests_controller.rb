@@ -83,7 +83,6 @@ class PersonRequestsController < ApplicationController
   # POST /person_requests
   # POST /person_requests.json
   def create
-    pp current_user
     @person_request = PersonRequest.new(person_request_params)
     @person_request.user_id=@user.id
     respond_to do |format|

@@ -7,7 +7,6 @@ class QueryController < ApplicationController
   end
   
   def query
-    pp params
     result_per_user=Hash.new{|h,k| h[k]=[]}
     users=[]
     params[:competences].each do |c|
@@ -30,7 +29,6 @@ class QueryController < ApplicationController
         end
       })
     end
-    pp user_results
     render json: user_results
   end
 end

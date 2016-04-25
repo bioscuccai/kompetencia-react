@@ -105,7 +105,6 @@ class UsersController < ApplicationController
       @tier_names[k]=@tier_names[k].map{|v| [v.level, v.title]}.to_h
     end
     #@tier_names.keys.map{|k| @tier_names[k].map{|v| [v.level, v.title]}.to_h}
-    pp @tier_names
     @tier_groups=(@user.assigned_competence_levels.map do |tl|
       {
         id: tl.competence_id,
@@ -116,8 +115,7 @@ class UsersController < ApplicationController
       }
     end).group_by{|g| g[:type]}
     @tier_group_names=@tier_groups.keys
-    pp @tier_groups
-    pp @tier_group_names
+
     respond_to do |fmt|
       fmt.html{}
       fmt.json do
