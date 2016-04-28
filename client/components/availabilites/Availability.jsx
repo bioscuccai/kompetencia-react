@@ -24,7 +24,7 @@ export default React.createClass({
         <DateLabel date={this.props.availability.ends_at}></DateLabel>
       </td>
       <td>
-        <small>
+        <small className='comment-preview'>
           {this.props.availability.comment}
         </small>
       </td>

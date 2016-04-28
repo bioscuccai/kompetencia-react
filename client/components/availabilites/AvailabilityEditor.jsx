@@ -3,14 +3,15 @@
 import React from 'react';
 import DateTime from 'react-datetime';
 import moment from 'moment';
+require("moment/locale/hu");
 
 import availabilityActions from '../../actions/availability_actions';
 
 export default React.createClass({
   getInitialState(){
     return {
-      startsAt: null,
-      endAt: null
+      startsAt: (!this.props.availability.starts_at) ? null : new Date(this.props.availability.starts_at),
+      endAt: (!this.props.availability.ends_at) ? null : new Date(this.props.availability.ends_at)
     };
   },
   
@@ -25,9 +26,15 @@ export default React.createClass({
     return <div>
       <form onSubmit={this.onSubmit}>
         Kezdés:
-        <DateTime value={this.props.availability.starts_at} timeFormat={false} closeOnSelect={true}></DateTime>
+        <DateTime defaultValue={new Date(this.props.availability.starts_at)}
+          timeFormat={false}
+          closeOnSelect={true}
+          onChange={this.onStartChange}></DateTime>
         Befejezés:
-        <DateTime value={this.props.availability.ends_at}></DateTime>
+        <DateTime defaultValue={new Date(this.props.availability.ends_at)}
+          timeFormat={false}
+          closeOnSelect={true}
+          onChange={this.onEndChange}></DateTime>
         <textarea defaultValue={this.props.availability.comment} ref='comment'></textarea>
         <input type='submit' value='Mentés'></input>
         <button onClick={this.onClose}>Bezár</button>
@@ -37,7 +44,6 @@ export default React.createClass({
   
   onSubmit(e){
     e.preventDefault();
-    console.log("submit");
     availabilityActions.editAvailability(this.props.availability.user_id,
       this.props.availability.id,
       this.state.startsAt,
@@ -47,12 +53,14 @@ export default React.createClass({
   },
   
   onStartChange(md){
+    console.log("start change");
     this.setState({
       startsAt: md.toDate()
     });
   },
   
   onEndChange(md){
+    console.log("end change");
     this.setState({
       endsAt: md.toDate()
     });

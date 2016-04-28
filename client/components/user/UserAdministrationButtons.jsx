@@ -3,13 +3,14 @@
 import React from 'react';
 
 import userActions from '../../actions/user_actions';
+import auth from '../../lib/auth';
 
 export default React.createClass({
   render(){
     let adminButton;
     let godfatherButton;
     
-    if(true || this.props.profileUser.is_admin){
+    if(auth.canAlterRoles(this.props.profileUser)){
       if(this.props.user.is_admin){
         adminButton=<button title='Adminná teszem' className='admin-button' onClick={this.onRevokeAdmin}><i className='icon ion-minus'></i> admin</button>;
       } else {

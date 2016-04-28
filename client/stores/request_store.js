@@ -18,7 +18,8 @@ class RequestStore{
         requestActions.REJECT_REQUEST
       ],
       reloadRequests: [
-        requestActions.DELETE_REQUEST
+        requestActions.DELETE_REQUEST,
+        requestActions.UPDATE_REQUEST
       ]
     });
     this.registerAsync(requestSource);

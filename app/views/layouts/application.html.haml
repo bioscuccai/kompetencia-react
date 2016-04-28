@@ -10,21 +10,5 @@
   %body
     .container
       .row
-        .column.column-25
-          -if user_signed_in?
-            %div
-              %strong
-                =current_user.email
-            %div
-              =link_to 'Főoldal', '/users/landing'
-            %div
-              =link_to 'Profilom', user_path(current_user)
-            %div
-              =link_to 'Kijelentkezés', destroy_user_session_path
-          -else
-            %div
-              =link_to 'Bejelentkezés', new_user_session_path
-            %div
-              =link_to 'Regisztráció', new_user_registration_path
-        .column.column-75
+        .column.column-100
           = yield

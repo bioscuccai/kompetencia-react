@@ -1,6 +1,7 @@
 class QueryController < ApplicationController
   include UserFormatter
   skip_before_filter :verify_authenticity_token
+  authorize_resource class: false
   
   def index
     
@@ -8,6 +9,9 @@ class QueryController < ApplicationController
   
   def query
     result_per_user=Hash.new{|h,k| h[k]=[]}
+    if params[:check_date]=="1"
+      Rails.logger.info "check date"
+    end
     users=[]
     params[:competences].each do |c|
       res=User.includes(:godfather, assigned_competence_levels: [:competence]).has_level(c["competence_id"], c["level"])

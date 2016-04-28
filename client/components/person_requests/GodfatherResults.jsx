@@ -11,8 +11,7 @@ export default React.createClass({
         <thead>
           <tr>
             <th>Dolgozó</th>
-            <th>Kezdés</th>
-            <th>Befejezés</th>
+            <th>Időtartam</th>
             <th>Komment</th>
             <th></th>
           </tr>

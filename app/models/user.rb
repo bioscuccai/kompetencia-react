@@ -27,7 +27,11 @@ class User < ActiveRecord::Base
   scope :has_level, ->(competence_id, level){joins(:assigned_competence_levels).where("assigned_competence_levels.level>=? AND assigned_competence_levels.competence_id=?", level, competence_id)}
   scope :free_between_closed, ->(start_at, ends_at){joins(:availabilities)}
   scope :free_between_open, ->(starts_at){all}
+  #scope :has_availability, ->(b_starts_at, b_ends_at){where("availabilities.starts_at<=:b_starts_at AND availabilities.ends_at>=:b_ends_at", b_starts_at: b_starts_at, b_ends_at: b_ends_at)}
   
+  def availabilities_between(starts_at, ends_at)
+    Availability.where("user_id=:user_id AND availabilities.starts_at<=:b_starts_at AND availabilities.ends_at>=:b_ends_at", user_id: self.id, b_starts_at: b_starts_at, b_ends_at: b_ends_at)
+  end
   
   def add_competence(competence, level)
     ActiveRecord::Base.transaction do

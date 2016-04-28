@@ -169,6 +169,24 @@ main{
   text-align: center;
 }
 
-.container{
+.container.app{
   background-color: white;
+}
+
+.comment{
+  white-space: pre;
+}
+
+.comment-preview{
+  text-overflow: ellipsis;
+}
+
+.top-gutter-300{
+  height: 100px;
+}
+
+.login-screen{
+  border: 2px rgb(124, 128, 127) solid;
+  border-radius: 5px;
+  background-color: white
 }

@@ -14,6 +14,9 @@ import MiniSelectedCompetences from './MiniSelectedCompetences.jsx';
 
 import {Tabs, Tab, TabList, TabPanel} from 'react-tabs';
 
+import moment from 'moment';
+require("moment/locale/hu");
+
 export default React.createClass({
   contextTypes: {
     currentUser: React.PropTypes.object
@@ -52,21 +55,30 @@ export default React.createClass({
           <div>
             <h4>Dátum</h4>
             <div className='row'>
-              <div className='column column-20'>
-                Kezdés:
+              <div className='column column-10'>
+                <input type='checkbox' name='check_date' id='check_date' ref='checkDate' value="1"></input>
               </div>
-              <div className='column column-80'>
-                <DateTime timeFormat={false} onChange={this.onStartChange} closeOnSelect={true}></DateTime>
+              <div className='column column-90'>
+                Dátumra keresés?
               </div>
             </div>
             <div className='row'>
-              <div className='column column-20'>
+              <div className='column column-50'>
+                Kezdés:
+              </div>
+              <div className='column column-50'>
                 Befejezés:
               </div>
-              <div className='column column-80'>
+            </div>
+            <div className='row'>
+              <div className='column column-50'>
+                <DateTime timeFormat={false} onChange={this.onStartChange} closeOnSelect={true}></DateTime>
+              </div>
+              <div className='column column-50'>
                 <DateTime timeFormat={false} onChange={this.onEndChange} closeOnSelect={true}></DateTime>
               </div>
             </div>
+            
           </div>
           <div>
             <h4>Kompetencia</h4>
@@ -152,7 +164,7 @@ export default React.createClass({
         level: competence.selectedLevel
       };
     });
-    queryStore.fetchQuery(requested, this.state.startsAt, this.state.endsAt);
+    queryStore.fetchQuery(requested, this.state.startsAt, this.state.endsAt, this.refs.checkDate.value);
     console.log(requested);
     
     this.setState({

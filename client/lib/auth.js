@@ -96,6 +96,17 @@ function canAlterCompetences(actor){
   return actor.is_admin;
 }
 
+/*
+███████ ███████ ██      ██   ██  █████  ███████ ███████ ███    ██  █████  ██       ██████  ██   ██ 
+██      ██      ██      ██   ██ ██   ██ ██         ███  ████   ██ ██   ██ ██      ██    ██ ██  ██  
+█████   █████   ██      ███████ ███████ ███████   ███   ██ ██  ██ ███████ ██      ██    ██ █████   
+██      ██      ██      ██   ██ ██   ██      ██  ███    ██  ██ ██ ██   ██ ██      ██    ██ ██  ██  
+██      ███████ ███████ ██   ██ ██   ██ ███████ ███████ ██   ████ ██   ██ ███████  ██████  ██   ██ 
+*/
+function canAlterRoles(actor){
+  return actor.is_admin;
+}
+
 export default {
   canDeleteCompetenceOf,
   canAcceptCompetenceOf,
@@ -106,5 +117,7 @@ export default {
   
   canRequestUsers,
   
-  canAlterCompetences
+  canAlterCompetences,
+  
+  canAlterRoles
 };

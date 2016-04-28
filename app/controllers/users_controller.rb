@@ -129,6 +129,7 @@ class UsersController < ApplicationController
   end
   
   def landing
+    return redirect_to new_user_session_path unless user_signed_in?
     render 'landing', layout: 'app'
   end
   

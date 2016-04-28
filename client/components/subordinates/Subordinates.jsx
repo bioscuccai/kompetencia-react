@@ -36,14 +36,14 @@ export default React.createClass({
     }
     console.log(this.state);
     return <div>
-      <h2>Família</h2>
+      <h2>Dolgozók</h2>
       {this.state.subordinates.map(user=>{
         return <SubordinateItem
             key={`subordinate-${user.id}`}
             profileUser={this.state.profileUser}
             user={user}></SubordinateItem>;
       })}
-      <h2>Új családtag</h2>
+      <h2>Új Dolgozó</h2>
       <input type='text' ref='filter' placeholder='Szűrés' onChange={this.onFilterChange}></input>
       {this.state.notSubordinates.map(user=>{
         return <NotSubordinateItem
@@ -59,7 +59,7 @@ export default React.createClass({
     console.log(this.props.params);
     console.log(state);
     let profileUser=state.profileUser;
-    let allUsers=state.allUsers;
+    let allUsers=state.allUsers.filter(u=>u.id!==parseInt(this.props.params.profileUserId));
     let subordinates=allUsers.filter(u=>u.godfather_id===parseInt(this.props.params.profileUserId));
     let notSubordinates=allUsers.filter(u=>u.godfather_id!==parseInt(this.props.params.profileUserId));
     let filteredNotSubordinates=notSubordinates;

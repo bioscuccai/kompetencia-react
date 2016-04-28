@@ -2,6 +2,8 @@
 
 import React from 'react';
 import RequestDetail from './RequestDetail.jsx';
+import RequestEdit from './RequestEdit.jsx';
+
 import {Link} from 'react-router';
 
 import Modal from 'react-modal';
@@ -16,19 +18,32 @@ import _ from 'lodash';
 export default React.createClass({
   getInitialState(){
     return {
-      detailModal: false
+      detailModal: false,
+      editModal: false
     };
   },
   
   onDetailModal(){
     this.setState({
-      detailModal: true
+      detailModal: true,
     });
   },
   
-  onRequestClose(){
+  onEditModal(){
+    this.setState({
+      editModal: true
+    });
+  },
+  
+  onDetailRequestClose(){
     this.setState({
       detailModal: false
+    });
+  },
+  
+  onEditRequestClose(){
+    this.setState({
+      editModal: false
     });
   },
   
@@ -51,7 +66,7 @@ export default React.createClass({
       </td>
       <td>
         <h5>{this.props.request.title}</h5>
-        <small>
+        <small className='comment-preview'>
           {this.props.request.comment}
         </small>
       </td>
@@ -67,15 +82,22 @@ export default React.createClass({
           <i className='icon ion-eye'></i>
         </button>
 
-        <button className='icon-button'>
+        <button onClick={this.onEditModal} className='icon-button'>
           <i className='icon ion-compose'></i>
         </button>
 
         <Modal isOpen={this.state.detailModal}
-          onRequestClose={this.onRequestClose}
+          onRequestClose={this.onDetailRequestClose}
           style={this.modalStyle}>
           <RequestDetail request={this.props.request}></RequestDetail>
-          <button onClick={this.onRequestClose}>Bezár</button>
+          <button onClick={this.onDetailRequestClose}>Bezár</button>
+        </Modal>
+        
+        <Modal isOpen={this.state.editModal}
+          onRequestClose={this.onEditRequestClose}
+          style={this.modalStyle}>
+          <RequestEdit request={this.props.request}
+            onClose={this.onEditRequestClose}></RequestEdit>
         </Modal>
       </td>
     </tr>;

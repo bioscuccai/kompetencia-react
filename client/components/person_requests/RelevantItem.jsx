@@ -83,7 +83,7 @@ export default React.createClass({
       </td>
       <td>
         <h5>{this.props.request.title}</h5>
-        <small>
+        <small className='comment-preview'>
           {this.props.request.comment}
         </small>
       </td>

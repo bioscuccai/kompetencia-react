@@ -9,6 +9,7 @@ import userStore from '../../stores/user_store';
 import Availability from './Availability.jsx';
 import NewAvailability from './NewAvailability.jsx';
 import Loading from '../Loading.jsx';
+import UserBulletpoints from '../user/UserBulletpoints.jsx';
 
 import modalStyle from '../../styles/modal';
 import Modal from 'react-modal';
@@ -53,6 +54,9 @@ export default React.createClass({
     }
     return <div>
       <h1>Elérhetőségek</h1>
+      <blockquote>
+        <UserBulletpoints user={this.state.profileUser}></UserBulletpoints>
+      </blockquote>
       <table>
         <thead>
           <tr>

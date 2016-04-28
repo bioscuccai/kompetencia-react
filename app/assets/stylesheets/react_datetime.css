@@ -16,6 +16,7 @@
   box-shadow: 0 1px 3px rgba(0,0,0,.1);
   border: 1px solid #f9f9f9;
   font-size: 80%;
+  background-color: rgb(244, 227, 249);
 }
 .rdtOpen .rdtPicker {
 	display: block;

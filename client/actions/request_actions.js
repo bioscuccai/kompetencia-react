@@ -36,6 +36,33 @@ class RequestActions{
     };
   }
   
+  updateRequest(userId, requestId, startsAt, endsAt, chance, title, comment){
+    return dispatch=>{
+      axios.put(`/users/${userId}/person_requests/${requestId}.json`, {
+        person_request: {
+          starts_at: startsAt,
+          ends_at: endsAt,
+          chance,
+          title,
+          comment
+        }
+      }, {
+        responseType: 'json'
+      })
+      .then(data=>{
+        dispatch({
+          userId,
+          requestId,
+          startsAt,
+          endsAt,
+          chance,
+          title,
+          comment
+        });
+      });
+    };
+  }
+  
   deleteRequest(userId, requestId, requesterId){
     return dispatch=>{
       axios.delete(`/users/${userId}/person_requests/${requestId}.json`, {

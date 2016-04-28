@@ -2,25 +2,41 @@
 
 import React from 'react';
 import DateLabel from '../date/DateLabel.jsx';
+import UserBulletpoints from '../user/UserBulletpoints.jsx';
 
 export default React.createClass({
   render(){
     return <div>
       <h1>{this.props.request.title}</h1>
-      <div>{this.props.request.comment}</div>
-      <div>
-        <i className='icon ion-calendar'></i>&nbsp;
-        <DateLabel date={this.props.request.starts_at}></DateLabel>
-        &mdash;
-        <DateLabel date={this.props.request.ends_at}></DateLabel>
+      <p className='comment'>{this.props.request.comment}</p>
+      <div className='row'>
+        <div className='column column-20'>
+          Időtartam
+        </div>
+        <div className='column column-80'>
+          <i className='icon ion-calendar'></i>&nbsp;
+          <DateLabel date={this.props.request.starts_at}></DateLabel>
+          &mdash;
+          <DateLabel date={this.props.request.ends_at}></DateLabel>
+        </div>
       </div>
-      <div>
-        <i className='icon ion-person'></i>&nbsp;
-        {this.props.request.target.email}
+      
+      <div className='row'>
+        <div className='column column-20'>
+          Kérvényező
+        </div>
+        <div className='column column-80'>
+          <UserBulletpoints user={this.props.request.user}></UserBulletpoints>
+        </div>
       </div>
-      <div>
-        <img src='/godfather.gif' className='godfather-icon'></img>
-        {this.props.request.user.email}
+      
+      <div className='row'>
+        <div className='column column-20'>
+          Dolgozó
+        </div>
+        <div className='column column-80'>
+          <UserBulletpoints user={this.props.request.target}></UserBulletpoints>
+        </div>
       </div>
     </div>;
   }

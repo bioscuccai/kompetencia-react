@@ -77,5 +77,5 @@ Rails.application.routes.draw do
   get 'query' => 'query#index'
   post 'query/query' => 'query#query'
   
-  root 'users#home'
+  root 'users#landing'
 end

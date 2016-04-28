@@ -16,7 +16,7 @@ export default React.createClass({
             <i className='icon ion-calendar'></i> <DateLabel date={this.props.availability.starts_at}></DateLabel> &mdash; <DateLabel date={this.props.availability.ends_at}></DateLabel>
           </small>
         </div>
-        <div>
+        <div className='comment-preview'>
           {this.props.availability.comment}
         </div>
         
