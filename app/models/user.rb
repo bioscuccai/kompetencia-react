@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
   scope :free_between_open, ->(starts_at){all}
   #scope :has_availability, ->(b_starts_at, b_ends_at){where("availabilities.starts_at<=:b_starts_at AND availabilities.ends_at>=:b_ends_at", b_starts_at: b_starts_at, b_ends_at: b_ends_at)}
   
-  def availabilities_between(starts_at, ends_at)
+  def availabilities_between(b_starts_at, b_ends_at)
     Availability.where("user_id=:user_id AND availabilities.starts_at<=:b_starts_at AND availabilities.ends_at>=:b_ends_at", user_id: self.id, b_starts_at: b_starts_at, b_ends_at: b_ends_at)
   end
   

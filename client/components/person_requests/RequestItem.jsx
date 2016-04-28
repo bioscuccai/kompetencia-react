@@ -62,7 +62,7 @@ export default React.createClass({
             </small>
           </div>
         </Link>
-        <div><small>({_.get(this.props.request, "target.godfather.email")})</small></div>
+        <div><small><img src='/godfather.gif' className='godfather-icon'/>({_.get(this.props.request, "target.godfather.email")})</small></div>
       </td>
       <td>
         <h5>{this.props.request.title}</h5>

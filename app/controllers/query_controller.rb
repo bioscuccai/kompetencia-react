@@ -9,12 +9,10 @@ class QueryController < ApplicationController
   
   def query
     result_per_user=Hash.new{|h,k| h[k]=[]}
-    if params[:check_date]=="1"
-      Rails.logger.info "check date"
-    end
     users=[]
     params[:competences].each do |c|
       res=User.includes(:godfather, assigned_competence_levels: [:competence]).has_level(c["competence_id"], c["level"])
+      res_with_date = (params[:check_date]=="1") ? res.select{|u| u.availabilities_between(Time.new(params[:starts_at]), Time.new(params[:ends_at])).count!=0} : res
       users.push res
       res.each do |u|
         (result_per_user[u.id]).push c["competence_id"]
