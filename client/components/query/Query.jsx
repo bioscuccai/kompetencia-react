@@ -146,13 +146,13 @@ export default React.createClass({
   
   onStartChange(md){
     this.setState({
-      startsAt: md.toDate()
+      startsAt: md ? md.toDate() : null
     });
   },
   
   onEndChange(md){
     this.setState({
-      endsAt: md.toDate()
+      endsAt: md ? md.toDate() : null
     });
   },
   
