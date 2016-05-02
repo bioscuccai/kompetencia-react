@@ -2,7 +2,7 @@ module ApplicationHelper
   include UserFormatter
   
   def import_bundle
-    if Rails.env.development?
+    if !Rails.env.development?
       "<script type='text/javascript' src='http://localhost:8080/bundle.js'></script>".html_safe
     else
       "<script type='text/javascript' src='/bundle.js'></script>".html_safe

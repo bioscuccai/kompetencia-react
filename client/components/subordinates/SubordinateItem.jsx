@@ -4,6 +4,7 @@ import React from 'react';
 import UserBulletPoints from '../user/UserBulletpoints.jsx';
 import userActions from '../../actions/user_actions';
 import {Link} from 'react-router';
+import {NotificationManager} from 'react-notifications';
 
 
 export default React.createClass({
@@ -25,6 +26,9 @@ export default React.createClass({
   },
   onRemoveSubordinate(e){
     e.preventDefault();
-    userActions.removeSubordinate(this.props.profileUser.id, this.props.user.id);
+    userActions.removeSubordinate(this.props.profileUser.id, this.props.user.id).then(data=>{
+      NotificationManager.info("Dolgozó visszavonva");
+    });
+    
   }
 });

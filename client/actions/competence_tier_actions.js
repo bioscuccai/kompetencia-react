@@ -1,14 +1,22 @@
+"use strict";
+
 import alt from '../alt/alt';
 import axios from 'axios';
+import _ from 'lodash';
 
 class CompetenceTierActions{
   constructor(){
-    this.generateActions("error", "selectTier", "selectTierGroup", "updateCompetenceTierGroups");
+    this.generateActions("error", "selectTier", "selectTierGroup", "updateCompetenceTierGroups",
+  
+    "createCompetenceTierSucc", "updateTierSucc", "deleteTierSucc",
+    "createCompetenceTierGroupSucc", "updateTierGroupSucc", "deleteTierGroupSucc");
   }
   
   createCompetenceTierGroup(title, description){
     return dispatch=>{
-      axios.post('/competence_tier_groups.json', {
+      let resp={title, description};
+      dispatch(resp);
+      return axios.post('/competence_tier_groups.json', {
         competence_tier_group: {
           title,
           description
@@ -17,15 +25,17 @@ class CompetenceTierActions{
           responseType: 'json'
       })
       .then(data=>{
-        console.log(data);
-        dispatch(data);
-      });
+        this.createCompetenceTierGroupSucc(_.extend({}, resp, {data: data.data}));
+      })
+      .catch(this.error);
     };
   }
   
   createCompetenceTier(title, description, competenceTierGroupId){
     return dispatch=>{
-      axios.post('/competence_tiers.json', {
+      let resp={title, description, competenceTierGroupId};
+      dispatch(resp);
+      return axios.post('/competence_tiers.json', {
         competence_tier: {
           title,
           description,
@@ -35,41 +45,47 @@ class CompetenceTierActions{
           responseType: 'json'
       })
       .then(data=>{
-        dispatch(data);
-      });
+        this.createCompetenceTierSucc(_.extend({}, resp, {data: data.data}));
+      })
+      .catch(this.error);
     };
   }
   
   updateTier(id, title, level){
     return dispatch=>{
-      axios.put(`/competence_tiers/${id}.json`, {
+      let resp={id, title, level};
+      dispatch(resp);
+      return axios.put(`/competence_tiers/${id}.json`, {
         competence_tier: {
           title
         }
       }, {
         responseType: 'json'
       }).then(data=>{
-        dispatch({
-          id,
-          title,
-          level
-        });
-      });
+        this.updateTierSucc(_.extend({}, resp, {data: data.data}));
+      })
+      .catch(this.error);
     };
   }
   
   deleteTier(id){
+    console.log("delete") ;
     return dispatch=>{
-      axios.delete(`/competence_tiers/${id}`)
+      let resp={id};
+      dispatch(resp);
+      return axios.delete(`/competence_tiers/${id}.json`)
       .then(data=>{
-        dispatch(id);
-      });
+        this.deleteTierSucc(_.extend({}, resp, {data: data.data}));
+      })
+      .catch(this.error);
     };
   }
   
   updateTierGroup(id, title){
     return dispatch=>{
-      axios.put(`/competence_tier_groups/${id}.json`, {
+      let resp={id, title};
+      dispatch(resp);
+      return axios.put(`/competence_tier_groups/${id}.json`, {
         competence_tier_group: {
           title
         }
@@ -77,20 +93,21 @@ class CompetenceTierActions{
         responseType: 'json'
       })
       .then(data=>{
-        dispatch({
-          id,
-          title
-        });
-      });
+        this.updateTierGroupSucc(_.extend({}, resp, {data: data.data}));
+      })
+      .catch(this.error);
     };
   }
   
   deleteTierGroup(id){
     return dispatch=>{
-      axios.delete(`/competence_tier_groups/${id}`)
+      let resp={id};
+      dispatch(resp);
+      return axios.delete(`/competence_tier_groups/${id}.json`)
       .then(data=>{
-        dispatch(id);
-      });
+        this.deleteTierGroupSucc(_.extend({}, resp, {data: data.data}));
+      })
+      .catch(this.error);
     };
   }
 }

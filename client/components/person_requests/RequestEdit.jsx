@@ -4,6 +4,7 @@ import React from 'react';
 import DateTime from 'react-datetime';
 import moment from 'moment';
 require("moment/locale/hu");
+import {NotificationManager} from 'react-notifications';
 
 import requestActions from '../../actions/request_actions';
 
@@ -68,7 +69,10 @@ export default React.createClass({
     e.preventDefault();
 
     requestActions.updateRequest(this.props.request.user_id, this.props.request.id, this.state.startsAt, this.state.endsAt,
-      this.refs.chance.value, this.refs.title.value, this.refs.comment.value);
+      this.refs.chance.value, this.refs.title.value, this.refs.comment.value)
+    .then(data=>{
+      NotificationManager.info("Kérés módosítva");
+    });
     
     if(this.props.onClose){
       this.props.onClose();

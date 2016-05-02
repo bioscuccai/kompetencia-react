@@ -2,16 +2,22 @@
 
 import alt from '../alt/alt';
 import axios from 'axios';
+import _ from 'lodash';
 
 class AvailabilityActions{
   constructor(){
     this.generateActions("error", "updateAvailabilities", "updateGodfatherAvailabilities",
-      "setUserId", "setGodfatherId", "updateRecentAvailabilities");
+      "setUserId", "setGodfatherId", "updateRecentAvailabilities",
+    
+      "newAvailabilitySucc", "deleteAvailabilitySucc", "editAvailabilitySucc",
+      "turnOffAvailabilitySucc", "turnOnAvailabilitySucc");
   }
   
   newAvailability(userId, startsAt, endsAt, comment, godfatherMode=false){
     return dispatch=>{
-      axios.post(`/users/${userId}/availabilities.json`, {
+      let resp={ userId, startsAt, endsAt, comment };
+      dispatch(resp);
+      return axios.post(`/users/${userId}/availabilities.json`, {
         availability: {
           starts_at: startsAt,
           ends_at: endsAt,
@@ -21,59 +27,55 @@ class AvailabilityActions{
         responseType: 'json'
       })
       .then(data=>{
-        return dispatch({
-          userId,
-          startsAt,
-          endsAt,
-          comment
-        });
-      });
+        this.newAvailabilitySucc(_.extend({}, resp, {data: data.data}));
+      })
+      .catch(this.error);
     };
   }
   
   deleteAvailability(userId, availabilityId, godfatherMode=false){
     return dispatch=>{
-      axios.delete(`/users/${userId}/availabilities/${availabilityId}.json`, {
+      let resp={ userId, availabilityId };
+      dispatch(resp);
+      return axios.delete(`/users/${userId}/availabilities/${availabilityId}.json`, {
         responseType: 'json'
       })
       .then(data=>{
-        return dispatch({
-          userId,
-          availabilityId
-        });
-      });
+        this.deleteAvailabilitySucc(_.extend({}, resp, {data: data.data}));
+      })
+      .catch(this.error);
     };
   }
   
   turnOffAvailability(userId, availabilityId, godfatherMode=false){
     return dispatch=>{
-      axios.post(`/users/${userId}/availabilities/${availabilityId}/turn_off`)
+      let resp={ userId, availabilityId };
+      dispatch(resp);
+      return axios.post(`/users/${userId}/availabilities/${availabilityId}/turn_off`)
       .then(data=>{
-        return dispatch({
-          userId,
-          availabilityId
-        });
-      });
+        this.turnOffAvailabilitySucc(_.extend({}, resp, {data: data.data}));
+      })
+      .catch(this.error);
     };
   }
   
   turnOnAvailability(userId, availabilityId, godfatherMode=false){
     return dispatch=>{
-      axios.post(`/users/${userId}/availabilities/${availabilityId}/turn_on`)
+      let resp={ userId, availabilityId };
+      dispatch(resp);
+      return axios.post(`/users/${userId}/availabilities/${availabilityId}/turn_on`)
       .then(data=>{
-        return dispatch({
-          userId,
-          availabilityId
-        });
-      });
+        this.turnOnAvailabilitySucc(_.extend({}, resp, {data: data.data}));
+      })
+      .catch(this.error);
     };
   }
   
   editAvailability(userId, availabilityId, startsAt, endsAt, comment){
-    console.log("edit");
     return dispatch=>{
-      console.log("in dispatch");
-      axios.put(`/users/${userId}/availabilities/${availabilityId}.json`, {
+      let resp={ userId, availabilityId };
+      dispatch(resp);
+      return axios.put(`/users/${userId}/availabilities/${availabilityId}.json`, {
         availability: {
           starts_at: startsAt,
           ends_at: endsAt,
@@ -83,11 +85,9 @@ class AvailabilityActions{
         responseType: 'json'
       })
       .then(data=>{
-        return dispatch({
-          userId,
-          availabilityId
-        });
-      });
+        this.editAvailabilitySucc(_.extend({}, resp, {data: data.data}));
+      })
+      .catch(this.error);
     };
   }
 }

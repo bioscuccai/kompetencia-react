@@ -12,7 +12,9 @@ export default React.createClass({
       recentAvailabilities: []
     };
   },
-  
+  contextTypes: {
+    currentUser: React.PropTypes.object
+  },
   componentDidMount(){
     alt.recycle(availabilityStore);
     availabilityStore.listen(this.handleAvailabilityStoreChange);
@@ -27,7 +29,10 @@ export default React.createClass({
     return <div>
       <h1>Friss hirdetések</h1>
       {this.state.recentAvailabilities.map(availability=>{
-        return <AnnouncedAvailability availability={availability} key={`announcement-${availability.id}`}></AnnouncedAvailability>;
+        return <AnnouncedAvailability 
+          availability={availability}
+          key={`announcement-${availability.id}`}
+          currentUser={this.context.currentUser}></AnnouncedAvailability>;
       })}
     </div>;
   },

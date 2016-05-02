@@ -2,6 +2,7 @@
 
 import React from 'react';
 import competenceTypeActions from '../../actions/competence_type_actions';
+import {NotificationManager} from 'react-notifications';
 
 import EditorBar from '../EditorBar.jsx';
 
@@ -14,10 +15,14 @@ export default React.createClass({
   
   onSave(){
     console.log(this.refs.title.value);
-    competenceTypeActions.updateCompetenceType(this.props.competenceType.id, this.refs.title);
+    competenceTypeActions.updateCompetenceType(this.props.competenceType.id, this.refs.title.value).then(data=>{
+      NotificationManager.info("Kompetencia típus elmentve");
+    });
   },
   
   onDelete(){
-    
+    competenceTypeActions.deleteCompetenceType(this.props.competenceType.id).then(data=>{
+      NotificationManager.info("Kompetencia típus törölve");
+    });
   }
 });

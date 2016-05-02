@@ -15,11 +15,11 @@ class CompetenceStore{
     this.bindActions(competenceActions);
     this.bindListeners({
       reloadUserCompetences: [
-        competenceActions.SET_LEVEL,
-        competenceActions.SET_PENDING_LEVEL,
-        competenceActions.REMOVE_ASSIGNED,
-        competenceActions.REJECT_PENDING,
-        competenceActions.ACCEPT_PENDING
+        competenceActions.SET_LEVEL_SUCC,
+        competenceActions.SET_PENDING_LEVEL_SUCC,
+        competenceActions.REMOVE_ASSIGNED_SUCC,
+        competenceActions.REJECT_PENDING_SUCC,
+        competenceActions.ACCEPT_PENDING_SUCC
       ]
     });
     this.registerAsync(competenceSource);

@@ -111,7 +111,7 @@ export default React.createClass({
   
   onSearchChanged(searchQuery){
     this.setState({
-      filteredCompetences: this.state.parsedCompetences.filter(c=>c.title.contains(this.refs.filter.value) || c.type.contains(this.refs.filter.value))
+      filteredCompetences: this.state.parsedCompetences.filter(c=>c.title.toUpperCase().contains(this.refs.filter.value.toUpperCase()) || c.type.contains(this.refs.filter.value))
     });
   }
 });

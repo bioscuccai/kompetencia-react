@@ -6,6 +6,7 @@ import UserBulletPoints from '../user/UserBulletpoints.jsx';
 import DateTime from 'react-datetime';
 
 import requestActions from '../../actions/request_actions';
+import {NotificationManager} from 'react-notifications';
 
 export default React.createClass({
   getInitialState(){
@@ -32,7 +33,10 @@ export default React.createClass({
     requestActions.createRequest(this.props.currentUser.id, this.props.user.id,
       this.state.startsAt, this.state.endsAt,
       parseInt(this.refs.chance.value),
-      this.refs.title.value, this.refs.comment.value);
+      this.refs.title.value, this.refs.comment.value)
+    .then(data=>{
+      NotificationManager.info("Kérés elküldve");
+    });
     if(this.props.onClose){
       this.props.onClose();
     }
@@ -58,7 +62,7 @@ export default React.createClass({
         <textarea ref='comment'></textarea>
         Valószínűség:
         <input type='text' defaultValue='100' ref='chance'></input>
-        <input type='submit' value='Kérés elküldése'></input>
+        <input type='submit' value='Kérés elküldése' disabled={!this.state.startsAt || !this.state.endsAt}></input>
       </form>
     </div>;
   }

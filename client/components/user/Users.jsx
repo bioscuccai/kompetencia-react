@@ -77,6 +77,6 @@ export default React.createClass({
     if(!this.refs.filter){ //toltes kozben
       return users;
     }
-    return users.filter(u=>u.name.contains(this.refs.filter.value));
+    return users.filter(u=>u.name.toUpperCase().contains(this.refs.filter.value.toUpperCase()));
   }
 });

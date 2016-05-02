@@ -2,31 +2,20 @@
 
 import React from 'react';
 import competenceTierActions from '../../actions/competence_tier_actions';
+import EditorBar from '../EditorBar.jsx';
 
 export default React.createClass({
   render(){
-    return <div className='row'>
-      <div className='column column-50'>
-        <input ref='title' type='text' defaultValue={this.props.tier.title}></input>
-      </div>
-      <div className='column column-50'>
-        <button onClick={this.onSave} className='icon-button'>
-          <i className='icon ion-checkmark'></i>
-        </button>
-        <button className='icon-button'>
-          <i className='icon ion-trash-a'></i>
-        </button>
-      </div>
-    </div>;
+    return <EditorBar onSave={this.onSave} onDelete={this.onDelete}>
+      <input ref='title' type='text' defaultValue={this.props.tier.title}></input>
+    </EditorBar>;
   },
   
-  onSave(e){
-    e.preventDefault();
+  onSave(){
     competenceTierActions.updateTier(this.props.tier.id, this.refs.title.value, this.props.tier.level);
   },
   
-  onDelete(e){
-    e.preventDefault();
+  onDelete(){
     competenceTierActions.deleteTier(this.props.tier.id);
   }
 });

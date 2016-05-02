@@ -2,6 +2,7 @@
 
 import React from 'react';
 import DateTime from 'react-datetime';
+import {NotificationManager} from 'react-notifications';
 
 import availabilityActions from '../../actions/availability_actions';
 
@@ -23,14 +24,17 @@ export default React.createClass({
         Befejezés:
         <DateTime onChange={this.onEndChange} timeFormat={false} closeOnSelect={true}></DateTime>
         <textarea ref='comment' placeholder='Komment'></textarea>
-        <input type='submit' value="Új rendelkezésreállás"></input>
+        <input type='submit' value="Új rendelkezésreállás" disabled={!this.state.startsAt || !this.state.endsAt}></input>
       </form>
     </div>;
   },
   
   onSubmit(e){
     e.preventDefault();
-    availabilityActions.newAvailability(this.props.user.id, this.state.startsAt, this.state.endsAt, this.refs.comment.value);
+    availabilityActions.newAvailability(this.props.user.id, this.state.startsAt, this.state.endsAt, this.refs.comment.value)
+    .then(data=>{
+      NotificationManager.info("Rendelkezésreállás hozzáadva");
+    });
     if(this.props.closeModal){
       this.props.closeModal();
     }

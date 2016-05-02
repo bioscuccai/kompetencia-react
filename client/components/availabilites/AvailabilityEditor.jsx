@@ -4,6 +4,7 @@ import React from 'react';
 import DateTime from 'react-datetime';
 import moment from 'moment';
 require("moment/locale/hu");
+import {NotificationManager} from 'react-notifications';
 
 import availabilityActions from '../../actions/availability_actions';
 
@@ -48,7 +49,10 @@ export default React.createClass({
       this.props.availability.id,
       this.state.startsAt,
       this.state.endsAt,
-      this.refs.comment.value);
+      this.refs.comment.value)
+    .then(data=>{
+      NotificationManager.info("Rendelkezésreállás módosítva");
+    });
     this.onClose();
   },
   

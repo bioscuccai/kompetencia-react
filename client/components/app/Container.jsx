@@ -4,7 +4,8 @@ import React from 'react';
 import {Link} from 'react-router';
 import Menu from './Menu.jsx';
 import UserHeader from './UserHeader.jsx';
-import NotificationSystem from 'react-notification-system';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+require("react-notifications/lib/notifications.css");
 
 export default React.createClass({
   render(){
@@ -18,7 +19,7 @@ export default React.createClass({
           {this.props.children}
         </main>
       </div>
-      <NotificationSystem ref='notificationSystem'></NotificationSystem>
+      <NotificationContainer></NotificationContainer>
     </div>;
   }
 });

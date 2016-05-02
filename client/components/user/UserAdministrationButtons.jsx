@@ -4,6 +4,7 @@ import React from 'react';
 
 import userActions from '../../actions/user_actions';
 import auth from '../../lib/auth';
+import {NotificationManager} from 'react-notifications';
 
 export default React.createClass({
   render(){
@@ -30,18 +31,27 @@ export default React.createClass({
   },
   
   onMakeAdmin(){
-    userActions.makeAdmin(this.props.user.id);
+    userActions.makeAdmin(this.props.user.id).then(data=>{
+      NotificationManager.info("Adminná téve");
+      
+    });
   },
   
   onRevokeAdmin(){
-    userActions.revokeAdmin(this.props.user.id);
+    userActions.revokeAdmin(this.props.user.id).then(data=>{
+      NotificationManager.info("Admin jog visszavonva");
+    });
   },
   
   onMakeGodfather(){
-    userActions.makeGodfather(this.props.user.id);
+    userActions.makeGodfather(this.props.user.id).then(data=>{
+      NotificationManager.info("Keresztapává téve");
+    });
   },
   
   onRevokeGodfather(){
-    userActions.revokeGodfather(this.props.user.id);
+    userActions.revokeGodfather(this.props.user.id).then(data=>{
+      NotificationManager.info("Keresztapaság elvéve");
+    });
   }
 });

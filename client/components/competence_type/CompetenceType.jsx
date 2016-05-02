@@ -42,8 +42,8 @@ export default React.createClass({
           }
           return comp;
         })}
+        <button onClick={this.onNewModal}><i className='icon ion-plus'></i> Új kompetencia...</button>
       </blockquote>
-      <button onClick={this.onNewModal}>Új válasz...</button>
       <Modal
         style={modalStyle}
         onRequestClose={this.onRequestClose}

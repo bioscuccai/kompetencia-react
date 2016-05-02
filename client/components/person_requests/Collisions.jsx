@@ -5,6 +5,7 @@ import React from 'react';
 import DateLabel from '../date/DateLabel.jsx';
 
 import requestActions from '../../actions/request_actions';
+import {NotificationManager} from 'react-notifications';
 
 export default React.createClass({
   render(){
@@ -44,17 +45,26 @@ export default React.createClass({
   },
   
   onAccept(){
-    requestActions.acceptRequest(this.props.request.user_id, this.props.request.id, this.props.user.id);
+    requestActions.acceptRequest(this.props.request.user_id, this.props.request.id, this.props.user.id)
+    .then(data=>{
+      NotificationManager.info("Felkérés elfogadva");
+    });
     this.onClose();
   },
   
   onAcceptNoCollision(){
-    requestActions.acceptRequestNoCollisions(this.props.request.user_id, this.props.request.id, this.props.user.id);
+    requestActions.acceptRequestNoCollisions(this.props.request.user_id, this.props.request.id, this.props.user.id)
+    .then(data=>{
+      NotificationManager.info("Felkérés elfogadva");
+    });
     this.onClose();
   },
   
   onReject(){
-    requestActions.rejectRequest(this.props.request.user_id, this.props.request.id, this.props.user.id);
+    requestActions.rejectRequest(this.props.request.user_id, this.props.request.id, this.props.user.id)
+    .then(data=>{
+      NotificationManager.info("Felkérés visszautasítva");
+    });
     this.onClose();
   }
 });

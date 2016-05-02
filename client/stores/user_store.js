@@ -12,12 +12,12 @@ class UserStore{
     this.bindActions(userActions);
     this.bindListeners({
       reloadUsers: [
-        userActions.ADD_SUBORDINATE,
-        userActions.REMOVE_SUBORDINATE,
-        userActions.MAKE_ADMIN,
-        userActions.REVOKE_ADMIN,
-        userActions.MAKE_GODFATHER,
-        userActions.REVOKE_GODFATHER
+        userActions.ADD_SUBORDINATE_SUCC,
+        userActions.REMOVE_SUBORDINATE_SUCC,
+        userActions.MAKE_ADMIN_SUCC,
+        userActions.REVOKE_ADMIN_SUCC,
+        userActions.MAKE_GODFATHER_SUCC,
+        userActions.REVOKE_GODFATHER_SUCC
       ]
     });
     this.registerAsync(userSource);

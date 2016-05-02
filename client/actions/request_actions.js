@@ -2,15 +2,21 @@
 
 import alt from '../alt/alt';
 import axios from 'axios';
+import _ from 'lodash';
 
 class RequestActions{
   constructor(){
-    this.generateActions("error", "updateRequested", "updateRelevant", "updateCollisions", "resetCollisions");
+    this.generateActions("error", "updateRequested", "updateRelevant", "updateCollisions", "resetCollisions",
+    
+    "createRequestSucc", "updateRequestSucc", "deleteRequestSucc",
+    "acceptRequestSucc", "acceptRequestNoCollisionsSucc", "rejectRequestSucc");
   }
   
   createRequest(userId, targetId, startsAt, endsAt, chance, title, comment){
     return dispatch=>{
-      axios.post(`/users/${userId}/person_requests.json`, {
+      let resp={userId, targetId, startsAt, endsAt, chance, title, comment};
+      dispatch(resp);
+      return axios.post(`/users/${userId}/person_requests.json`, {
         person_request: {
           target_id: targetId,
           starts_at: startsAt,
@@ -23,22 +29,17 @@ class RequestActions{
         responseType: 'json'
       })
       .then(data=>{
-        return dispatch({
-          userId,
-          targetId,
-          startsAt,
-          endsAt,
-          chance,
-          title,
-          comment
-        });
-      });
+        this.createRequestSucc(_.extend({}, resp, {data: data.data}));
+      })
+      .catch(this.error);
     };
   }
   
   updateRequest(userId, requestId, startsAt, endsAt, chance, title, comment){
     return dispatch=>{
-      axios.put(`/users/${userId}/person_requests/${requestId}.json`, {
+      let resp={userId, requestId, startsAt, endsAt, chance, title,comment};
+      dispatch(resp);
+      return axios.put(`/users/${userId}/person_requests/${requestId}.json`, {
         person_request: {
           starts_at: startsAt,
           ends_at: endsAt,
@@ -50,70 +51,59 @@ class RequestActions{
         responseType: 'json'
       })
       .then(data=>{
-        dispatch({
-          userId,
-          requestId,
-          startsAt,
-          endsAt,
-          chance,
-          title,
-          comment
-        });
-      });
+        this.updateRequestSucc(_.extend({}, resp, {data: data.data}));
+      })
+      .catch(this.error);
     };
   }
   
   deleteRequest(userId, requestId, requesterId){
     return dispatch=>{
-      axios.delete(`/users/${userId}/person_requests/${requestId}.json`, {
+      let resp={ userId, requestId, requesterId };
+      dispatch(resp);
+      return axios.delete(`/users/${userId}/person_requests/${requestId}.json`, {
         responseType: 'json'
       })
       .then(data=>{
-        return dispatch({
-          userId,
-          requestId,
-          requesterId
-        });
-      });
+        this.deleteRequestSucc(_.extend({}, resp, {data: data.data}));
+      })
+      .catch(this.error);
     };
   }
   
   acceptRequest(userId, requestId, requesterId){
     return dispatch=>{
-      axios.post(`/users/${userId}/person_requests/${requestId}/accept`)
+      let resp={userId, requestId, requesterId};
+      dispatch(resp);
+      return axios.post(`/users/${userId}/person_requests/${requestId}/accept`)
       .then(data=>{
-        return dispatch({
-          userId,
-          requestId,
-          requesterId
-        });
-      });
+        this.acceptRequestSucc(_.extend({}, resp, {data: data.data}));
+      })
+      .catch(this.error);
     };
   }
   
   acceptRequestNoCollisions(userId, requestId, requesterId){
     return dispatch=>{
-      axios.post(`/users/${userId}/person_requests/${requestId}/accept_no_collision`)
+      let resp={ userId, requestId, requesterId };
+      dispatch(resp);
+      return axios.post(`/users/${userId}/person_requests/${requestId}/accept_no_collision`)
       .then(data=>{
-        return dispatch({
-          userId,
-          requestId,
-          requesterId
-        });
-      });
+        this.acceptRequestNoCollisions(_.extend({}, resp, {data: data.data}));
+      })
+      .catch(this.error);
     };
   }
   
   rejectRequest(userId, requestId, requesterId){
     return dispatch=>{
-      axios.post(`/users/${userId}/person_requests/${requestId}/reject`)
+      let resp={ userId, requestId, requesterId };
+      dispatch(resp);
+      return axios.post(`/users/${userId}/person_requests/${requestId}/reject`)
       .then(data=>{
-        return dispatch({
-          userId,
-          requestId,
-          requesterId
-        });
-      });
+        this.rejectRequestSucc(_.extend({}, resp, {data: data.data}));
+      })
+      .catch(this.error);
     };
   }
 }

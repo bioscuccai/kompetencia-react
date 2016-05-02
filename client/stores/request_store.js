@@ -13,13 +13,13 @@ class RequestStore{
     this.bindActions(requestActions);
     this.bindListeners({
       reloadRelevant: [
-        requestActions.ACCEPT_REQUEST,
-        requestActions.ACCEPT_REQUEST_NO_COLLISIONS,
-        requestActions.REJECT_REQUEST
+        requestActions.ACCEPT_REQUEST_SUCC,
+        requestActions.ACCEPT_REQUEST_NO_COLLISIONS_SUCC,
+        requestActions.REJECT_REQUEST_SUCC
       ],
       reloadRequests: [
-        requestActions.DELETE_REQUEST,
-        requestActions.UPDATE_REQUEST
+        requestActions.DELETE_REQUEST_SUCC,
+        requestActions.UPDATE_REQUEST_SUCC
       ]
     });
     this.registerAsync(requestSource);

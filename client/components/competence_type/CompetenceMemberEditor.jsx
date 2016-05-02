@@ -2,7 +2,8 @@
 
 import React from 'react';
 
-import availabilityActions from '../../actions/competence_type_actions';
+import competenceTypeActions from '../../actions/competence_type_actions';
+import {NotificationManager} from 'react-notifications';
 import EditorBar from '../EditorBar.jsx';
 
 export default React.createClass({
@@ -12,11 +13,15 @@ export default React.createClass({
     </EditorBar>;
   },
   
-  onSave(){
-    
+  onSave(e){
+    competenceTypeActions.updateCompetence(this.props.competence.id, this.refs.title.value).then(data=>{
+      NotificationManager.info("Kompetencia módosítva");
+    });
   },
   
   onDelete(e){
-    
+    competenceTypeActions.deleteCompetence(this.props.competence.id).then(data=>{
+      NotificationManager.info("Kompetencia törlve");
+    });
   }
 });

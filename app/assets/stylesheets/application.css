@@ -190,3 +190,7 @@ main{
   border-radius: 5px;
   background-color: white
 }
+
+.small-spacer{
+  height: 20px;
+}

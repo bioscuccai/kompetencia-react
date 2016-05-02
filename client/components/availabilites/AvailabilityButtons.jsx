@@ -5,6 +5,7 @@ import React from 'react';
 import availabilityActions from '../../actions/availability_actions';
 import Modal from 'react-modal';
 import modalStyle from '../../styles/modal';
+import {NotificationManager} from 'react-notifications';
 
 import AvailabilityEditor from './AvailabilityEditor.jsx';
 
@@ -50,15 +51,21 @@ export default React.createClass({
   },
   
   onTurnOn(){
-    availabilityActions.turnOnAvailability(this.props.availability.user_id, this.props.availability.id);
+    availabilityActions.turnOnAvailability(this.props.availability.user_id, this.props.availability.id).then(data=>{
+      NotificationManager.info("Rendelkezésreállás bekapcsolva");
+    });
   },
   
   onTurnOff(){
-    availabilityActions.turnOffAvailability(this.props.availability.user_id, this.props.availability.id);
+    availabilityActions.turnOffAvailability(this.props.availability.user_id, this.props.availability.id).then(data=>{
+      NotificationManager.info("Rendelkezésreállás kikapcsolva");
+    });
   },
   
   onDelete(){
-    availabilityActions.deleteAvailability(this.props.availability.user_id, this.props.availability.id);
+    availabilityActions.deleteAvailability(this.props.availability.user_id, this.props.availability.id).then(data=>{
+      NotificationManager.info("Rendelkezésreállás törölve");
+    });
   },
   
   onEditModal(){

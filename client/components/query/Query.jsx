@@ -29,7 +29,8 @@ export default React.createClass({
       results: [],
       startsAt: null,
       endsAt: null,
-      selectedTabIndex: 0
+      selectedTabIndex: 0,
+      dateChecked: false
     };
   },
   
@@ -56,7 +57,7 @@ export default React.createClass({
             <h4>Dátum</h4>
             <div className='row'>
               <div className='column column-10'>
-                <input type='checkbox' name='check_date' id='check_date' ref='checkDate' value="1"></input>
+                <input type='checkbox' name='check_date' id='check_date' ref='checkDate' value="1" onChange={this.onDateClick}></input>
               </div>
               <div className='column column-90'>
                 Dátumra keresés?
@@ -102,7 +103,7 @@ export default React.createClass({
             
           </div>
           <div>
-            <button onClick={this.onQuery}>Keresés</button>
+            <button onClick={this.onQuery} disabled={this.state.dateChecked ? (!this.state.startsAt || !this.state.endsAt) : false}>Keresés</button>
           </div>
 
           <div>
@@ -120,8 +121,6 @@ export default React.createClass({
             })}
           </div>
 
-      
-      
     </div>;
   },
   
@@ -135,7 +134,7 @@ export default React.createClass({
   },
   
   filterResults(query){
-    return query.filter(q=>q.title.contains(this.refs.filter.value));
+    return query.filter(q=>q.title.toUpperCase().contains(this.refs.filter.value.toUpperCase()));
   },
   
   onFilterChange(){
@@ -164,7 +163,7 @@ export default React.createClass({
         level: competence.selectedLevel
       };
     });
-    queryStore.fetchQuery(requested, this.state.startsAt, this.state.endsAt, this.refs.checkDate.value);
+    queryStore.fetchQuery(requested, this.state.startsAt, this.state.endsAt, this.state.dateChecked);
     console.log(requested);
     
     this.setState({
@@ -178,5 +177,11 @@ export default React.createClass({
         selectedTabIndex: index
       });
     }
+  },
+  
+  onDateClick(e){
+    this.setState({
+      dateChecked: e.target.checked
+    });
   }
 });

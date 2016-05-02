@@ -18,11 +18,11 @@ class AvailabilityStore{
     this.bindActions(availabilityActions);
     this.bindListeners({
       refreshAvailabilities: [
-          availabilityActions.NEW_AVAILABILITY,
-          availabilityActions.TURN_ON_AVAILABILITY,
-          availabilityActions.TURN_OFF_AVAILABILITY,
-          availabilityActions.EDIT_AVAILABILITY,
-          availabilityActions.DELETE_AVAILABILITY]
+          availabilityActions.NEW_AVAILABILITY_SUCC,
+          availabilityActions.TURN_ON_AVAILABILITY_SUCC,
+          availabilityActions.TURN_OFF_AVAILABILITY_SUCC,
+          availabilityActions.EDIT_AVAILABILITY_SUCC,
+          availabilityActions.DELETE_AVAILABILITY_SUCC]
     });
     this.registerAsync(availabilitySource);
   }

@@ -3,6 +3,7 @@
 import React from 'react';
 import competenceActions from '../../actions/competence_actions';
 import auth from '../../lib/auth';
+import {NotificationManager} from 'react-notifications';
 
 export default React.createClass({
   render(){
@@ -27,16 +28,22 @@ export default React.createClass({
   
   removeAssigned(e){
     e.preventDefault();
-    competenceActions.removeAssigned(this.props.competence.id, this.props.user.id);
+    competenceActions.removeAssigned(this.props.competence.id, this.props.user.id).then(data=>{
+      NotificationManager.info("Kompetencia törölve");
+    });
   },
   
   rejectPending(e){
     e.preventDefault();
-    competenceActions.rejectPending(this.props.competence.id, this.props.user.id);
+    competenceActions.rejectPending(this.props.competence.id, this.props.user.id).then(data=>{
+      NotificationManager.info("Kompetencia visszautasítva");
+    });
   },
   
   acceptPending(e){
     e.preventDefault();
-    competenceActions.acceptPending(this.props.competence.id, this.props.user.id);
+    competenceActions.acceptPending(this.props.competence.id, this.props.user.id).then(data=>{
+      NotificationManager.info("Kompetencia jóváhagyva");
+    });
   }
 });

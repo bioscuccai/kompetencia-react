@@ -12,12 +12,12 @@ class CompetenceTypeStore{
     this.bindActions(competenceTypeActions);
     this.bindListeners({
       reloadCompetenceTypes: [
-        competenceTypeActions.CREATE_COMPETENCE_TYPE,
-        competenceTypeActions.CREATE_COMPETENCE,
-        competenceTypeActions.UPDATE_COMPETENCE,
-        competenceTypeActions.UPDATE_COMPETENCE_TYPE,
-        competenceTypeActions.DELETE_COMPETENCE,
-        competenceTypeActions.DELETE_COMPETENCE_TYPE
+        competenceTypeActions.CREATE_COMPETENCE_TYPE_SUCC,
+        competenceTypeActions.CREATE_COMPETENCE_SUCC,
+        competenceTypeActions.UPDATE_COMPETENCE_SUCC,
+        competenceTypeActions.UPDATE_COMPETENCE_TYPE_SUCC,
+        competenceTypeActions.DELETE_COMPETENCE_SUCC,
+        competenceTypeActions.DELETE_COMPETENCE_TYPE_SUCC
       ]
     });
     this.registerAsync(competenceTypeSource);

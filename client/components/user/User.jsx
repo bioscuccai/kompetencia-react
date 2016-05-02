@@ -56,7 +56,7 @@ export default React.createClass({
           return <div className='profile-item' key={`subordinate-${user.id}`}>
               <UserBulletpoints user={user}></UserBulletpoints>
             </div>;
-        })};
+        })}
       </div>;
     }
     

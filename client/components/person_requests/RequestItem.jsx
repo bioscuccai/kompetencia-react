@@ -12,6 +12,7 @@ import ConfirmedMarker from './ConfirmedMarker.jsx';
 
 import requestActions from '../../actions/request_actions';
 import DateLabel from '../date/DateLabel.jsx';
+import {NotificationManager} from 'react-notifications';
 
 import _ from 'lodash';
 
@@ -105,6 +106,9 @@ export default React.createClass({
   
   onDeleteRequest(e){
     e.preventDefault();
-    requestActions.deleteRequest(this.props.request.user.id, this.props.request.id, this.props.user.id);
+    requestActions.deleteRequest(this.props.request.user.id, this.props.request.id, this.props.user.id)
+    .then(data=>{
+      NotificationManager.info("Kérés visszavonva");
+    });
   }
 });

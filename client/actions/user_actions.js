@@ -2,94 +2,102 @@
 
 import alt from '../alt/alt';
 import axios from 'axios';
+import _ from 'lodash';
 
 class UserActions{
   constructor(){
-    this.generateActions("error", "updateAllUsers", "updateSubordinates", "updateProfileUser");
+    this.generateActions("error", "updateAllUsers", "updateSubordinates", "updateProfileUser",
+    
+    "makeAdminSucc", "revokeAdminSucc",
+    "makeGodfatherSucc", "revokeGodfatherSucc",
+    "addSubordinateSucc", "removeSubordinateSucc");
   }
   
   //ezek a felhasznalonak a keresztapjat allitjak be
   //nem pedig a keresztapa ala adnak egy kovetot
   addSubordinate(userId, subId){
-    console.log(arguments);
+    let resp={userId, subId};
     return dispatch=>{
-      axios.post(`/users/${subId}/add_godfather`, {
+      dispatch(resp);
+      return axios.post(`/users/${subId}/add_godfather`, {
         godfather_id: userId
       }, {
         responseType: 'json'
       })
       .then(data=>{
-        dispatch({
-          userId,
-          subId
-        });
-      });
+        this.addSubordinateSucc(_.extend({}, resp, {data: data.data}));
+      })
+      .catch(this.error);
     };
   }
   
   removeSubordinate(userId, subId){
     return dispatch=>{
-      axios.post(`/users/${subId}/remove_godfather`,{}, {
+      let resp={userId, subId};
+      dispatch(resp);
+      return axios.post(`/users/${subId}/remove_godfather`,{}, {
         responseType: 'json'
       })
       .then(data=>{
-        dispatch({
-          userId,
-          subId
-        });
-      });
+        this.removeSubordinateSucc(_.extend({}, resp, {data: data.data}));
+      })
+      .catch(this.error);
     };
   }
-  
+
   makeAdmin(userId){
     return dispatch=>{
-      axios.get(`/users/${userId}/make_admin`, {
+      let resp={userId};
+      dispatch(resp);
+      return axios.get(`/users/${userId}/make_admin`, {
         responseType: 'json'
       })
       .then(data=>{
-        return dispatch({
-          userId
-        });
-      });
+        return this.makeAdminSucc(_.extend({}, resp, {data: data.data}));
+      })
+      .catch(this.error);
     };
   }
   
   revokeAdmin(userId){
     return dispatch=>{
-      axios.get(`/users/${userId}/revoke_admin`, {
+      let resp={userId};
+      dispatch(resp);
+      return axios.get(`/users/${userId}/revoke_admin`, {
         responseType: 'json'
       })
       .then(data=>{
-        return dispatch({
-          userId
-        });
-      });
+        this.revokeAdminSucc(_.extend({}, resp, {data: data.data}));
+      })
+      .catch(this.error);
     };
   }
   
   makeGodfather(userId){
     return dispatch=>{
-      axios.get(`/users/${userId}/make_godfather`, {
+      let resp={userId};
+      dispatch(resp);
+      return axios.get(`/users/${userId}/make_godfather`, {
         responseType: 'json'
       })
       .then(data=>{
-        return dispatch({
-          userId
-        });
-      });
+        return this.makeGodfatherSucc(_.extend({}, resp, {data: data.data}));
+      })
+      .catch(this.error);
     };
   }
   
   revokeGodfather(userId){
     return dispatch=>{
-      axios.get(`/users/${userId}/revoke_godfather`, {
+      let resp={userId};
+      dispatch(resp);
+      return axios.get(`/users/${userId}/revoke_godfather`, {
         responseType: 'json'
       })
       .then(data=>{
-        return dispatch({
-          userId
-        });
-      });
+        this.revokeGodfatherSucc(_.extend({}, resp, {data: data.data}));
+      })
+      .catch(this.error);
     };
   }
 }

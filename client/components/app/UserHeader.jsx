@@ -19,6 +19,7 @@ export default React.createClass({
       <div className='menu-item'>
         <a href='/users/sign_out'><i className='icon ion-android-walk'></i> Kilépés</a>
       </div>
+      <div className='small-spacer'></div>
       <div className='menu-item'>
         <Link to={`users/${this.context.currentUser.id}`}><i className='icon ion-person'></i> Profilom</Link>
       </div>

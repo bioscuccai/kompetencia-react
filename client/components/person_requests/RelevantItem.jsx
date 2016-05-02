@@ -14,6 +14,7 @@ import Collisions from './Collisions.jsx';
 
 import requestActions from '../../actions/request_actions';
 import requestStore from '../../stores/request_store';
+import {NotificationManager} from 'react-notifications';
 
 export default React.createClass({
   getInitialState(){
@@ -48,7 +49,10 @@ export default React.createClass({
   },
   
   onReject(){
-    requestActions.rejectRequest(this.props.request.user_id, this.props.request.id, this.props.user.id);
+    requestActions.rejectRequest(this.props.request.user_id, this.props.request.id, this.props.user.id)
+    .then(data=>{
+      NotificationManager.info("Felkérés visszavonva");
+    });
   },
   
   componentWillMount(){

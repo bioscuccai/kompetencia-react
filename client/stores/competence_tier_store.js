@@ -11,12 +11,12 @@ class CompetenceTierStore{
     this.bindActions(competenceTierActions);
     this.bindListeners({
       reloadCompetenceTiers: [
-        competenceTierActions.CREATE_COMPETENCE_TIER,
-        competenceTierActions.CREATE_COMPETENCE_TIER_GROUP,
-        competenceTierActions.UPDATE_TIER,
-        competenceTierActions.DELETE_TIER,
-        competenceTierActions.UPDATE_TIER_GROUP,
-        competenceTierActions.DELETE_TIER_GROUP
+        competenceTierActions.CREATE_COMPETENCE_TIER_SUCC,
+        competenceTierActions.CREATE_COMPETENCE_TIER_GROUP_SUCC,
+        competenceTierActions.UPDATE_TIER_SUCC,
+        competenceTierActions.DELETE_TIER_SUCC,
+        competenceTierActions.UPDATE_TIER_GROUP_SUCC,
+        competenceTierActions.DELETE_TIER_GROUP_SUCC
       ]
     });
     this.registerAsync(competenceTierSource);
