@@ -4,6 +4,7 @@ import React from 'react';
 import userStore from '../../stores/user_store';
 import UserItem from './UserItem.jsx';
 import Loading from '../Loading.jsx';
+import alt from '../../alt/alt';
 
 export default React.createClass({
   contextTypes: {
@@ -19,6 +20,7 @@ export default React.createClass({
   },
   
   componentDidMount(){
+    alt.recycle(userStore);
     userStore.listen(this.handleUserStoreChange);
     userStore.fetchAllUsers();
     userStore.fetchProfileUser(parseInt(this.context.currentUser.id));
@@ -77,6 +79,6 @@ export default React.createClass({
     if(!this.refs.filter){ //toltes kozben
       return users;
     }
-    return users.filter(u=>u.name.toUpperCase().contains(this.refs.filter.value.toUpperCase()));
+    return users.filter(u=>u.name.toUpperCase().includes(this.refs.filter.value.toUpperCase()));
   }
 });

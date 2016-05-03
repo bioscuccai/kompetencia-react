@@ -10,6 +10,7 @@ import userStore from '../../stores/user_store';
 
 import CompetenceSearchField from './CompetenceSearchField.jsx';
 import Competence from './Competence.jsx';
+import UserBulletpoints from '../user/UserBulletpoints.jsx';
 
 import Loading from '../Loading.jsx';
 
@@ -76,6 +77,9 @@ export default React.createClass({
       <h1>
         Kompetenciák
       </h1>
+      <h3>
+        {this.state.profileUser.name}
+      </h3>
       <div>
         <input type="text" placeholder="Szűrés" ref='filter' onChange={this.onSearchChanged}/>
       </div>
@@ -111,7 +115,7 @@ export default React.createClass({
   
   onSearchChanged(searchQuery){
     this.setState({
-      filteredCompetences: this.state.parsedCompetences.filter(c=>c.title.toUpperCase().contains(this.refs.filter.value.toUpperCase()) || c.type.contains(this.refs.filter.value))
+      filteredCompetences: this.state.parsedCompetences.filter(c=>c.title.toUpperCase().includes(this.refs.filter.value.toUpperCase()) || c.type.includes(this.refs.filter.value))
     });
   }
 });

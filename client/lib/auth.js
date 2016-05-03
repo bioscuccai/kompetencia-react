@@ -1,3 +1,5 @@
+"use strict";
+
 /*
 ██   ██  ██████  ███    ███ ██████  ███████ ████████ ███████ ███    ██  ██████ ██  █████  
 ██  ██  ██    ██ ████  ████ ██   ██ ██         ██    ██      ████   ██ ██      ██ ██   ██ 
@@ -69,6 +71,9 @@ function canAlterAvailabilityOf(subject, actor){
   if(actor.is_godfather && subject.godfather_id===actor.id){
     return true;
   }
+  if(actor.is_godfather && subject.id===actor.id){
+    return true;
+  }
   return false;
 }
 
@@ -82,6 +87,10 @@ function canAlterAvailabilityOf(subject, actor){
 
 function canRequestUsers(actor){
   return (actor.is_admin || actor.is_godfather);
+}
+
+function canRequestUser(subject, actor){
+  return actor.is_godfather && subject.godfather_id!==actor.id;
 }
 
 /*
@@ -107,6 +116,14 @@ function canAlterRoles(actor){
   return actor.is_admin;
 }
 
+function canManageUsers(actor){
+  return actor.is_admin;
+}
+
+function canSearch(actor){
+  return actor.is_admin || actor.is_godfather;
+}
+
 export default {
   canDeleteCompetenceOf,
   canAcceptCompetenceOf,
@@ -116,8 +133,11 @@ export default {
   canAlterAvailabilityOf,
   
   canRequestUsers,
+  canRequestUser,
   
   canAlterCompetences,
   
-  canAlterRoles
+  canAlterRoles,
+  canManageUsers,
+  canSearch
 };

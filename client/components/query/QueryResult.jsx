@@ -35,7 +35,7 @@ export default React.createClass({
   
   render(){
     let requestButton;
-    if(auth.canRequestUsers(this.props.currentUser)){
+    if(auth.canRequestUser(this.props.result, this.props.currentUser)){
       requestButton=<button onClick={this.onNewModal} className='icon-button icon-button-large'><i className='icon ion-person-add'></i></button>;
     }
     let highlightedIds=this.props.result.found.map(r=>r.competence_id);

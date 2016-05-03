@@ -33,7 +33,7 @@ export default React.createClass({
   
   render(){
     let requestButton;
-    if(auth.canRequestUsers(this.props.currentUser)){
+    if(auth.canRequestUser(this.props.availability.user, this.props.currentUser)){
       requestButton=<span>
           <button className='icon-button' onClick={this.onRequestClick}><i className='icon ion-person-add'></i></button>
           <Modal isOpen={this.state.newModal} style={modalStyle} onRequestClose={this.onRequestClose}>

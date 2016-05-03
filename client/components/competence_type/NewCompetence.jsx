@@ -2,6 +2,7 @@
 
 import React from 'react';
 import competenceTypeActions from '../../actions/competence_type_actions';
+import {NotificationManager} from 'react-notifications';
 
 export default React.createClass({
   render(){
@@ -19,7 +20,9 @@ export default React.createClass({
   
   onFormSubmit(e){
     e.preventDefault();
-    competenceTypeActions.createCompetence(this.refs.title.value, this.props.competenceType.id);
+    competenceTypeActions.createCompetence(this.refs.title.value, this.props.competenceType.id).then(data=>{
+      NotificationManager.info("Kompetencia elmentve");
+    });
     this.refs.title.value="";
     this.onClose();
   },

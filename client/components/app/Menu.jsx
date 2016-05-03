@@ -35,19 +35,29 @@ export default React.createClass({
       </span>;
     }
     
+    let usersButton;
+    if(auth.canManageUsers(this.context.currentUser)){
+      usersButton=<div className='menu-item'>
+        <Link to='/users'><i className='icon ion-person-stalker'></i> Felhasználók</Link>
+      </div>;
+    }
+    
+    let searchButton;
+    if(auth.canSearch(this.context.currentUser)){
+      searchButton=<div className='menu-item'>
+        <Link to='/query'><i className='icon ion-search'></i> Keresés</Link>
+      </div>;
+    }
+    
     return <div>
       <div className='menu-item'>
         <Link to='/'><i className='icon ion-android-calendar'></i> Friss hirdetések</Link>
       </div>
       <div className='menu-item'>
-        <Link to='/users'><i className='icon ion-person-stalker'></i> Felhasználók</Link>
-      </div>
-      <div className='menu-item'>
-        <Link to='/query'><i className='icon ion-search'></i> Keresés</Link>
-      </div>
-      <div className='menu-item'>
         <Link to={`/competence_chooser/${this.context.currentUser.id}`}><i className='icon ion-trophy'></i> Kompetenciáim</Link>
       </div>
+      {searchButton}
+      {usersButton}
       {godfatherButtons}
       {competenceButtons}
     </div>;

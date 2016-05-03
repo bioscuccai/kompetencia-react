@@ -2,6 +2,7 @@
 
 import React from 'react';
 import competenceTypeActions from '../../actions/competence_type_actions';
+import {NotificationManager} from 'react-notifications';
 
 export default React.createClass({
   render(){
@@ -29,7 +30,9 @@ export default React.createClass({
   
   onFormSubmit(e){
     e.preventDefault();
-    competenceTypeActions.createCompetenceType(this.refs.title.value, this.refs.tierGroup.value);
+    competenceTypeActions.createCompetenceType(this.refs.title.value, this.refs.tierGroup.value).then(data=>{
+      NotificationManager.info("Kompetencia csoport létrehozva");
+    });
     this.onCloseModal();
   },
   

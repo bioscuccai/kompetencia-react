@@ -13,8 +13,12 @@ import UserBulletpoints from '../user/UserBulletpoints.jsx';
 
 import modalStyle from '../../styles/modal';
 import Modal from 'react-modal';
+import auth from '../../lib/auth';
 
-export default React.createClass({  
+export default React.createClass({
+  contextTypes: {
+    currentUser: React.PropTypes.object
+  },
   getInitialState(){
     return {
       availabilities: [],
@@ -52,6 +56,27 @@ export default React.createClass({
     if(!this.state.profileUser){
       return <Loading></Loading>;
     }
+    
+    let newAvailabilityButton;
+    if(auth.canAlterAvailabilityOf(this.context.currentUser, this.state.profileUser)){
+      newAvailabilityButton=<span>
+        <button onClick={this.onNewModal}>
+          <i className='icon ion-plus'></i>
+          Új...
+        </button>
+        <Modal
+          isOpen={this.state.newModal}
+          style={modalStyle}
+          onRequestClose={this.onRequestClose}>
+          <NewAvailability
+            closeModal={this.onRequestClose}
+            ref='newAvailability'
+            user={this.state.profileUser}></NewAvailability>
+          <button onClick={this.onRequestClose}>Bezár</button>
+        </Modal>
+      </span>;
+    }
+    
     return <div>
       <h1>Elérhetőségek</h1>
       <blockquote>
@@ -72,20 +97,7 @@ export default React.createClass({
           })}
         </tbody>
       </table>
-      <button onClick={this.onNewModal}>
-        <i className='icon ion-plus'></i>
-        Új...
-      </button>
-      <Modal
-        isOpen={this.state.newModal}
-        style={modalStyle}
-        onRequestClose={this.onRequestClose}>
-        <NewAvailability
-          closeModal={this.onRequestClose}
-          ref='newAvailability'
-          user={this.state.profileUser}></NewAvailability>
-        <button onClick={this.onRequestClose}>Bezár</button>
-      </Modal>
+      {newAvailabilityButton}
       
     </div>;
   },

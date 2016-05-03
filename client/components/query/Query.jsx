@@ -110,7 +110,6 @@ export default React.createClass({
             <h4>Találatok</h4>
             {resultHitGroups.map(rhg=>{
               return <div key={`hits-${rhg}`}>
-                <h5>{rhg} Találat</h5>
                   {resultGroups[rhg].map(result=>{
                     return <QueryResult
                       currentUser={this.context.currentUser}
@@ -134,7 +133,7 @@ export default React.createClass({
   },
   
   filterResults(query){
-    return query.filter(q=>q.title.toUpperCase().contains(this.refs.filter.value.toUpperCase()));
+    return query.filter(q=>q.title.toUpperCase().includes(this.refs.filter.value.toUpperCase()));
   },
   
   onFilterChange(){
