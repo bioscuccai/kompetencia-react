@@ -14,7 +14,7 @@ class PersonRequestsController < ApplicationController
   
   def accept
     ActiveRecord::Base.transaction do
-      collisions=Availability.where(user_id: @user.id).where('ends_at IS NOT NULL').collisions_two(@person_request.starts_at, @person_request.ends_at)
+      collisions=Availability.where(user_id: @person_request.target_id).where('ends_at IS NOT NULL').collisions_two(@person_request.starts_at, @person_request.ends_at)
       collisions.update_all(active: false)
       @person_request.update(confirmed: true)
     end
@@ -58,7 +58,7 @@ class PersonRequestsController < ApplicationController
     #  @collisions=PersonRequest.collisions_one(Time.parse(params[:starts_at]))
     #end
     @collisions=[
-      *Availability.where(user_id: @user.id).where('ends_at IS NOT NULL').collisions_two(Time.parse(params[:starts_at]), Time.parse(params[:ends_at])).to_a,
+      *Availability.where(user_id: @user.id).where('active=true AND ends_at IS NOT NULL').collisions_two(Time.parse(params[:starts_at]), Time.parse(params[:ends_at])).to_a,
       #*Availablity.where('ends_at IS NULL').collisions_two(Time.parse(params[:starts_at]), Time.parse(params[:ends_at])).to_a
     ].flatten.uniq
     render json: @collisions

@@ -3,6 +3,7 @@
 import alt from '../alt/alt';
 import availabilitySource from '../sources/availability_source';
 import availabilityActions from '../actions/availability_actions';
+import requestActions from '../actions/request_actions';
 import _ from 'lodash';
 
 class AvailabilityStore{
@@ -22,7 +23,11 @@ class AvailabilityStore{
           availabilityActions.TURN_ON_AVAILABILITY_SUCC,
           availabilityActions.TURN_OFF_AVAILABILITY_SUCC,
           availabilityActions.EDIT_AVAILABILITY_SUCC,
-          availabilityActions.DELETE_AVAILABILITY_SUCC]
+          availabilityActions.DELETE_AVAILABILITY_SUCC,
+          
+          requestActions.ACCEPT_REQUEST_SUCC,
+          requestActions.ACCEPT_REQUEST_NO_COLLISIONS_SUCC
+        ]
     });
     this.registerAsync(availabilitySource);
   }

@@ -16,7 +16,7 @@ export default React.createClass({
         <ul>
           {this.props.collisions.map(coll=>{
             return <li key={`coll-${coll.id}`}>
-              <DateLabel date={coll.starts_at}></DateLabel> &mdash; <DateLabel date={coll.ends_at}></DateLabel>
+              <i className='icon ion-calendar'></i><DateLabel date={coll.starts_at}></DateLabel> &mdash; <DateLabel date={coll.ends_at}></DateLabel>
             </li>;
           })}
         </ul>

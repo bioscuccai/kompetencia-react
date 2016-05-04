@@ -61,7 +61,7 @@ export default React.createClass({
   
   onCollision(){
     requestActions.resetCollisions();
-    requestStore.fetchCollisions(this.props.request.user_id, this.props.request.starts_at, this.props.request.ends_at);
+    requestStore.fetchCollisions(this.props.request.target_id, this.props.request.starts_at, this.props.request.ends_at);
     this.onCollisionModal();
   },
   
