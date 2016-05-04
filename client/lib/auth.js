@@ -77,6 +77,10 @@ function canAlterAvailabilityOf(subject, actor){
   return false;
 }
 
+function canSeeAvailabilities(actor){
+  return actor.is_admin || actor.is_godfather;
+}
+
 /*
 ██   ██ ██ ██████  ██████  ███████ ████████ ███████ ███████ 
 ██   ██ ██ ██   ██ ██   ██ ██         ██    ██      ██      
@@ -90,7 +94,7 @@ function canRequestUsers(actor){
 }
 
 function canRequestUser(subject, actor){
-  return actor.is_godfather && subject.godfather_id!==actor.id;
+  return actor.is_godfather && subject.godfather_id!==actor.id && subject.id!==actor.id;
 }
 
 /*
@@ -131,6 +135,7 @@ export default {
   canAlterCompetenceOf,
   
   canAlterAvailabilityOf,
+  canSeeAvailabilities,
   
   canRequestUsers,
   canRequestUser,

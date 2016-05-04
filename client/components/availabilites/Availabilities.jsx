@@ -58,7 +58,7 @@ export default React.createClass({
     }
     
     let newAvailabilityButton;
-    if(auth.canAlterAvailabilityOf(this.context.currentUser, this.state.profileUser)){
+    if(auth.canAlterAvailabilityOf(this.state.profileUser, this.context.currentUser)){
       newAvailabilityButton=<span>
         <button onClick={this.onNewModal}>
           <i className='icon ion-plus'></i>
@@ -78,7 +78,7 @@ export default React.createClass({
     }
     
     return <div>
-      <h1>Elérhetőségek</h1>
+      <h1>Rendelkezésreállások</h1>
       <blockquote>
         <UserBulletpoints user={this.state.profileUser}></UserBulletpoints>
       </blockquote>

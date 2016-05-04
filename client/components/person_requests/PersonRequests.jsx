@@ -57,8 +57,8 @@ export default React.createClass({
       <h1>Hirdetések</h1>
       <Tabs>
         <TabList>
-          <Tab>Én kértem (requested)</Tab>
-          <Tab>Tőlem kérték (relevant)</Tab>
+          <Tab>Én kértem</Tab>
+          <Tab>Tőlem kérték</Tab>
           <Tab>Hirdetéseim</Tab>
         </TabList>
         

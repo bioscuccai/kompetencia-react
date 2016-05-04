@@ -108,7 +108,7 @@ strong{
   padding: 0px;
 }
 
-.inactive-availability{
+.inactive-availability >td:not(.availability-buttons){
   color: rgb(124, 124, 124);
   font-style: italic;
   font-size: 75%;
@@ -173,6 +173,7 @@ main{
 
 .container.app{
   background-color: white;
+  padding: 0px;
 }
 
 .comment{
@@ -195,4 +196,12 @@ main{
 
 .small-spacer{
   height: 20px;
+}
+
+.confirmed-request{
+  color: rgb(0, 203, 57);
+}
+
+.rejected-request{
+  color: rgb(209, 19, 0);
 }

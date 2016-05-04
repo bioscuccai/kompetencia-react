@@ -89,7 +89,7 @@ class RequestActions{
       dispatch(resp);
       return axios.post(`/users/${userId}/person_requests/${requestId}/accept_no_collision`)
       .then(data=>{
-        this.acceptRequestNoCollisions(_.extend({}, resp, {data: data.data}));
+        this.acceptRequestNoCollisionsSucc(_.extend({}, resp, {data: data.data}));
       })
       .catch(this.error);
     };

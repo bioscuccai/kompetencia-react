@@ -16,7 +16,7 @@ export default React.createClass({
     if(moment().isAfter(this.props.availability.ends_at)){
       highlightClass="expired-date";
     }
-    return <tr className={`highlightClass ${this.props.availability.active ? "" : "inactive-availability"}`}>
+    return <tr className={`${highlightClass} ${this.props.availability.active ? "" : "inactive-availability"}`}>
       <td>
         <DateLabel date={this.props.availability.starts_at}></DateLabel>
       </td>
@@ -28,7 +28,7 @@ export default React.createClass({
           {this.props.availability.comment}
         </small>
       </td>
-      <td>
+      <td className='availability-buttons'>
         <AvailabilityButtons availability={this.props.availability}></AvailabilityButtons>
       </td>
     </tr>;

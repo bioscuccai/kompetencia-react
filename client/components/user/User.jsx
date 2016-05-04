@@ -8,6 +8,8 @@ import alt from '../../alt/alt';
 import _ from 'lodash';
 import UserBulletpoints from './UserBulletpoints.jsx';
 import classnames from 'classnames';
+import auth from '../../lib/auth';
+
 
 export default React.createClass({
   contextTypes: {
@@ -60,13 +62,37 @@ export default React.createClass({
       </div>;
     }
     
+    let profileButton;
+    if(this.context.currentUser.id==this.state.profileUser.id){
+      profileButton=<a href='/users/edit' className='button'><i className='icon ion-reply'></i>Profil módosítás</a>;
+    }
+    
+    let availabilitySection;
+    if(auth.canSeeAvailabilities(this.context.currentUser)){
+      availabilitySection=<div className='clearfix'>
+        <div className='float-left'>
+          {availabilityMarker}
+        </div>
+        <div className='float-right'>
+          <Link to={`/availabilities/${this.state.profileUser.id}`} className='button'>Rendelkezésre állások&raquo;</Link>
+        </div>
+      </div>;
+    }
+    
     let adminMarker;
     if(this.state.profileUser.is_admin){
       adminMarker=<h3>A felhasználó adminisztrátor</h3>;
     }
     
     return <div>
-      <h1>{this.state.profileUser.name} <small>{this.state.profileUser.email}</small></h1>
+      <div className='clearfix'>
+        <div className='float-left'>
+          <h1>{this.state.profileUser.name} <small>{this.state.profileUser.email}</small></h1>
+        </div>
+        <div className='float-right'>
+          {profileButton}
+        </div>
+      </div>
       
       <div className='clearfix'>
         <div className='float-left'>
@@ -88,14 +114,8 @@ export default React.createClass({
         {adminMarker}
       </div>
       
-      <div className='clearfix'>
-        <div className='float-left'>
-          {availabilityMarker}
-        </div>
-        <div className='float-right'>
-          <Link to={`/availabilities/${this.state.profileUser.id}`} className='button'>Rendelkezésre állások&raquo;</Link>
-        </div>
-      </div>
+      {availabilitySection}
+      
       <div>
         {subordinateMarker}
       </div>

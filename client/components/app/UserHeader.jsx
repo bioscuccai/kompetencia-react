@@ -14,7 +14,8 @@ export default React.createClass({
     }
     
     return <div>
-      <h5>{this.context.currentUser.email}</h5>
+      <h5>{this.context.currentUser.name}</h5>
+      <h6>{this.context.currentUser.email}</h6>
       {rights}
       <div className='menu-item'>
         <a href='/users/sign_out'><i className='icon ion-android-walk'></i> Kilépés</a>

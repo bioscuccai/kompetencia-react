@@ -13,15 +13,15 @@ export default React.createClass({
     
     if(auth.canAlterRoles(this.props.profileUser)){
       if(this.props.user.is_admin){
-        adminButton=<button title='Adminná teszem' className='admin-button' onClick={this.onRevokeAdmin}><i className='icon ion-minus'></i> admin</button>;
+        adminButton=<button title='Adminságot elveszem' className='admin-button' onClick={this.onRevokeAdmin}><i className='icon ion-minus'></i> admin</button>;
       } else {
-        adminButton=<button title='Adminságot elveszem' className='admin-button' onClick={this.onMakeAdmin}><i className='icon ion-plus'></i> admin</button>;
+        adminButton=<button title='Adminná teszem' className='admin-button' onClick={this.onMakeAdmin}><i className='icon ion-plus'></i> admin</button>;
       }
       
       if(this.props.user.is_godfather){
-        godfatherButton=<button title='Kersztapává teszem' className='admin-button' onClick={this.onRevokeGodfather}><i className='icon ion-minus'></i> keresztapa</button>;
+        godfatherButton=<button title='Keresztapaságot elveszem' className='admin-button' onClick={this.onRevokeGodfather}><i className='icon ion-minus'></i> keresztapa</button>;
       } else {
-        godfatherButton=<button title='Keresztapaságot elveszem' className='admin-button' onClick={this.onMakeGodfather}><i className='icon ion-plus'></i> keresztapa</button>;
+        godfatherButton=<button title='Keresztapává teszem' className='admin-button' onClick={this.onMakeGodfather}><i className='icon ion-plus'></i> keresztapa</button>;
       }
     }
     return <div>

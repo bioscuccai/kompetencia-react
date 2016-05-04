@@ -12,7 +12,9 @@ export default React.createClass({
     let competenceButtons;
     if(auth.canAlterCompetences(this.context.currentUser)){
       competenceButtons=<span>
-        <div className='center'>Kompetenciák</div>
+        
+        <div className='small-spacer'></div>
+        
         <div className='menu-item'>
           <Link to='/competence_types'><i className='icon ion-social-tux'></i> Kompetenciák</Link>
         </div>
@@ -25,7 +27,9 @@ export default React.createClass({
     let godfatherButtons;
     if(this.context.currentUser.is_godfather){
       godfatherButtons=<span>
-        <div className='center'>Keresztapa</div>
+        
+        <div className='small-spacer'></div>
+
         <div className='menu-item'>
           <Link to={`/subordinates/${this.context.currentUser.id}`}><i className='icon ion-android-contacts'></i> Dolgozóim</Link>
         </div>
@@ -49,13 +53,18 @@ export default React.createClass({
       </div>;
     }
     
-    return <div>
-      <div className='menu-item'>
+    let recentButton;
+    if(auth.canSeeAvailabilities(this.context.currentUser)){
+      recentButton=<div className='menu-item'>
         <Link to='/'><i className='icon ion-android-calendar'></i> Friss hirdetések</Link>
-      </div>
+      </div>;
+    }
+    
+    return <div>
       <div className='menu-item'>
         <Link to={`/competence_chooser/${this.context.currentUser.id}`}><i className='icon ion-trophy'></i> Kompetenciáim</Link>
       </div>
+      {recentButton}
       {searchButton}
       {usersButton}
       {godfatherButtons}

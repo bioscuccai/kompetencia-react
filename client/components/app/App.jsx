@@ -3,6 +3,7 @@
 import React from 'react';
 import Container from './Container.jsx';
 import Recent from './Recent.jsx';
+import Home from './Home.jsx';
 import Query from '../query/Query.jsx';
 import Users from '../user/Users.jsx';
 import User from '../user/User.jsx';
@@ -28,7 +29,7 @@ export default React.createClass({
   render(){
     return <Router history={hashHistory}>
         <Route component={Container} props={this.props}>
-          <Route path='/' component={Recent}></Route>
+          <Route path='/' component={Home}></Route>
           <Route path='/query' component={Query}></Route>
           <Route path='/competence_types' component={CompetenceTypes}></Route>
           <Route path='/competence_tier_groups' component={CompetenceTierGroups}></Route>

@@ -7,7 +7,7 @@ export default React.createClass({
     let confirmedMarker;
     switch(this.props.request.confirmed){
       case true: {
-        confirmedMarker=<i className='ion ion-checkmark'></i>;
+        confirmedMarker=<i className='ion ion-checkmark confirmed-request'></i>;
         break;
       }
       case null: {
@@ -15,7 +15,7 @@ export default React.createClass({
         break;
       }
       case false: {
-        confirmedMarker=<i className='icon ion-close'></i>;
+        confirmedMarker=<i className='icon ion-close rejected-request'></i>;
         break;
       }
     }

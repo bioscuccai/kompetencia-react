@@ -21,6 +21,10 @@ export default React.createClass({
         <Link to={`/availabilities/${this.props.user.id}`} className='button icon-button' title='Rendelkezésreállás'>
           <i className='icon ion-clock'></i>
         </Link>
+        
+        <Link to={`/competence_chooser/${this.props.user.id}`} className='button icon-button' title='Kompetenciák'>
+          <i className='icon ion-android-color-palette'></i>
+        </Link>
       </div>
     </div>;
   },
