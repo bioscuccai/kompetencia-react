@@ -9,6 +9,11 @@ import {NotificationManager} from 'react-notifications';
 
 export default React.createClass({
   render(){
+    let pendingCompetenceNotification;
+    if(this.props.user.pending_count!==0){
+      pendingCompetenceNotification=<span className='pending-user-competence'>({this.props.user.pending_count})</span>;
+    }
+    
     return <div className="row profile-item">
       <div className="column column-80">
         <UserBulletPoints user={this.props.user}></UserBulletPoints>
@@ -24,6 +29,7 @@ export default React.createClass({
         
         <Link to={`/competence_chooser/${this.props.user.id}`} className='button icon-button' title='Kompetenciák'>
           <i className='icon ion-android-color-palette'></i>
+          {pendingCompetenceNotification}
         </Link>
       </div>
     </div>;

@@ -74,6 +74,9 @@ export default React.createClass({
       <td>
         <DateLabel date={this.props.request.starts_at}></DateLabel> &mdash; <DateLabel date={this.props.request.ends_at}></DateLabel>
       </td>
+      <td>
+        {this.props.request.chance}
+      </td>
       <td><ConfirmedMarker request={this.props.request}></ConfirmedMarker></td>
       <td>
         <button onClick={this.onDeleteRequest} className='icon-button'>

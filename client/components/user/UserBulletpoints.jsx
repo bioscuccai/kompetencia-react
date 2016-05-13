@@ -19,7 +19,7 @@ export default React.createClass({
     
     let available;
     if(this.props.user.available){
-      available=<span className='available-label'>Rendelkezésre áll</span>;
+      available=<span className='available-label'>Most rendelkezésre áll</span>;
     }
     return <span>
       <div className='user-name'>

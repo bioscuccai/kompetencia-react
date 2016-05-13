@@ -6,13 +6,14 @@ import queryActions from '../actions/query_actions';
 
 export default {
   fetchQuery: {
-    remote(state, competences, startsAt, endsAt, checkDate){
+    remote(state, competences, startsAt, endsAt, checkDate, notStrictSearch){
       return new Promise((resolve, reject) => {
         axios.post('/query/query', {
           competences,
           starts_at: startsAt,
           ends_at: endsAt,
-          check_date: checkDate
+          check_date: checkDate,
+          not_strict_search: notStrictSearch
         }, {
           responseType: 'json'
         })

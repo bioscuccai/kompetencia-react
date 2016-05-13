@@ -6,6 +6,7 @@ import DateLabel from '../date/DateLabel.jsx';
 
 import requestActions from '../../actions/request_actions';
 import {NotificationManager} from 'react-notifications';
+import requestStore from '../../stores/request_store';
 
 export default React.createClass({
   render(){

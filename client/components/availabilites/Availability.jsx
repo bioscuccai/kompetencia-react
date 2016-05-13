@@ -28,6 +28,9 @@ export default React.createClass({
           {this.props.availability.comment}
         </small>
       </td>
+      <td>
+        {this.props.availability.work_hours}
+      </td>
       <td className='availability-buttons'>
         <AvailabilityButtons availability={this.props.availability}></AvailabilityButtons>
       </td>

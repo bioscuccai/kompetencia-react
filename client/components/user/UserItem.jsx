@@ -11,7 +11,7 @@ export default React.createClass({
     let adminMarker;
     let godfatherMarker;
     if(this.props.user.is_godfather){
-      godfatherMarker=<span>Keresztapa</span>;
+      godfatherMarker=<span>Mentor</span>;
     }
     if(this.props.user.is_admin){
       adminMarker=<span>Admin</span>;

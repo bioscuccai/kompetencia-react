@@ -97,6 +97,9 @@ export default React.createClass({
         <DateLabel date={this.props.request.ends_at}></DateLabel>
       </td>
       <td>
+        {this.props.request.chance}
+      </td>
+      <td>
         <ConfirmedMarker request={this.props.request}></ConfirmedMarker>
       </td>
       <td>

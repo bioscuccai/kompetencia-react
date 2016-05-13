@@ -3,6 +3,7 @@
 import React from 'react';
 import UserBulletPoints from '../user/UserBulletpoints.jsx';
 import NewPersonRequest from '../person_requests/New.jsx';
+import MatchedAvailabilities from './MatchedAvailabilities.jsx';
 
 import Modal from 'react-modal';
 import modalStyle from '../../styles/modal';
@@ -45,6 +46,7 @@ export default React.createClass({
           <UserBulletPoints
             highlightedIds={highlightedIds}
             user={this.props.result}></UserBulletPoints>
+          <MatchedAvailabilities matchedAvailabilities={this.props.result.matched_availabilities}></MatchedAvailabilities>
         </div>
         <div className='column column-20'>
           {requestButton}

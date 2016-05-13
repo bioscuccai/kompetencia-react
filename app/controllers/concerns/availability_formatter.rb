@@ -12,7 +12,8 @@ module AvailabilityFormatter
       comment: a.comment,
       starts_at: a.starts_at,
       ends_at: a.ends_at,
-      active: a.active
+      active: a.active,
+      work_hours: a.work_hours
     }
   end
 end

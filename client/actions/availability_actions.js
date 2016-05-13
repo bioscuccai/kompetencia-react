@@ -13,7 +13,7 @@ class AvailabilityActions{
       "turnOffAvailabilitySucc", "turnOnAvailabilitySucc");
   }
   
-  newAvailability(userId, startsAt, endsAt, comment, godfatherMode=false){
+  newAvailability(userId, startsAt, endsAt, comment, workHours){
     return dispatch=>{
       let resp={ userId, startsAt, endsAt, comment };
       dispatch(resp);
@@ -21,7 +21,8 @@ class AvailabilityActions{
         availability: {
           starts_at: startsAt,
           ends_at: endsAt,
-          comment
+          comment,
+          work_hours: workHours
         }
       }, {
         responseType: 'json'
@@ -33,7 +34,7 @@ class AvailabilityActions{
     };
   }
   
-  deleteAvailability(userId, availabilityId, godfatherMode=false){
+  deleteAvailability(userId, availabilityId){
     return dispatch=>{
       let resp={ userId, availabilityId };
       dispatch(resp);
@@ -47,7 +48,7 @@ class AvailabilityActions{
     };
   }
   
-  turnOffAvailability(userId, availabilityId, godfatherMode=false){
+  turnOffAvailability(userId, availabilityId){
     return dispatch=>{
       let resp={ userId, availabilityId };
       dispatch(resp);
@@ -59,7 +60,7 @@ class AvailabilityActions{
     };
   }
   
-  turnOnAvailability(userId, availabilityId, godfatherMode=false){
+  turnOnAvailability(userId, availabilityId){
     return dispatch=>{
       let resp={ userId, availabilityId };
       dispatch(resp);

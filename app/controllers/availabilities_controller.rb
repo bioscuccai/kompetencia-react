@@ -33,6 +33,7 @@ class AvailabilitiesController < ApplicationController
   # GET /availabilities.json
   def index
     @availabilities = Availability.where(user_id: @user.id)
+    render json: @availabilities.map{|a| format_availability a}
   end
 
   # GET /availabilities/1
@@ -104,6 +105,6 @@ class AvailabilitiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def availability_params
-      params.require(:availability).permit(:user_id, :starts_at, :ends_at, :comment)
+      params.require(:availability).permit(:user_id, :starts_at, :ends_at, :comment, :work_hours)
     end
 end

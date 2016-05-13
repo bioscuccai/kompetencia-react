@@ -19,19 +19,28 @@ export default React.createClass({
     return <div>
       <h3>Új rendelkezésre állás</h3>
       <form onSubmit={this.onSubmit}>
-        Kezdés:
-        <DateTime onChange={this.onStartChange} timeFormat={false} closeOnSelect={true}></DateTime>
-        Befejezés:
-        <DateTime onChange={this.onEndChange} timeFormat={false} closeOnSelect={true}></DateTime>
-        <textarea ref='comment' placeholder='Komment'></textarea>
-        <input type='submit' value="Új rendelkezésreállás" disabled={!this.state.startsAt || !this.state.endsAt}></input>
+        <div>
+          Kezdés:
+          <DateTime onChange={this.onStartChange} timeFormat={false} closeOnSelect={true}></DateTime>
+          Befejezés:
+          <DateTime onChange={this.onEndChange} timeFormat={false} closeOnSelect={true}></DateTime>
+        </div>
+        <div>
+          Munkaóra: <input type='text' placeholder='Munkaóra' ref='workHours'></input>
+        </div>
+        <div>
+          <textarea ref='comment' placeholder='Komment'></textarea>
+        </div>
+        <div>
+          <input type='submit' value="Új rendelkezésreállás" disabled={!this.state.startsAt || !this.state.endsAt}></input>
+        </div>
       </form>
     </div>;
   },
   
   onSubmit(e){
     e.preventDefault();
-    availabilityActions.newAvailability(this.props.user.id, this.state.startsAt, this.state.endsAt, this.refs.comment.value)
+    availabilityActions.newAvailability(this.props.user.id, this.state.startsAt, this.state.endsAt, this.refs.comment.value, this.refs.workHours.value)
     .then(data=>{
       NotificationManager.info("Rendelkezésreállás hozzáadva");
     });

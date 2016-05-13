@@ -52,7 +52,7 @@ export default React.createClass({
     let subordinateMarker;
     if(this.state.profileUser.is_godfather){
       subordinateMarker=<div>
-        <h3>A felhasználó keresztapa</h3>
+        <h3>A felhasználó mentor</h3>
         <div>A dolgozói: </div>
         {this.state.subordinates.map(user=>{
           return <div className='profile-item' key={`subordinate-${user.id}`}>

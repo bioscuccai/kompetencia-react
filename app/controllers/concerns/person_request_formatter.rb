@@ -13,7 +13,8 @@ module PersonRequestFormatter
       comment: p.comment,
       user_id: p.user_id,
       user: format_user(p.user),
-      confirmed: p.confirmed
+      confirmed: p.confirmed,
+      chance: p.chance
     }
   end
 end

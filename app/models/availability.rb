@@ -7,6 +7,8 @@ class Availability < ActiveRecord::Base
   #ha nincs befejezo idopont a _lekerdezesben_
   scope :collisions_one, ->(b_starts_at){where("", starts_at)}
   
+  scope :collision_not_strict, ->(b_starts_at, b_ends_at){where("(DATEDIFF(starts_at, ?) * DATEDIFF(?, ends_at)) >= 0", b_ends_at, b_starts_at)}
+  
   scope :for_godfather, ->(godfather_id){joins(:user).where("users.godfather_id=?", godfather_id)}
   
   scope :active_availabilities, ->{where(active: true)}

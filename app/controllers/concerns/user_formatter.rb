@@ -34,6 +34,13 @@ module UserFormatter
           end)
         }
       )
+      
+      if !wo.include? :pending_count
+        user.merge!({
+            pending_count: u.pending_competence_levels.count
+          }
+        )
+      end
     end
     user
   end

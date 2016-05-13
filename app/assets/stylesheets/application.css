@@ -205,3 +205,13 @@ main{
 .rejected-request{
   color: rgb(209, 19, 0);
 }
+
+.matched-availability{
+  font-size: 75%;
+  border-radius: 3px;
+  background-color: rgb(189, 189, 189);
+}
+
+.pending-user-competence{
+  color: rgb(255, 160, 107);
+}

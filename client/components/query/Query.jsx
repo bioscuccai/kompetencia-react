@@ -30,7 +30,8 @@ export default React.createClass({
       startsAt: null,
       endsAt: null,
       selectedTabIndex: 0,
-      dateChecked: false
+      dateChecked: false,
+      notStrict: false
     };
   },
   
@@ -59,8 +60,14 @@ export default React.createClass({
               <div className='column column-10'>
                 <input type='checkbox' name='check_date' id='check_date' ref='checkDate' value="1" onChange={this.onDateClick}></input>
               </div>
-              <div className='column column-90'>
+              <div className='column column-40'>
                 Dátumra keresés?
+              </div>
+              <div>
+                <input type='checkbox' name='not_strict_search' id='not_strict_search' ref='notStrictSearch' value="1"></input>
+              </div>
+              <div>
+                Részleges szűrés?
               </div>
             </div>
             <div className='row'>
@@ -181,6 +188,12 @@ export default React.createClass({
   onDateClick(e){
     this.setState({
       dateChecked: e.target.checked
+    });
+  },
+  
+  onNotStrictClick(e){
+    this.setState({
+      notStrict: e.target.checked
     });
   }
 });

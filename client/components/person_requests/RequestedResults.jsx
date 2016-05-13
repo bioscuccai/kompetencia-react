@@ -13,6 +13,7 @@ export default React.createClass({
             <td>Dolgozó</td>
             <td>Munka</td>
             <td>Időtartam</td>
+            <td>%</td>
             <td>Állapot</td>
             <td></td>
           </tr>

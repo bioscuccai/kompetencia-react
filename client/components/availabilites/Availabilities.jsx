@@ -88,6 +88,7 @@ export default React.createClass({
             <th>Kezdés</th>
             <th>Befejezés</th>
             <th>Komment</th>
+            <th><i className='icon ion-android-time'></i></th>
             <th>Műveletek</th>
           </tr>
         </thead>

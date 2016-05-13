@@ -10,7 +10,7 @@ export default React.createClass({
   render(){
     let rights;
     if(this.context.currentUser.is_admin || this.context.currentUser.is_godfather){
-      rights=<span>( {this.context.currentUser.is_admin?'Admin':''} {this.context.currentUser.is_godfather?'Keresztapa':''} )</span>;
+      rights=<span>( {this.context.currentUser.is_admin?'Admin':''} {this.context.currentUser.is_godfather?'Mentor':''} )</span>;
     }
     
     return <div>
