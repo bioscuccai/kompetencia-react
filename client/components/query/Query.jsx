@@ -6,6 +6,8 @@ import _ from 'lodash';
 import alt from '../../alt/alt';
 
 import queryStore from '../../stores/query_store';
+import userStore from '../../stores/user_store';
+
 import DateTime from 'react-datetime';
 
 import CompetenceQueryResult from './CompetenceQueryResult.jsx';
@@ -36,13 +38,16 @@ export default React.createClass({
   },
   
   componentDidMount(){
-    alt.recycle(queryStore);
+    alt.recycle(queryStore, userStore);
     queryStore.listen(this.handleStoreChange);
     queryStore.fetchAllCompetences(); //a QueryStore is figyel erre, oda jut
+    userStore.listen(this.handleUserStoreChange);
+    userStore.fetchAllUsers(); //felhasznalo profil: dolgozo lista
   },
   
   componentWillUnmount() {
     queryStore.unlisten(this.handleStoreChange);
+    userStore.unlisten(this.handleUserStoreChange);
   },
   
   render(){
@@ -64,7 +69,7 @@ export default React.createClass({
                 Dátumra keresés?
               </div>
               <div>
-                <input type='checkbox' name='not_strict_search' id='not_strict_search' ref='notStrictSearch' value="1"></input>
+                <input type='checkbox' name='not_strict_search' id='not_strict_search' ref='notStrictSearch' value="1" onClick={this.onNotStrictClick}></input>
               </div>
               <div>
                 Részleges szűrés?
@@ -119,6 +124,7 @@ export default React.createClass({
               return <div key={`hits-${rhg}`}>
                   {resultGroups[rhg].map(result=>{
                     return <QueryResult
+                      allUsers={this.state.allUsers}
                       currentUser={this.context.currentUser}
                       result={result} 
                       key={`result-${result.id}`}></QueryResult>;
@@ -136,6 +142,13 @@ export default React.createClass({
       selectedCompetences: state.competenceQuery.filter(e=>!_.isNil(e.selectedLevel)),
       filteredCompetences: this.filterResults(state.competenceQuery),
       results: state.results
+    });
+  },
+  
+  handleUserStoreChange(state){
+    this.setState({
+      allUsers: state.allUsers,
+      profileUser: state.profileUser
     });
   },
   
@@ -169,7 +182,7 @@ export default React.createClass({
         level: competence.selectedLevel
       };
     });
-    queryStore.fetchQuery(requested, this.state.startsAt, this.state.endsAt, this.state.dateChecked);
+    queryStore.fetchQuery(requested, this.state.startsAt, this.state.endsAt, this.state.dateChecked, this.state.notStrict);
     console.log(requested);
     
     this.setState({

@@ -6,9 +6,10 @@ import _ from 'lodash';
 
 class CompetenceActions{
   constructor(){
-    this.generateActions("error", "updateAllCompetences", "updateCompetences", "updatePendingCompetences",
+    this.generateActions("error", "updateAllCompetences", "updateCompetences", "updatePendingCompetences", "updateSkills",
   
-    "setLevelSucc", "setPendingLevelSucc", "acceptPendingSucc", "rejectPendingSucc", "removeAssignedSucc");
+    "setLevelSucc", "setPendingLevelSucc", "acceptPendingSucc", "rejectPendingSucc", "removeAssignedSucc",
+    "addSkillSucc", "removeSkillSucc");
   }
   
   //ezen keresztul szol a store-nak, hogy frissitse az user kompetenciait miutan visszajelzett a szero
@@ -84,6 +85,36 @@ class CompetenceActions{
       })
       .then(data=>{
         this.removeAssignedSucc(_.extend({}, resp, {data: data.data}));
+      })
+      .catch(this.error);
+    };
+  }
+  
+  addSkill(userId, title){
+    return dispatch=>{
+      let resp={userId, title};
+      dispatch(resp);
+      return axios.post(`/users/${userId}/skills.json`, {
+        title
+      }, {
+        responseType: 'json'
+      })
+      .then(data=>{
+        this.addSkillSucc(_.extend({}, resp, {data: data.data}));
+      })
+      .catch(this.error);
+    };
+  }
+  
+  removeSkill(userId, skillId){
+    return dispatch=>{
+      let resp={userId, skillId};
+      dispatch(resp);
+      return axios.delete(`/users/${userId}/skills/${skillId}.json`, {
+        responseType: 'json'
+      })
+      .then(data=>{
+        this.removeSkillSucc(_.extend({}, resp, {data: data.data}));
       })
       .catch(this.error);
     };

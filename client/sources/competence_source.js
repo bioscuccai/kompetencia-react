@@ -51,5 +51,21 @@ export default {
     
     success: competenceActions.updatePendingCompetences,
     error: competenceActions.error
+  },
+  
+  fetchSkills: {
+    remote(state){
+      return new Promise((resolve, reject)=>{
+        axios.get('/skills.json', {
+          responseType: 'json'
+        })
+        .then(data=>{
+          return resolve(data.data);
+        });
+      });
+    },
+    
+    success: competenceActions.updateSkills,
+    error: competenceActions.error
   }
 };

@@ -12,6 +12,7 @@ class CompetenceStore{
     this.allCompetences=[];
     this.pendingCompetences=[];
     this.competences=[];
+    this.skills=[];
     this.bindActions(competenceActions);
     this.bindListeners({
       reloadUserCompetences: [
@@ -23,6 +24,10 @@ class CompetenceStore{
       ]
     });
     this.registerAsync(competenceSource);
+  }
+  
+  updateSkills(skills){
+    this.skills=skills;
   }
   
   updateAllCompetences(allCompetences){
