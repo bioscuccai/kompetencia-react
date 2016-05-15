@@ -9,7 +9,7 @@ class CompetenceActions{
     this.generateActions("error", "updateAllCompetences", "updateCompetences", "updatePendingCompetences", "updateSkills",
   
     "setLevelSucc", "setPendingLevelSucc", "acceptPendingSucc", "rejectPendingSucc", "removeAssignedSucc",
-    "addSkillSucc", "removeSkillSucc");
+    "addSkillSucc", "removeSkillSucc", "confirmSkillSucc");
   }
   
   //ezen keresztul szol a store-nak, hogy frissitse az user kompetenciait miutan visszajelzett a szero
@@ -90,12 +90,12 @@ class CompetenceActions{
     };
   }
   
-  addSkill(userId, title){
+  addSkill(userId, name){
     return dispatch=>{
-      let resp={userId, title};
+      let resp={userId, name};
       dispatch(resp);
       return axios.post(`/users/${userId}/skills.json`, {
-        title
+        name
       }, {
         responseType: 'json'
       })
@@ -115,6 +115,18 @@ class CompetenceActions{
       })
       .then(data=>{
         this.removeSkillSucc(_.extend({}, resp, {data: data.data}));
+      })
+      .catch(this.error);
+    };
+  }
+  
+  confirmSkill(userId, skillId){
+    return dispatch=>{
+      let resp={userId, skillId};
+      dispatch(resp);
+      return axios.get(`/users/${userId}/skills/${skillId}/confirm`)
+      .then(data=>{
+        this.confirmSkillSucc(_.extend({}, resp, {data: data.data}));
       })
       .catch(this.error);
     };

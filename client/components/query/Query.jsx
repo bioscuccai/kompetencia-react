@@ -7,12 +7,14 @@ import alt from '../../alt/alt';
 
 import queryStore from '../../stores/query_store';
 import userStore from '../../stores/user_store';
+import competenceStore from '../../stores/competence_store';
 
 import DateTime from 'react-datetime';
 
 import CompetenceQueryResult from './CompetenceQueryResult.jsx';
 import QueryResult from './QueryResult.jsx';
 import MiniSelectedCompetences from './MiniSelectedCompetences.jsx';
+import SkillCheckboxes from './SkillCheckboxes.jsx';
 
 import {Tabs, Tab, TabList, TabPanel} from 'react-tabs';
 
@@ -29,6 +31,7 @@ export default React.createClass({
       filteredCompetences: [], //szurt kompetenciak
       selectedCompetences: [], //kivalasztott kompetenciak
       results: [],
+      allSkills: [],
       startsAt: null,
       endsAt: null,
       selectedTabIndex: 0,
@@ -38,16 +41,21 @@ export default React.createClass({
   },
   
   componentDidMount(){
-    alt.recycle(queryStore, userStore);
+    alt.recycle(queryStore, userStore, competenceStore);
     queryStore.listen(this.handleStoreChange);
     queryStore.fetchAllCompetences(); //a QueryStore is figyel erre, oda jut
+    
     userStore.listen(this.handleUserStoreChange);
     userStore.fetchAllUsers(); //felhasznalo profil: dolgozo lista
+    
+    competenceStore.listen(this.handleCompetenceStoreChange);
+    competenceStore.fetchAllSkills();
   },
   
   componentWillUnmount() {
     queryStore.unlisten(this.handleStoreChange);
     userStore.unlisten(this.handleUserStoreChange);
+    competenceStore.unlisten(this.handleCompetenceStoreChange);
   },
   
   render(){
@@ -112,8 +120,10 @@ export default React.createClass({
                 </div>;
               })
             }
-            
           </div>
+          
+          <SkillCheckboxes allSkills={this.state.allSkills}></SkillCheckboxes>
+          
           <div>
             <button onClick={this.onQuery} disabled={this.state.dateChecked ? (!this.state.startsAt || !this.state.endsAt) : false}>Keresés</button>
           </div>
@@ -152,6 +162,12 @@ export default React.createClass({
     });
   },
   
+  handleCompetenceStoreChange(state){
+    this.setState({
+      allSkills: state.allSkills
+    });
+  },
+  
   filterResults(query){
     return query.filter(q=>q.title.toUpperCase().includes(this.refs.filter.value.toUpperCase()));
   },
@@ -160,6 +176,10 @@ export default React.createClass({
     this.setState({
       filteredCompetences: this.filterResults(this.state.competences)
     });
+  },
+  
+  onSkillListChange(skillIds){
+    
   },
   
   onStartChange(md){

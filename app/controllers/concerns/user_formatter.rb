@@ -41,7 +41,15 @@ module UserFormatter
           }
         )
       end
+      
+      if !wo.include? :skills
+        user.merge!({
+            skills: u.users_skills.map{|us| us.formatted}
+          }
+        )
+      end
     end
+    
     user
   end
 end

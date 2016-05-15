@@ -1,22 +1,25 @@
 Rails.application.routes.draw do
-  resources :skills
+  resources :skills, only: [:index, :destroy]
+  
   resources :availabilities, only: [:recent] do
     collection do
       get 'recent'
     end
   end
-  resources :competence_tier_groups do
+  resources :competence_tier_groups, only: [:index, :update, :create, :destroy] do
     collection do
       get 'all'
     end
   end
-  resources :competence_types do
+  resources :competence_types, only: [:index, :update, :create, :destroy] do
     collection do
       get 'all'
     end
   end
-  resources :competence_tiers
-  resources :competences do
+  
+  resources :competence_tiers, only: [:index, :update, :create, :destroy]
+  
+  resources :competences, only: [:index, :update, :create, :destroy] do
     collection do
       get 'all'
     end
@@ -24,7 +27,13 @@ Rails.application.routes.draw do
   devise_for :users
   
   resources :users do
-    resources :availabilities do
+    resources :skills, only: [:index, :update, :create, :destroy] do
+      member do
+        get 'confirm'
+      end
+    end
+    
+    resources :availabilities, only: [:index, :update, :create, :destroy] do
       collection do
         get 'godfather_availabilities'
       end
@@ -33,7 +42,8 @@ Rails.application.routes.draw do
         post 'turn_off'
       end
     end
-    resources :person_requests do
+    
+    resources :person_requests, only: [:index, :update, :create] do
       collection do
         get 'relevant'
         post 'collisions'
@@ -67,11 +77,9 @@ Rails.application.routes.draw do
       
       post 'add_godfather'
       post 'remove_godfather'
-      
     end
     collection do
       get 'landing'
-      
     end
   end
   

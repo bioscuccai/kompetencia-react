@@ -10,7 +10,9 @@ import userStore from '../../stores/user_store';
 
 import CompetenceSearchField from './CompetenceSearchField.jsx';
 import Competence from './Competence.jsx';
+import SkillSelector from './SkillSelector.jsx';
 import UserBulletpoints from '../user/UserBulletpoints.jsx';
+import UserSkillList from '../skill/UserSkillList.jsx';
 
 import Loading from '../Loading.jsx';
 
@@ -35,7 +37,8 @@ export default React.createClass({
     return {
       parsedCompetences: [], //az osszes kompetencia, jelolve, hogy milyen allapotban all
       filteredCompetences: [], //a kereso altal szurve -> ezt hasznaljuk
-      profileUser: null
+      profileUser: null,
+      allSkills: []
     };
   },
   
@@ -47,6 +50,7 @@ export default React.createClass({
     competenceStore.fetchAllCompetences();
     competenceStore.fetchCompetences(parseInt(this.props.params.profileUserId));
     competenceStore.fetchPendingCompetences(parseInt(this.props.params.profileUserId));
+    competenceStore.fetchAllSkills();
   },
   
   componentWillUnmount(){
@@ -57,7 +61,8 @@ export default React.createClass({
   handleCompetenceStoreChange(state){
     this.setState({
       parsedCompetences: this.parseCompetences(state),
-      filteredCompetences: this.parseCompetences(state)
+      filteredCompetences: this.parseCompetences(state),
+      allSkills: state.allSkills
     });
   },
   
@@ -110,12 +115,19 @@ export default React.createClass({
           })
         }
       </div>
+      
+      <UserSkillList
+        skills={this.state.profileUser.skills}
+        profileUser={this.state.profileUser}
+        currentUser={this.context.currentUser}
+        ></UserSkillList>
+      <SkillSelector allSkills={this.state.allSkills} profileUser={this.state.profileUser}></SkillSelector>
     </div>;
   },
   
   onSearchChanged(searchQuery){
     this.setState({
-      filteredCompetences: this.state.parsedCompetences.filter(c=>c.title.toUpperCase().includes(this.refs.filter.value.toUpperCase()) || c.type.includes(this.refs.filter.value))
+      filteredCompetences: this.state.parsedCompetences.filter(c=>c.title.toUpperCase().includes(this.refs.filter.value.toUpperCase()) || c.type.toUpperCase().includes(this.refs.filter.value.toUpperCase())),
     });
   }
 });

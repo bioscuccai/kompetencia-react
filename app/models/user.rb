@@ -13,6 +13,9 @@ class User < ActiveRecord::Base
   has_many :pending_competence_levels
   has_many :pending_competences, through: :pending_competence_levels, class_name: 'Competence', source: :competence
   
+  has_many :users_skills
+  has_many :skills, through: :users_skills, class_name: 'Skill', source: :skill
+  
   has_many :assigned_competence_levels
   has_many :competences, through: :assigned_competence_levels
   

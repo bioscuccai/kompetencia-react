@@ -2,6 +2,7 @@
 
 import alt from '../alt/alt';
 import userActions from '../actions/user_actions';
+import competenceActions from '../actions/competence_actions';
 import userSource from '../sources/user_source';
 
 class UserStore{
@@ -18,9 +19,19 @@ class UserStore{
         userActions.REVOKE_ADMIN_SUCC,
         userActions.MAKE_GODFATHER_SUCC,
         userActions.REVOKE_GODFATHER_SUCC
+      ],
+      reloadProfileUser: [
+        competenceActions.ADD_SKILL_SUCC,
+        competenceActions.REMOVE_SKILL_SUCC,
+        competenceActions.CONFIRM_SKILL_SUCC
       ]
     });
     this.registerAsync(userSource);
+  }
+  
+  reloadProfileUser(data){
+    this.getInstance().fetchProfileUser(data.userId);
+    return false;
   }
   
   reloadUsers(){

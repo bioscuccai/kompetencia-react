@@ -53,7 +53,7 @@ export default {
     error: competenceActions.error
   },
   
-  fetchSkills: {
+  fetchAllSkills: {
     remote(state){
       return new Promise((resolve, reject)=>{
         axios.get('/skills.json', {

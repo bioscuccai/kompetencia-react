@@ -128,6 +128,37 @@ function canSearch(actor){
   return actor.is_admin || actor.is_godfather;
 }
 
+/*
+███████ ██   ██ ██ ██      ██      
+██      ██  ██  ██ ██      ██      
+███████ █████   ██ ██      ██      
+     ██ ██  ██  ██ ██      ██      
+███████ ██   ██ ██ ███████ ███████ 
+*/
+function canAddUserSkill(subject, actor){
+  if(actor.admin) return true;
+  if(actor.is_godfather && subject.godfather_id===actor.godfather_id) return true;
+  return false;
+}
+
+function canRemoveUserSkill(subject, actor){
+  if(actor.id_admin) return true;
+  if(subject.id===actor.id) return true;
+  if(actor.is_godfather===actor.godfather_id) return true;
+  return false;
+}
+
+function canSolicitUserSkill(subject, actor){
+  if(subject.id===actor.id) return true;
+  return false;
+}
+
+function canConfirmUserSkill(subject, actor){
+  if(actor.is_admin) return true;
+  if(actor.is_godfather && subject.godfather_id===actor.id) return true;
+  return false;
+}
+
 export default {
   canDeleteCompetenceOf,
   canAcceptCompetenceOf,
@@ -144,5 +175,10 @@ export default {
   
   canAlterRoles,
   canManageUsers,
-  canSearch
+  canSearch,
+  
+  canConfirmUserSkill,
+  canSolicitUserSkill,
+  canAddUserSkill,
+  canRemoveUserSkill
 };

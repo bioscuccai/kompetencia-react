@@ -1,70 +1,48 @@
 class SkillsController < ApplicationController
-  before_action :set_skill, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_skill, only: [:destroy, :confirm]
+  before_action :set_user, only: [:create, :confirm]
+  skip_before_filter :verify_authenticity_token
+  
   # GET /skills
   # GET /skills.json
   def index
-    @skills = Skill.all
+    if params[:user_id]
+      @skills=User.find(params[:user_id]).users_skills.map{|s| s.formatted}
+    else
+      @skills = Skill.all
+    end
+    render json: @skills
   end
 
-  # GET /skills/1
-  # GET /skills/1.json
-  def show
-  end
-
-  # GET /skills/new
-  def new
-    @skill = Skill.new
-  end
-
-  # GET /skills/1/edit
-  def edit
-  end
-
-  # POST /skills
-  # POST /skills.json
   def create
-    @skill = Skill.new(skill_params)
-
-    respond_to do |format|
-      if @skill.save
-        format.html { redirect_to @skill, notice: 'Skill was successfully created.' }
-        format.json { render :show, status: :created, location: @skill }
-      else
-        format.html { render :new }
-        format.json { render json: @skill.errors, status: :unprocessable_entity }
-      end
-    end
+    @skill = Skill.find_or_create_by(name: params[:skill][:name])
+    @users_skill=@user.users_skills.create(skill: @skill)
+    render json: @users_skill.formatted
   end
 
-  # PATCH/PUT /skills/1
-  # PATCH/PUT /skills/1.json
-  def update
-    respond_to do |format|
-      if @skill.update(skill_params)
-        format.html { redirect_to @skill, notice: 'Skill was successfully updated.' }
-        format.json { render :show, status: :ok, location: @skill }
-      else
-        format.html { render :edit }
-        format.json { render json: @skill.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /skills/1
-  # DELETE /skills/1.json
   def destroy
-    @skill.destroy
-    respond_to do |format|
-      format.html { redirect_to skills_url, notice: 'Skill was successfully destroyed.' }
-      format.json { head :no_content }
+    if params[:user_id]
+      UsersSkill.where(user_id: params[:user_id], skill_id: params[:id]).destroy_all
+    else
+      @skill.destroy
     end
+    render json: {status: :ok}
   end
-
+  
+  def confirm
+    @users_skill=UsersSkill.find_by(user_id: params[:user_id], skill_id: params[:id])
+    @users_skill.update!(confirmed: true)
+    render json: {status: :ok}
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_skill
       @skill = Skill.find(params[:id])
+    end
+    
+    def set_user
+      @user=User.find(params[:user_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -12,7 +12,7 @@ class CompetenceStore{
     this.allCompetences=[];
     this.pendingCompetences=[];
     this.competences=[];
-    this.skills=[];
+    this.allSkills=[];
     this.bindActions(competenceActions);
     this.bindListeners({
       reloadUserCompetences: [
@@ -21,13 +21,17 @@ class CompetenceStore{
         competenceActions.REMOVE_ASSIGNED_SUCC,
         competenceActions.REJECT_PENDING_SUCC,
         competenceActions.ACCEPT_PENDING_SUCC
+      ],
+      reloadAllSkills: [
+        competenceActions.ADD_SKILL_SUCC
       ]
     });
     this.registerAsync(competenceSource);
   }
   
-  updateSkills(skills){
-    this.skills=skills;
+  updateSkills(allSkills){
+    console.log(allSkills);
+    this.allSkills=allSkills;
   }
   
   updateAllCompetences(allCompetences){
@@ -45,6 +49,11 @@ class CompetenceStore{
   reloadUserCompetences(userData){
     this.getInstance().fetchCompetences(userData.userId);
     this.getInstance().fetchPendingCompetences(userData.userId);
+    return false;
+  }
+  
+  reloadAllSkills(){
+    this.getInstance().fetchAllSkills();
     return false;
   }
   
