@@ -1,8 +1,0 @@
-%h1
-  Rendelkezésreállás
-%ul
-  -@user.availabilities.each do |a|
-    %li
-      =a.starts_at
-#holder
-=render_react_tag("Availabilites", {user: @user, directlyEdit: current_user&.has_role?(:admin)})
