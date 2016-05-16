@@ -1,5 +1,5 @@
 class CompetenceTierGroupsController < ApplicationController
-  load_and_authorize_resource
+  before_action :authenticate_user!
   
   before_action :set_competence_tier_group, only: [:show, :edit, :update, :destroy]
   
@@ -10,16 +10,6 @@ class CompetenceTierGroupsController < ApplicationController
   # GET /competence_tier_groups.json
   def index
     @competence_tier_groups = CompetenceTierGroup.all
-  end
-
-  # GET /competence_tier_groups/1
-  # GET /competence_tier_groups/1.json
-  def show
-  end
-
-  # GET /competence_tier_groups/new
-  def new
-    @competence_tier_group = CompetenceTierGroup.new
   end
 
   #apihoz
@@ -41,14 +31,12 @@ class CompetenceTierGroupsController < ApplicationController
     end
     render json: tier_groups
   end
-  
-  # GET /competence_tier_groups/1/edit
-  def edit
-  end
 
   # POST /competence_tier_groups
   # POST /competence_tier_groups.json
   def create
+    authorize! :create, CompetenceTierGroup
+    
     @competence_tier_group = CompetenceTierGroup.new(competence_tier_group_params)
 
     respond_to do |format|
@@ -65,6 +53,8 @@ class CompetenceTierGroupsController < ApplicationController
   # PATCH/PUT /competence_tier_groups/1
   # PATCH/PUT /competence_tier_groups/1.json
   def update
+    authorize! :update, CompetenceTierGroup
+    
     respond_to do |format|
       if @competence_tier_group.update(competence_tier_group_params)
         format.html { redirect_to @competence_tier_group, notice: 'Competence tier group was successfully updated.' }
@@ -79,6 +69,8 @@ class CompetenceTierGroupsController < ApplicationController
   # DELETE /competence_tier_groups/1
   # DELETE /competence_tier_groups/1.json
   def destroy
+    authorize! :destroy, CompetenceTierGroup
+    
     @competence_tier_group.destroy
     respond_to do |format|
       format.html { redirect_to competence_tier_groups_url, notice: 'Competence tier group was successfully destroyed.' }

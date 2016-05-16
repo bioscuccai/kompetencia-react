@@ -116,6 +116,8 @@ export default React.createClass({
         }
       </div>
       
+      <h2>Skillek</h2>
+      
       <UserSkillList
         skills={this.state.profileUser.skills}
         profileUser={this.state.profileUser}

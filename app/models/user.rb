@@ -27,6 +27,7 @@ class User < ActiveRecord::Base
   has_many :person_requests
   has_many :targeted_requests, class_name: 'User', foreign_key: :target_id
   
+  scope :has_skills, ->(skill_ids){joins(:users_skills).where("confirmed=? AND skill_id IN (?)", true, skill_ids)}
   scope :has_level, ->(competence_id, level){joins(:assigned_competence_levels).where("assigned_competence_levels.level>=? AND assigned_competence_levels.competence_id=?", level, competence_id)}
   scope :free_between_closed, ->(start_at, ends_at){joins(:availabilities)}
   scope :free_between_open, ->(starts_at){all}
@@ -80,9 +81,9 @@ class User < ActiveRecord::Base
     end
   end
   
-  def has_authority_over(other)
+  def has_authority_over?(other)
     return true if self.has_role?(:admin)
-    return true if self.followers.include?(other)
+    return true if self.has_role?(:godfather) && self.subordinates.include?(other)
   end
   
   def available?

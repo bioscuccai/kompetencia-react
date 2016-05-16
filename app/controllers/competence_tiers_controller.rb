@@ -1,5 +1,5 @@
 class CompetenceTiersController < ApplicationController
-  load_and_authorize_resource
+  before_action :authenticate_user!
   
   before_action :set_competence_tier, only: [:show, :edit, :update, :destroy]
   skip_before_filter :verify_authenticity_token
@@ -10,23 +10,11 @@ class CompetenceTiersController < ApplicationController
     @competence_tiers = CompetenceTier.all
   end
 
-  # GET /competence_tiers/1
-  # GET /competence_tiers/1.json
-  def show
-  end
-
-  # GET /competence_tiers/new
-  def new
-    @competence_tier = CompetenceTier.new
-  end
-
-  # GET /competence_tiers/1/edit
-  def edit
-  end
-
   # POST /competence_tiers
   # POST /competence_tiers.json
   def create
+    authorize! :create, CompetenceTier
+    
     @competence_tier = CompetenceTier.new(competence_tier_params)
 
     respond_to do |format|
@@ -43,6 +31,8 @@ class CompetenceTiersController < ApplicationController
   # PATCH/PUT /competence_tiers/1
   # PATCH/PUT /competence_tiers/1.json
   def update
+    authorize! :update, CompetenceTier
+    
     respond_to do |format|
       if @competence_tier.update(competence_tier_params)
         format.html { redirect_to @competence_tier, notice: 'Competence tier was successfully updated.' }
@@ -57,6 +47,8 @@ class CompetenceTiersController < ApplicationController
   # DELETE /competence_tiers/1
   # DELETE /competence_tiers/1.json
   def destroy
+    authorize! :destroy, CompetenceTier
+    
     @competence_tier.destroy
     respond_to do |format|
       format.html { redirect_to competence_tiers_url, notice: 'Competence tier was successfully destroyed.' }

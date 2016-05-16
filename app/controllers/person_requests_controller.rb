@@ -1,5 +1,5 @@
 class PersonRequestsController < ApplicationController
-  load_and_authorize_resource
+  before_action :authenticate_user!
   
   before_action :set_person_request, only: [:show, :edit, :update, :destroy,
     :accept, :accept_no_collision, :reject]
@@ -13,6 +13,8 @@ class PersonRequestsController < ApplicationController
   include PersonRequestFormatter
   
   def accept
+    authorize! :accept, @person_request
+    
     ActiveRecord::Base.transaction do
       collisions=Availability.where(user_id: @person_request.target_id).where('ends_at IS NOT NULL').collisions_two(@person_request.starts_at, @person_request.ends_at)
       collisions.update_all(active: false)
@@ -22,11 +24,15 @@ class PersonRequestsController < ApplicationController
   end
   
   def accept_no_collision
+    authorize! :accept_no_collision, @person_request
+    
     @person_request.update!(confirmed: true)
     render json: {status: :ok}
   end
   
   def reject
+    authorize! :reject, @person_request
+    
     @person_request.update!(confirmed: false)
     render json: {status: :ok}
   end
@@ -63,26 +69,12 @@ class PersonRequestsController < ApplicationController
     ].flatten.uniq
     render json: @collisions
   end
-  
-  
-  # GET /person_requests/1
-  # GET /person_requests/1.json
-  def show
-  end
-
-  # GET /person_requests/new
-  def new
-    @person_request = PersonRequest.new
-    @person_request.user_id=params[:user_id]
-  end
-
-  # GET /person_requests/1/edit
-  def edit
-  end
 
   # POST /person_requests
   # POST /person_requests.json
   def create
+    authorize! :create, PersonRequest
+    
     @person_request = PersonRequest.new(person_request_params)
     @person_request.user_id=@user.id
     respond_to do |format|
@@ -99,6 +91,8 @@ class PersonRequestsController < ApplicationController
   # PATCH/PUT /person_requests/1
   # PATCH/PUT /person_requests/1.json
   def update
+    authorize! :update, PersonRequest
+    
     @person_request.user_id=@user.id
     respond_to do |format|
       if @person_request.update(person_request_params)
@@ -114,6 +108,8 @@ class PersonRequestsController < ApplicationController
   # DELETE /person_requests/1
   # DELETE /person_requests/1.json
   def destroy
+    authorize! :destory, PersonRequest
+    
     @person_request.destroy
     respond_to do |format|
       format.html { redirect_to user_person_requests_url(@user), notice: 'Person request was successfully destroyed.' }

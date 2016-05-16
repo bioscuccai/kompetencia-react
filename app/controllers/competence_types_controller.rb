@@ -1,5 +1,5 @@
 class CompetenceTypesController < ApplicationController
-  load_and_authorize_resource
+  before_action :authenticate_user!
   
   before_action :set_competence_type, only: [:show, :edit, :update, :destroy]
   
@@ -27,25 +27,12 @@ class CompetenceTypesController < ApplicationController
     end
     render json: competence_types
   end
-  
-  
-  # GET /competence_types/1
-  # GET /competence_types/1.json
-  def show
-  end
-
-  # GET /competence_types/new
-  def new
-    @competence_type = CompetenceType.new
-  end
-
-  # GET /competence_types/1/edit
-  def edit
-  end
 
   # POST /competence_types
   # POST /competence_types.json
   def create
+    authorize! :create, CompetenceType
+    
     @competence_type = CompetenceType.new(competence_type_params)
 
     respond_to do |format|
@@ -62,6 +49,8 @@ class CompetenceTypesController < ApplicationController
   # PATCH/PUT /competence_types/1
   # PATCH/PUT /competence_types/1.json
   def update
+    authorize! :update, CompetenceType
+    
     respond_to do |format|
       if @competence_type.update(competence_type_params)
         format.html { redirect_to @competence_type, notice: 'Competence type was successfully updated.' }
@@ -76,6 +65,8 @@ class CompetenceTypesController < ApplicationController
   # DELETE /competence_types/1
   # DELETE /competence_types/1.json
   def destroy
+    authorize! :destroy, CompetenceType
+    
     @competence_type.destroy
     respond_to do |format|
       format.html { redirect_to competence_types_url, notice: 'Competence type was successfully destroyed.' }

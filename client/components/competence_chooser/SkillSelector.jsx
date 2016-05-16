@@ -3,6 +3,8 @@
 import React from 'react';
 import SkillMini from '../skill/SkillMini.jsx';
 
+import _ from 'lodash';
+
 import {Typeahead} from 'react-typeahead';
 import {NotificationManager} from 'react-notifications';
 
@@ -15,16 +17,20 @@ export default React.createClass({
     };
   },
   
+  shouldComponentUpdate(nextProps, nextState) {
+    return !_.isEqual(nextProps.allSkills, this.props.allSkills) || this.state.currentSkill.length!==nextState.currentSkill.length;
+  },
+  
   render(){
     return <div>
-      <h2>Skillek</h2>
-      <div class='row'>
+      <div className='row'>
         <div className='column column-20'>
           Képesség:
         </div>
         
         <div className='column column-60'>
           <Typeahead
+            ref='skillName'
             options={this.props.allSkills.map(e=>e.name)}
             onChange={this.onSkillChange}>
           </Typeahead>
@@ -51,7 +57,7 @@ export default React.createClass({
     competenceActions.addSkill(this.props.profileUser.id, this.state.currentSkill)
     .then(data=>{
       NotificationManager.info("Képesség hozzáadva");
-      this.refs.skillName='';
+      this.refs.skillName.value='';
     });
   }
 });

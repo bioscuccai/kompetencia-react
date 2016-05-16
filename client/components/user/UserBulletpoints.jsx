@@ -2,6 +2,7 @@
 
 import React from 'react';
 import CompetenceBreadcrumb from './CompetenceBreadcrumb.jsx';
+import SkillBreadcrumb from './SkillBreadcrumb.jsx';
 import _ from 'lodash';
 import {Link} from 'react-router';
 
@@ -33,6 +34,7 @@ export default React.createClass({
       <div>
         {godfather}
       </div>
+      
       <div>
         <small>
           {this.props.user.competences.map(competence=>{
@@ -43,6 +45,16 @@ export default React.createClass({
               ></CompetenceBreadcrumb>;
           })}
         </small>
+      </div>
+      
+      <div>
+        {this.props.user.skills.filter(item=>item.confirmed).map(skill=>{
+          return <SkillBreadcrumb
+            skill={skill}
+            key={`user-mini-skill-${this.props.user.id}-${skill.id}`}
+            highlight={_.get(this.props, "highlightedSkillIds", []).indexOf(skill.id)!==-1}
+            ></SkillBreadcrumb>;
+        })}
       </div>
     </span>;
   }

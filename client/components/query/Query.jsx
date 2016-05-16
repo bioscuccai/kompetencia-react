@@ -32,6 +32,8 @@ export default React.createClass({
       selectedCompetences: [], //kivalasztott kompetenciak
       results: [],
       allSkills: [],
+      selectedSkillIds: [],
+      lastSkillSelection: [],
       startsAt: null,
       endsAt: null,
       selectedTabIndex: 0,
@@ -122,7 +124,9 @@ export default React.createClass({
             }
           </div>
           
-          <SkillCheckboxes allSkills={this.state.allSkills}></SkillCheckboxes>
+          <SkillCheckboxes
+            onChange={this.onSelectedSkillChange}
+            allSkills={this.state.allSkills}></SkillCheckboxes>
           
           <div>
             <button onClick={this.onQuery} disabled={this.state.dateChecked ? (!this.state.startsAt || !this.state.endsAt) : false}>Keresés</button>
@@ -136,7 +140,8 @@ export default React.createClass({
                     return <QueryResult
                       allUsers={this.state.allUsers}
                       currentUser={this.context.currentUser}
-                      result={result} 
+                      result={result}
+                      highlightedSkillIds={this.state.lastSkillSelection}
                       key={`result-${result.id}`}></QueryResult>;
                   })}
               </div>;
@@ -165,6 +170,12 @@ export default React.createClass({
   handleCompetenceStoreChange(state){
     this.setState({
       allSkills: state.allSkills
+    });
+  },
+  
+  onSelectedSkillChange(selectedSkillIds){
+    this.setState({
+      selectedSkillIds
     });
   },
   
@@ -202,7 +213,12 @@ export default React.createClass({
         level: competence.selectedLevel
       };
     });
-    queryStore.fetchQuery(requested, this.state.startsAt, this.state.endsAt, this.state.dateChecked, this.state.notStrict);
+    this.setState({
+      lastSkillSelection: this.state.selectedSkillIds
+    });
+    queryStore.fetchQuery(requested, this.state.startsAt, this.state.endsAt,
+      this.state.dateChecked, this.state.notStrict,
+      this.state.selectedSkillIds);
     console.log(requested);
     
     this.setState({

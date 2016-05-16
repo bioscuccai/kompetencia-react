@@ -1,5 +1,5 @@
 class AvailabilitiesController < ApplicationController
-  load_and_authorize_resource
+  before_action :authenticate_user!
   
   before_action :set_availability, only: [:show, :edit, :update, :destroy, :turn_on, :turn_off]
   before_action :set_user, only: [:index, :create, :show, :edit, :update, :destroy, :turn_on, :turn_off]
@@ -8,6 +8,8 @@ class AvailabilitiesController < ApplicationController
   include AvailabilityFormatter
   
   def godfather_availabilities
+    raise CanCan::AccessDenied if current_user.id!=params[:user_id]
+    
     @availabilities=Availability.includes(user: [:godfather]).for_godfather params[:user_id]
     render json: @availabilities.map{|a| format_availability(a, ignore_from_user: [:godfather, :competences])}
   end
@@ -20,11 +22,15 @@ class AvailabilitiesController < ApplicationController
   end
   
   def turn_on
+    authorize! :turn_on, @availability
+    
     @availability.update(active: true)
     render json: {status: :ok}
   end
   
   def turn_off
+    authorize! :turn_off, @availability
+    
     @availability.update(active: false)
     render json: {status: :ok}
   end
@@ -36,23 +42,11 @@ class AvailabilitiesController < ApplicationController
     render json: @availabilities.map{|a| format_availability a}
   end
 
-  # GET /availabilities/1
-  # GET /availabilities/1.json
-  def show
-  end
-
-  # GET /availabilities/new
-  def new
-    @availability = @user.availabilities.build
-  end
-
-  # GET /availabilities/1/edit
-  def edit
-  end
-
   # POST /availabilities
   # POST /availabilities.json
   def create
+    raise CanCan::AccessDenied if !current_user.has_authority_over?(User.find params[:user_id])
+    
     @availability = Availability.new(availability_params)
     @availability.user_id=@user.id
 
@@ -70,6 +64,8 @@ class AvailabilitiesController < ApplicationController
   # PATCH/PUT /availabilities/1
   # PATCH/PUT /availabilities/1.json
   def update
+    authorize! :update, @availability
+    
     @availability.assign_attributes(availability_params)
     @availability.user_id=@user.id
     respond_to do |format|
@@ -86,6 +82,8 @@ class AvailabilitiesController < ApplicationController
   # DELETE /availabilities/1
   # DELETE /availabilities/1.json
   def destroy
+    authorize! :destroy, @availability
+    
     @availability.destroy
     respond_to do |format|
       format.html { redirect_to availabilities_url, notice: 'Availability was successfully destroyed.' }
@@ -105,6 +103,7 @@ class AvailabilitiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def availability_params
+      #active direkt nincs itt
       params.require(:availability).permit(:user_id, :starts_at, :ends_at, :comment, :work_hours)
     end
 end

@@ -1,6 +1,4 @@
-class UsersController < ApplicationController
-  load_and_authorize_resource
-  
+class UsersController < ApplicationController  
   skip_before_filter :verify_authenticity_token
   include CompetenceFormatter
   include UserFormatter
@@ -11,6 +9,8 @@ class UsersController < ApplicationController
   end
   
   def add_competence
+    authorize! :add_competence, User.find(params[:user_id])
+    
     @user=User.find params[:id]
     @competence=Competence.find params[:competence_id]
     @user.add_competence @competence, params[:level].to_i
@@ -23,6 +23,8 @@ class UsersController < ApplicationController
   end
   
   def add_pending_competence
+    authorize! :add_pending_competence, User.find(params[:user_id])
+    
     @user=User.find params[:id]
     @competence=Competence.find params[:competence_id]
     @user.add_pending_competence @competence, params[:level].to_i
@@ -30,19 +32,24 @@ class UsersController < ApplicationController
   end
   
   def accept_pending_competence
+    authorize! :accept_competence, User.find(params[:user_id])
+    
     @user=User.find params[:id]
     @user.accept_pending_competence params[:competence_id].to_i
     render json: {status: :ok}
   end
   
   def reject_pending_competence
+    authorize! :reject_pending_competence, User.find(params[:user_id])
+    
     @user=User.find params[:id]
     @user.remove_pending_competence params[:competence_id].to_i
     render json: {status: :ok}
   end
   
   def remove_competence
-    Rails.logger.info params
+    authorize! :remove_competence, User.find(params[:user_id])
+    
     user=User.find params[:id].to_i
     competence=Competence.find params[:competence_id].to_i
     user.remove_competence competence
@@ -50,6 +57,8 @@ class UsersController < ApplicationController
   end
   
   def remove_pending_competence
+    authorize! :remove_competence, User.find(params[:user_id])
+    
     user=User.find params[:id].to_i
     competence=Competence.find params[:competence_id].to_i
     
@@ -73,6 +82,8 @@ class UsersController < ApplicationController
   end
   
   def add_godfather
+    authorize! :add_godfatjer, User.find(params[:user_id])
+    
     user=User.find params[:id]
     godfather=User.find params[:godfather_id]
     if godfather.has_role?(:godfather)
@@ -85,6 +96,8 @@ class UsersController < ApplicationController
   end
   
   def remove_godfather
+    authorize! :remove_godfather, User.find(params[:user_id])
+    
     user=User.find params[:id]
     user.godfather=nil
     user.save!
@@ -134,24 +147,32 @@ class UsersController < ApplicationController
   end
   
   def make_admin
+    authorize! :make_admin, User.find(params[:user_id])
+    
     @user=User.find params[:id]
     @user.add_role :admin
     render json: {status: :ok}
   end
   
   def revoke_admin
+    authorize! :revoke_admin, User.find(params[:user_id])
+    
     @user=User.find params[:id]
     @user.remove_role :admin
     render json: {status: :ok}
   end
   
   def make_godfather
+    authorize! :make_godfather, User.find(params[:user_id])
+    
     @user=User.find params[:id]
     @user.add_role :godfather
     render json: {status: :ok}
   end
   
   def revoke_godfather
+    authorize! :revoke_godfather, User.find(params[:user_id])
+    
     @user=User.find params[:id]
     @user.remove_role :godfather
     render json: {status: :ok}

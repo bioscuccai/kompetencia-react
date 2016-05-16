@@ -61,6 +61,7 @@ export default React.createClass({
         <div className='column column-80'>
           <UserBulletPoints
             highlightedIds={highlightedIds}
+            highlightedSkillIds={this.props.highlightedSkillIds}
             user={this.props.result}></UserBulletPoints>
           <MatchedAvailabilities matchedAvailabilities={this.props.result.matched_availabilities}></MatchedAvailabilities>
         </div>

@@ -1,4 +1,6 @@
 class QueryController < ApplicationController
+  before_action :authenticate_user!
+  
   include UserFormatter
   include AvailabilityFormatter
   
@@ -13,9 +15,16 @@ class QueryController < ApplicationController
     result_per_user=Hash.new{|h,k| h[k]=[]}
     users=[]
     user_availability_matches=[]
+    
+    base_query=User.includes(:availabilities, :godfather, assigned_competence_levels: [:competence])
+    if params[:selected_skill_ids] && params[:selected_skill_ids].count!=0
+      users=base_query.has_skills(params[:selected_skill_ids]).to_a
+    end
+    
+    #kompetenciak
     if params[:competences].present?
       params[:competences].each do |c|
-        res=User.includes(:godfather, assigned_competence_levels: [:competence]).has_level(c["competence_id"], c["level"])
+        res=base_query.has_level(c["competence_id"], c["level"])
         if params[:check_date] && params[:starts_at].present? && params[:ends_at].present?
           res_with_date=res.select do |u|
             

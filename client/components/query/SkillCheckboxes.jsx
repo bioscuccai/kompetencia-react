@@ -12,8 +12,9 @@ export default React.createClass({
   
   render(){
     return <div>
+      <h2>Skillek</h2>
       {this.props.allSkills.map(skill=>{
-        return <span key={`skill-${skill.name}`}>
+        return <span className='skill-mini' key={`skill-${skill.name}`}>
           <input type='checkbox' value={skill.id} onChange={this.onChange}/> {skill.name}
         </span>;
       })}
@@ -21,11 +22,18 @@ export default React.createClass({
   },
   
   onChange(e){
-    if(e.checked){
-      console.log("checked");
+    let selectedIds=this.state.selectedSkillIds;
+    if(e.target.checked){
+      selectedIds=_(selectedIds).concat([parseInt(e.target.value)]).uniq().value();
+    } else {
+      selectedIds=selectedIds.filter(item=>item!=parseInt(e.target.value));
     }
+    this.setState({
+      selectedSkillIds: selectedIds 
+    });
+        
     if(this.props.onChange){
-      this.props.onChange();
+      this.props.onChange(selectedIds);
     }
   }
 });
