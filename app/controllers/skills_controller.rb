@@ -19,7 +19,7 @@ class SkillsController < ApplicationController
 
   def create
     #TODO: getto jogkor kezeles
-    raise CanCan::AccessDenied if !current_user.has_role?(:godfather) || !(current_user.id!=params[:user_id])
+    raise CanCan::AccessDenied if !current_user.has_role?(:admin) || !current_user.has_role?(:godfather) || !(current_user.id!=params[:id])
     
     @skill = Skill.find_or_create_by(name: params[:skill][:name])
     @users_skill=@user.users_skills.find_or_create_by(user_id: @user.id, skill_id: @skill.id)
