@@ -123,7 +123,6 @@ class UsersController < ApplicationController
         level: tl.level
       }
     end).group_by{|g| g[:type]}
-    pp @tier_names
     @tier_group_names=@tier_groups.keys
 
     respond_to do |fmt|
