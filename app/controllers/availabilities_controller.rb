@@ -50,11 +50,11 @@ class AvailabilitiesController < ApplicationController
     @availability = Availability.new(availability_params)
     @availability.user_id=@user.id
 
-      if @availability.save
-        render json: {status: :ok}
-      else
-        rendet json: {status: :error, error: @availability.errors}
-      end
+    if @availability.save
+      render json: {status: :ok}
+    else
+      rendet json: {status: :error, error: @availability.errors}
+    end
   end
 
   # PATCH/PUT /availabilities/1

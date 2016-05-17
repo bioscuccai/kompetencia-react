@@ -71,12 +71,9 @@ class UsersController < ApplicationController
       #ugyhogy marad az old-school relacio
       format_user u
     end
-    respond_to do |format|
-      format.html{}
-      format.json do
-        render json: user_data
-      end
-    end
+
+    render json: user_data
+
   end
   
   def add_godfather

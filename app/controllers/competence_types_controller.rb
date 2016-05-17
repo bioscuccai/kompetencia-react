@@ -35,31 +35,16 @@ class CompetenceTypesController < ApplicationController
     
     @competence_type = CompetenceType.new(competence_type_params)
 
-    respond_to do |format|
-      if @competence_type.save
-        format.html { redirect_to @competence_type, notice: 'Competence type was successfully created.' }
-        format.json { render :show, status: :created, location: @competence_type }
-      else
-        format.html { render :new }
-        format.json { render json: @competence_type.errors, status: :unprocessable_entity }
-      end
-    end
+    @competence_type.save!
+    render json: {status: :ok}
   end
 
   # PATCH/PUT /competence_types/1
   # PATCH/PUT /competence_types/1.json
   def update
     authorize! :update, CompetenceType
-    
-    respond_to do |format|
-      if @competence_type.update(competence_type_params)
-        format.html { redirect_to @competence_type, notice: 'Competence type was successfully updated.' }
-        format.json { render :show, status: :ok, location: @competence_type }
-      else
-        format.html { render :edit }
-        format.json { render json: @competence_type.errors, status: :unprocessable_entity }
-      end
-    end
+    @competence_type.update!(competence_type_params)
+    render json: {status: :ok}
   end
 
   # DELETE /competence_types/1

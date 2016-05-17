@@ -3,6 +3,7 @@
 import React from 'react';
 import competenceTypeActions from '../../actions/competence_type_actions';
 import {NotificationManager} from 'react-notifications';
+import {Link} from 'react-router';
 
 export default React.createClass({
   render(){
@@ -17,9 +18,9 @@ export default React.createClass({
         </select>
         <div>
           <small>
-            <a href='/competence_tier_groups'>
+            <Link to='/competence_tier_groups'>
               Kérdés sablonok &raquo;
-            </a>
+            </Link>
           </small>
         </div>
         <input type='submit' value='Új kompetencia kategória'/>

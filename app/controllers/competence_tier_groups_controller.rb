@@ -38,16 +38,8 @@ class CompetenceTierGroupsController < ApplicationController
     authorize! :create, CompetenceTierGroup
     
     @competence_tier_group = CompetenceTierGroup.new(competence_tier_group_params)
-
-    respond_to do |format|
-      if @competence_tier_group.save
-        format.html { redirect_to @competence_tier_group, notice: 'Competence tier group was successfully created.' }
-        format.json { render :show, status: :created, location: @competence_tier_group }
-      else
-        format.html { render :new }
-        format.json { render json: @competence_tier_group.errors, status: :unprocessable_entity }
-      end
-    end
+    @competence_tier_group.save!
+    render json: {status: :ok}
   end
 
   # PATCH/PUT /competence_tier_groups/1
@@ -55,15 +47,8 @@ class CompetenceTierGroupsController < ApplicationController
   def update
     authorize! :update, CompetenceTierGroup
     
-    respond_to do |format|
-      if @competence_tier_group.update(competence_tier_group_params)
-        format.html { redirect_to @competence_tier_group, notice: 'Competence tier group was successfully updated.' }
-        format.json { render :show, status: :ok, location: @competence_tier_group }
-      else
-        format.html { render :edit }
-        format.json { render json: @competence_tier_group.errors, status: :unprocessable_entity }
-      end
-    end
+    @competence_tier_group.update!(competence_tier_group_params)
+    rende json: {status: :ok}
   end
 
   # DELETE /competence_tier_groups/1
@@ -71,11 +56,8 @@ class CompetenceTierGroupsController < ApplicationController
   def destroy
     authorize! :destroy, CompetenceTierGroup
     
-    @competence_tier_group.destroy
-    respond_to do |format|
-      format.html { redirect_to competence_tier_groups_url, notice: 'Competence tier group was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    @competence_tier_group.destroy!
+    render json: {status: :ok}
   end
 
   private

@@ -41,15 +41,11 @@ class PersonRequestsController < ApplicationController
   # GET /person_requests.json
   def index
     @person_requests = PersonRequest.joins(:target, :user).where(user_id: @user.id)
-    respond_to do |fmt|
-      fmt.html{}
-      fmt.json do
-        @formatted=@person_requests.map do |p|
-          format_person_request p
-        end
-        render json: @formatted
-      end
+
+    @formatted=@person_requests.map do |p|
+      format_person_request p
     end
+    render json: @formatted
   end
   
   def relevant

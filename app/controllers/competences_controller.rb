@@ -48,39 +48,22 @@ class CompetencesController < ApplicationController
   def create
     @competence = Competence.new(competence_params)
 
-    respond_to do |format|
-      if @competence.save
-        format.html { redirect_to @competence, notice: 'Competence was successfully created.' }
-        format.json { render :show, status: :created, location: @competence }
-      else
-        format.html { render :new }
-        format.json { render json: @competence.errors, status: :unprocessable_entity }
-      end
-    end
+    @competence.save!
+    render json: {status: :ok}
   end
 
   # PATCH/PUT /competences/1
   # PATCH/PUT /competences/1.json
   def update
-    respond_to do |format|
-      if @competence.update(competence_params)
-        format.html { redirect_to @competence, notice: 'Competence was successfully updated.' }
-        format.json { render :show, status: :ok, location: @competence }
-      else
-        format.html { render :edit }
-        format.json { render json: @competence.errors, status: :unprocessable_entity }
-      end
-    end
+    @competence.update!(competence_params)
+    render json: {status: :ok}
   end
 
   # DELETE /competences/1
   # DELETE /competences/1.json
   def destroy
-    @competence.destroy
-    respond_to do |format|
-      format.html { redirect_to competences_url, notice: 'Competence was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    @competence.destroy!
+    render json: {status: :ok}
   end
 
   private
