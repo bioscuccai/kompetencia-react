@@ -61,7 +61,6 @@ class AvailabilitiesController < ApplicationController
   # PATCH/PUT /availabilities/1.json
   def update
     authorize! :update, @availability
-    pp "can update"
     @availability.assign_attributes(availability_params)
     @availability.user_id=@user.id
 
