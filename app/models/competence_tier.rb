@@ -9,10 +9,11 @@ class CompetenceTier < ActiveRecord::Base
   end
   
   def self.tier_names
-    @tier_names=all
+    @tier_names=all.
       group_by(&:competence_tier_group_id)
     @tier_names.keys.each do |k|
-      @tier_names[k]=@tier_names[k].map{|v| [v.level, v.title]}.to_h
+      @tier_names[k.to_i]=@tier_names[k].map{|v| [v.level, v.title]}.to_h
     end
+    @tier_names
   end
 end

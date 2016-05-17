@@ -8,7 +8,7 @@ class AvailabilitiesController < ApplicationController
   include AvailabilityFormatter
   
   def godfather_availabilities
-    raise CanCan::AccessDenied if current_user.id!=params[:user_id]
+    #raise CanCan::AccessDenied if current_user.id!=params[:id]
     
     @availabilities=Availability.includes(user: [:godfather]).for_godfather params[:user_id]
     render json: @availabilities.map{|a| format_availability(a, ignore_from_user: [:godfather, :competences])}
@@ -50,45 +50,37 @@ class AvailabilitiesController < ApplicationController
     @availability = Availability.new(availability_params)
     @availability.user_id=@user.id
 
-    respond_to do |format|
       if @availability.save
-        format.html { redirect_to @availability, notice: 'Availability was successfully created.' }
-        format.json { render :show, status: :created, location: user_availability_path(@user.id, @availability.id) }
+        render json: {status: :ok}
       else
-        format.html { render :new }
-        format.json { render json: @availability.errors, status: :unprocessable_entity }
+        rendet json: {status: :error, error: @availability.errors}
       end
-    end
   end
 
   # PATCH/PUT /availabilities/1
   # PATCH/PUT /availabilities/1.json
   def update
     authorize! :update, @availability
-    
+    pp "can update"
     @availability.assign_attributes(availability_params)
     @availability.user_id=@user.id
-    respond_to do |format|
-      if @availability.save
-        format.html { redirect_to [@user, @availability], notice: 'Availability was successfully updated.' }
-        format.json { render :show, status: :ok, location: [@user, @availability ]}
-      else
-        format.html { render :edit }
-        format.json { render json: @availability.errors, status: :unprocessable_entity }
-      end
+
+    if @availability.save
+      render json: {status: :ok}
+    else
+      render json: @availability.errors, status: :unprocessable_entity
     end
+
   end
 
   # DELETE /availabilities/1
   # DELETE /availabilities/1.json
   def destroy
     authorize! :destroy, @availability
+    @availability.destroy!
+
+    render json: {status: :ok}
     
-    @availability.destroy
-    respond_to do |format|
-      format.html { redirect_to availabilities_url, notice: 'Availability was successfully destroyed.' }
-      format.json { head :no_content }
-    end
   end
 
   private

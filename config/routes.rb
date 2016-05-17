@@ -43,7 +43,7 @@ Rails.application.routes.draw do
       end
     end
     
-    resources :person_requests, only: [:index, :update, :create] do
+    resources :person_requests, only: [:index, :update, :create, :destroy] do
       collection do
         get 'relevant'
         post 'collisions'

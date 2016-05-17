@@ -5,7 +5,6 @@ class QueryController < ApplicationController
   include AvailabilityFormatter
   
   skip_before_filter :verify_authenticity_token
-  authorize_resource class: false
   
   def index
     
@@ -27,21 +26,23 @@ class QueryController < ApplicationController
         res=base_query.has_level(c["competence_id"], c["level"])
         if params[:check_date] && params[:starts_at].present? && params[:ends_at].present?
           res_with_date=res.select do |u|
-            
+            availability_matches=[]
             if params[:not_strict_search]
-              availability_matches=u.availabilities_between(Time.parse(params[:starts_at]), Time.parse(params[:ends_at]))
-            else
               availability_matches=u.availabilities_between_not_strict(Time.parse(params[:starts_at]), Time.parse(params[:ends_at]))
+            else
+              availability_matches=u.availabilities_between(Time.parse(params[:starts_at]), Time.parse(params[:ends_at]))
             end
+            
             if availability_matches.count!=0
               user_availability_matches[u.id]=user_availability_matches.fetch(u.id, []) + availability_matches.map(&:id)
             end
+            
             availability_matches.count!=0
           end
         else
           res_with_date=res
         end
-        res_with_date = (params[:check_date] && params[:starts_at].present? && params[:ends_at].present?) ? res.select{|u| u.availabilities_between(Time.parse(params[:starts_at]), Time.parse(params[:ends_at])).count!=0} : res
+        
         users.push res_with_date
         res_with_date.each do |u|
           (result_per_user[u.id]).push c["competence_id"]

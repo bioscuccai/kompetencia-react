@@ -30,9 +30,11 @@ export default React.createClass({
         
         <div className='column column-60'>
           <Typeahead
+            placeholder='Skill'
+            onChange={this.onSkillChange}
+            onOptionSelected={this.onSkillSelected}
             ref='skillName'
-            options={this.props.allSkills.map(e=>e.name)}
-            onChange={this.onSkillChange}>
+            options={this.props.allSkills.map(e=>e.name)}>
           </Typeahead>
         </div>
         
@@ -45,6 +47,12 @@ export default React.createClass({
         </div>
       </div>
     </div>;
+  },
+  
+  onSkillSelected(e){
+    this.setState({
+      currentSkill: e
+    });
   },
   
   onSkillChange(e){

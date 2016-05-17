@@ -9,11 +9,12 @@ import {Link} from 'react-router';
 export default React.createClass({
   render(){
     let godfather;
+    console.log(this.props);
     if(this.props.user.godfather){
       godfather=<span>
         <img src='/godfather.gif' className='godfather-icon'></img>
-        <a href={`/users/${this.props.user.godfather.id}`}>
-          {this.props.user.godfather.email}
+        <a href={`/users/${_.get(this.props.user, "godfather.id")}`}>
+          {_.get(this.props.user, "godfather.email")}
         </a>
       </span>;
     }

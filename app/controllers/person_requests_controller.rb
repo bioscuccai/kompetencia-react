@@ -77,15 +77,8 @@ class PersonRequestsController < ApplicationController
     
     @person_request = PersonRequest.new(person_request_params)
     @person_request.user_id=@user.id
-    respond_to do |format|
-      if @person_request.save
-        format.html { redirect_to user_person_requests_url(@user, @person_request), notice: 'Person request was successfully created.' }
-        format.json { render :show, status: :created, location: user_person_request_path(@user, @person_request) }
-      else
-        format.html { render :new }
-        format.json { render json: @person_request.errors, status: :unprocessable_entity }
-      end
-    end
+    @person_request.save!
+    render json: {status: :ok}
   end
 
   # PATCH/PUT /person_requests/1
@@ -94,27 +87,17 @@ class PersonRequestsController < ApplicationController
     authorize! :update, PersonRequest
     
     @person_request.user_id=@user.id
-    respond_to do |format|
-      if @person_request.update(person_request_params)
-        format.html { redirect_to @person_request, notice: 'Person request was successfully updated.' }
-        format.json { render :show, status: :ok, location: user_person_request_path(@user, @person_request) }
-      else
-        format.html { render :edit }
-        format.json { render json: @person_request.errors, status: :unprocessable_entity }
-      end
-    end
+    @person_request.update!(person_request_params)
+    render json: {status: :ok}
   end
 
   # DELETE /person_requests/1
   # DELETE /person_requests/1.json
   def destroy
-    authorize! :destory, PersonRequest
-    
-    @person_request.destroy
-    respond_to do |format|
-      format.html { redirect_to user_person_requests_url(@user), notice: 'Person request was successfully destroyed.' }
-      format.json { render plain: "" }
-    end
+    authorize! :destroy, PersonRequest
+
+    @person_request.destroy!
+    render json: {status: :ok}
   end
 
   private

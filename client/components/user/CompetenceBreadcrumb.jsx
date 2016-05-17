@@ -7,7 +7,7 @@ export default React.createClass({
     let highlightClass=this.props.highlight ? "mini-competence result-competence" : "mini-competence";
     return <span
         className={highlightClass}>
-          {this.props.competence.title} ({this.props.competence.level})
+          {this.props.competence.title} ({this.props.competence.level_title})
         </span>;
   }
 });

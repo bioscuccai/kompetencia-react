@@ -1,67 +1,65 @@
 class UsersController < ApplicationController  
   skip_before_filter :verify_authenticity_token
+  before_action :set_user, only: [:assigned_competences, :add_competence, :pending_competences,
+    :add_pending_competence, :accept_pending_competence,
+    :reject_pending_competence, :remove_competence, :remove_pending_competence,
+    :add_godfather, :remove_godfather,
+    :make_admin, :revoke_admin, :make_godfather, :revoke_godfather]
+  
   include CompetenceFormatter
   include UserFormatter
   
   def assigned_competences
-    user=User.find params[:id]
-    render json: format_competence_list(user.assigned_competence_levels)
+    render json: format_competence_list(@user.assigned_competence_levels)
   end
   
   def add_competence
-    authorize! :add_competence, User.find(params[:user_id])
-    
-    @user=User.find params[:id]
+    authorize! :add_competence, @user
+
     @competence=Competence.find params[:competence_id]
     @user.add_competence @competence, params[:level].to_i
     render json: @competence
   end
   
   def pending_competences
-    user=User.find params[:id]
-    render json: format_competence_list(user.pending_competence_levels)
+    render json: format_competence_list(@user.pending_competence_levels)
   end
   
   def add_pending_competence
-    authorize! :add_pending_competence, User.find(params[:user_id])
-    
-    @user=User.find params[:id]
+    authorize! :add_pending_competence, @user
+
     @competence=Competence.find params[:competence_id]
     @user.add_pending_competence @competence, params[:level].to_i
     render json: @competence
   end
   
   def accept_pending_competence
-    authorize! :accept_competence, User.find(params[:user_id])
+    authorize! :accept_competence, @user
     
-    @user=User.find params[:id]
     @user.accept_pending_competence params[:competence_id].to_i
     render json: {status: :ok}
   end
   
   def reject_pending_competence
-    authorize! :reject_pending_competence, User.find(params[:user_id])
-    
-    @user=User.find params[:id]
+    authorize! :reject_pending_competence, @user
+
     @user.remove_pending_competence params[:competence_id].to_i
     render json: {status: :ok}
   end
   
   def remove_competence
-    authorize! :remove_competence, User.find(params[:user_id])
-    
-    user=User.find params[:id].to_i
+    authorize! :remove_competence, @user
+
     competence=Competence.find params[:competence_id].to_i
-    user.remove_competence competence
+    @user.remove_competence competence
     render json: {status: :ok}
   end
   
+  #TODO: ez mi?
   def remove_pending_competence
-    authorize! :remove_competence, User.find(params[:user_id])
-    
-    user=User.find params[:id].to_i
+    authorize! :remove_competence, @user
+
     competence=Competence.find params[:competence_id].to_i
-    
     render json: {status: :ok}
   end
   
@@ -82,13 +80,12 @@ class UsersController < ApplicationController
   end
   
   def add_godfather
-    authorize! :add_godfatjer, User.find(params[:user_id])
+    authorize! :add_godfather, @user
     
-    user=User.find params[:id]
     godfather=User.find params[:godfather_id]
     if godfather.has_role?(:godfather)
-      user.godfather=godfather
-      user.save!
+      @user.godfather=godfather
+      @user.save!
       render json: {status: :ok}
     else
       render json: {status: :error, message: 'NOT_GODFATHER'}
@@ -96,11 +93,10 @@ class UsersController < ApplicationController
   end
   
   def remove_godfather
-    authorize! :remove_godfather, User.find(params[:user_id])
-    
-    user=User.find params[:id]
-    user.godfather=nil
-    user.save!
+    authorize! :remove_godfather, @user
+
+    @user.godfather=nil
+    @user.save!
     render json: {status: :ok}
   end
   
@@ -110,7 +106,7 @@ class UsersController < ApplicationController
   end
   
   def show
-    @user=User.includes(assigned_competence_levels: [competence: [:competence_type]]).find params[:id]
+    @user=User.includes(users_skills: [:skill], assigned_competence_levels: [competence: [:competence_type]]).find params[:id]
     @tiers=CompetenceTier.all
     @tier_names=@tiers.
       group_by(&:competence_tier_group_id)
@@ -127,6 +123,7 @@ class UsersController < ApplicationController
         level: tl.level
       }
     end).group_by{|g| g[:type]}
+    pp @tier_names
     @tier_group_names=@tier_groups.keys
 
     respond_to do |fmt|
@@ -147,7 +144,7 @@ class UsersController < ApplicationController
   end
   
   def make_admin
-    authorize! :make_admin, User.find(params[:user_id])
+    authorize! :make_admin, @user
     
     @user=User.find params[:id]
     @user.add_role :admin
@@ -155,7 +152,7 @@ class UsersController < ApplicationController
   end
   
   def revoke_admin
-    authorize! :revoke_admin, User.find(params[:user_id])
+    authorize! :revoke_admin, @user
     
     @user=User.find params[:id]
     @user.remove_role :admin
@@ -163,7 +160,7 @@ class UsersController < ApplicationController
   end
   
   def make_godfather
-    authorize! :make_godfather, User.find(params[:user_id])
+    authorize! :make_godfather, @user
     
     @user=User.find params[:id]
     @user.add_role :godfather
@@ -171,7 +168,7 @@ class UsersController < ApplicationController
   end
   
   def revoke_godfather
-    authorize! :revoke_godfather, User.find(params[:user_id])
+    authorize! :revoke_godfather, @user
     
     @user=User.find params[:id]
     @user.remove_role :godfather
@@ -181,4 +178,9 @@ class UsersController < ApplicationController
   def subordinates
     @user=User.find params[:id]
   end
+  
+  private
+    def set_user
+      @user=User.find(params[:id])
+    end
 end

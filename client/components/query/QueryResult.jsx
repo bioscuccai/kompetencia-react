@@ -80,7 +80,7 @@ export default React.createClass({
         <NewPersonRequest
           currentUser={this.props.currentUser}
           onClose={this.onRequestCloseNew}
-          profileUser={this.props.result}></NewPersonRequest>
+          user={this.props.result}></NewPersonRequest>
       </Modal>
       
       <Modal

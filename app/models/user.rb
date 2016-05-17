@@ -38,7 +38,8 @@ class User < ActiveRecord::Base
   end
   
   def availabilities_between_not_strict(b_starts_at, b_ends_at)
-    Availability.where("user_id=?", self.id).collision_not_strict(b_starts_at, b_ends_at)
+    ans=Availability.where("user_id=?", self.id).collisions_not_strict(b_starts_at, b_ends_at)
+    ans
   end
   
   def add_competence(competence, level)
@@ -83,7 +84,8 @@ class User < ActiveRecord::Base
   
   def has_authority_over?(other)
     return true if self.has_role?(:admin)
-    return true if self.has_role?(:godfather) && self.subordinates.include?(other)
+    return true if self.has_role?(:godfather) && other.id==self.id
+    return true if self.has_role?(:godfather) && other.godfather_id==self.id
   end
   
   def available?

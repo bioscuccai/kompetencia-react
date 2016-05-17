@@ -3,7 +3,7 @@ class Ability
   #TODO: sok, sokminden...
 
   def initialize(user)
-    can :manage, :all
+    #can :manage, :all
     
     if user
       if user.has_role? :admin
@@ -32,7 +32,9 @@ class Ability
       end
       
       
-      can [:accept, :accept_no_collision, :reject], PersonRequest, target_id: user.id
+      can [:accept, :accept_no_collision, :reject], PersonRequest do |pr|
+        pr.target && user.has_authority_over?(pr.target)
+      end
       can [:update, :destroy], PersonRequest, user_id: user.id
       can [:create], PersonRequest if user.has_role?(:admin) || user.has_role?(:godfather)
     end

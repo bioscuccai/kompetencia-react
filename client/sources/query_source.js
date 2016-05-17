@@ -8,6 +8,7 @@ export default {
   fetchQuery: {
     remote(state, competences, startsAt, endsAt, checkDate=false, notStrictSearch=false, selectedSkillIds=[]){
       return new Promise((resolve, reject) => {
+        console.log(`notStrict: ${notStrictSearch}`);
         axios.post('/query/query', {
           competences,
           starts_at: startsAt,

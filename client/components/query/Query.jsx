@@ -66,24 +66,39 @@ export default React.createClass({
     
     let filteredCompetenceGroups=_.groupBy(this.state.filteredCompetences, e=>e.type);
     let filteredCompetenceTypes=_.keys(filteredCompetenceGroups);
+    
+    let notStrictSearch;
+    
+    if(this.state.dateChecked){
+      notStrictSearch=<div className='row'>
+        <div className='column column-20'>
+          <input type='checkbox' name='not_strict_search' id='not_strict_search' ref='notStrictSearch' value="1" onClick={this.onNotStrictClick}></input>
+        </div>
+        <div className='column column-80'>
+          Részleges szűrés?
+        </div>
+      </div>;
+    }
+    
     return <div>
       <h1>Keresés</h1>
 
           <div>
             <h4>Dátum</h4>
             <div className='row'>
-              <div className='column column-10'>
-                <input type='checkbox' name='check_date' id='check_date' ref='checkDate' value="1" onChange={this.onDateClick}></input>
+              <div className='column column-50'>
+                <div className='row'>
+                  <div className='column column-20'>
+                    <input type='checkbox' name='check_date' id='check_date' ref='checkDate' value="1" onChange={this.onDateClick}></input>
+                  </div>
+                  <div className='column column-80'>
+                    Dátumra keresés?
+                  </div>
+                </div>
               </div>
-              <div className='column column-40'>
-                Dátumra keresés?
-              </div>
-              <div>
-                <input type='checkbox' name='not_strict_search' id='not_strict_search' ref='notStrictSearch' value="1" onClick={this.onNotStrictClick}></input>
-              </div>
-              <div>
-                Részleges szűrés?
-              </div>
+              
+              {notStrictSearch}
+              
             </div>
             <div className='row'>
               <div className='column column-50'>
@@ -236,7 +251,8 @@ export default React.createClass({
   
   onDateClick(e){
     this.setState({
-      dateChecked: e.target.checked
+      dateChecked: e.target.checked,
+      notStrict: false
     });
   },
   

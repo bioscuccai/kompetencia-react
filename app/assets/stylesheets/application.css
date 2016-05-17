@@ -218,6 +218,7 @@ main{
 }
 
 .skill-mini{
+  font-size: 80%;
   border: solid 2px rgb(124, 124, 124);
   background-color: rgb(115, 115, 115);
   border-radius: 3px;

@@ -1,5 +1,6 @@
 module UserFormatter
   extend ActiveSupport::Concern
+  include CompetenceFormatter
   def format_user u, hsh={}
     wo=hsh[:without] || []
     user={
@@ -25,29 +26,24 @@ module UserFormatter
     if !wo.include? :competences
       user.merge!(
         {
-          competences: (u.assigned_competence_levels.map do |acl|
-            {
-              id: acl.competence_id,
-              title: acl.competence.title,
-              level: acl.level
-            }
-          end)
+          competences: format_competence_list(u.assigned_competence_levels)
         }
       )
       
-      if !wo.include? :pending_count
-        user.merge!({
-            pending_count: u.pending_competence_levels.count
-          }
-        )
-      end
-      
-      if !wo.include? :skills
-        user.merge!({
-            skills: u.users_skills.map{|us| us.formatted}
-          }
-        )
-      end
+    end
+    
+    if !wo.include? :pending_count
+      user.merge!({
+          pending_count: u.pending_competence_levels.count + u.users_skills.where(confirmed: false).count
+        }
+      )
+    end
+    
+    if !wo.include? :skills
+      user.merge!({
+          skills: u.users_skills.map{|us| us.formatted}
+        }
+      )
     end
     
     user
