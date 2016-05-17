@@ -29,7 +29,7 @@ class SkillsController < ApplicationController
 
   def destroy
     if params[:user_id]
-      raise CanCan::AccessDenied if !current_user.has_role?(:godfather) || !(current_user.id!=params[:user_id])
+      raise CanCan::AccessDenied if !current_user.has_role?(:admin) && !current_user.has_role?(:godfather) && !(current_user.id!=params[:id])
       
       UsersSkill.where(user_id: params[:user_id], skill_id: params[:id]).destroy_all
     else
