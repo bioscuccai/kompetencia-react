@@ -32,7 +32,7 @@ export default React.createClass({
         <h3>Kompetenciák</h3>
         <ul>
           {this.props.profileUser.competences.map(competence=>{
-            return <li key={`competence-${competence.id}`}>{competence.title} <small>({competence.level})</small></li>;
+            return <li key={`competence-${competence.id}`}>{competence.title} <small>({competence.level_title})</small></li>;
           })}
         </ul>
       </div>
