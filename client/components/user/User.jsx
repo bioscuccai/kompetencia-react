@@ -25,8 +25,17 @@ export default React.createClass({
   },
   
   componentDidMount(){
+    console.log("did mount");
     alt.recycle(userStore);
     userStore.listen(this.handleUserStoreChange);
+    this.fetch();
+  },
+  
+  componentWillReceiveProps(props){
+    this.fetch();
+  },
+  
+  fetch(){
     userStore.fetchAllUsers(); //TODO: ideiglenesen a felhasznalo dolgozoi listazasahoz
     userStore.fetchProfileUser(parseInt(this.props.params.profileUserId));
   },
@@ -64,7 +73,7 @@ export default React.createClass({
     
     let profileButton;
     if(this.context.currentUser.id==this.state.profileUser.id){
-      profileButton=<a href='/users/edit' className='button'><i className='icon ion-reply'></i>Profil módosítás</a>;
+      profileButton=<Link to='/user_edit' className='button'><i className='icon ion-reply'></i>Profil módosítás</Link>;
     }
     
     let availabilitySection;

@@ -10,7 +10,8 @@ class UserActions{
     
     "makeAdminSucc", "revokeAdminSucc",
     "makeGodfatherSucc", "revokeGodfatherSucc",
-    "addSubordinateSucc", "removeSubordinateSucc");
+    "addSubordinateSucc", "removeSubordinateSucc",
+    "editUserSucc");
   }
   
   //ezek a felhasznalonak a keresztapjat allitjak be
@@ -96,6 +97,26 @@ class UserActions{
       })
       .then(data=>{
         this.revokeGodfatherSucc(_.extend({}, resp, {data: data.data}));
+      })
+      .catch(this.error);
+    };
+  }
+  
+  editUser(firstName, lastName, currentPassword, newPassword, newPasswordConfirmation){
+    return dispatch=>{
+      let resp={firstName, lastName, currentPassword, newPassword, newPasswordConfirmation};
+      return axios.post(`/users/change`, {
+        current_password: currentPassword,
+        new_password: newPassword,
+        new_password_confirmation: newPasswordConfirmation,
+        last_name: lastName,
+        first_name: firstName
+      }, {
+        responseType: 'json'
+      })
+      .then(data=>{
+        this.editUserSucc(_.extend({}, resp, {data: data}));
+        return data;
       })
       .catch(this.error);
     };

@@ -64,6 +64,7 @@ class UsersController < ApplicationController
   end
   
   def index
+    authorize! :index, User
     @users=User.all
     user_data=User.includes(:godfather, assigned_competence_levels: [:competence]).all.map do |u|
       #TODO: rolify-al megoldani a keresztapasagot, csak nagyon nem tetszik neki
@@ -104,6 +105,8 @@ class UsersController < ApplicationController
   
   def show
     @user=User.includes(users_skills: [:skill], assigned_competence_levels: [competence: [:competence_type]]).find params[:id]
+    authorize! :show, @user
+    
     @tiers=CompetenceTier.all
     @tier_names=@tiers.
       group_by(&:competence_tier_group_id)
@@ -173,6 +176,23 @@ class UsersController < ApplicationController
   
   def subordinates
     @user=User.find params[:id]
+  end
+  
+  
+  #TODO: ideiglenesen a devise edit-je helyett
+  def change
+    if !current_user.valid_password? params[:current_password]
+      return render json: {status: :error}
+    end
+    if params[:new_password].present?
+      if params[:new_password]!=params[:new_password_confirmation]
+        return render json: {status: :error}
+      end
+      current_user.update!(password: params[:new_password], password_confirmation: params[:new_password_confirmation])
+    end
+    
+    current_user.update!(first_name: params[:first_name], last_name: params[:last_name])
+    render json: {status: :ok}
   end
   
   private

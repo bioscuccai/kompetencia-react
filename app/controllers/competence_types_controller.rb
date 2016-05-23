@@ -52,11 +52,8 @@ class CompetenceTypesController < ApplicationController
   def destroy
     authorize! :destroy, CompetenceType
     
-    @competence_type.destroy
-    respond_to do |format|
-      format.html { redirect_to competence_types_url, notice: 'Competence type was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    @competence_type.destroy!
+    render json: {status: :ok}
   end
 
   private

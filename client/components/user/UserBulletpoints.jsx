@@ -9,7 +9,6 @@ import {Link} from 'react-router';
 export default React.createClass({
   render(){
     let godfather;
-    console.log(this.props);
     if(this.props.user.godfather){
       godfather=<span>
         <img src='/godfather.gif' className='godfather-icon'></img>
@@ -26,8 +25,17 @@ export default React.createClass({
     return <span>
       <div className='user-name'>
         <Link to={`/users/${this.props.user.id}`}>
-          <div>{this.props.user.name} <small>({this.props.user.email})</small></div>
+          <div>{this.props.user.name}</div>
+          <div><small>({this.props.user.email})</small></div>
         </Link>
+      </div>
+      <div>
+        <small>
+          {_.chain([
+            this.props.user.is_admin ? "Admin" : null,
+            this.props.user.is_godfather ? "Mentor" : null,
+          ]).compact().join(", ").value()}
+        </small>
       </div>
       <div>
         {available}

@@ -3,6 +3,7 @@
 import React from 'react';
 import DateTime from 'react-datetime';
 import {NotificationManager} from 'react-notifications';
+import _ from 'lodash';
 
 import availabilityActions from '../../actions/availability_actions';
 
@@ -16,9 +17,23 @@ export default React.createClass({
   },
   
   render(){
+    let userListWidget;
+    if(_.isArray(this.props.userList)){
+      console.log(this.props.userList);
+      userListWidget=<div>
+        Dolgozó:
+        <select ref='userList'>
+          {this.props.userList.map(u=>{
+            return <option value={u.id} key={`user-list-av-${u.id}`}>{u.name}</option>;
+          })}
+        </select> 
+      </div>;
+    }
+    
     return <div>
       <h3>Új rendelkezésre állás</h3>
       <form onSubmit={this.onSubmit}>
+        {userListWidget}
         <div>
           Kezdés:
           <DateTime onChange={this.onStartChange} timeFormat={false} closeOnSelect={true}></DateTime>
@@ -40,7 +55,14 @@ export default React.createClass({
   
   onSubmit(e){
     e.preventDefault();
-    availabilityActions.newAvailability(this.props.user.id, this.state.startsAt, this.state.endsAt, this.refs.comment.value, this.refs.workHours.value)
+    let userId=_.get(this.props, "user.id");
+    if(_.isArray(this.props.userList)){
+      userId=this.refs.userList.value;
+    }
+    availabilityActions.newAvailability(userId,
+      this.state.startsAt, this.state.endsAt,
+      this.refs.comment.value, this.refs.workHours.value
+    )
     .then(data=>{
       NotificationManager.info("Rendelkezésreállás hozzáadva");
     });

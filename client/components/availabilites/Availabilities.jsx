@@ -34,10 +34,19 @@ export default React.createClass({
   componentDidMount(){
     alt.recycle(availabilityStore, userStore);
     availabilityStore.listen(this.handleAvailabilityStoreChange);
-    availabilityActions.setUserId(parseInt(this.props.params.profileUserId));
-    availabilityStore.fetchAvailabilities(parseInt(this.props.params.profileUserId));
     userStore.listen(this.handleUserStoreChange);
-    userStore.fetchProfileUser(parseInt(this.props.params.profileUserId));
+    this.fetch(this.props);
+  },
+  
+  fetch(props){
+    availabilityActions.setUserId(parseInt(props.params.profileUserId));
+    availabilityStore.fetchAvailabilities(parseInt(props.params.profileUserId));
+    userStore.fetchProfileUser(parseInt(props.params.profileUserId));
+  },
+  
+  componentWillReceiveProps(props){
+    console.log("change");
+    this.fetch(props);
   },
   
   componentWillUnmount(){

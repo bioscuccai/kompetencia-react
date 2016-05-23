@@ -14,6 +14,7 @@ import CompetenceTierGroups from '../competence_tier_group/CompetenceTierGroups.
 import Availability from '../availabilites/Availabilities.jsx';
 import CompetenceChooser from '../competence_chooser/CompetenceChooser.jsx';
 import PersonRequests from '../person_requests/PersonRequests.jsx';
+import UserEdit from '../user/UserEdit.jsx';
 
 import {Router, Route, hashHistory} from 'react-router';
 
@@ -39,6 +40,7 @@ export default React.createClass({
           <Route path='/availabilities/:profileUserId' component={Availability}></Route>
           <Route path='/competence_chooser/:profileUserId' component={CompetenceChooser}></Route>
           <Route path='/person_requests/:profileUserId' component={PersonRequests}></Route>
+          <Route path='/user_edit' component={UserEdit}></Route>
         </Route>
       </Router>;
   }

@@ -80,6 +80,7 @@ Rails.application.routes.draw do
     end
     collection do
       get 'landing'
+      post 'change'
     end
   end
   

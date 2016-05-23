@@ -10,6 +10,8 @@ class Ability
         can :manage, :all
       end
       
+      can [:index, :show], User
+      
       can [:update, :destroy, :turn_on, :turn_off], Availability do |availability|
         user.has_authority_over?(availability.user)
       end

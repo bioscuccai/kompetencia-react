@@ -110,10 +110,18 @@ export default React.createClass({
             </div>
             <div className='row'>
               <div className='column column-50'>
-                <DateTime timeFormat={false} onChange={this.onStartChange} closeOnSelect={true}></DateTime>
+                <DateTime
+                  defaultValue={moment().startOf("day")}
+                  timeFormat={false}
+                  onChange={this.onStartChange}
+                  closeOnSelect={true}></DateTime>
               </div>
               <div className='column column-50'>
-                <DateTime timeFormat={false} onChange={this.onEndChange} closeOnSelect={true}></DateTime>
+                <DateTime
+                  defaultValue={moment().startOf("day").add(7, "days")}
+                  timeFormat={false}
+                  onChange={this.onEndChange}
+                  closeOnSelect={true}></DateTime>
               </div>
             </div>
             

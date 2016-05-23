@@ -47,10 +47,18 @@ export default React.createClass({
     userStore.listen(this.handleUserStoreChange);
     userStore.fetchProfileUser(parseInt(this.props.params.profileUserId));
     competenceStore.listen(this.handleCompetenceStoreChange);
+    this.fetch(this.props);
+  },
+  
+  fetch(props){
     competenceStore.fetchAllCompetences();
-    competenceStore.fetchCompetences(parseInt(this.props.params.profileUserId));
-    competenceStore.fetchPendingCompetences(parseInt(this.props.params.profileUserId));
+    competenceStore.fetchCompetences(parseInt(props.params.profileUserId));
+    competenceStore.fetchPendingCompetences(parseInt(props.params.profileUserId));
     competenceStore.fetchAllSkills();
+  },
+  
+  componentWillReceiveProps(props){
+    this.fetch(props);
   },
   
   componentWillUnmount(){

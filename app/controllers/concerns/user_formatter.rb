@@ -10,7 +10,9 @@ module UserFormatter
       godfather_id: u.godfather_id,
       is_godfather: u.has_role?(:godfather),
       is_admin: u.has_role?(:admin),
-      name: u.name
+      name: u.name,
+      first_name: u.first_name,
+      last_name: u.last_name
     }
     
     if !wo.include? :godfather

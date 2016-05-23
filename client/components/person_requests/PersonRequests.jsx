@@ -26,7 +26,9 @@ export default React.createClass({
       relevant: [],
       godfatherAvailabilities: [],
       collisions: [],
-      profileUser: null
+      profileUser: null,
+      allUsers: [],
+      subordinates: []
     };
   },
   
@@ -34,6 +36,7 @@ export default React.createClass({
     alt.recycle(requestStore, availabilityStore, userStore);
     userStore.listen(this.handleUserStoreChange);
     userStore.fetchProfileUser(parseInt(this.props.params.profileUserId));
+    userStore.fetchAllUsers();
     requestStore.listen(this.handleRequestStoreChange);
     availabilityStore.listen(this.handleAvailabilityStoreChange);
     availabilityActions.setGodfatherId(parseInt(this.props.params.profileUserId));
@@ -81,6 +84,7 @@ export default React.createClass({
         
         <TabPanel>
           <GodfatherResults
+            subordinates={this.state.subordinates}
             profileUser={this.state.profileUser}
             godfatherAvailabilities={this.state.godfatherAvailabilities}
           ></GodfatherResults>
@@ -106,7 +110,9 @@ export default React.createClass({
   
   handleUserStoreChange(state){
     this.setState({
-      profileUser: state.profileUser
+      profileUser: state.profileUser,
+      allUsers: state.allUsers,
+      subordinates: state.allUsers.filter(u=>u.godfather_id===parseInt(this.props.params.profileUserId))
     });
   }
 });

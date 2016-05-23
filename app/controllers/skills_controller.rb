@@ -8,6 +8,8 @@ class SkillsController < ApplicationController
   # GET /skills
   # GET /skills.json
   def index
+    #authorize! [:index], Skills
+    
     if params[:user_id]
       
       @skills=User.find(params[:user_id]).users_skills.map{|s| s.formatted}
