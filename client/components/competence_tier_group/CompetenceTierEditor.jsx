@@ -17,7 +17,7 @@ export default React.createClass({
     competenceTierActions.updateTier(this.props.tier.id, this.refs.title.value, this.props.tier.level)
     .then(data=>{
       if(_.get(data, "data.status")==="ok"){
-        NotificationManager.info("Siker");
+        NotificationManager.info("Válasz módosítva");
       } else {
         NotificationManager.error("Hiba");
       }
@@ -28,7 +28,7 @@ export default React.createClass({
     competenceTierActions.deleteTier(this.props.tier.id)
     .then(data=>{
       if(_.get(data, "data.status")==="ok"){
-        NotificationManager.info("Siker");
+        NotificationManager.info("Válasz törölve");
       } else {
         NotificationManager.error("Hiba");
       }

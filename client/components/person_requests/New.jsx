@@ -38,7 +38,7 @@ export default React.createClass({
       this.refs.title.value, this.refs.comment.value)
       .then(data=>{
         if(_.get(data, "data.status")==="ok"){
-          NotificationManager.info("Siker");
+          NotificationManager.info("Kérés létrehozva");
         } else {
           NotificationManager.error("Hiba");
         }

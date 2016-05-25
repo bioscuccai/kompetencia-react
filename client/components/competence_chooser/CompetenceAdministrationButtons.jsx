@@ -33,7 +33,7 @@ export default React.createClass({
     competenceActions.removeAssigned(this.props.competence.id, this.props.user.id)
     .then(data=>{
       if(_.get(data, "data.status")==="ok"){
-        NotificationManager.info("Siker");
+        NotificationManager.info("Kompetencia eltávolítva");
       } else {
         NotificationManager.error("Hiba");
       }
@@ -45,7 +45,7 @@ export default React.createClass({
     competenceActions.rejectPending(this.props.competence.id, this.props.user.id)
     .then(data=>{
       if(_.get(data, "data.status")==="ok"){
-        NotificationManager.info("Siker");
+        NotificationManager.info("Kompetencia elutasítva");
       } else {
         NotificationManager.error("Hiba");
       }

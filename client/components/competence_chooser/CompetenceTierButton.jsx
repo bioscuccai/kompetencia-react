@@ -29,7 +29,7 @@ export default React.createClass({
       competenceActions.setLevel(this.props.competence.id, this.props.user.id, this.props.tier.level)
       .then(data=>{
         if(_.get(data, "data.status")==="ok"){
-          NotificationManager.info("Siker");
+          NotificationManager.info("Kompetencia beállítva");
         } else {
           NotificationManager.error("Hiba");
         }
@@ -39,7 +39,7 @@ export default React.createClass({
       competenceActions.setPendingLevel(this.props.competence.id, this.props.user.id, this.props.tier.level)
       .then(data=>{
         if(_.get(data, "data.status")==="ok"){
-          NotificationManager.info("Siker");
+          NotificationManager.info("Kompetencia kérvényezve");
         } else {
           NotificationManager.error("Hiba");
         }

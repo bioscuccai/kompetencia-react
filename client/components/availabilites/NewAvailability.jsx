@@ -64,7 +64,11 @@ export default React.createClass({
       this.refs.comment.value, this.refs.workHours.value
     )
     .then(data=>{
-      NotificationManager.info("Rendelkezésreállás hozzáadva");
+      if(_.get(data, "data.status")==="ok"){
+        NotificationManager.info("Rendelekezésreállás létrehozva");
+      } else {
+        NotificationManager.error("Hiba");
+      }
     });
     if(this.props.closeModal){
       this.props.closeModal();

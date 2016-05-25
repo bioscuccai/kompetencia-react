@@ -31,7 +31,7 @@ export default React.createClass({
     )
     .then(data=>{
       if(_.get(data, "data.status")==="ok"){
-        NotificationManager.info("Siker");
+        NotificationManager.info("Válasz létrehozva");
       } else {
         NotificationManager.error("Hiba");
       }

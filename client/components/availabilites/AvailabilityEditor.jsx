@@ -5,6 +5,7 @@ import DateTime from 'react-datetime';
 import moment from 'moment';
 require("moment/locale/hu");
 import {NotificationManager} from 'react-notifications';
+import _ from 'lodash';
 
 import availabilityActions from '../../actions/availability_actions';
 
@@ -55,9 +56,13 @@ export default React.createClass({
       this.state.endsAt,
       this.refs.comment.value,
       this.refs.workHours.value)
-    .then(data=>{
-      NotificationManager.info("Rendelkezésreállás módosítva");
-    });
+      .then(data=>{
+        if(_.get(data, "data.status")==="ok"){
+          NotificationManager.info("Rendelkezésreállás módosítva");
+        } else {
+          NotificationManager.error("Hiba");
+        }
+      });
     this.onClose();
   },
   

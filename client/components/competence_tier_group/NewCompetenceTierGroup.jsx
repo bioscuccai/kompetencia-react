@@ -34,7 +34,7 @@ export default React.createClass({
     competenceTierActions.createCompetenceTierGroup(this.refs.title.value, this.refs.description.value)
     .then(data=>{
       if(_.get(data, "data.status")==="ok"){
-        NotificationManager.info("Siker");
+        NotificationManager.info("Válasz típus létrehozva");
       } else {
         NotificationManager.error("Hiba");
       }

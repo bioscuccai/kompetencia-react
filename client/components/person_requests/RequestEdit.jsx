@@ -73,7 +73,7 @@ export default React.createClass({
       this.refs.chance.value, this.refs.title.value, this.refs.comment.value)
       .then(data=>{
         if(_.get(data, "data.status")==="ok"){
-          NotificationManager.info("Siker");
+          NotificationManager.info("Kérés módosítva");
         } else {
           NotificationManager.error("Hiba");
         }

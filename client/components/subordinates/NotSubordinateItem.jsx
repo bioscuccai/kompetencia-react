@@ -4,6 +4,7 @@ import React from 'react';
 import UserBulletPoints from '../user/UserBulletpoints.jsx';
 import userActions from '../../actions/user_actions';
 import {NotificationManager} from 'react-notifications';
+import _ from 'lodash';
 
 export default React.createClass({
   render(){
@@ -21,8 +22,13 @@ export default React.createClass({
   
   onAddSubordinate(e){
     e.preventDefault();
-    userActions.addSubordinate(this.props.profileUser.id, this.props.user.id).then(data=>{
-      NotificationManager.info("Dolgozó felvéve");
+    userActions.addSubordinate(this.props.profileUser.id, this.props.user.id)
+    .then(data=>{
+      if(_.get(data, "data.status")==="ok"){
+        NotificationManager.info("Dolgozó hozzáadva");
+      } else {
+        NotificationManager.error("Hiba");
+      }
     });
   }
 });

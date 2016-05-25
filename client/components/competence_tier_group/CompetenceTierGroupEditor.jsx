@@ -17,7 +17,7 @@ export default React.createClass({
     competenceTierActions.updateTierGroup(this.props.group.id, this.refs.title.value)
     .then(data=>{
       if(_.get(data, "data.status")==="ok"){
-        NotificationManager.info("Siker");
+        NotificationManager.info("Válasz típus mentve");
       } else {
         NotificationManager.error("Hiba");
       }
@@ -28,7 +28,7 @@ export default React.createClass({
     competenceTierActions.deleteTierGroup(this.props.group.id)
     .then(data=>{
       if(_.get(data, "data.status")==="ok"){
-        NotificationManager.info("Siker");
+        NotificationManager.info("Válasz típus törölve");
       } else {
         NotificationManager.error("Hiba");
       }
