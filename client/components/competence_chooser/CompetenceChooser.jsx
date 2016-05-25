@@ -156,7 +156,7 @@ export default React.createClass({
         }
       </div>
       
-      {titlelessCompetenceList}
+      {titlelessCompetences.length!==0 ? titlelessCompetenceList : ""}
       
       <h2>Skillek</h2>
       
