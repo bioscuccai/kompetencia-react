@@ -18,7 +18,7 @@ class Ability
         user.has_authority_over?(availability.user)
       end
       
-      can [:remove_godfather, :add_competence, :accept_pending_competence,
+      can [:remove_godfather, :add_competence, :accept_pending_competence, :accept_competence,
         :reject_pending_competence, :remove_competence, :remove_pending_competence], User do |u|
         user.has_authority_over?(u)
       end

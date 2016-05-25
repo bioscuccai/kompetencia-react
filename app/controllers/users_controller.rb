@@ -34,7 +34,7 @@ class UsersController < ApplicationController
   end
   
   def accept_pending_competence
-    authorize! :accept_competence, @user
+    authorize! :accept_pending_competence, @user
     
     @user.accept_pending_competence params[:competence_id].to_i
     render json: {status: :ok}
