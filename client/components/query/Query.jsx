@@ -18,6 +18,7 @@ import SkillCheckboxes from './SkillCheckboxes.jsx';
 import {animateScroll} from 'react-scroll';
 
 import {Tabs, Tab, TabList, TabPanel} from 'react-tabs';
+import {NotificationManager} from 'react-notifications';
 
 import moment from 'moment';
 require("moment/locale/hu");
@@ -196,6 +197,7 @@ export default React.createClass({
   
   handleStoreChange(state){
     if(!_.isEqual(this.state.results, state.results)){
+      NotificationManager.info(`${state.results.length} találat`);
       animateScroll.scrollMore(200);
     }
     this.setState({
