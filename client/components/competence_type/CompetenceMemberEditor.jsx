@@ -5,6 +5,7 @@ import React from 'react';
 import competenceTypeActions from '../../actions/competence_type_actions';
 import {NotificationManager} from 'react-notifications';
 import EditorBar from '../EditorBar.jsx';
+import _ from 'lodash';
 
 export default React.createClass({
   render(){
@@ -14,14 +15,24 @@ export default React.createClass({
   },
   
   onSave(e){
-    competenceTypeActions.updateCompetence(this.props.competence.id, this.refs.title.value).then(data=>{
-      NotificationManager.info("Kompetencia módosítva");
+    competenceTypeActions.updateCompetence(this.props.competence.id, this.refs.title.value)
+    .then(data=>{
+      if(_.get(data, "data.status")==="ok"){
+        NotificationManager.info("Siker");
+      } else {
+        NotificationManager.error("Hiba");
+      }
     });
   },
   
   onDelete(e){
-    competenceTypeActions.deleteCompetence(this.props.competence.id).then(data=>{
-      NotificationManager.info("Kompetencia törlve");
+    competenceTypeActions.deleteCompetence(this.props.competence.id)
+    .then(data=>{
+      if(_.get(data, "data.status")==="ok"){
+        NotificationManager.info("Siker");
+      } else {
+        NotificationManager.error("Hiba");
+      }
     });
   }
 });

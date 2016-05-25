@@ -4,11 +4,11 @@ import React from 'react';
 import Modal from 'react-modal';
 import modalStyle from '../../styles/modal';
 import {Link} from 'react-router';
+import _ from 'lodash';
 
 import RequestDetail from './RequestDetail.jsx';
 
 import ConfirmedMarker from './ConfirmedMarker.jsx';
-import _ from 'lodash';
 import DateLabel from '../date/DateLabel.jsx';
 import Collisions from './Collisions.jsx';
 
@@ -51,7 +51,11 @@ export default React.createClass({
   onReject(){
     requestActions.rejectRequest(this.props.request.user_id, this.props.request.id, this.props.user.id)
     .then(data=>{
-      NotificationManager.info("Felkérés visszavonva");
+      if(_.get(data, "data.status")==="ok"){
+        NotificationManager.info("Felkérés visszavonva");
+      } else {
+        NotificationManager.error("Hiba történt");
+      }
     });
   },
   
@@ -92,6 +96,7 @@ export default React.createClass({
         </small>
       </td>
       <td>
+        <i className='icon ion-calendar'></i>
         <DateLabel date={this.props.request.starts_at}></DateLabel>
         &mdash;
         <DateLabel date={this.props.request.ends_at}></DateLabel>

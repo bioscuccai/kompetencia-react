@@ -1,7 +1,9 @@
 "use strict";
 
 import React from 'react';
+import _ from 'lodash';
 import competenceTierActions from '../../actions/competence_tier_actions';
+import {NotificationManager} from 'react-notifications';
 
 export default React.createClass({
   render(){
@@ -26,6 +28,15 @@ export default React.createClass({
       this.refs.title.value,
       this.refs.description.value,
       this.props.group.id
-    );
+    )
+    .then(data=>{
+      if(_.get(data, "data.status")==="ok"){
+        NotificationManager.info("Siker");
+      } else {
+        NotificationManager.error("Hiba");
+      }
+    });
+    this.refs.title.value="";
+    this.refs.description.value="";
   }
 });

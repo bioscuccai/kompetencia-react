@@ -3,6 +3,7 @@
 import React from 'react';
 import competenceTypeActions from '../../actions/competence_type_actions';
 import {NotificationManager} from 'react-notifications';
+import _ from 'lodash';
 
 export default React.createClass({
   render(){
@@ -20,8 +21,13 @@ export default React.createClass({
   
   onFormSubmit(e){
     e.preventDefault();
-    competenceTypeActions.createCompetence(this.refs.title.value, this.props.competenceType.id).then(data=>{
-      NotificationManager.info("Kompetencia elmentve");
+    competenceTypeActions.createCompetence(this.refs.title.value, this.props.competenceType.id)
+    .then(data=>{
+      if(_.get(data, "data.status")==="ok"){
+        NotificationManager.info("Siker");
+      } else {
+        NotificationManager.error("Hiba");
+      }
     });
     this.refs.title.value="";
     this.onClose();
@@ -29,7 +35,7 @@ export default React.createClass({
   
   onClose(){
     if(this.props.onClose){
-      this.props.onClose();
+      //this.props.onClose();
     }
   }
 });

@@ -23,7 +23,8 @@ class UserStore{
       reloadProfileUser: [
         competenceActions.ADD_SKILL_SUCC,
         competenceActions.REMOVE_SKILL_SUCC,
-        competenceActions.CONFIRM_SKILL_SUCC
+        competenceActions.CONFIRM_SKILL_SUCC,
+        userActions.EDIT_USER_SUCC
       ]
     });
     this.registerAsync(userSource);

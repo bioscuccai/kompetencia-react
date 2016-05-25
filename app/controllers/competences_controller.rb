@@ -30,20 +30,6 @@ class CompetencesController < ApplicationController
     end
     render json: competences
   end
-  
-  # GET /competences/1
-  # GET /competences/1.json
-  def show
-  end
-
-  # GET /competences/new
-  def new
-    @competence = Competence.new
-  end
-
-  # GET /competences/1/edit
-  def edit
-  end
 
   # POST /competences
   # POST /competences.json

@@ -22,6 +22,7 @@ export default React.createClass({
           <tr>
             <th>Dolgozó</th>
             <th>Időtartam</th>
+            <th><i className='icon ion-clock'></i></th>
             <th>Komment</th>
             <th></th>
           </tr>
@@ -46,7 +47,7 @@ export default React.createClass({
         onRequestClose={this.onRequestClose}>
         <NewAvailability
           userList={this.props.subordinates}
-          onClose={this.onRequestClose}></NewAvailability>
+          closeModal={this.onRequestClose}></NewAvailability>
       </Modal>
     </div>;
   },

@@ -11,6 +11,8 @@ class QueryController < ApplicationController
   end
   
   def query
+    authorize! :query, :query
+    
     result_per_user=Hash.new{|h,k| h[k]=[]}
     users=[]
     user_availability_matches=[]

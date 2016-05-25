@@ -6,6 +6,7 @@ import availabilityActions from '../../actions/availability_actions';
 import Modal from 'react-modal';
 import modalStyle from '../../styles/modal';
 import {NotificationManager} from 'react-notifications';
+import _ from 'lodash';
 
 import AvailabilityEditor from './AvailabilityEditor.jsx';
 
@@ -58,13 +59,22 @@ export default React.createClass({
   
   onTurnOff(){
     availabilityActions.turnOffAvailability(this.props.availability.user_id, this.props.availability.id).then(data=>{
-      NotificationManager.info("Rendelkezésreállás kikapcsolva");
+      console.log(data);
+      if(_.get(data, "data.status")==="ok"){
+        NotificationManager.info("Rendelkezésreállás kikapcsolva");
+      } else {
+        NotificationManager.error("Hiba történt");
+      }
     });
   },
   
   onDelete(){
     availabilityActions.deleteAvailability(this.props.availability.user_id, this.props.availability.id).then(data=>{
-      NotificationManager.info("Rendelkezésreállás törölve");
+      if(_.get(data, "data.status")==="ok"){
+        NotificationManager.info("Rendelkezésreállás törölve");
+      } else {
+        NotificationManager.error("Hiba történt");
+      }
     });
   },
   

@@ -104,6 +104,7 @@ export default React.createClass({
   },
   
   handleUserStoreChange(state){
+    this.context.profileUser=state.profileUser;
     this.setState({
       profileUser: state.profileUser
     });
@@ -113,7 +114,8 @@ export default React.createClass({
     e.preventDefault();
     userActions.editUser(this.refs.firstName.value, this.refs.lastName.value,
       this.refs.currentPassword.value,
-      this.refs.newPassword.value, this.refs.newPasswordConfirmation.value
+      this.refs.newPassword.value, this.refs.newPasswordConfirmation.value,
+      this.context.currentUser.id
     )
     .then(data=>{
       console.log(data);

@@ -3,6 +3,7 @@
 import React from 'react';
 import competenceTypeActions from '../../actions/competence_type_actions';
 import {NotificationManager} from 'react-notifications';
+import _ from 'lodash';
 
 import EditorBar from '../EditorBar.jsx';
 
@@ -37,9 +38,13 @@ export default React.createClass({
     competenceTypeActions.updateCompetenceType(this.props.competenceType.id, this.refs.title.value,
       this.refs.competenceTierGroupId.value,
       parseInt(this.refs.priority.value), this.refs.showTitle.checked)
-    .then(data=>{
-      NotificationManager.info("Kompetencia típus elmentve");
-    });
+      .then(data=>{
+        if(_.get(data, "data.status")==="ok"){
+          NotificationManager.info("Siker");
+        } else {
+          NotificationManager.error("Hiba");
+        }
+      });
   },
   
   onDelete(){

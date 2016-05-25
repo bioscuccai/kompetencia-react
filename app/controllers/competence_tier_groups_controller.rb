@@ -48,7 +48,7 @@ class CompetenceTierGroupsController < ApplicationController
     authorize! :update, CompetenceTierGroup
     
     @competence_tier_group.update!(competence_tier_group_params)
-    rende json: {status: :ok}
+    render json: {status: :ok}
   end
 
   # DELETE /competence_tier_groups/1

@@ -29,6 +29,7 @@ class AvailabilityActions{
       })
       .then(data=>{
         this.newAvailabilitySucc(_.extend({}, resp, {data: data.data}));
+        return data;
       })
       .catch(this.error);
     };
@@ -43,6 +44,7 @@ class AvailabilityActions{
       })
       .then(data=>{
         this.deleteAvailabilitySucc(_.extend({}, resp, {data: data.data}));
+        return data;
       })
       .catch(this.error);
     };
@@ -55,6 +57,7 @@ class AvailabilityActions{
       return axios.post(`/users/${userId}/availabilities/${availabilityId}/turn_off`)
       .then(data=>{
         this.turnOffAvailabilitySucc(_.extend({}, resp, {data: data.data}));
+        return data;
       })
       .catch(this.error);
     };
@@ -67,12 +70,13 @@ class AvailabilityActions{
       return axios.post(`/users/${userId}/availabilities/${availabilityId}/turn_on`)
       .then(data=>{
         this.turnOnAvailabilitySucc(_.extend({}, resp, {data: data.data}));
+        return data;
       })
       .catch(this.error);
     };
   }
   
-  editAvailability(userId, availabilityId, startsAt, endsAt, comment){
+  editAvailability(userId, availabilityId, startsAt, endsAt, comment, workHours){
     return dispatch=>{
       let resp={ userId, availabilityId };
       dispatch(resp);
@@ -80,7 +84,8 @@ class AvailabilityActions{
         availability: {
           starts_at: startsAt,
           ends_at: endsAt,
-          comment
+          comment,
+          work_hours: workHours
         }
       },{
         responseType: 'json',
@@ -88,6 +93,7 @@ class AvailabilityActions{
       })
       .then(data=>{
         this.editAvailabilitySucc(_.extend({}, resp, {data: data.data}));
+        return data;
       })
       .catch(this.error);
     };

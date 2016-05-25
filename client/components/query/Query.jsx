@@ -65,7 +65,7 @@ export default React.createClass({
     let resultGroups=_.groupBy(this.state.results, res=>res.found.length);
     let resultHitGroups=_.keys(resultGroups).reverse();
     
-    let filteredCompetenceGroups=_.groupBy(this.state.filteredCompetences, e=>e.type);
+    let filteredCompetenceGroups=_.groupBy(this.state.filteredCompetences.filter(e=>e.show_title), e=>e.type);
     let filteredCompetenceTypes=_(filteredCompetenceGroups)
       .keys()
       .sortBy(e=>{
@@ -74,7 +74,16 @@ export default React.createClass({
       .value();
     
     let competencesWoTitle=_(this.state.filteredCompetences).filter(e=>!e.show_title).value();
-    console.log(competencesWoTitle);
+    
+    let competencesWoTitleComp=<div>
+      <h4>Egyéb kompetenciák</h4>
+      {competencesWoTitle.map(competence=>{
+        return <CompetenceQueryResult
+          competence={competence}
+          key={`competence-query-${competence.id}`}
+          handleCompetenceSelection={this.handleCompetenceSelection}></CompetenceQueryResult>;
+      })}
+    </div>;
     
     let notStrictSearch;
     
@@ -156,6 +165,8 @@ export default React.createClass({
             }
           </div>
           
+          {competencesWoTitle.length!==0 ? competencesWoTitleComp : ""}
+          
           <SkillCheckboxes
             onChange={this.onSelectedSkillChange}
             allSkills={this.state.allSkills}></SkillCheckboxes>
@@ -184,13 +195,15 @@ export default React.createClass({
   },
   
   handleStoreChange(state){
+    if(!_.isEqual(this.state.results, state.results)){
+      animateScroll.scrollMore(200);
+    }
     this.setState({
       competences: state.competenceQuery,
       selectedCompetences: state.competenceQuery.filter(e=>!_.isNil(e.selectedLevel)),
       filteredCompetences: this.filterResults(state.competenceQuery),
       results: state.results
     });
-    //animateScroll.scrollToBottom();
   },
   
   handleUserStoreChange(state){

@@ -23,6 +23,7 @@ class CompetenceActions{
       })
       .then(data=>{
         this.setLevelSucc(_.extend({}, resp, {data: data.data}));
+        return data;
       })
       .catch(this.error);
     };
@@ -39,6 +40,7 @@ class CompetenceActions{
       })
       .then(data=>{
         this.setPendingLevelSucc(_.extend({}, resp, {data: data.data}));
+        return data;
       })
       .catch(this.error);
     };
@@ -54,6 +56,7 @@ class CompetenceActions{
       })
       .then(data=>{
         this.acceptPendingSucc(_.extend({}, resp, {data: data.data}));
+        return data;
       })
       .catch(this.error);
     };
@@ -69,6 +72,7 @@ class CompetenceActions{
       })
       .then(data=>{
         this.rejectPendingSucc(_.extend({}, resp, {data: data.data}));
+        return data;
       })
       .catch(this.error);
     };
@@ -85,6 +89,7 @@ class CompetenceActions{
       })
       .then(data=>{
         this.removeAssignedSucc(_.extend({}, resp, {data: data.data}));
+        return data;
       })
       .catch(this.error);
     };
@@ -101,6 +106,7 @@ class CompetenceActions{
       })
       .then(data=>{
         this.addSkillSucc(_.extend({}, resp, {data: data.data}));
+        return data;
       })
       .catch(this.error);
     };
@@ -115,6 +121,7 @@ class CompetenceActions{
       })
       .then(data=>{
         this.removeSkillSucc(_.extend({}, resp, {data: data.data}));
+        return data;
       })
       .catch(this.error);
     };
@@ -127,6 +134,7 @@ class CompetenceActions{
       return axios.get(`/users/${userId}/skills/${skillId}/confirm`)
       .then(data=>{
         this.confirmSkillSucc(_.extend({}, resp, {data: data.data}));
+        return data;
       })
       .catch(this.error);
     };

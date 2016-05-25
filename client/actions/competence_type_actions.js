@@ -25,6 +25,7 @@ class CompetenceTypeActions{
         }
       }).then(data=>{
         this.createCompetenceTypeSucc(_.extend({}, resp, {data: data.data}));
+        return data;
       })
       .catch(this.error);
     };
@@ -42,6 +43,7 @@ class CompetenceTypeActions{
       })
       .then(data=>{
         this.createCompetenceSucc(_.extend({}, resp, {data: data.data}));
+        return data;
       })
       .catch(this.error);
     };
@@ -58,6 +60,7 @@ class CompetenceTypeActions{
       })
       .then(data=>{
         this.updateCompetenceSucc(_.extend({}, resp, {data: data.data}));
+        return data;
       })
       .catch(this.error);
     };
@@ -77,6 +80,7 @@ class CompetenceTypeActions{
       })
       .then(data=>{
         this.updateCompetenceTypeSucc(_.extend({}, resp, {data: data.data}));
+        return data;
       })
       .catch(this.error);
     };
@@ -89,6 +93,7 @@ class CompetenceTypeActions{
       return axios.delete(`/competence_types/${id}.json`)
       .then(data=>{
         this.deleteCompetenceTypeSucc(_.extend({}, resp, {data: data.data}));
+        return data;
       })
       .catch(this.error);
     };
@@ -101,6 +106,7 @@ class CompetenceTypeActions{
       return axios.delete(`/competences/${id}.json`)
       .then(data=>{
         this.deleteCompetenceSucc(_.extend({}, resp, {data: data.data}));
+        return data;
       })
       .catch(this.error);
     };

@@ -78,6 +78,7 @@ class RequestActions{
       return axios.post(`/users/${userId}/person_requests/${requestId}/accept`)
       .then(data=>{
         this.acceptRequestSucc(_.extend({}, resp, {data: data.data}));
+        return data;
       })
       .catch(this.error);
     };
@@ -90,6 +91,7 @@ class RequestActions{
       return axios.post(`/users/${userId}/person_requests/${requestId}/accept_no_collision`)
       .then(data=>{
         this.acceptRequestNoCollisionsSucc(_.extend({}, resp, {data: data.data}));
+        return data;
       })
       .catch(this.error);
     };
@@ -102,6 +104,7 @@ class RequestActions{
       return axios.post(`/users/${userId}/person_requests/${requestId}/reject`)
       .then(data=>{
         this.rejectRequestSucc(_.extend({}, resp, {data: data.data}));
+        return data;
       })
       .catch(this.error);
     };

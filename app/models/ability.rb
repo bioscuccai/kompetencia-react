@@ -10,6 +10,8 @@ class Ability
         can :manage, :all
       end
       
+      can :query, :query
+      
       can [:index, :show], User
       
       can [:update, :destroy, :turn_on, :turn_off], Availability do |availability|

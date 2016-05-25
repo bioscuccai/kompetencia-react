@@ -21,6 +21,9 @@ export default React.createClass({
         <DateLabel date={this.props.availability.ends_at}></DateLabel>
       </td>
       <td>
+        {this.props.availability.work_hours}
+      </td>
+      <td>
         {this.props.availability.comment}
       </td>
       <td>

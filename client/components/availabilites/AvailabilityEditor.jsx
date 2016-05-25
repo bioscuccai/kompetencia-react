@@ -36,6 +36,10 @@ export default React.createClass({
           timeFormat={false}
           closeOnSelect={true}
           onChange={this.onEndChange}></DateTime>
+        <div>
+          Munkóra:
+          <input type='number' defaultValue={this.props.availability.work_hours} ref='workHours'></input>
+        </div>
         <textarea defaultValue={this.props.availability.comment} ref='comment'></textarea>
         <input type='submit' value='Mentés'></input>
         <button onClick={this.onClose}>Bezár</button>
@@ -49,7 +53,8 @@ export default React.createClass({
       this.props.availability.id,
       this.state.startsAt,
       this.state.endsAt,
-      this.refs.comment.value)
+      this.refs.comment.value,
+      this.refs.workHours.value)
     .then(data=>{
       NotificationManager.info("Rendelkezésreállás módosítva");
     });

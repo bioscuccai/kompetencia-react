@@ -101,9 +101,9 @@ class UserActions{
     };
   }
   
-  editUser(firstName, lastName, currentPassword, newPassword, newPasswordConfirmation){
+  editUser(firstName, lastName, currentPassword, newPassword, newPasswordConfirmation, userId){
     return dispatch=>{
-      let resp={firstName, lastName, currentPassword, newPassword, newPasswordConfirmation};
+      let resp={firstName, lastName, currentPassword, newPassword, newPasswordConfirmation, userId};
       return axios.post(`/users/change`, {
         current_password: currentPassword,
         new_password: newPassword,

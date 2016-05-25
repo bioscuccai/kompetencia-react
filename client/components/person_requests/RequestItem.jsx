@@ -72,6 +72,7 @@ export default React.createClass({
         </small>
       </td>
       <td>
+        <i className='icon ion-calendar'></i>
         <DateLabel date={this.props.request.starts_at}></DateLabel> &mdash; <DateLabel date={this.props.request.ends_at}></DateLabel>
       </td>
       <td>

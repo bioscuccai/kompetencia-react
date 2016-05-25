@@ -26,6 +26,7 @@ class CompetenceTierActions{
       })
       .then(data=>{
         this.createCompetenceTierGroupSucc(_.extend({}, resp, {data: data.data}));
+        return data;
       })
       .catch(this.error);
     };
@@ -46,6 +47,7 @@ class CompetenceTierActions{
       })
       .then(data=>{
         this.createCompetenceTierSucc(_.extend({}, resp, {data: data.data}));
+        return data;
       })
       .catch(this.error);
     };
@@ -63,6 +65,7 @@ class CompetenceTierActions{
         responseType: 'json'
       }).then(data=>{
         this.updateTierSucc(_.extend({}, resp, {data: data.data}));
+        return data;
       })
       .catch(this.error);
     };
@@ -76,6 +79,7 @@ class CompetenceTierActions{
       return axios.delete(`/competence_tiers/${id}.json`)
       .then(data=>{
         this.deleteTierSucc(_.extend({}, resp, {data: data.data}));
+        return data;
       })
       .catch(this.error);
     };
@@ -94,6 +98,7 @@ class CompetenceTierActions{
       })
       .then(data=>{
         this.updateTierGroupSucc(_.extend({}, resp, {data: data.data}));
+        return data;
       })
       .catch(this.error);
     };
@@ -106,6 +111,7 @@ class CompetenceTierActions{
       return axios.delete(`/competence_tier_groups/${id}.json`)
       .then(data=>{
         this.deleteTierGroupSucc(_.extend({}, resp, {data: data.data}));
+        return data;
       })
       .catch(this.error);
     };
