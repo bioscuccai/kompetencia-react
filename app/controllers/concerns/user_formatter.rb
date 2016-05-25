@@ -13,7 +13,7 @@ module UserFormatter
       name: u.name,
       first_name: u.first_name,
       last_name: u.last_name,
-      cv: u.cv.url
+      cv: u.cv.exists? u.cv.url : nil
     }
     
     if !wo.include? :godfather
