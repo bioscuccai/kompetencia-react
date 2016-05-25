@@ -10,7 +10,8 @@ export default React.createClass({
   render(){
     let removeButton=null;
     let pendingButton=null;
-    if(this.props.competence.isAssigned && auth.canDeleteCompetenceOf(this.props.user, this.props.currentUser)){
+    //if(this.props.competence.isAssigned && auth.canDeleteCompetenceOf(this.props.user, this.props.currentUser)){
+    if(auth.canDeleteCompetenceOf(this.props.user, this.props.currentUser)){
       removeButton=<a className='button' href="#" onClick={this.removeAssigned} title='Töröl'>
         <i className='icon ion-trash-a'></i>
       </a>;

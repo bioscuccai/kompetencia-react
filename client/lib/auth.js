@@ -19,6 +19,9 @@ function canDeleteCompetenceOf(subject, actor){
   if(actor.is_godfather && subject.godfather_id===actor.id){
     return true;
   }
+  if(actor.id===subject.id){
+    return true;
+  }
   return false;
 }
 

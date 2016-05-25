@@ -68,7 +68,10 @@ class User < ActiveRecord::Base
   end
   
   def remove_competence(competence)
-    self.assigned_competence_levels.where(competence: competence).delete_all
+    ActiveRecord::Base.transaction do
+      self.assigned_competence_levels.where(competence: competence).delete_all
+      self.pending_competence_levels.where(competence: competence).delete_all
+    end
   end
   
   def remove_pending_competence(competence)
