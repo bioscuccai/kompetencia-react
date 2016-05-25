@@ -7,6 +7,7 @@ import DateTime from 'react-datetime';
 
 import requestActions from '../../actions/request_actions';
 import {NotificationManager} from 'react-notifications';
+import _ from 'lodash';
 
 export default React.createClass({
   getInitialState(){
@@ -17,6 +18,7 @@ export default React.createClass({
   },
   
   onStartChange(md){
+    console.log(md);
     this.setState({
       startsAt: md.toDate()
     });
@@ -34,9 +36,13 @@ export default React.createClass({
       this.state.startsAt, this.state.endsAt,
       parseInt(this.refs.chance.value),
       this.refs.title.value, this.refs.comment.value)
-    .then(data=>{
-      NotificationManager.info("Kérés elküldve");
-    });
+      .then(data=>{
+        if(_.get(data, "data.status")==="ok"){
+          NotificationManager.info("Siker");
+        } else {
+          NotificationManager.error("Hiba");
+        }
+      });
     if(this.props.onClose){
       this.props.onClose();
     }

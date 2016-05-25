@@ -112,7 +112,11 @@ export default React.createClass({
     e.preventDefault();
     requestActions.deleteRequest(this.props.request.user.id, this.props.request.id, this.props.user.id)
     .then(data=>{
-      NotificationManager.info("Kérés visszavonva");
+      if(_.get(data, "data.status")==="ok"){
+        NotificationManager.info("Siker");
+      } else {
+        NotificationManager.error("Hiba");
+      }
     });
   }
 });

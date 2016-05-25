@@ -4,6 +4,8 @@ import React from 'react';
 import competenceActions from '../../actions/competence_actions';
 import auth from '../../lib/auth';
 import classnames from 'classnames';
+import _ from 'lodash';
+import {NotificationManager} from 'react-notifications';
 
 export default React.createClass({
   render(){
@@ -24,10 +26,24 @@ export default React.createClass({
       return;
     }
     if(auth.canAlterCompetenceOf(this.props.user, this.props.currentUser)){
-      competenceActions.setLevel(this.props.competence.id, this.props.user.id, this.props.tier.level);
+      competenceActions.setLevel(this.props.competence.id, this.props.user.id, this.props.tier.level)
+      .then(data=>{
+        if(_.get(data, "data.status")==="ok"){
+          NotificationManager.info("Siker");
+        } else {
+          NotificationManager.error("Hiba");
+        }
+      });
     } else if(auth.canSolicitCompetenceOf(this.props.user, this.props.currentUser)/* &&
         (this.props.competence.level && this.props.competence.level!==this.props.competence.pendingLevel)*/){
-      competenceActions.setPendingLevel(this.props.competence.id, this.props.user.id, this.props.tier.level);
+      competenceActions.setPendingLevel(this.props.competence.id, this.props.user.id, this.props.tier.level)
+      .then(data=>{
+        if(_.get(data, "data.status")==="ok"){
+          NotificationManager.info("Siker");
+        } else {
+          NotificationManager.error("Hiba");
+        }
+      });
     }
   }
 });

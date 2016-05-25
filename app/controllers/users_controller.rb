@@ -18,7 +18,7 @@ class UsersController < ApplicationController
 
     @competence=Competence.find params[:competence_id]
     @user.add_competence @competence, params[:level].to_i
-    render json: @competence
+    render json:{status: :ok}
   end
   
   def pending_competences
@@ -30,7 +30,7 @@ class UsersController < ApplicationController
 
     @competence=Competence.find params[:competence_id]
     @user.add_pending_competence @competence, params[:level].to_i
-    render json: @competence
+    render json: {status: :ok}
   end
   
   def accept_pending_competence

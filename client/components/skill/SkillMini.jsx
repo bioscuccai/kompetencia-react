@@ -3,7 +3,7 @@
 import competenceActions from '../../actions/competence_actions';
 
 import {NotificationManager} from 'react-notifications';
-
+import _ from 'lodash';
 import React from 'react';
 
 import auth from '../../lib/auth';
@@ -40,14 +40,22 @@ export default React.createClass({
   onConfirmSkill(){
     competenceActions.confirmSkill(this.props.profileUser.id, this.props.skill.id)
     .then(data=>{
-      NotificationManager.info("Skill elfogadva");
+      if(_.get(data, "data.status")==="ok"){
+        NotificationManager.info("Siker");
+      } else {
+        NotificationManager.error("Hiba");
+      }
     });
   },
   
   onRemoveSkill(){
     competenceActions.removeSkill(this.props.profileUser.id, this.props.skill.id)
     .then(data=>{
-      NotificationManager.info("Skill törölve");
+      if(_.get(data, "data.status")==="ok"){
+        NotificationManager.info("Siker");
+      } else {
+        NotificationManager.error("Hiba");
+      }
     });
   }
 });

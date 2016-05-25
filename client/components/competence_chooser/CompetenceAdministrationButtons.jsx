@@ -4,6 +4,7 @@ import React from 'react';
 import competenceActions from '../../actions/competence_actions';
 import auth from '../../lib/auth';
 import {NotificationManager} from 'react-notifications';
+import _ from 'lodash';
 
 export default React.createClass({
   render(){
@@ -28,22 +29,37 @@ export default React.createClass({
   
   removeAssigned(e){
     e.preventDefault();
-    competenceActions.removeAssigned(this.props.competence.id, this.props.user.id).then(data=>{
-      NotificationManager.info("Kompetencia törölve");
+    competenceActions.removeAssigned(this.props.competence.id, this.props.user.id)
+    .then(data=>{
+      if(_.get(data, "data.status")==="ok"){
+        NotificationManager.info("Siker");
+      } else {
+        NotificationManager.error("Hiba");
+      }
     });
   },
   
   rejectPending(e){
     e.preventDefault();
-    competenceActions.rejectPending(this.props.competence.id, this.props.user.id).then(data=>{
-      NotificationManager.info("Kompetencia visszautasítva");
+    competenceActions.rejectPending(this.props.competence.id, this.props.user.id)
+    .then(data=>{
+      if(_.get(data, "data.status")==="ok"){
+        NotificationManager.info("Siker");
+      } else {
+        NotificationManager.error("Hiba");
+      }
     });
   },
   
   acceptPending(e){
     e.preventDefault();
-    competenceActions.acceptPending(this.props.competence.id, this.props.user.id).then(data=>{
-      NotificationManager.info("Kompetencia jóváhagyva");
+    competenceActions.acceptPending(this.props.competence.id, this.props.user.id)
+    .then(data=>{
+      if(_.get(data, "data.status")==="ok"){
+        NotificationManager.info("Siker");
+      } else {
+        NotificationManager.error("Hiba");
+      }
     });
   }
 });

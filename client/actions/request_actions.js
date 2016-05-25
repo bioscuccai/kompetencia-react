@@ -30,6 +30,7 @@ class RequestActions{
       })
       .then(data=>{
         this.createRequestSucc(_.extend({}, resp, {data: data.data}));
+        return data;
       })
       .catch(this.error);
     };
@@ -52,6 +53,7 @@ class RequestActions{
       })
       .then(data=>{
         this.updateRequestSucc(_.extend({}, resp, {data: data.data}));
+        return data;
       })
       .catch(this.error);
     };
@@ -66,6 +68,7 @@ class RequestActions{
       })
       .then(data=>{
         this.deleteRequestSucc(_.extend({}, resp, {data: data.data}));
+        return data;
       })
       .catch(this.error);
     };
