@@ -12,14 +12,16 @@ class CompetenceTypeActions{
     "createCompetenceSucc", "updateCompetenceSucc", "deleteCompetenceSucc");
   }
   
-  createCompetenceType(title, competenceTierGroupId){
+  createCompetenceType(title, competenceTierGroupId, priority=0, showTitle=true){
     return dispatch=>{
       let resp={title, competenceTierGroupId};
       dispatch(resp);
       return axios.post('/competence_types.json', {
         competence_type: {
           title,
-          competence_tier_group_id: competenceTierGroupId
+          competence_tier_group_id: competenceTierGroupId,
+          priority,
+          show_title: showTitle
         }
       }).then(data=>{
         this.createCompetenceTypeSucc(_.extend({}, resp, {data: data.data}));
@@ -61,17 +63,20 @@ class CompetenceTypeActions{
     };
   }
   
-  updateCompetenceType(id, title){
+  updateCompetenceType(id, title, competenceTierGroupId, priority=0, showTitle=true){
     return dispatch=>{
       let resp={id, title};
       dispatch(resp);
       return axios.put(`/competence_types/${id}.json`, {
         competence_type: {
-          title
+          title,
+          competence_tier_group_id: competenceTierGroupId,
+          priority,
+          show_title: showTitle
         }
       })
       .then(data=>{
-        this.updateCompetenceType(_.extend({}, resp, {data: data.data}));
+        this.updateCompetenceTypeSucc(_.extend({}, resp, {data: data.data}));
       })
       .catch(this.error);
     };

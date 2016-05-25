@@ -9,13 +9,35 @@ import EditorBar from '../EditorBar.jsx';
 export default React.createClass({
   render(){
     return <EditorBar onSave={this.onSave} onDelete={this.onDelete}>
-      <input type='text' ref='title' defaultValue={this.props.competenceType.title}></input>
+      <div className='row'>
+        <div className='column column-60'>
+          <select ref='competenceTierGroupId'
+            defaultValue={this.props.competenceType.competence_tier_group.id}>
+            {this.props.competenceTierGroups.map(e=>{
+              return <option value={e.id}>{e.title}</option>;
+            })}
+          </select>
+        </div>
+        <div className='column column-20'>
+          <input type='number' ref='priority' defaultValue={this.props.competenceType.priority}></input>
+        </div>
+        <div className='column column-20'>
+          Cím
+          <input type='checkbox' ref='showTitle' defaultChecked={this.props.competenceType.show_title}></input>
+        </div>
+      </div>
+      <div>
+        <input type='text' ref='title' defaultValue={this.props.competenceType.title}></input>
+      </div>
     </EditorBar>;
   },
   
   onSave(){
     console.log(this.refs.title.value);
-    competenceTypeActions.updateCompetenceType(this.props.competenceType.id, this.refs.title.value).then(data=>{
+    competenceTypeActions.updateCompetenceType(this.props.competenceType.id, this.refs.title.value,
+      this.refs.competenceTierGroupId.value,
+      parseInt(this.refs.priority.value), this.refs.showTitle.checked)
+    .then(data=>{
       NotificationManager.info("Kompetencia típus elmentve");
     });
   },

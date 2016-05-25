@@ -195,6 +195,16 @@ class UsersController < ApplicationController
     render json: {status: :ok}
   end
   
+  def upload_cv
+    # begin
+      current_user.cv=params[:cv]
+      current_user.save!
+    # rescue =>e
+    #   binding.pry
+    # end
+    render json: {status: :ok}
+  end
+  
   private
     def set_user
       @user=User.find(params[:id])

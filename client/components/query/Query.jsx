@@ -15,6 +15,7 @@ import CompetenceQueryResult from './CompetenceQueryResult.jsx';
 import QueryResult from './QueryResult.jsx';
 import MiniSelectedCompetences from './MiniSelectedCompetences.jsx';
 import SkillCheckboxes from './SkillCheckboxes.jsx';
+import {animateScroll} from 'react-scroll';
 
 import {Tabs, Tab, TabList, TabPanel} from 'react-tabs';
 
@@ -65,7 +66,15 @@ export default React.createClass({
     let resultHitGroups=_.keys(resultGroups).reverse();
     
     let filteredCompetenceGroups=_.groupBy(this.state.filteredCompetences, e=>e.type);
-    let filteredCompetenceTypes=_.keys(filteredCompetenceGroups);
+    let filteredCompetenceTypes=_(filteredCompetenceGroups)
+      .keys()
+      .sortBy(e=>{
+        return filteredCompetenceGroups[e].length!==0 ? filteredCompetenceGroups[e][0].priority : 20;
+      })
+      .value();
+    
+    let competencesWoTitle=_(this.state.filteredCompetences).filter(e=>!e.show_title).value();
+    console.log(competencesWoTitle);
     
     let notStrictSearch;
     
@@ -181,6 +190,7 @@ export default React.createClass({
       filteredCompetences: this.filterResults(state.competenceQuery),
       results: state.results
     });
+    //animateScroll.scrollToBottom();
   },
   
   handleUserStoreChange(state){

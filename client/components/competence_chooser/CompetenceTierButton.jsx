@@ -20,9 +20,13 @@ export default React.createClass({
   
   setLevel(e){
     e.preventDefault();
+    if(this.props.tier.level===this.props.competence.level){
+      return;
+    }
     if(auth.canAlterCompetenceOf(this.props.user, this.props.currentUser)){
       competenceActions.setLevel(this.props.competence.id, this.props.user.id, this.props.tier.level);
-    } else if(auth.canSolicitCompetenceOf(this.props.user, this.props.currentUser)){
+    } else if(auth.canSolicitCompetenceOf(this.props.user, this.props.currentUser)/* &&
+        (this.props.competence.level && this.props.competence.level!==this.props.competence.pendingLevel)*/){
       competenceActions.setPendingLevel(this.props.competence.id, this.props.user.id, this.props.tier.level);
     }
   }

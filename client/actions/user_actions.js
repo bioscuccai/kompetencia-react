@@ -7,11 +7,10 @@ import _ from 'lodash';
 class UserActions{
   constructor(){
     this.generateActions("error", "updateAllUsers", "updateSubordinates", "updateProfileUser",
-    
-    "makeAdminSucc", "revokeAdminSucc",
-    "makeGodfatherSucc", "revokeGodfatherSucc",
-    "addSubordinateSucc", "removeSubordinateSucc",
-    "editUserSucc");
+      "makeAdminSucc", "revokeAdminSucc",
+      "makeGodfatherSucc", "revokeGodfatherSucc",
+      "addSubordinateSucc", "removeSubordinateSucc",
+      "editUserSucc", "uploadCvSucc");
   }
   
   //ezek a felhasznalonak a keresztapjat allitjak be
@@ -119,6 +118,18 @@ class UserActions{
         return data;
       })
       .catch(this.error);
+    };
+  }
+  
+  uploadCv(formData){
+    return dispatch=>{
+      return axios.post('/users/upload_cv', formData, {
+        responseType: 'json'
+      })
+      .then(data=>{
+        this.uploadCvSucc();
+        return data;
+      });
     };
   }
 }

@@ -17,6 +17,8 @@ class CompetencesController < ApplicationController
         id: competence.id,
         title: competence.title,
         type: competence&.competence_type&.title,
+        show_title: competence&.competence_type&.show_title,
+        priority: competence&.competence_type&.priority,
         tiers: competence&.competence_type&.competence_tier_group&.competence_tiers&.map do |tier|
           {
             level: tier.level,

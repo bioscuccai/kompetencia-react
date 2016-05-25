@@ -76,6 +76,15 @@ export default React.createClass({
       profileButton=<Link to='/user_edit' className='button'><i className='icon ion-reply'></i>Profil módosítás</Link>;
     }
     
+    let cvButton;
+    if(this.state.profileUser.cv){
+      cvButton=
+      <a href={this.state.profileUser.cv} target='_blank' className='button'>
+        <i className='icon ion-android-download'></i>
+        CV
+      </a>;
+    }
+    
     let availabilitySection;
     if(auth.canSeeAvailabilities(this.context.currentUser)){
       availabilitySection=<div className='clearfix'>
@@ -99,6 +108,7 @@ export default React.createClass({
           <h1>{this.state.profileUser.name} <small>{this.state.profileUser.email}</small></h1>
         </div>
         <div className='float-right'>
+          {cvButton}
           {profileButton}
         </div>
       </div>

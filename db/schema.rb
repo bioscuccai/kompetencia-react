@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160514214924) do
+ActiveRecord::Schema.define(version: 20160524183522) do
 
   create_table "assigned_competence_levels", force: :cascade do |t|
     t.integer  "competence_id", limit: 4
@@ -49,10 +49,12 @@ ActiveRecord::Schema.define(version: 20160514214924) do
   end
 
   create_table "competence_types", force: :cascade do |t|
-    t.string   "title",                    limit: 255, null: false
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.string   "title",                    limit: 255,                null: false
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
     t.integer  "competence_tier_group_id", limit: 4
+    t.integer  "priority",                 limit: 4,   default: 0
+    t.boolean  "show_title",                           default: true, null: false
   end
 
   create_table "competences", force: :cascade do |t|
@@ -117,6 +119,10 @@ ActiveRecord::Schema.define(version: 20160514214924) do
     t.integer  "godfather_id",           limit: 4
     t.string   "first_name",             limit: 255, default: "", null: false
     t.string   "last_name",              limit: 255, default: "", null: false
+    t.string   "cv_file_name",           limit: 255
+    t.string   "cv_content_type",        limit: 255
+    t.integer  "cv_file_size",           limit: 4
+    t.datetime "cv_updated_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

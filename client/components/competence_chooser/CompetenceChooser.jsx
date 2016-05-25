@@ -83,9 +83,41 @@ export default React.createClass({
   render(){
     if(!this.state.profileUser){
       return <Loading></Loading>;
-    }
+    }    
+    let competenceGroups=_.groupBy(this.state.filteredCompetences.filter(e=>e.show_title), 'type');
+    let competenceGroupNames=_(competenceGroups)
+      .keys()
+      .sortBy(e=>{
+        return competenceGroups[e].length!==0 ? competenceGroups[e][0].priority : 20;
+      })
+      .value();
+    let competenceGroupsWoTitle=_.groupBy(this.state.filteredCompetences.filter(e=>!e.show_title), 'type');
     
-    let competenceGroups=_.groupBy(this.state.filteredCompetences, 'type');
+    let titlelessCompetences=_.flatten(_.keys(competenceGroupsWoTitle).map(groupName=>{
+      return competenceGroupsWoTitle[groupName];
+    }));
+    
+    let titlelessCompetenceList=<div>
+      <h4>Egyéb kompetenciák</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>Kompetencia</th>
+            <th>Szint</th>
+            <th>Műveletek</th>
+          </tr>
+        </thead>
+        <tbody>
+          {titlelessCompetences.map(competence=>{
+            return <Competence competence={competence}
+              user={this.state.profileUser}
+              currentUser={this.context.currentUser}
+              key={`comp-${competence.id}`}></Competence>;
+          })}
+        </tbody>
+      </table>
+    </div>;
+    
     return <div>
       <h1>
         Kompetenciák
@@ -98,7 +130,7 @@ export default React.createClass({
       </div>
       <div>
         {
-          _.keys(competenceGroups).map(groupName=>{
+          competenceGroupNames.map(groupName=>{
             return <div key={`competence-group-${groupName}`}>
               <h4>{groupName}</h4>
               <table>
@@ -114,7 +146,7 @@ export default React.createClass({
                     return <Competence competence={competence}
                       user={this.state.profileUser}
                       currentUser={this.context.currentUser}
-                      key={competence.id}></Competence>;
+                      key={`comp-${competence.id}`}></Competence>;
                   })}
                 </tbody>
               </table>
@@ -123,6 +155,8 @@ export default React.createClass({
           })
         }
       </div>
+      
+      {titlelessCompetenceList}
       
       <h2>Skillek</h2>
       

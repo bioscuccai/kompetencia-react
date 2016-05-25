@@ -57,3 +57,4 @@ end
 gem 'redis'
 gem 'bullet'
 gem 'dotenv-rails'
+gem 'paperclip'

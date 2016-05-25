@@ -83,7 +83,8 @@ class AvailabilityActions{
           comment
         }
       },{
-        responseType: 'json'
+        responseType: 'json',
+        'Content-Type': 'multipart/form-data'
       })
       .then(data=>{
         this.editAvailabilitySucc(_.extend({}, resp, {data: data.data}));

@@ -6,7 +6,7 @@ import MiniSelectedCompetence from './MiniSelectedCompetence.jsx';
 export default React.createClass({
   render() {
     return <div>
-      Kiválaszott komepetenciák:
+      Kiválaszott kompetenciák:
       {
         this.props.competences.map(competence=>{
           return <MiniSelectedCompetence

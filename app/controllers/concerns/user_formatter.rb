@@ -12,7 +12,8 @@ module UserFormatter
       is_admin: u.has_role?(:admin),
       name: u.name,
       first_name: u.first_name,
-      last_name: u.last_name
+      last_name: u.last_name,
+      cv: u.cv.url
     }
     
     if !wo.include? :godfather

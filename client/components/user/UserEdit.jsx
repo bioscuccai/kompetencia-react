@@ -85,9 +85,21 @@ export default React.createClass({
             <input type='password' ref='currentPassword'></input>
           </div>
         </div>
+        
         <input type='submit' value='Módosítás'></input>
       </form>
-      
+      <h1>CV</h1>
+      <form onSubmit={this.onUpload}>
+        <div className='row'>
+          <div className='column column-40'>
+            CV:
+          </div>
+          <div className='column column-60'>
+            <input type='file' ref='cvFile'></input>
+          </div>
+        </div>
+        <input type='submit' value='Feltöltés'></input>
+      </form>
     </div>;
   },
   
@@ -110,6 +122,19 @@ export default React.createClass({
       } else {
         NotificationManager.error("Hiba történt");
       }
+    });
+  },
+  
+  onUpload(e){
+    e.preventDefault();
+    let formData=new FormData();
+    formData.append("cv", this.refs.cvFile.files[0]);
+    userActions.uploadCv(formData)
+    .then(data=>{
+      NotificationManager.info("CV feltöltve");
+    })
+    .catch(data=>{
+      NotificationManager.error("Hiba a CV feltöltése közben");
     });
   }
 });

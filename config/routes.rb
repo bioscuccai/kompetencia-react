@@ -78,9 +78,11 @@ Rails.application.routes.draw do
       post 'add_godfather'
       post 'remove_godfather'
     end
+    
     collection do
       get 'landing'
       post 'change'
+      post 'upload_cv'
     end
   end
   

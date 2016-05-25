@@ -40,7 +40,10 @@ export default React.createClass({
     return <div>
       <h1>Kompetenciák</h1>
       {this.state.competenceTypes.map(competenceType=>{
-        return <CompetenceType competenceType={competenceType} key={`comp-type-${competenceType.id}`}></CompetenceType>;
+        return <CompetenceType
+          competenceTierGroups={this.state.competenceTierGroups}
+          competenceType={competenceType}
+          key={`comp-type-${competenceType.id}`}></CompetenceType>;
       })}
       <button onClick={this.onNewModal}><i className='icon ion-plus'></i> Új kompetencia csoport...</button>
       <Modal
