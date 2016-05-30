@@ -76,7 +76,7 @@ export default React.createClass({
           Teendők
         </div>
       </h5>
-      {this.state.pendingSubordinates.length!==0 && this.state.changedRelevant.length!==0 && this.state.changedRequested.length!==0 ? "Nincs teendő" : ""}
+      {this.state.pendingSubordinates.length===0 && this.state.changedRelevant.length===0 && this.state.changedRequested.length===0 ? "Nincs teendő" : ""}
       {persons}
       {relevants}
       {requests}
