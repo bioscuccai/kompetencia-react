@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   
   def set_last_activity
-    if user_signed_in?
+    if user_signed_in? && (params[:controller]!="users" && params[:action]!="todos")
       $redis.set "kompetencia:user:last_activity:#{current_user.id}", Time.new
     end
   end

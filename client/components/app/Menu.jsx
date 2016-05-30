@@ -3,6 +3,7 @@
 import React from 'react';
 import {Link} from 'react-router';
 import auth from '../../lib/auth';
+import TodoBlock from '../todos/TodoBlock.jsx';
 
 export default React.createClass({
   contextTypes: {
@@ -61,6 +62,7 @@ export default React.createClass({
     }
     
     return <div>
+      <TodoBlock></TodoBlock>
       <div className='menu-item'>
         <Link to={`/competence_chooser/${this.context.currentUser.id}`}><i className='icon ion-trophy'></i> Kompetenciáim</Link>
       </div>

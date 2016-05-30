@@ -1,6 +1,7 @@
 "use strict";
 
 import React from 'react';
+import axios from 'axios';
 
 import alt from '../../alt/alt';
 import requestStore from '../../stores/request_store';
@@ -43,6 +44,8 @@ export default React.createClass({
     requestStore.fetchRequested(parseInt(this.props.params.profileUserId));
     requestStore.fetchRelevant(parseInt(this.props.params.profileUserId));
     availabilityStore.fetchGodfatherAvailabilities(parseInt(this.props.params.profileUserId));
+    
+    this.notifyRequested();
   },
   
   componentWillUnmount(){
@@ -58,7 +61,7 @@ export default React.createClass({
     
     return <div>
       <h1>Hirdetések</h1>
-      <Tabs>
+      <Tabs onSelect={this.onSelect}>
         <TabList>
           <Tab>Én kértem</Tab>
           <Tab>Tőlem kérték</Tab>
@@ -114,5 +117,24 @@ export default React.createClass({
       allUsers: state.allUsers,
       subordinates: state.allUsers.filter(u=>u.godfather_id===parseInt(this.props.params.profileUserId))
     });
+  },
+  
+  onSelect(index){
+    if(index===0){ //requested
+      this.notifyRequested();
+    }
+    if(index===1){
+      this.notifyRelevant();
+    }
+  },
+  
+  notifyRelevant(){
+    axios.get("/users/notify_seen_relevant", {responseType: 'json'})
+      .then(data=>{});
+  },
+  
+  notifyRequested(){
+    axios.get("/users/notify_seen_requested", {responseType: 'json'})
+      .then(data=>{});
   }
 });

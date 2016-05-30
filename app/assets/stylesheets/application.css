@@ -241,3 +241,16 @@ main{
 .skill-highlight{
   background-color: rgb(0, 148, 24);
 }
+
+.todo-block {
+  background-color: #CCCCCC;
+  margin: 0;
+  border-radius: 4px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.todo-block > h5{
+  margin: 0!important;
+  padding: 0!important;
+}

@@ -26,6 +26,7 @@
     "file-loader": "^0.8.5",
     "lodash": "^4.9.0",
     "moment": "^2.12.0",
+    "node-uuid": "^1.4.7",
     "react": "^15.0.1",
     "react-addons-css-transition-group": "^15.0.2",
     "react-datetime": "^2.1.0",

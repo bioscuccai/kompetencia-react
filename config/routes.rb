@@ -77,12 +77,19 @@ Rails.application.routes.draw do
       
       post 'add_godfather'
       post 'remove_godfather'
+      
+      get 'notify_seen_by_godfather'
     end
     
     collection do
       get 'landing'
       post 'change'
       post 'upload_cv'
+      
+      get 'todos'
+      
+      get 'notify_seen_relevant'
+      get 'notify_seen_requested'
     end
   end
   

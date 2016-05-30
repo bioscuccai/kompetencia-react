@@ -178,6 +178,72 @@ class UsersController < ApplicationController
     @user=User.find params[:id]
   end
   
+  def todos
+    last_activity_str=$redis.get("kompetencia:user:last_activity_check:#{current_user.id}")
+    if last_activity_str.nil?
+      set_last_activiy_check
+      return render json: []
+    end
+    last_activity=Time.parse last_activity_str
+    pending_subordinates=[
+      *(PendingCompetenceLevel.joins(:user).
+        where("users.godfather_id=?", current_user.id).
+        map do |cl|
+          {
+            id: cl.user_id,
+            name: cl.user.name
+          }
+        end
+      ),
+      *(UsersSkill.joins(:user).
+        where(confirmed: false).
+        where("users.godfather_id=?", current_user.id).
+        map do |us| {
+            id: us.user_id,
+            name: u.user.name
+          }
+        end
+      )#,
+      # *(User.
+      #   where("cv_updated_at IS NOT NULL AND cv_updated_at>=?", last_activity)).
+      #   map do |u|
+      #     {
+      #       id: u.id,
+      #       name: u.name,
+      #       type: :cv
+      #     }
+      #   end
+    ].flatten.uniq{|u| u[:id]}
+    
+    changed_relevant=PersonRequest.
+      where(target_id: current_user.id).where("updated_at>?", current_user.last_seen_relevant).
+      map do |pr|
+        {
+          id: pr.id,
+          title: pr.title,
+          type: :relevant
+        }
+      end
+    changed_requested=PersonRequest.
+      where(user_id: current_user.id).where("updated_at>?", current_user.last_seen_requested).
+      map do |pr|
+        {
+          id: pr.id,
+          title: pr.title,
+          type: :requested
+        }
+      end
+    
+    resp={
+      pending_subordinates: pending_subordinates,
+      changed_relevant: changed_relevant,
+      changed_requested: changed_requested
+    }
+    
+    set_last_activiy_check
+    render json: resp
+  end
+
   
   #TODO: ideiglenesen a devise edit-je helyett
   def change
@@ -205,8 +271,27 @@ class UsersController < ApplicationController
     render json: {status: :ok}
   end
   
+  def notify_seen_by_godfather
+    current_user.update!(last_seen_by_godfather: Time.now)
+    render json: {status: :ok}
+  end
+  
+  def notify_seen_relevant
+    current_user.update!(last_seen_relevant: Time.now)
+    render json: {status: :ok}
+  end
+  
+  def notify_seen_requested
+    current_user.update!(last_seen_requested: Time.now)
+    render json: {status: :ok}
+  end
+  
   private
     def set_user
       @user=User.find(params[:id])
+    end
+    
+    def set_last_activiy_check
+      $redis.set("kompetencia:user:last_activity_check:#{current_user.id}", Time.new)
     end
 end

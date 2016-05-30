@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160524183522) do
+ActiveRecord::Schema.define(version: 20160529212942) do
 
   create_table "assigned_competence_levels", force: :cascade do |t|
     t.integer  "competence_id", limit: 4
@@ -123,6 +123,9 @@ ActiveRecord::Schema.define(version: 20160524183522) do
     t.string   "cv_content_type",        limit: 255
     t.integer  "cv_file_size",           limit: 4
     t.datetime "cv_updated_at"
+    t.datetime "last_seen_by_godfather"
+    t.datetime "last_seen_relevant"
+    t.datetime "last_seen_requested"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

@@ -4,6 +4,7 @@ import React from 'react';
 import _ from 'lodash';
 import alt from '../../alt/alt';
 import auth from '../../lib/auth';
+import axios from 'axios';
 
 import competenceStore from '../../stores/competence_store';
 import userStore from '../../stores/user_store';
@@ -38,7 +39,8 @@ export default React.createClass({
       parsedCompetences: [], //az osszes kompetencia, jelolve, hogy milyen allapotban all
       filteredCompetences: [], //a kereso altal szurve -> ezt hasznaljuk
       profileUser: null,
-      allSkills: []
+      allSkills: [],
+      userLoadedOnce: false
     };
   },
   
@@ -48,6 +50,8 @@ export default React.createClass({
     userStore.fetchProfileUser(parseInt(this.props.params.profileUserId));
     competenceStore.listen(this.handleCompetenceStoreChange);
     this.fetch(this.props);
+    axios.get(`/users/${this.props.params.profileUserId}/notify_seen_by_godfather`, {responseType: 'json'})
+    .then(data=>{});
   },
   
   fetch(props){
@@ -76,7 +80,8 @@ export default React.createClass({
   
   handleUserStoreChange(state){
     this.setState({
-      profileUser: state.profileUser
+      profileUser: state.profileUser,
+      userLoadedOnce: !!state.profileUser
     });
   },
 
