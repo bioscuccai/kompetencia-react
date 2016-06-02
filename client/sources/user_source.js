@@ -51,5 +51,21 @@ export default {
     
     success: userActions.updateProfileUser,
     error: userActions.error
+  },
+  
+  fetchGodfathers: {
+    remote(state){
+      return new Promise((resolve, reject) => {
+        axios.get("/users/godfathers", {
+          responseType: 'json'
+        })
+        .then(data=>{
+          return resolve(data.data);
+        });
+      });
+    },
+    
+    success: userActions.updateGodfathers,
+    error: userActions.error
   }
 };

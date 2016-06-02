@@ -10,6 +10,7 @@ class UserStore{
     this.allUsers=[];
     this.profileUser=null;
     this.subordinates=[];
+    this.godfathers=[];
     this.bindActions(userActions);
     this.bindListeners({
       reloadUsers: [
@@ -46,6 +47,10 @@ class UserStore{
   
   updateProfileUser(profileUser){
     this.profileUser=profileUser;
+  }
+  
+  updateGodfathers(godfathers){
+    this.godfathers=godfathers;
   }
   
   error(err){

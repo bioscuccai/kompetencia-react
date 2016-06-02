@@ -90,6 +90,8 @@ Rails.application.routes.draw do
       
       get 'notify_seen_relevant'
       get 'notify_seen_requested'
+      
+      get 'godfathers'
     end
   end
   

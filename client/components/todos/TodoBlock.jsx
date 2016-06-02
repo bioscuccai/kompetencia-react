@@ -35,6 +35,9 @@ export default React.createClass({
   },
   
   render(){
+    if(!this.context.currentUser.is_godfather){
+      return <div></div>;
+    }
     let persons;
     if(this.state.pendingSubordinates.length!==0){
       persons=<div>

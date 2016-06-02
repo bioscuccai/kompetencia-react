@@ -23,6 +23,11 @@
     </div>
     
     <div class="field">
+      <%= f.label :godfather_id, "Mentor" %><br/>
+      <%= f.select(:godfather_id, content_tag(:option, '', value: '')+options_from_collection_for_select(User.with_role(:godfather), :id, :name)) %>
+    </div>
+        
+    <div class="field">
       <%= f.label :last_name, "Vezetéknév" %><br />
       <%= f.text_field :last_name %>
     </div>

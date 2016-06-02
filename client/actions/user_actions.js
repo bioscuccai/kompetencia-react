@@ -6,7 +6,7 @@ import _ from 'lodash';
 
 class UserActions{
   constructor(){
-    this.generateActions("error", "updateAllUsers", "updateSubordinates", "updateProfileUser",
+    this.generateActions("error", "updateAllUsers", "updateSubordinates", "updateProfileUser", "updateGodfathers",
       "makeAdminSucc", "revokeAdminSucc",
       "makeGodfatherSucc", "revokeGodfatherSucc",
       "addSubordinateSucc", "removeSubordinateSucc",
@@ -101,7 +101,7 @@ class UserActions{
     };
   }
   
-  editUser(firstName, lastName, currentPassword, newPassword, newPasswordConfirmation, userId){
+  editUser(firstName, lastName, currentPassword, newPassword, newPasswordConfirmation, godfatherId, userId){
     return dispatch=>{
       let resp={firstName, lastName, currentPassword, newPassword, newPasswordConfirmation, userId};
       return axios.post(`/users/change`, {
@@ -109,7 +109,8 @@ class UserActions{
         new_password: newPassword,
         new_password_confirmation: newPasswordConfirmation,
         last_name: lastName,
-        first_name: firstName
+        first_name: firstName,
+        godfather_id: godfatherId
       }, {
         responseType: 'json'
       })

@@ -13,7 +13,12 @@ module UserFormatter
       name: u.name,
       first_name: u.first_name,
       last_name: u.last_name,
-      cv: u.cv.exists? ? u.cv.url : nil
+      cv: u.cv.exists? ? u.cv.url : nil,
+      last_change: [
+        u.users_skills.order(updated_at: :desc).first&.updated_at,
+        u.assigned_competence_levels.order(updated_at: :desc).first&.updated_at,
+        u.pending_competence_levels.order(updated_at: :desc).first&.updated_at
+      ].compact.max
     }
     
     if !wo.include? :godfather

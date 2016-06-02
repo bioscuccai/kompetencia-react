@@ -133,6 +133,13 @@ class UsersController < ApplicationController
     end
   end
   
+  def godfathers
+    gf=User.with_role(:godfather).map do |u|
+      format_user u
+    end
+    render json: gf
+  end
+  
   def home
     
   end
@@ -254,7 +261,9 @@ class UsersController < ApplicationController
       if params[:new_password]!=params[:new_password_confirmation]
         return render json: {status: :error}
       end
-      current_user.update!(password: params[:new_password], password_confirmation: params[:new_password_confirmation])
+      current_user.update!(password: params[:new_password],
+        password_confirmation: params[:new_password_confirmation],
+        godfather_id: params[:godfather_id])
     end
     
     current_user.update!(first_name: params[:first_name], last_name: params[:last_name])

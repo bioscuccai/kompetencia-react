@@ -17,7 +17,8 @@ export default React.createClass({
   
   getInitialState(){
     return {
-      profileUser: null
+      profileUser: null,
+      godfathers: []
     };
   },
   
@@ -25,6 +26,7 @@ export default React.createClass({
     alt.recycle(userStore);
     userStore.listen(this.handleUserStoreChange);
     userStore.fetchProfileUser(this.context.currentUser.id);
+    userStore.fetchGodfathers();
   },
   
   componentWillUnmount(){
@@ -53,6 +55,22 @@ export default React.createClass({
           </div>
           <div className='column column-60'>
             <input type='text' defaultValue={this.state.profileUser.first_name} ref='firstName'></input>
+          </div>
+        </div>
+        
+        <div className='row'>
+          <div className='column column-40'>
+            Mentor:
+          </div>
+          <div className='column column-60'>
+            <select ref='godfatherId' defaultValue={this.context.currentUser.godfather_id}>
+              <option value=""></option>
+              {
+                this.state.godfathers.map(godfather=>{
+                  return <option key={`godfather-${godfather.id}`} value={godfather.id}>{godfather.name}</option>;
+                })
+              }
+            </select>
           </div>
         </div>
         
@@ -106,7 +124,8 @@ export default React.createClass({
   handleUserStoreChange(state){
     this.context.profileUser=state.profileUser;
     this.setState({
-      profileUser: state.profileUser
+      profileUser: state.profileUser,
+      godfathers: state.godfathers
     });
   },
   
@@ -115,6 +134,7 @@ export default React.createClass({
     userActions.editUser(this.refs.firstName.value, this.refs.lastName.value,
       this.refs.currentPassword.value,
       this.refs.newPassword.value, this.refs.newPasswordConfirmation.value,
+      parseInt(this.refs.godfatherId),
       this.context.currentUser.id
     )
     .then(data=>{
@@ -122,7 +142,7 @@ export default React.createClass({
       if(_.get(data, 'data.status')==='ok'){
         NotificationManager.info("Sikeres módosítás");
       } else {
-        NotificationManager.error("Hiba történt");
+        NotificationManager.error("Hiba történt módosítás során");
       }
     });
   },
