@@ -103,4 +103,16 @@ class User < ActiveRecord::Base
   def name
     "#{self.last_name} #{self.first_name}"
   end
+  
+  def notification_pending_users
+    self.followers.joins(:pending_competence_levels).where("pending_competence_levels.updated_at>last_seen_by_godfather")
+  end
+  
+  def notification_requested
+    
+  end
+  
+  def notification_relevant
+  
+  end
 end

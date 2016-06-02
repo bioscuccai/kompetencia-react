@@ -58,3 +58,4 @@ gem 'redis'
 gem 'bullet'
 gem 'dotenv-rails'
 gem 'paperclip'
+gem 'whenever', require: false

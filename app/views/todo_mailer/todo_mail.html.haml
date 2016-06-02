@@ -1,0 +1,15 @@
+%h1
+  ="Kedves #{@user.name}!"
+%div
+  A SED RM rendszerben a következő változások történtek az legutóbbi bejelentkezés óta:
+%h5 Függő dolgozó kompetenciák
+%ul
+  -@pending_users.each do |user|
+    =user.name
+%h5 Módosult dolgozó kérvények
+%ul
+  -@requested.each do |req|
+    =req.title
+%h5 Módosult hirdetések
+  -@relevant.each do |rel|
+    =rel.title
