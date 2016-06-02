@@ -107,7 +107,7 @@ export default React.createClass({
       <table>
         <thead>
           <tr>
-            <th>Kompetencia</th>
+            <th style='width: 25em'>Kompetencia</th>
             <th>Szint</th>
             <th>Műveletek</th>
           </tr>
