@@ -254,3 +254,7 @@ main{
   margin: 0!important;
   padding: 0!important;
 }
+
+.competence-table-title{
+  width: 25em;
+}

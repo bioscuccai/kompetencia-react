@@ -102,12 +102,16 @@ export default React.createClass({
       return competenceGroupsWoTitle[groupName];
     }));
     
+    let headStyle={
+      width: '25em'
+    };
+    
     let titlelessCompetenceList=<div>
       <h4>Egyéb kompetenciák</h4>
       <table>
         <thead>
           <tr>
-            <th style='width: 25em'>Kompetencia</th>
+            <th className='competence-table-title'>Kompetencia</th>
             <th>Szint</th>
             <th>Műveletek</th>
           </tr>
@@ -141,7 +145,7 @@ export default React.createClass({
               <table>
                 <thead>
                   <tr>
-                    <th>Kompetencia</th>
+                    <th className='competence-table-title'>Kompetencia</th>
                     <th>Szint</th>
                     <th>Műveletek</th>
                   </tr>
