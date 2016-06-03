@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160602215417) do
+ActiveRecord::Schema.define(version: 20160603061312) do
 
   create_table "assigned_competence_levels", force: :cascade do |t|
     t.integer  "competence_id", limit: 4
@@ -128,6 +128,10 @@ ActiveRecord::Schema.define(version: 20160602215417) do
     t.datetime "last_seen_relevant"
     t.datetime "last_seen_requested"
     t.boolean  "receive_email",                      default: true, null: false
+    t.string   "confirmation_token",     limit: 255
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email",      limit: 255
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

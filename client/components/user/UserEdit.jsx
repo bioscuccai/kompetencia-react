@@ -134,7 +134,7 @@ export default React.createClass({
     userActions.editUser(this.refs.firstName.value, this.refs.lastName.value,
       this.refs.currentPassword.value,
       this.refs.newPassword.value, this.refs.newPasswordConfirmation.value,
-      parseInt(this.refs.godfatherId),
+      parseInt(this.refs.godfatherId.value),
       this.context.currentUser.id
     )
     .then(data=>{

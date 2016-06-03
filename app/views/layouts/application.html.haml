@@ -10,5 +10,9 @@
   %body
     .container
       .row
+        -flash.each do |key, value|
+          %p{class: "alert alert-#{key}"}
+            =value
+      .row
         .column.column-100
           = yield

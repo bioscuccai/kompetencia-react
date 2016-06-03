@@ -258,3 +258,22 @@ main{
 .competence-table-title{
   width: 25em;
 }
+
+.alert{
+  margin: 20px;
+  width: 100%;
+  background-color: rgb(10, 227, 220);
+  border: solid 3px rgb(7, 199, 193);
+  border-radius: 5px;
+  padding: 3px;
+}
+
+.alert-notice{
+  background-color: rgb(14, 247, 37);
+  border: solid 3px rgb(0, 187, 19);
+}
+
+.alert-error{
+  background-color: rgb(255, 119, 89);
+  border: solid 3px rgb(251, 63, 21);
+}
