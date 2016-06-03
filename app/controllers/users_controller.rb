@@ -4,7 +4,8 @@ class UsersController < ApplicationController
     :add_pending_competence, :accept_pending_competence,
     :reject_pending_competence, :remove_competence, :remove_pending_competence,
     :add_godfather, :remove_godfather,
-    :make_admin, :revoke_admin, :make_godfather, :revoke_godfather]
+    :make_admin, :revoke_admin, :make_godfather, :revoke_godfather,
+    :notify_seen_by_godfather]
   
   include CompetenceFormatter
   include UserFormatter
@@ -281,7 +282,7 @@ class UsersController < ApplicationController
   end
   
   def notify_seen_by_godfather
-    current_user.update!(last_seen_by_godfather: Time.now)
+    @user.update!(last_seen_by_godfather: Time.now)
     render json: {status: :ok}
   end
   

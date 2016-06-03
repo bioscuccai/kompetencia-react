@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   rolify
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
   
   belongs_to :godfather, foreign_key: :godfather_id, class_name: 'User'
@@ -105,14 +105,17 @@ class User < ActiveRecord::Base
   end
   
   def notification_pending_users
-    self.followers.joins(:pending_competence_levels).where("pending_competence_levels.updated_at>last_seen_by_godfather")
+    [*self.followers.joins(:pending_competence_levels).where("pending_competence_levels.notified=false AND pending_competence_levels.updated_at>last_seen_by_godfather"),
+     *self.followers.joins(:users_skills).where("users_skills.updated_at>last_seen_by_godfather")].
+    compact.
+    uniq(&:id)
   end
   
   def notification_requested
-    
+    PersonRequest.where("user_id=? AND updated_at>?", self.id, self.last_seen_requested)
   end
   
   def notification_relevant
-  
+    PersonRequest.where("target_id=? AND updated_at>?", self.id, self.last_seen_relevant)
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160602111626) do
+ActiveRecord::Schema.define(version: 20160602215417) do
 
   create_table "assigned_competence_levels", force: :cascade do |t|
     t.integer  "competence_id", limit: 4
@@ -68,8 +68,9 @@ ActiveRecord::Schema.define(version: 20160602111626) do
     t.integer  "competence_id", limit: 4
     t.integer  "user_id",       limit: 4
     t.integer  "level",         limit: 4
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.boolean  "notified",                default: false, null: false
   end
 
   create_table "person_requests", force: :cascade do |t|

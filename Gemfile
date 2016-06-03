@@ -35,7 +35,6 @@ gem 'cancancan'
 gem 'puma'
 gem 'quiet_assets'
 gem 'lograge'
-gem 'react-rails'
 gem 'rolify', '~>5.0.0'
 
 group :development, :test do
