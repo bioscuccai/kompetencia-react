@@ -18,7 +18,8 @@ module UserFormatter
         u.users_skills.order(updated_at: :desc).first&.updated_at,
         u.assigned_competence_levels.order(updated_at: :desc).first&.updated_at,
         u.pending_competence_levels.order(updated_at: :desc).first&.updated_at
-      ].compact.max
+      ].compact.max,
+      receive_email: u.receive_email
     }
     
     if !wo.include? :godfather

@@ -266,7 +266,8 @@ class UsersController < ApplicationController
         password_confirmation: params[:new_password_confirmation])
     end
     
-    current_user.update!(first_name: params[:first_name], last_name: params[:last_name], godfather_id: params[:godfather_id])
+    current_user.update!(first_name: params[:first_name], last_name: params[:last_name],
+      godfather_id: params[:godfather_id], receive_email: params[:receive_email])
     render json: {status: :ok}
   end
   

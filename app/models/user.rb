@@ -105,7 +105,7 @@ class User < ActiveRecord::Base
   end
   
   def notification_pending_users
-    [*self.followers.joins(:pending_competence_levels).where("pending_competence_levels.notified=false AND pending_competence_levels.updated_at>last_seen_by_godfather"),
+    [*self.followers.joins(:pending_competence_levels).where("pending_competence_levels.notified=false AND (pending_competence_levels.updated_at>last_seen_by_godfather OR last_seen_by_godfather IS NULL)"),
      *self.followers.joins(:users_skills).where("users_skills.updated_at>last_seen_by_godfather")].
     compact.
     uniq(&:id)

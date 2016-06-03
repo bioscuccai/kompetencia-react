@@ -19,9 +19,9 @@ export default React.createClass({
       }
       
       if(this.props.user.is_godfather){
-        godfatherButton=<button title='Mentorságot elveszem' className='admin-button' onClick={this.onRevokeGodfather}><i className='icon ion-minus'></i> keresztapa</button>;
+        godfatherButton=<button title='Mentorságot elveszem' className='admin-button' onClick={this.onRevokeGodfather}><i className='icon ion-minus'></i> mentor</button>;
       } else {
-        godfatherButton=<button title='Mentorrá teszem' className='admin-button' onClick={this.onMakeGodfather}><i className='icon ion-plus'></i> keresztapa</button>;
+        godfatherButton=<button title='Mentorrá teszem' className='admin-button' onClick={this.onMakeGodfather}><i className='icon ion-plus'></i> mentor</button>;
       }
     }
     return <div>

@@ -6,6 +6,7 @@ import userActions from '../../actions/user_actions';
 import {Link} from 'react-router';
 import {NotificationManager} from 'react-notifications';
 import _ from 'lodash';
+import DateTimeLabel from '../date/DateLabel.jsx';
 
 export default React.createClass({
   render(){
@@ -17,6 +18,11 @@ export default React.createClass({
     return <div className="row profile-item">
       <div className="column column-80">
         <UserBulletPoints user={this.props.user}></UserBulletPoints>
+        <div>
+          <i className='icon ion-calendar'></i>
+          Utolsó módosítás:&nbsp;
+          <DateTimeLabel date={this.props.user.last_changed}></DateTimeLabel>
+        </div>
       </div>
       <div className="column column-20">
         <a onClick={this.onRemoveSubordinate} className='button icon-button' title='Eltávolítás'>

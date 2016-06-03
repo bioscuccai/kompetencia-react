@@ -16,9 +16,9 @@ class TodoStore{
   }
   
   updateTodos(todos){
-    this.pendingSubordinates=todos.pending_subordinates;
-    this.changedRequested=todos.changed_requested;
-    this.changedRelevant=todos.changed_relevant;
+    this.pendingSubordinates=_.get(todos, "pending_subordinates", []);
+    this.changedRequested=_.get(todos, "changed_requested", []);
+    this.changedRelevant=_.get(todos, "changed_relevant", []);
   }
   
   tickTodo(id){

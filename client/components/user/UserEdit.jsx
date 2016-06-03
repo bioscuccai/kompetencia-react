@@ -74,6 +74,15 @@ export default React.createClass({
           </div>
         </div>
         
+        <div className='row'>
+          <div className='column column-40'>
+            Értesítő e-mailek:
+          </div>
+          <div className='column column-60'>
+            <input type='checkbox' ref='receiveEmail' defaultChecked={this.state.profileUser.receive_email}></input>
+          </div>
+        </div>
+        
         <h2>Jelszó csere</h2>
         <div className='row'>
           <div className='column column-40'>
@@ -135,6 +144,7 @@ export default React.createClass({
       this.refs.currentPassword.value,
       this.refs.newPassword.value, this.refs.newPasswordConfirmation.value,
       parseInt(this.refs.godfatherId.value),
+      this.refs.receiveEmail.checked,
       this.context.currentUser.id
     )
     .then(data=>{

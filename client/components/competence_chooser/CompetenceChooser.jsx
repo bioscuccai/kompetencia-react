@@ -50,8 +50,7 @@ export default React.createClass({
     userStore.fetchProfileUser(parseInt(this.props.params.profileUserId));
     competenceStore.listen(this.handleCompetenceStoreChange);
     this.fetch(this.props);
-    axios.get(`/users/${this.props.params.profileUserId}/notify_seen_by_godfather`, {responseType: 'json'})
-    .then(data=>{});
+    
   },
   
   fetch(props){
@@ -79,6 +78,13 @@ export default React.createClass({
   },
   
   handleUserStoreChange(state){
+    if(state.profileUser){
+      
+      if(this.context.currentUser.is_godfather && parseInt(state.profileUser.godfather_id)===parseInt(this.context.currentUser.id)){
+        axios.get(`/users/${this.props.params.profileUserId}/notify_seen_by_godfather`, {responseType: 'json'})
+        .then(data=>{});
+      }
+    }
     this.setState({
       profileUser: state.profileUser,
       userLoadedOnce: !!state.profileUser
