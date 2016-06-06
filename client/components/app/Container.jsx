@@ -4,6 +4,7 @@ import React from 'react';
 import {Link} from 'react-router';
 import Menu from './Menu.jsx';
 import UserHeader from './UserHeader.jsx';
+import Sidebar from './Sidebar.jsx';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 require("react-notifications/lib/notifications.css");
 
@@ -12,8 +13,7 @@ export default React.createClass({
     return <div>
       <div className='row'>
         <aside className='column column-20'>
-          <UserHeader currentUser={this.props.currentUser}></UserHeader>
-          <Menu></Menu>
+          <Sidebar></Sidebar>
         </aside>
         <main className='column column-80'>
           {this.props.children}

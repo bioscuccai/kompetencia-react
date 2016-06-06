@@ -8,6 +8,10 @@ import DateLabel from '../date/DateLabel.jsx';
 import AvailabilityButtons from './AvailabilityButtons.jsx';
 
 export default React.createClass({
+  contextTypes: {
+    currentUser: React.PropTypes.object
+  },
+  
   render(){
     let highlightClass;
     if(moment().isBetween(this.props.availability.starts_at, this.props.availability.ends_at)){
@@ -15,6 +19,13 @@ export default React.createClass({
     }
     if(moment().isAfter(this.props.availability.ends_at)){
       highlightClass="expired-date";
+    }
+    
+    let buttons;
+    if(this.props.hideButtons){
+      buttons=<span></span>;
+    } else {
+      buttons=<AvailabilityButtons availability={this.props.availability}></AvailabilityButtons>;
     }
     return <tr className={`${highlightClass} ${this.props.availability.active ? "" : "inactive-availability"}`}>
       <td>
@@ -32,7 +43,7 @@ export default React.createClass({
         {this.props.availability.work_hours}
       </td>
       <td className='availability-buttons'>
-        <AvailabilityButtons availability={this.props.availability}></AvailabilityButtons>
+        {buttons}
       </td>
     </tr>;
   }

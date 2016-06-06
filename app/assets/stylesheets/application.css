@@ -17,6 +17,10 @@
  *= require typeahead
  */
 
+.unchecked-tier{
+  background-color: rgb(146, 146, 146)!important;
+  border-color: rgb(128, 128, 128)!important;
+}
 
 .assigned-competence{
   /*background-color: #67da16;*/
@@ -276,4 +280,7 @@ main{
 .alert-error{
   background-color: rgb(255, 119, 89);
   border: solid 3px rgb(251, 63, 21);
+}
+.no-margin{
+  margin: 0;
 }

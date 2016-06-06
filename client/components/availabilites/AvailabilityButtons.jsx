@@ -7,10 +7,14 @@ import Modal from 'react-modal';
 import modalStyle from '../../styles/modal';
 import {NotificationManager} from 'react-notifications';
 import _ from 'lodash';
+import auth from '../../lib/auth';
 
 import AvailabilityEditor from './AvailabilityEditor.jsx';
 
 export default React.createClass({
+  contextTypes: {
+    currentUser: React.PropTypes.object
+  },
   getInitialState(){
     return {
       editModal: false
@@ -22,6 +26,9 @@ export default React.createClass({
   },
   
   render(){
+    // if(!auth.canAlterAvailabilityOf(this.props.profileUser, this.context.currentUser)){
+    //   return <span></span>;
+    // }
     let stateButton;
     if(this.props.availability.active){
       stateButton=<button onClick={this.onTurnOff} alt='Kikapcsol' className='icon-button' title='Kikapcsol'>

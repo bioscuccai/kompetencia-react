@@ -6,7 +6,7 @@ import userActions from '../../actions/user_actions';
 import {Link} from 'react-router';
 import {NotificationManager} from 'react-notifications';
 import _ from 'lodash';
-import DateTimeLabel from '../date/DateLabel.jsx';
+import DateTimeLabel from '../date/DateTimeLabel.jsx';
 
 export default React.createClass({
   render(){

@@ -11,7 +11,8 @@ export default React.createClass({
   render(){
     let buttonClass=classnames({
       'selected-tier': (this.props.competence.level==this.props.tier.level),
-      'pending-tier': (this.props.competence.pendingLevel==this.props.tier.level)
+      'pending-tier': (this.props.competence.pendingLevel==this.props.tier.level),
+      'unchecked-tier': this.props.competence.level!==this.props.tier.level && this.props.competence.pendingLevel!==this.props.tier.level
     });
     
     return <a href='#' className={`button ${buttonClass} button-competence-selector`}

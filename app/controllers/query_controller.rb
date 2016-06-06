@@ -12,7 +12,7 @@ class QueryController < ApplicationController
   
   def query
     authorize! :query, :query
-    
+    Rails.logger.info(params)
     result_per_user=Hash.new{|h,k| h[k]=[]}
     users=[]
     user_availability_matches=[]

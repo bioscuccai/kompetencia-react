@@ -67,5 +67,19 @@ export default {
     
     success: userActions.updateGodfathers,
     error: userActions.error
+  },
+  
+  fetchProfileAvailabilities: {
+    remote(state, userId){
+      return new Promise((resolve, reject) => {
+        axios.get(`/users/${userId}/availabilities`, {responseType: 'json'})
+        .then(data=>{
+          return resolve(data.data);
+        });
+      });
+    },
+    
+    success: userActions.updateProfileAvailabilities,
+    error: userActions.error
   }
 };

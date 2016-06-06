@@ -11,7 +11,7 @@ export default React.createClass({
   },
   render(){
     let competenceButtons;
-    if(auth.canAlterCompetences(this.context.currentUser)){
+    if(auth.canAlterCompetences(this.props.currentUser)){
       competenceButtons=<span>
         
         <div className='small-spacer'></div>
@@ -26,36 +26,36 @@ export default React.createClass({
     }
     
     let godfatherButtons;
-    if(this.context.currentUser.is_godfather){
+    if(this.props.currentUser.is_godfather){
       godfatherButtons=<span>
         
         <div className='small-spacer'></div>
 
         <div className='menu-item'>
-          <Link to={`/subordinates/${this.context.currentUser.id}`}><i className='icon ion-android-contacts'></i> Dolgozóim</Link>
+          <Link to={`/subordinates/${this.props.currentUser.id}`}><i className='icon ion-android-contacts'></i> Dolgozóim</Link>
         </div>
         <div className='menu-item'>
-          <Link to={`/person_requests/${this.context.currentUser.id}`}><i className='icon ion-bag'></i> Hirdetések</Link>
+          <Link to={`/person_requests/${this.props.currentUser.id}`}><i className='icon ion-bag'></i> Hirdetések</Link>
         </div>
       </span>;
     }
     
     let usersButton;
-    if(auth.canManageUsers(this.context.currentUser)){
+    if(auth.canManageUsers(this.props.currentUser)){
       usersButton=<div className='menu-item'>
         <Link to='/users'><i className='icon ion-person-stalker'></i> Felhasználók</Link>
       </div>;
     }
     
     let searchButton;
-    if(auth.canSearch(this.context.currentUser)){
+    if(auth.canSearch(this.props.currentUser)){
       searchButton=<div className='menu-item'>
         <Link to='/query'><i className='icon ion-search'></i> Keresés</Link>
       </div>;
     }
     
     let recentButton;
-    if(auth.canSeeAvailabilities(this.context.currentUser)){
+    if(auth.canSeeAvailabilities(this.props.currentUser)){
       recentButton=<div className='menu-item'>
         <Link to='/'><i className='icon ion-android-calendar'></i> Friss hirdetések</Link>
       </div>;
@@ -64,7 +64,7 @@ export default React.createClass({
     return <div>
       <TodoBlock></TodoBlock>
       <div className='menu-item'>
-        <Link to={`/competence_chooser/${this.context.currentUser.id}`}><i className='icon ion-trophy'></i> Kompetenciáim</Link>
+        <Link to={`/competence_chooser/${this.props.currentUser.id}`}><i className='icon ion-trophy'></i> Kompetenciáim</Link>
       </div>
       {recentButton}
       {searchButton}

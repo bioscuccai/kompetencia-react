@@ -173,7 +173,7 @@ export default React.createClass({
             allSkills={this.state.allSkills}></SkillCheckboxes>
           
           <div>
-            <button onClick={this.onQuery} disabled={this.state.dateChecked ? (!this.state.startsAt || !this.state.endsAt) : false}>Keresés</button>
+            <button onClick={this.onQuery}>Keresés</button>
           </div>
 
           <div>

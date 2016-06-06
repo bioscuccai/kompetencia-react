@@ -103,7 +103,10 @@ export default React.createClass({
         </thead>
         <tbody>
           {this.state.availabilities.map(availability=>{
-            return <Availability availability={availability} key={`availability-${availability.id}`}></Availability>;
+            return <Availability
+              availability={availability}
+              key={`availability-${availability.id}`}
+              profileUser={this.state.profileUser}></Availability>;
           })}
         </tbody>
       </table>

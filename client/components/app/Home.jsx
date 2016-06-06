@@ -14,7 +14,7 @@ export default React.createClass({
       main=<Recent></Recent>;
     } else {
       main=<div>
-        <h1>SZTE SED EK</h1>
+        <h1>SZTE SED RM</h1>
         Menü a bal oldalon.
       </div>;
     }

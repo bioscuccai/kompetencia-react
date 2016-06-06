@@ -7,6 +7,7 @@ import _ from 'lodash';
 class UserActions{
   constructor(){
     this.generateActions("error", "updateAllUsers", "updateSubordinates", "updateProfileUser", "updateGodfathers",
+      "updateProfileAvailabilities",
       "makeAdminSucc", "revokeAdminSucc",
       "makeGodfatherSucc", "revokeGodfatherSucc",
       "addSubordinateSucc", "removeSubordinateSucc",

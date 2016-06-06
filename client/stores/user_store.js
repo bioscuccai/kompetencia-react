@@ -9,6 +9,7 @@ class UserStore{
   constructor(){
     this.allUsers=[];
     this.profileUser=null;
+    this.profileAvailabilities=[];
     this.subordinates=[];
     this.godfathers=[];
     this.bindActions(userActions);
@@ -34,6 +35,10 @@ class UserStore{
   reloadProfileUser(data){
     this.getInstance().fetchProfileUser(data.userId);
     return false;
+  }
+  
+  updateProfileAvailabilities(profileAvailabilities){
+    this.profileAvailabilities=profileAvailabilities;
   }
   
   reloadUsers(){
