@@ -21,7 +21,7 @@ export default React.createClass({
   
   componentDidMount(){
     todoStore.listen(this.handleTodoStoreChange);
-    if(!_.get(this.context, "currentUser.is_godfather")){
+    if(_.get(this.context, "currentUser.is_godfather")){
       this.tick();
       this.interval=setInterval(this.tick.bind(this), 60000);
     }

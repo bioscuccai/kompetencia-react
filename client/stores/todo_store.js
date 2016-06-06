@@ -16,6 +16,8 @@ class TodoStore{
   }
   
   updateTodos(todos){
+    console.log("todos");
+    console.log(todos);
     this.pendingSubordinates=_.get(todos, "pending_subordinates", []);
     this.changedRequested=_.get(todos, "changed_requested", []);
     this.changedRelevant=_.get(todos, "changed_relevant", []);

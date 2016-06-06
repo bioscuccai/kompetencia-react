@@ -116,6 +116,6 @@ class User < ActiveRecord::Base
   end
   
   def notification_relevant
-    PersonRequest.where("target_id=? AND updated_at>?", self.id, self.last_seen_relevant)
+    PersonRequest.joins(:target).where("users.godfather_id=? AND person_requests.updated_at>?", self.id, self.last_seen_relevant)
   end
 end

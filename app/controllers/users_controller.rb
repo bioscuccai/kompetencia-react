@@ -187,12 +187,6 @@ class UsersController < ApplicationController
   end
   
   def todos
-    last_activity_str=$redis.get("kompetencia:user:last_activity_check:#{current_user.id}")
-    if last_activity_str.nil?
-      set_last_activiy_check
-      return render json: []
-    end
-    last_activity=Time.parse last_activity_str
     pending_subordinates=[
       *(PendingCompetenceLevel.joins(:user).
         where("users.godfather_id=?", current_user.id).
@@ -223,8 +217,7 @@ class UsersController < ApplicationController
       #   end
     ].flatten.uniq{|u| u[:id]}
     
-    changed_relevant=PersonRequest.
-      where(target_id: current_user.id).where("updated_at>?", current_user.last_seen_relevant).
+    changed_relevant=current_user.notification_relevant.
       map do |pr|
         {
           id: pr.id,
@@ -232,8 +225,7 @@ class UsersController < ApplicationController
           type: :relevant
         }
       end
-    changed_requested=PersonRequest.
-      where(user_id: current_user.id).where("updated_at>?", current_user.last_seen_requested).
+    changed_requested=current_user.notification_requested.
       map do |pr|
         {
           id: pr.id,
