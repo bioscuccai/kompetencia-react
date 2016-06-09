@@ -202,7 +202,7 @@ class UsersController < ApplicationController
         where("users.godfather_id=?", current_user.id).
         map do |us| {
             id: us.user_id,
-            name: u.user.name
+            name: us.user.name
           }
         end
       )#,
