@@ -254,8 +254,10 @@ class UsersController < ApplicationController
       if params[:new_password]!=params[:new_password_confirmation]
         return render json: {status: :error}
       end
+      u=current_user
       current_user.update!(password: params[:new_password],
         password_confirmation: params[:new_password_confirmation])
+      sign_in(u, bypass: true)
     end
     
     current_user.update!(first_name: params[:first_name], last_name: params[:last_name],
