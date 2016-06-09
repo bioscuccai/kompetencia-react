@@ -12,6 +12,7 @@ export default React.createClass({
       <h2>Új kompetencia kategória</h2>
       <form onSubmit={this.onFormSubmit}>
         <input type='text' ref='title' placeholder='Megnevezés'/>
+        <input type='text' ref='description' placeholder='Leírás'></input>
         <select ref='tierGroup'>
           {this.props.competenceTierGroups.map(tierGroup=>{
             return <option value={tierGroup.id} key={`tier-group-select-${tierGroup.id}`}>{tierGroup.title}</option>;
@@ -32,7 +33,8 @@ export default React.createClass({
   
   onFormSubmit(e){
     e.preventDefault();
-    competenceTypeActions.createCompetenceType(this.refs.title.value, this.refs.tierGroup.value)
+    competenceTypeActions.createCompetenceType(this.refs.title.value, this.refs.tierGroup.value,
+    0, true, this.refs.description.value)
     .then(data=>{
       if(_.get(data, "data.status")==="ok"){
         NotificationManager.info("Siker");

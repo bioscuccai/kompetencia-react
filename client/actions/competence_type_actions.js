@@ -12,7 +12,7 @@ class CompetenceTypeActions{
     "createCompetenceSucc", "updateCompetenceSucc", "deleteCompetenceSucc");
   }
   
-  createCompetenceType(title, competenceTierGroupId, priority=0, showTitle=true){
+  createCompetenceType(title, competenceTierGroupId, priority=0, showTitle=true, description=""){
     return dispatch=>{
       let resp={title, competenceTierGroupId};
       dispatch(resp);
@@ -21,7 +21,8 @@ class CompetenceTypeActions{
           title,
           competence_tier_group_id: competenceTierGroupId,
           priority,
-          show_title: showTitle
+          show_title: showTitle,
+          description
         }
       }).then(data=>{
         this.createCompetenceTypeSucc(_.extend({}, resp, {data: data.data}));
@@ -66,7 +67,7 @@ class CompetenceTypeActions{
     };
   }
   
-  updateCompetenceType(id, title, competenceTierGroupId, priority=0, showTitle=true){
+  updateCompetenceType(id, title, competenceTierGroupId, priority=0, showTitle=true, description=""){
     return dispatch=>{
       let resp={id, title};
       dispatch(resp);
@@ -75,7 +76,8 @@ class CompetenceTypeActions{
           title,
           competence_tier_group_id: competenceTierGroupId,
           priority,
-          show_title: showTitle
+          show_title: showTitle,
+          description
         }
       })
       .then(data=>{

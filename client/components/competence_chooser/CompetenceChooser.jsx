@@ -148,6 +148,7 @@ export default React.createClass({
           competenceGroupNames.map(groupName=>{
             return <div key={`competence-group-${groupName}`}>
               <h4>{groupName}</h4>
+              {_.get(competenceGroups[groupName], "[0].description")}
               <table>
                 <thead>
                   <tr>

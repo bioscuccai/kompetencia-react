@@ -16,6 +16,7 @@ class CompetenceTypesController < ApplicationController
       {
         id: competence_type.id,
         title: competence_type.title,
+        description: competence_type.description,
         competence_tier_group: competence_type.competence_tier_group,
         priority: competence_type.priority,
         show_title: competence_type.show_title,
@@ -66,6 +67,6 @@ class CompetenceTypesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def competence_type_params
-      params.require(:competence_type).permit(:title, :competence_tier_group_id, :show_title, :priority)
+      params.require(:competence_type).permit(:title, :competence_tier_group_id, :show_title, :priority, :description)
     end
 end

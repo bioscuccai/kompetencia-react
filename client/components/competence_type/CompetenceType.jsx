@@ -27,7 +27,10 @@ export default React.createClass({
         competenceTierGroups={this.props.competenceTierGroups}
         competenceType={this.props.competenceType}></CompetenceTypeEditor>;
     } else {
-      header=<h5 onClick={this.onSelect}>{this.props.competenceType.title} ({_.get(this.props.competenceType, "competence_tier_group.title")})</h5>;
+      header=<div>
+        <h5 onClick={this.onSelect}>{this.props.competenceType.title} ({_.get(this.props.competenceType, "competence_tier_group.title")})</h5>
+        {this.props.competenceType.description}
+      </div>;
     }
     return <div>
       {header}

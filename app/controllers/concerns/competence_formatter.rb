@@ -8,6 +8,7 @@ module CompetenceFormatter
         id:    assigned.competence.id,
         level: assigned.level,
         title: assigned.competence.title,
+        description: assigned&.competence&.competence_type&.description,
         type:  assigned.competence&.competence_type&.title,
         competence_type_priority: assigned.competence&.competence_type&.priority,
         competence_type_show_title: assigned.competence&.competence_type&.show_title,

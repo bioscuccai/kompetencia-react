@@ -30,6 +30,9 @@ export default React.createClass({
       <div>
         <input type='text' ref='title' defaultValue={this.props.competenceType.title}></input>
       </div>
+      <div>
+        <input type='text' ref='description' defaultValue={this.props.competenceType.description}></input>
+      </div>
     </EditorBar>;
   },
   
@@ -37,7 +40,8 @@ export default React.createClass({
     console.log(this.refs.title.value);
     competenceTypeActions.updateCompetenceType(this.props.competenceType.id, this.refs.title.value,
       this.refs.competenceTierGroupId.value,
-      parseInt(this.refs.priority.value), this.refs.showTitle.checked)
+      parseInt(this.refs.priority.value), this.refs.showTitle.checked,
+      this.refs.description.value)
       .then(data=>{
         if(_.get(data, "data.status")==="ok"){
           NotificationManager.info("Siker");
