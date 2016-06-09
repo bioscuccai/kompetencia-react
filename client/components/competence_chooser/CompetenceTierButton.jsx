@@ -16,7 +16,8 @@ export default React.createClass({
     });
     
     return <a href='#' className={`button ${buttonClass} button-competence-selector`}
-      onClick={this.setLevel}>
+      onClick={this.setLevel}
+      title={this.props.tier.description}>
       {this.props.tier.title}
     </a>;
   },

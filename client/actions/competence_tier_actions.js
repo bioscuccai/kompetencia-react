@@ -53,13 +53,14 @@ class CompetenceTierActions{
     };
   }
   
-  updateTier(id, title, level){
+  updateTier(id, title, level, description){
     return dispatch=>{
-      let resp={id, title, level};
+      let resp={id, title, level, description};
       dispatch(resp);
       return axios.put(`/competence_tiers/${id}.json`, {
         competence_tier: {
-          title
+          title,
+          description
         }
       }, {
         responseType: 'json'

@@ -7,6 +7,8 @@ export default React.createClass({
   render(){
     return <div onClick={this.onClick}>
       {this.props.tier.title}
+      &nbsp;
+      <small>{this.props.tier.description}</small>
     </div>;
   },
   

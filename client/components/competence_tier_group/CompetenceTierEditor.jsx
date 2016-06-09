@@ -9,12 +9,18 @@ import {NotificationManager} from 'react-notifications';
 export default React.createClass({
   render(){
     return <EditorBar onSave={this.onSave} onDelete={this.onDelete}>
-      <input ref='title' type='text' defaultValue={this.props.tier.title}></input>
+      <div>
+        <input ref='title' type='text' defaultValue={this.props.tier.title}></input>
+      </div>
+      <div>
+        <input ref='description' type='text' defaultValue={this.props.tier.description}></input>
+      </div>
     </EditorBar>;
   },
   
   onSave(){
-    competenceTierActions.updateTier(this.props.tier.id, this.refs.title.value, this.props.tier.level)
+    competenceTierActions.updateTier(this.props.tier.id, this.refs.title.value, this.props.tier.level,
+        this.refs.description.value)
     .then(data=>{
       if(_.get(data, "data.status")==="ok"){
         NotificationManager.info("Válasz módosítva");
