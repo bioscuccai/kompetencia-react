@@ -173,7 +173,7 @@ export default React.createClass({
       
       {titlelessCompetences.length!==0 ? titlelessCompetenceList : ""}
       
-      <h2>Skillek</h2>
+      <h2>Informatikához köthető egyéb ismeretek</h2>
       
       <UserSkillList
         skills={this.state.profileUser.skills}

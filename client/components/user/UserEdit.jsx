@@ -18,7 +18,8 @@ export default React.createClass({
   getInitialState(){
     return {
       profileUser: null,
-      godfathers: []
+      godfathers: [],
+      godfathersLoaded: false
     };
   },
   
@@ -34,7 +35,7 @@ export default React.createClass({
   },
   
   render(){
-    if(!this.state.profileUser){
+    if(!this.state.profileUser || this.state.godfathers.length===0){
       return <Loading></Loading>;
     }
     return <div>
@@ -63,7 +64,7 @@ export default React.createClass({
             Mentor:
           </div>
           <div className='column column-60'>
-            <select ref='godfatherId' defaultValue={this.context.currentUser.godfather_id}>
+            <select ref='godfatherId' defaultValue={this.state.profileUser.godfather_id}>
               <option value=""></option>
               {
                 this.state.godfathers.map(godfather=>{

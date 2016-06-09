@@ -21,6 +21,10 @@ export default React.createClass({
     return !_.isEqual(nextProps.allSkills, this.props.allSkills) || this.state.currentSkill.length!==nextState.currentSkill.length;
   },
   
+  fo(i, o){
+    return o.toLowerCase().contains(i.toLowerCase());
+  },
+  
   render(){
     return <div>
       <div className='row'>
@@ -34,6 +38,7 @@ export default React.createClass({
             onChange={this.onSkillChange}
             onOptionSelected={this.onSkillSelected}
             ref='skillName'
+            filterOption={this.fo}
             options={this.props.allSkills.map(e=>e.name)}>
           </Typeahead>
         </div>
