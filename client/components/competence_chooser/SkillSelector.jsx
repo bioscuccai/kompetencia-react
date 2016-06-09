@@ -22,7 +22,7 @@ export default React.createClass({
   },
   
   fo(i, o){
-    return o.toLowerCase().contains(i.toLowerCase());
+    return o.toLowerCase().includes(i.toLowerCase());
   },
   
   render(){
