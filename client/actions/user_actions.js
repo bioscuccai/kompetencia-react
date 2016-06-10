@@ -27,6 +27,7 @@ class UserActions{
       })
       .then(data=>{
         this.addSubordinateSucc(_.extend({}, resp, {data: data.data}));
+        return data;
       })
       .catch(this.error);
     };
@@ -41,6 +42,7 @@ class UserActions{
       })
       .then(data=>{
         this.removeSubordinateSucc(_.extend({}, resp, {data: data.data}));
+        return data;
       })
       .catch(this.error);
     };
@@ -54,7 +56,8 @@ class UserActions{
         responseType: 'json'
       })
       .then(data=>{
-        return this.makeAdminSucc(_.extend({}, resp, {data: data.data}));
+        this.makeAdminSucc(_.extend({}, resp, {data: data.data}));
+        return data;
       })
       .catch(this.error);
     };
@@ -69,6 +72,7 @@ class UserActions{
       })
       .then(data=>{
         this.revokeAdminSucc(_.extend({}, resp, {data: data.data}));
+        return data;
       })
       .catch(this.error);
     };
@@ -82,7 +86,8 @@ class UserActions{
         responseType: 'json'
       })
       .then(data=>{
-        return this.makeGodfatherSucc(_.extend({}, resp, {data: data.data}));
+        this.makeGodfatherSucc(_.extend({}, resp, {data: data.data}));
+        return data;
       })
       .catch(this.error);
     };
