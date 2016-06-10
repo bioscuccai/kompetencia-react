@@ -49,11 +49,11 @@ export default React.createClass({
     userStore.listen(this.handleUserStoreChange);
     competenceStore.listen(this.handleCompetenceStoreChange);
     this.fetch(this.props);
-    
   },
   
   fetch(props){
-    userStore.fetchProfileUser(parseInt(this.props.params.profileUserId));
+    console.log(`fetching ${props.params.profileUserId}`);
+    userStore.fetchProfileUser(parseInt(props.params.profileUserId));
     competenceStore.fetchAllCompetences();
     competenceStore.fetchCompetences(parseInt(props.params.profileUserId));
     competenceStore.fetchPendingCompetences(parseInt(props.params.profileUserId));
