@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
   #scope :has_availability, ->(b_starts_at, b_ends_at){where("availabilities.starts_at<=:b_starts_at AND availabilities.ends_at>=:b_ends_at", b_starts_at: b_starts_at, b_ends_at: b_ends_at)}
   
   has_attached_file :cv
-  validates_attachment_content_type :cv, :content_type=> ["application/x-download", "application/pdf; charset=binary", "application/pdf", "application/x-pdf"]
+  validates_attachment_content_type :cv, :content_type=> ["application/x-download", "application/pdf; charset=binary", "application/pdf", "application/x-pdf", "application/acrobat", "applications/vnd.pdf", "text/pdf", "text/x-pdf"]
   
   def availabilities_between(b_starts_at, b_ends_at)
     Availability.where("user_id=:user_id AND availabilities.starts_at<=:b_starts_at AND availabilities.ends_at>=:b_ends_at", user_id: self.id, b_starts_at: b_starts_at, b_ends_at: b_ends_at)
