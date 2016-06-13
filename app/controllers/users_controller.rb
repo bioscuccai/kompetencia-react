@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   skip_before_filter :verify_authenticity_token
   before_action :set_user, only: [:assigned_competences, :add_competence, :pending_competences,
     :add_pending_competence, :accept_pending_competence,
-    :reject_pending_competence, :remove_competence, :remove_pending_competence,
+    :reject_pending_competence, :remove_competence, :remove_pending_competence, :mass_accept_pending,
     :add_godfather, :remove_godfather,
     :make_admin, :revoke_admin, :make_godfather, :revoke_godfather,
     :notify_seen_by_godfather]
@@ -38,6 +38,17 @@ class UsersController < ApplicationController
     authorize! :accept_pending_competence, @user
     
     @user.accept_pending_competence params[:competence_id].to_i
+    render json: {status: :ok}
+  end
+  
+  def mass_accept_pending
+    authorize! :accept_pending_competence, @user
+    
+    params[:competence_ids].each do |id|
+      @user.accept_pending_competence id
+    end
+    
+    Rails.logger.info params[:competence_ids]
     render json: {status: :ok}
   end
   

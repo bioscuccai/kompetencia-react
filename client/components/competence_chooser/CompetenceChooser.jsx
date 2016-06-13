@@ -14,6 +14,7 @@ import Competence from './Competence.jsx';
 import SkillSelector from './SkillSelector.jsx';
 import UserBulletpoints from '../user/UserBulletpoints.jsx';
 import UserSkillList from '../skill/UserSkillList.jsx';
+import MassAcceptButton from './MassAcceptButton.jsx';
 
 import Loading from '../Loading.jsx';
 
@@ -147,7 +148,17 @@ export default React.createClass({
         {
           competenceGroupNames.map(groupName=>{
             return <div key={`competence-group-${groupName}`}>
-              <h4>{groupName}</h4>
+              <h4 className='clearfix'>
+                <span className='float-left'>
+                  {groupName}
+                </span>
+                <span className='float-right'>
+                  <MassAcceptButton
+                    currentUser={this.context.currentUser}
+                    competences={competenceGroups[groupName]}
+                    profileUser={this.state.profileUser}></MassAcceptButton>
+                </span>
+              </h4>
               {_.get(competenceGroups[groupName], "[0].description")}
               <table>
                 <thead>

@@ -9,7 +9,7 @@ class CompetenceActions{
     this.generateActions("error", "updateAllCompetences", "updateCompetences", "updatePendingCompetences", "updateSkills",
   
     "setLevelSucc", "setPendingLevelSucc", "acceptPendingSucc", "rejectPendingSucc", "removeAssignedSucc",
-    "addSkillSucc", "removeSkillSucc", "confirmSkillSucc");
+    "addSkillSucc", "removeSkillSucc", "confirmSkillSucc", "massAcceptPendingSucc");
   }
   
   //ezen keresztul szol a store-nak, hogy frissitse az user kompetenciait miutan visszajelzett a szero
@@ -59,6 +59,22 @@ class CompetenceActions{
         return data;
       })
       .catch(this.error);
+    };
+  }
+  
+  massAcceptPending(userId, competenceIds){
+    return dispatch=>{
+      let resp={userId, competenceIds};
+      dispatch(resp);
+      return axios.post(`/users/${userId}/mass_accept_pending`, {
+        competence_ids: competenceIds
+      }, {
+        responseType: 'json'
+      })
+      .then(data=>{
+        this.massAcceptPendingSucc(_.extend({}, resp, {data: data.data}));
+        return data;
+      });
     };
   }
   
