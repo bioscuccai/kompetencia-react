@@ -51,7 +51,7 @@ class UsersController < ApplicationController
   def mass_accept_pending
     authorize! :accept_pending_competence, @user
     render status: 500 if !params[:competence_ids].present? && !params[:competence_ids].respond_to?(:each)
-    binding.pry
+
     params[:competence_ids].each do |id|
       @user.accept_pending_competence id
     end
