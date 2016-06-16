@@ -162,7 +162,9 @@ export default React.createClass({
                     profileUser={this.state.profileUser}></MassAcceptButton>
                 </span>
               </h4>
-              {_.get(competenceGroups[groupName], "[0].description")}
+              <span className='comment'>
+                {_.get(competenceGroups[groupName], "[0].description")}
+              </span>
               <table>
                 <thead>
                   <tr>

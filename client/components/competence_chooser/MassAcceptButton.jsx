@@ -9,6 +9,9 @@ import competenceActions from '../../actions/competence_actions';
 
 export default React.createClass({
   render(){
+    if(this.props.competences.filter(competence=>competence.isPending).length===0){
+      return <span></span>;
+    }
     if(!auth.canAcceptCompetenceOf(this.props.profileUser, this.props.currentUser)){
       return <span></span>;
     }
