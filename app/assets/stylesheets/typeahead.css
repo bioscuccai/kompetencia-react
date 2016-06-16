@@ -12,6 +12,8 @@
   border-width: 1px 2px 2px 1px;
   background-color: white;
   list-style-type: none;
+  max-height: 200px;
+  overflow-y: scroll;
 }
 .typeahead-option {
   padding: 0px 4px 0px 4px;

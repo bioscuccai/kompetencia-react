@@ -95,7 +95,10 @@ export default React.createClass({
   render(){
     if(!this.state.profileUser){
       return <Loading></Loading>;
-    }    
+    }
+    if(!auth.canViewCompetenceOf(this.state.profileUser, this.context.currentUser)){
+      return <span></span>;
+    }
     let competenceGroups=_.groupBy(this.state.filteredCompetences.filter(e=>e.show_title), 'type');
     let competenceGroupNames=_(competenceGroups)
       .keys()

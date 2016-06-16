@@ -284,3 +284,29 @@ main{
 .no-margin{
   margin: 0;
 }
+
+.autocomplete-container{
+  position: relative;
+}
+
+.autocomplete-list{
+  background-color: white;
+  max-height: 300px;
+  overflow-y: scroll;
+  position: absolute;
+  top:0;
+  left:0;
+  padding: 5px;
+}
+
+.autocomplete-list-hidden{
+  display: none;
+}
+
+.autocomplete-list.autocomplete-list-hidden{
+  overflow-y: none;
+}
+
+.autocomplete-item{
+  cursor: pointer;
+}

@@ -20,8 +20,13 @@ class SkillsController < ApplicationController
   end
 
   def create
-    #TODO: getto jogkor kezeles
-    raise CanCan::AccessDenied if !current_user.has_role?(:admin) && !current_user.has_role?(:godfather) && !(current_user.id!=params[:id])
+    can_create=false
+    can_create=true if current_user.has_role? :admin
+    can_create=true if current_user.has_role? :godfather && params[:user_id].to_i == current_user.id
+    can_create=true if current_user.id==params[:user_id].to_i
+    raise CanCan::AccessDenied if !can_create
+    
+    #binding.pry
     
     @skill = Skill.find_or_create_by(name: params[:skill][:name])
     @users_skill=@user.users_skills.find_or_create_by(user_id: @user.id, skill_id: @skill.id)
@@ -31,7 +36,11 @@ class SkillsController < ApplicationController
 
   def destroy
     if params[:user_id]
-      raise CanCan::AccessDenied if !current_user.has_role?(:admin) && !current_user.has_role?(:godfather) && !(current_user.id!=params[:id])
+      can_destroy=false
+      can_destroy=true if current_user.has_role? :admin
+      can_destroy=true if current_user.has_role? :godfather && params[:user_id].to_i == current_user.id
+      can_destroy=true if current_user.id==params[:user_id].to_i
+      raise CanCan::AccessDenied if !can_destroy
       
       UsersSkill.where(user_id: params[:user_id], skill_id: params[:id]).destroy_all
     else

@@ -7,6 +7,18 @@
 ██  ██  ██    ██ ██  ██  ██ ██      ██         ██    ██      ██  ██ ██ ██      ██ ██   ██ 
 ██   ██  ██████  ██      ██ ██      ███████    ██    ███████ ██   ████  ██████ ██ ██   ██ 
 */
+function canViewCompetenceOf(subject, actor){
+  if(actor.is_admin){
+    return true;
+  }
+  if(actor.is_godfather){
+    return true;
+  }
+  if(actor.id===subject.id){
+    return true;
+  }
+}
+
 
 //torles
 function canDeleteCompetenceOf(subject, actor){
@@ -163,6 +175,7 @@ function canConfirmUserSkill(subject, actor){
 }
 
 export default {
+  canViewCompetenceOf,
   canDeleteCompetenceOf,
   canAcceptCompetenceOf,
   canSolicitCompetenceOf,

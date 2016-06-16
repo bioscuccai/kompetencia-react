@@ -7,6 +7,7 @@ import _ from 'lodash';
 
 import {Typeahead} from 'react-typeahead';
 import {NotificationManager} from 'react-notifications';
+import Autocomplete from '../autocomplete/Autocomplete.jsx';
 
 import competenceActions from '../../actions/competence_actions';
 
@@ -33,14 +34,8 @@ export default React.createClass({
         </div>
         
         <div className='column column-60'>
-          <Typeahead
-            placeholder='Skill'
-            onChange={this.onSkillChange}
-            onOptionSelected={this.onSkillSelected}
-            ref='skillName'
-            filterOption={this.fo}
-            options={this.props.allSkills.map(e=>e.name)}>
-          </Typeahead>
+          <Autocomplete ref='ac' inputs={this.props.allSkills.map(e=>e.name)} onChange={this.onSkillSelected}>
+          </Autocomplete>
         </div>
         
         <div className='column column-20'>
@@ -60,17 +55,11 @@ export default React.createClass({
     });
   },
   
-  onSkillChange(e){
-    this.setState({
-      currentSkill: e.target.value
-    });
-  },
-  
   onAddSkill(){
     competenceActions.addSkill(this.props.profileUser.id, this.state.currentSkill)
     .then(data=>{
       NotificationManager.info("Képesség hozzáadva");
-      this.refs.skillName.value='';
+      this.refs.ac.clear();
     });
   }
 });

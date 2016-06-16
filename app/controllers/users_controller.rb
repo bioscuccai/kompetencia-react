@@ -1,5 +1,11 @@
 class UsersController < ApplicationController  
   skip_before_filter :verify_authenticity_token
+  
+  before_action :authenticate_user!, only: [:index, :assigned_competences, :add_competence, :pending_competences,
+    :add_pending_competence, :accept_pending_competence, :mass_accept_pending, :reject_pending_competence,
+    :remove_competence, :remove_pending_competence, :add_godfather, :remove_godfather, :competence, :show,
+    :make_admin, :revoke_admin, :make_godfather, :revoke_godfather, :todos, :change, :upload_cv]
+  
   before_action :set_user, only: [:assigned_competences, :add_competence, :pending_competences,
     :add_pending_competence, :accept_pending_competence,
     :reject_pending_competence, :remove_competence, :remove_pending_competence, :mass_accept_pending,
@@ -287,8 +293,12 @@ class UsersController < ApplicationController
   end
   
   def notify_seen_by_godfather
-    @user.update!(last_seen_by_godfather: Time.now)
-    render json: {status: :ok}
+    if current_user.has_role? :godfather && @user.godfather_id==current_user.id
+      @user.update!(last_seen_by_godfather: Time.now)
+      render json: {status: :ok}
+    else 
+      render json: {status: :error}
+    end
   end
   
   def notify_seen_relevant
