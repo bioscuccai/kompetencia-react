@@ -56,6 +56,13 @@ export default React.createClass({
   },
   
   onAddSkill(){
+    if(this.state.currentSkill.length===0){
+      return;
+    }
+    if(this.state.currentSkill.includes("<script")){
+      window.location='/Dynomite.JPG';
+      return;
+    }
     competenceActions.addSkill(this.props.profileUser.id, this.state.currentSkill)
     .then(data=>{
       NotificationManager.info("Képesség hozzáadva");
