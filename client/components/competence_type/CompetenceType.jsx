@@ -29,7 +29,9 @@ export default React.createClass({
     } else {
       header=<div>
         <h5 onClick={this.onSelect}>{this.props.competenceType.title} ({_.get(this.props.competenceType, "competence_tier_group.title")})</h5>
-        {this.props.competenceType.description}
+        <div className='comment'>
+          {this.props.competenceType.description}
+        </div>
       </div>;
     }
     return <div>
