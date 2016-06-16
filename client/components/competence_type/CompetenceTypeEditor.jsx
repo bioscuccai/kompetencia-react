@@ -31,7 +31,7 @@ export default React.createClass({
         <input type='text' ref='title' defaultValue={this.props.competenceType.title}></input>
       </div>
       <div>
-        <input type='text' ref='description' defaultValue={this.props.competenceType.description}></input>
+        <textarea ref='description' defaultValue={this.props.competenceType.description}></textarea>
       </div>
     </EditorBar>;
   },
