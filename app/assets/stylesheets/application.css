@@ -182,7 +182,7 @@ main{
 }
 
 .comment{
-  white-space: pre;
+  white-space: pre-wrap;
 }
 
 .comment-preview{
