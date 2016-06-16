@@ -4,7 +4,8 @@ class UsersController < ApplicationController
   before_action :authenticate_user!, only: [:index, :assigned_competences, :add_competence, :pending_competences,
     :add_pending_competence, :accept_pending_competence, :mass_accept_pending, :reject_pending_competence,
     :remove_competence, :remove_pending_competence, :add_godfather, :remove_godfather, :competence, :show,
-    :make_admin, :revoke_admin, :make_godfather, :revoke_godfather, :todos, :change, :upload_cv]
+    :make_admin, :revoke_admin, :make_godfather, :revoke_godfather, :todos, :change, :upload_cv, :godfathers,
+    :notify_seen_relevant, :notify_seen_requested, :notify_seen_by_godfather]
   
   before_action :set_user, only: [:assigned_competences, :add_competence, :pending_competences,
     :add_pending_competence, :accept_pending_competence,
@@ -49,12 +50,12 @@ class UsersController < ApplicationController
   
   def mass_accept_pending
     authorize! :accept_pending_competence, @user
-    
+    render status: 500 if !params[:competence_ids].present? && !params[:competence_ids].respond_to?(:each)
+    binding.pry
     params[:competence_ids].each do |id|
       @user.accept_pending_competence id
     end
     
-    Rails.logger.info params[:competence_ids]
     render json: {status: :ok}
   end
   

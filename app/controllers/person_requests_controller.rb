@@ -80,7 +80,7 @@ class PersonRequestsController < ApplicationController
   # PATCH/PUT /person_requests/1
   # PATCH/PUT /person_requests/1.json
   def update
-    authorize! :update, PersonRequest
+    authorize! :update, @person_request
     
     @person_request.user_id=@user.id
     @person_request.update!(person_request_params)
@@ -90,7 +90,7 @@ class PersonRequestsController < ApplicationController
   # DELETE /person_requests/1
   # DELETE /person_requests/1.json
   def destroy
-    authorize! :destroy, PersonRequest
+    authorize! :destroy, @person_request
 
     @person_request.destroy!
     render json: {status: :ok}

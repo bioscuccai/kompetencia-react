@@ -28,7 +28,7 @@ class SkillsController < ApplicationController
     
     #binding.pry
     
-    @skill = Skill.find_or_create_by(name: params[:skill][:name])
+    @skill = Skill.find_or_create_by(name: ActionView::Base.full_sanitizer.sanitize(params[:skill][:name]))
     @users_skill=@user.users_skills.find_or_create_by(user_id: @user.id, skill_id: @skill.id)
     @users_skill.update(confirmed: true) if current_user.has_role?(:godfather) || current_user.has_role?(:admin)
     render json: @users_skill.formatted
