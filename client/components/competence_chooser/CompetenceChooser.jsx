@@ -116,6 +116,12 @@ export default React.createClass({
       width: '25em'
     };
     
+    let skillSelector;
+    if(auth.canSolicitUserSkill(this.state.profileUser, this.context.currentUser) ||
+      auth.canAddUserSkill(this.state.profileUser, this.context.currentUser)){
+      skillSelector=<SkillSelector allSkills={this.state.allSkills} profileUser={this.state.profileUser}></SkillSelector>;
+    }
+    
     let titlelessCompetenceList=<div>
       <h4>Egyéb kompetenciák</h4>
       <table>
@@ -197,7 +203,7 @@ export default React.createClass({
         profileUser={this.state.profileUser}
         currentUser={this.context.currentUser}
         ></UserSkillList>
-      <SkillSelector allSkills={this.state.allSkills} profileUser={this.state.profileUser}></SkillSelector>
+      {skillSelector}
     </div>;
   },
   

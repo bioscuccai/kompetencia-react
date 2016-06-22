@@ -159,7 +159,7 @@ function canAddUserSkill(subject, actor){
 function canRemoveUserSkill(subject, actor){
   if(actor.id_admin) return true;
   if(subject.id===actor.id) return true;
-  if(actor.is_godfather===actor.godfather_id) return true;
+  if(actor.is_godfather && subject.godfather_id===actor.id) return true;
   return false;
 }
 

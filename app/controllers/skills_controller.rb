@@ -2,7 +2,7 @@ class SkillsController < ApplicationController
   before_action :authenticate_user!
   
   before_action :set_skill, only: [:destroy, :confirm]
-  before_action :set_user, only: [:create, :confirm]
+  before_action :set_user, only: [:create, :confirm, :destroy]
   skip_before_filter :verify_authenticity_token
   
   # GET /skills
@@ -22,15 +22,19 @@ class SkillsController < ApplicationController
   def create
     can_create=false
     can_create=true if current_user.has_role? :admin
-    can_create=true if current_user.has_role? :godfather && params[:user_id].to_i == current_user.id
-    can_create=true if current_user.id==params[:user_id].to_i
+    can_create=true if current_user.has_role?(:godfather) && @user.godfather_id == current_user.id
+    can_create=true if current_user.id==@user.id
     raise CanCan::AccessDenied if !can_create
-    
-    #binding.pry
     
     @skill = Skill.find_or_create_by(name: ActionView::Base.full_sanitizer.sanitize(params[:skill][:name]))
     @users_skill=@user.users_skills.find_or_create_by(user_id: @user.id, skill_id: @skill.id)
-    @users_skill.update(confirmed: true) if current_user.has_role?(:godfather) || current_user.has_role?(:admin)
+    
+    confirmed=false
+    confirmed=true if current_user.has_role? :admin
+    confirmed=true if current_user.has_role?(:godfather) && @user.id==current_user.id
+    confirmed=true if current_user.has_role?(:godfather) && @user.godfather_id==current_user.id
+    
+    @users_skill.update(confirmed: confirmed)
     render json: @users_skill.formatted
   end
 
@@ -38,8 +42,8 @@ class SkillsController < ApplicationController
     if params[:user_id]
       can_destroy=false
       can_destroy=true if current_user.has_role? :admin
-      can_destroy=true if current_user.has_role? :godfather && params[:user_id].to_i == current_user.id
-      can_destroy=true if current_user.id==params[:user_id].to_i
+      can_destroy=true if current_user.has_role?(:godfather) && @user.godfather_id == current_user.id
+      can_destroy=true if current_user.id==@user.id
       raise CanCan::AccessDenied if !can_destroy
       
       UsersSkill.where(user_id: params[:user_id], skill_id: params[:id]).destroy_all

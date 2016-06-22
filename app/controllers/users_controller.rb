@@ -294,7 +294,7 @@ class UsersController < ApplicationController
   end
   
   def notify_seen_by_godfather
-    if current_user.has_role? :godfather && @user.godfather_id==current_user.id
+    if current_user.has_role?(:godfather) && @user.godfather_id==current_user.id
       @user.update!(last_seen_by_godfather: Time.now)
       render json: {status: :ok}
     else 
