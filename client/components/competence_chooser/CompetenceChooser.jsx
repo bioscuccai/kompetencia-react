@@ -41,7 +41,8 @@ export default React.createClass({
       filteredCompetences: [], //a kereso altal szurve -> ezt hasznaljuk
       profileUser: null,
       allSkills: [],
-      userLoadedOnce: false
+      userLoadedOnce: false,
+      hideUnmarked: false
     };
   },
   
@@ -78,6 +79,13 @@ export default React.createClass({
     });
   },
   
+  toggleUnmarked(){
+    console.log("toggle");
+    this.setState({
+      hideUnmarked: !this.state.hideUnmarked
+    });
+  },
+  
   handleUserStoreChange(state){
     if(state.profileUser){
       
@@ -91,7 +99,14 @@ export default React.createClass({
       userLoadedOnce: !!state.profileUser
     });
   },
-
+  
+  isVisible(comp){
+    if(this.state.hideUnmarked){
+      return comp.isAssigned || comp.isPending;
+    }
+    return true;
+  },
+  
   render(){
     if(!this.state.profileUser){
       return <Loading></Loading>;
@@ -122,6 +137,19 @@ export default React.createClass({
       skillSelector=<SkillSelector allSkills={this.state.allSkills} profileUser={this.state.profileUser}></SkillSelector>;
     }
     
+    let toggleVisibleButton;
+    if(this.state.hideUnmarked){
+      toggleVisibleButton=<button onClick={this.toggleUnmarked}>
+        <i className='icon ion-eye'></i>
+        Jelöletlen kompetenciák megjelenítése
+      </button>;
+    } else{
+      toggleVisibleButton=<button onClick={this.toggleUnmarked}>
+        <i className='icon ion-eye-disabled'></i>
+        Jelöletlen kompetenciák elrejtése
+      </button>;
+    }
+    
     let titlelessCompetenceList=<div>
       <h4>Egyéb kompetenciák</h4>
       <table>
@@ -133,7 +161,9 @@ export default React.createClass({
           </tr>
         </thead>
         <tbody>
-          {titlelessCompetences.map(competence=>{
+          {titlelessCompetences
+            .filter(comp=>this.isVisible(comp))
+            .map(competence=>{
             return <Competence competence={competence}
               user={this.state.profileUser}
               currentUser={this.context.currentUser}
@@ -150,6 +180,9 @@ export default React.createClass({
       <h3>
         {this.state.profileUser.name}
       </h3>
+      <div>
+        {toggleVisibleButton}
+      </div>
       <div>
         <input type="text" placeholder="Szűrés" ref='filter' onChange={this.onSearchChanged}/>
       </div>
@@ -180,7 +213,9 @@ export default React.createClass({
                   </tr>
                 </thead>
                 <tbody>
-                  {competenceGroups[groupName].map(competence=>{
+                  {competenceGroups[groupName]
+                    .filter(comp=>this.isVisible(comp))
+                    .map(competence=>{
                     return <Competence competence={competence}
                       user={this.state.profileUser}
                       currentUser={this.context.currentUser}
