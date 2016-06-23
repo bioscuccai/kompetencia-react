@@ -5,7 +5,6 @@ import SkillMini from '../skill/SkillMini.jsx';
 
 import _ from 'lodash';
 
-import {Typeahead} from 'react-typeahead';
 import {NotificationManager} from 'react-notifications';
 import Autocomplete from '../autocomplete/Autocomplete.jsx';
 

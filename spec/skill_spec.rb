@@ -75,4 +75,37 @@ RSpec.describe SkillsController, type: :controller do
       }
     }.to raise_error(CanCan::AccessDenied)
   end
+  
+  it "godfather can set subordiantes' skills" do
+    godfather_user=create(:godfather)
+    normal_user=create(:user)
+    normal_user.update!(godfather_id: godfather_user.id)
+    skill=Skill.find_or_create_by name: 'test'
+    UsersSkill.create(user_id: normal_user.id, skill_id: skill.id, confirmed: false)
+    
+    sign_in godfather_user
+    xhr :get, :confirm, {
+      user_id: normal_user.id,
+      id: skill.id
+    }
+    user_skill=UsersSkill.find_by(user_id: normal_user.id, skill_id: skill.id)
+    expect(response.status).to eq(200)
+    expect(user_skill.confirmed).to eq(true)
+  end
+  
+  it "godfather can delete subordinates' skills" do
+    normal_user=create(:user)
+    godfather_user=create(:godfather)
+    normal_user.update!(godfather_id: godfather_user.id)
+    skill=Skill.find_or_create_by name: 'test'
+    UsersSkill.create(user_id: normal_user.id, skill_id: skill.id)
+    
+    sign_in godfather_user
+    xhr :delete, :destroy, {
+      user_id: normal_user.id,
+      id: skill.id
+    }
+    expect(response.status).to be(200)
+    expect(UsersSkill.where(user_id: normal_user.id, skill_id: skill.id).count).to be(0)
+  end
 end

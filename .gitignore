@@ -22,3 +22,6 @@
 .env
 /public/bundle.*
 /public/assets/*
+
+spec/examples.txt
+public/

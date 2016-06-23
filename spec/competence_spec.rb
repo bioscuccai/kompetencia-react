@@ -172,4 +172,47 @@ RSpec.describe UsersController, type: :controller do
       }
     }.to raise_error(CanCan::AccessDenied)
   end
+  
+  it "godfather can set own competences" do
+    godfather_user=create(:godfather)
+    competence=Competence.first
+    competence_level=0
+    
+    sign_in godfather_user
+    xhr :post, :add_competence, {
+      id: godfather_user.id,
+      competence_id: competence.id,
+      level: competence_level
+    }
+    expect(response.status).to eq(200)
+    expect(AssignedCompetenceLevel.where(user_id: godfather_user.id, competence_id: competence.id, level: competence_level).count).to eq(1)
+  end
+  
+  it "godfather can set subordinates's competences" do
+    godfather_user=create(:godfather)
+    normal_user=create(:user)
+    normal_user.update!(godfather_id: godfather_user.id)
+    competence=Competence.first
+    competence_level=0
+    
+    #PendingCompetenceLevel.create(user_id: normal_user.id, competence_id: competence.id, level: 0)
+    
+    sign_in godfather_user
+    xhr :post, :add_competence, {
+      id: normal_user.id,
+      level: competence_level,
+      competence_id: competence.id
+    }
+    expect(response.status).to eq(200)
+    expect(AssignedCompetenceLevel.where(user_id: normal_user.id, competence_id: competence.id, level: competence_level).count).to eq(1)
+  end
+  
+  it "godfather can set subordiantes' competence" do
+    godfather_user=create(:godfather)
+    normal_user=create(:user)
+    skill=Skill.find_or_create_by name: 'test'
+    UsersSkill.create(user_id: normal_user.id, skill_id: skill.id, confirmed: false)
+    
+    expect(1).to be(1)
+  end
 end

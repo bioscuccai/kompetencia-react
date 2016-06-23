@@ -2,7 +2,7 @@ class SkillsController < ApplicationController
   before_action :authenticate_user!
   
   before_action :set_skill, only: [:destroy, :confirm]
-  before_action :set_user, only: [:create, :confirm, :destroy]
+  before_action :set_user, only: [:create, :confirm]
   skip_before_filter :verify_authenticity_token
   
   # GET /skills
@@ -40,6 +40,7 @@ class SkillsController < ApplicationController
 
   def destroy
     if params[:user_id]
+      @user=User.find params[:user_id]
       can_destroy=false
       can_destroy=true if current_user.has_role? :admin
       can_destroy=true if current_user.has_role?(:godfather) && @user.godfather_id == current_user.id
