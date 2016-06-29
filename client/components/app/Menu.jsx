@@ -29,8 +29,7 @@ export default React.createClass({
     if(this.props.currentUser.is_admin){
       statsButton=<div className='menu-item'>
         <Link to='/stats'>
-          <i className='icon ion-calculator'></i>
-          Statisztikák
+          <i className='icon ion-calculator'></i> Statisztikák
         </Link>
       </div>;
     }
