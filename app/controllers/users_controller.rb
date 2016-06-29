@@ -325,8 +325,8 @@ class UsersController < ApplicationController
     end
     
     user_count=User.count
-    with_assigned=AssignedCompetenceLevel.all.map{|u| u.id}.uniq.count
-    with_pending=PendingCompetenceLevel.all.map{|u| u.id}.uniq.count
+    with_assigned=AssignedCompetenceLevel.all.map{|u| u.user_id}.uniq.count
+    with_pending=PendingCompetenceLevel.all.map{|u| u.user_id}.uniq.count
     availability_count=Availability.count
     person_request_count=PersonRequest.count
     
