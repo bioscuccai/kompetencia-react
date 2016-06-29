@@ -87,7 +87,9 @@ export default React.createClass({
         isOpen={this.state.profileModal}
         onRequestClose={this.onRequestCloseProfile}
         style={modalStyle}>
-        <UserModal allUsers={this.props.allUsers} profileUser={this.props.result}></UserModal>
+        <UserModal allUsers={this.props.allUsers}
+          profileUser={this.props.result}
+          closeModal={this.onRequestCloseProfile}></UserModal>
       </Modal>
     </div>;
   }

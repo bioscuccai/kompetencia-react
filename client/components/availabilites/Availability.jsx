@@ -42,6 +42,9 @@ export default React.createClass({
       <td>
         {this.props.availability.work_hours}
       </td>
+      <td>
+        {this.props.availability.chance} %
+      </td>
       <td className='availability-buttons'>
         {buttons}
       </td>

@@ -15,6 +15,8 @@ import Availability from '../availabilites/Availabilities.jsx';
 import CompetenceChooser from '../competence_chooser/CompetenceChooser.jsx';
 import PersonRequests from '../person_requests/PersonRequests.jsx';
 import UserEdit from '../user/UserEdit.jsx';
+import Stats from '../stats/Stats.jsx';
+
 
 import {Router, Route, hashHistory} from 'react-router';
 
@@ -41,6 +43,7 @@ export default React.createClass({
           <Route path='/competence_chooser/:profileUserId' component={CompetenceChooser}></Route>
           <Route path='/person_requests/:profileUserId' component={PersonRequests}></Route>
           <Route path='/user_edit' component={UserEdit}></Route>
+          <Route path='/stats' component={Stats}></Route>
         </Route>
       </Router>;
   }

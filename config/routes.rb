@@ -93,6 +93,7 @@ Rails.application.routes.draw do
       get 'notify_seen_requested'
       
       get 'godfathers'
+      get 'stats'
     end
   end
   

@@ -41,7 +41,10 @@ export default React.createClass({
           <DateTime onChange={this.onEndChange} timeFormat={false} closeOnSelect={true}></DateTime>
         </div>
         <div>
-          Munkaóra: <input type='text' placeholder='Munkaóra' ref='workHours'></input>
+          Munkaóra: <input type='number' placeholder='Munkaóra' ref='workHours'></input>
+        </div>
+        <div>
+          Valószínűség: <input type='number' placeholder='Esély' defaultValue='100' ref='chance'></input>
         </div>
         <div>
           <textarea ref='comment' placeholder='Komment'></textarea>
@@ -61,7 +64,7 @@ export default React.createClass({
     }
     availabilityActions.newAvailability(userId,
       this.state.startsAt, this.state.endsAt,
-      this.refs.comment.value, this.refs.workHours.value
+      this.refs.comment.value, this.refs.workHours.value, this.refs.chance.value
     )
     .then(data=>{
       if(_.get(data, "data.status")==="ok"){

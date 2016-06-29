@@ -26,6 +26,12 @@ export default React.createClass({
     });
   },
   
+  onClose(){
+    if(this.props.closeModal){
+      this.props.closeModal();
+    }
+  },
+  
   render(){
     let availabilityMarker;
     if(this.props.profileUser.available){
@@ -50,7 +56,16 @@ export default React.createClass({
     }
     
     return <div>
-      <h1>{this.props.profileUser.name} <small>{this.props.profileUser.email}</small></h1>
+      <div className='clearfix'>
+        <div className='float-left'>
+          <h1>{this.props.profileUser.name} <small>{this.props.profileUser.email}</small></h1>
+        </div>
+        <div className='float-right'>
+          <button className='icon-button icon-button-large' onClick={this.onClose}>
+            <i className='icon ion-close'></i>
+          </button>
+        </div>
+      </div>
       
       <div>
         <h3>Kompetenciák</h3>

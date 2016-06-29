@@ -13,7 +13,8 @@ module AvailabilityFormatter
       starts_at: a.starts_at,
       ends_at: a.ends_at,
       active: a.active,
-      work_hours: a.work_hours
+      work_hours: a.work_hours,
+      chance: a.chance
     }
   end
 end

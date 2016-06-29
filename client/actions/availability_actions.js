@@ -13,7 +13,7 @@ class AvailabilityActions{
       "turnOffAvailabilitySucc", "turnOnAvailabilitySucc");
   }
   
-  newAvailability(userId, startsAt, endsAt, comment, workHours){
+  newAvailability(userId, startsAt, endsAt, comment, workHours, chance=100){
     return dispatch=>{
       let resp={ userId, startsAt, endsAt, comment };
       dispatch(resp);
@@ -22,7 +22,8 @@ class AvailabilityActions{
           starts_at: startsAt,
           ends_at: endsAt,
           comment,
-          work_hours: workHours
+          work_hours: workHours,
+          chance
         }
       }, {
         responseType: 'json'
@@ -76,7 +77,7 @@ class AvailabilityActions{
     };
   }
   
-  editAvailability(userId, availabilityId, startsAt, endsAt, comment, workHours){
+  editAvailability(userId, availabilityId, startsAt, endsAt, comment, workHours, chance){
     return dispatch=>{
       let resp={ userId, availabilityId };
       dispatch(resp);
@@ -85,7 +86,8 @@ class AvailabilityActions{
           starts_at: startsAt,
           ends_at: endsAt,
           comment,
-          work_hours: workHours
+          work_hours: workHours,
+          chance
         }
       },{
         responseType: 'json',

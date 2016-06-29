@@ -14,6 +14,8 @@ class UsersController < ApplicationController
     :make_admin, :revoke_admin, :make_godfather, :revoke_godfather,
     :notify_seen_by_godfather]
   
+  WORK_PLACES=['SZTE', 'FEA', 'AENSYS']
+  
   include CompetenceFormatter
   include UserFormatter
   
@@ -310,6 +312,32 @@ class UsersController < ApplicationController
   def notify_seen_requested
     current_user.update!(last_seen_requested: Time.now)
     render json: {status: :ok}
+  end
+  
+  def stats
+    work_places=(ENV['WORK_PLACES'] || '').split(",")
+    
+    workers={}
+    work_places.each do |wp|
+      #binding.pry
+      comp=Competence.find_by title: wp
+      workers[wp]=AssignedCompetenceLevel.where(competence_id: comp.id).count if comp
+    end
+    
+    user_count=User.count
+    with_assigned=AssignedCompetenceLevel.all.map{|u| u.id}.uniq.count
+    with_pending=PendingCompetenceLevel.all.map{|u| u.id}.uniq.count
+    availability_count=Availability.count
+    person_request_count=PersonRequest.count
+    
+    render json: {
+      user_count: user_count,
+      availability_count: availability_count,
+      with_assigned: with_assigned,
+      with_pending: with_pending,
+      workers: workers,
+      person_request_count: person_request_count
+    }
   end
   
   private

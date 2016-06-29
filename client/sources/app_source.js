@@ -17,5 +17,19 @@ export default {
 
     success: appActions.updateCurrentUser,
     error: appActions.error
+  },
+  
+  fetchStats: {
+    remote(state){
+      return new Promise((resolve, reject) => {
+        axios.get('/users/stats', {responseType: 'json'})
+        .then(data=>{
+          return resolve(data.data);
+        });
+      });  
+    },
+    
+    success: appActions.updateStats,
+    error: appActions.error
   }
 };

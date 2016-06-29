@@ -8,6 +8,7 @@ class AppStore{
   constructor(){
     this.unreadNotifications=[];
     this.currentUser=null;
+    this.stats={};
     this.bindActions(appActions);
     this.registerAsync(appSource);
     this.bindListeners({
@@ -30,6 +31,10 @@ class AppStore{
       this.getInstance().fetchCurrentUser(this.currentUser.id);
     }
     return false;
+  }
+  
+  updateStats(stats){
+    this.stats=stats;
   }
   
   error(e){

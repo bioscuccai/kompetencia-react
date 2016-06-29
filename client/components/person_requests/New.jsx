@@ -48,11 +48,26 @@ export default React.createClass({
     }
   },
   
+  onClose(){
+    if(this.props.onClose){
+      console.log("closing");
+      this.props.onClose();
+    }
+  },
+  
   render(){
     return <div>
-      <div>
-        <UserBulletPoints user={this.props.user}></UserBulletPoints>
+      <div className='clearfix'>
+        <div className='float-left'>
+          <UserBulletPoints user={this.props.user}></UserBulletPoints>
+        </div>
+        <div className='float-right'>
+          <button className='icon-button icon-button-large' onClick={this.onClose}>
+            <i className='icon ion-close'></i>
+          </button>
+        </div>
       </div>
+      
       <form onSubmit={this.onSubmit}>
         Kezdés:
         <DateTime onChange={this.onStartChange}

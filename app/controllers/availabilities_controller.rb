@@ -95,6 +95,6 @@ class AvailabilitiesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def availability_params
       #active direkt nincs itt
-      params.require(:availability).permit(:user_id, :starts_at, :ends_at, :comment, :work_hours)
+      params.require(:availability).permit(:user_id, :starts_at, :ends_at, :comment, :work_hours, :chance)
     end
 end

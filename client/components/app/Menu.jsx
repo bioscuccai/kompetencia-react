@@ -25,6 +25,16 @@ export default React.createClass({
       </span>;
     }
     
+    let statsButton;
+    if(this.props.currentUser.is_admin){
+      statsButton=<div className='menu-item'>
+        <Link to='/stats'>
+          <i className='icon ion-calculator'></i>
+          Statisztikák
+        </Link>
+      </div>;
+    }
+    
     let godfatherButtons;
     if(this.props.currentUser.is_godfather){
       godfatherButtons=<span>
@@ -66,6 +76,7 @@ export default React.createClass({
       <div className='menu-item'>
         <Link to={`/competence_chooser/${this.props.currentUser.id}`}><i className='icon ion-trophy'></i> Kompetenciáim</Link>
       </div>
+      {statsButton}
       {recentButton}
       {searchButton}
       {usersButton}

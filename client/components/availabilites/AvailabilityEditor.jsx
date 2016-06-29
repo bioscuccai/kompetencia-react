@@ -41,6 +41,10 @@ export default React.createClass({
           Munkóra:
           <input type='number' defaultValue={this.props.availability.work_hours} ref='workHours'></input>
         </div>
+        <div>
+          Valószínűség
+          <input type='number' defaultValue={this.props.availability.chance} ref='chance'></input>
+        </div>
         <textarea defaultValue={this.props.availability.comment} ref='comment'></textarea>
         <input type='submit' value='Mentés'></input>
         <button onClick={this.onClose}>Bezár</button>
@@ -55,7 +59,8 @@ export default React.createClass({
       this.state.startsAt,
       this.state.endsAt,
       this.refs.comment.value,
-      this.refs.workHours.value)
+      this.refs.workHours.value,
+      this.refs.chance.value)
       .then(data=>{
         if(_.get(data, "data.status")==="ok"){
           NotificationManager.info("Rendelkezésreállás módosítva");
