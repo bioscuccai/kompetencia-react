@@ -107,7 +107,7 @@ export default React.createClass({
         
         <div className='row'>
           <div className='column column-40'>
-            Régi jelszó:
+            <strong>Régi jelszó a profil módosításához:</strong>
           </div>
           <div className='column column-60'>
             <input type='password' ref='currentPassword'></input>
