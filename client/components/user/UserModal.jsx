@@ -90,11 +90,11 @@ export default React.createClass({
             <th>
               Komment
             </th>
-            <th>
+            <th title='Munkaóra'>
               <i className='icon ion-calendar'></i>
             </th>
             <th>
-              
+              %
             </th>
           </tr>
         </thead>
