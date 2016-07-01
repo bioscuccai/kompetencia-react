@@ -49,7 +49,7 @@ class PersonRequestsController < ApplicationController
   end
   
   def relevant
-    @formatted=PersonRequest.joins(target: [:godfather]).relevant_for(@user.id).map{|p| format_person_request(p)}
+    @formatted=PersonRequest.joins(:target).where("users.godfather_id=?", @user.id).map{|p| format_person_request(p)}
     render json: @formatted
   end
 

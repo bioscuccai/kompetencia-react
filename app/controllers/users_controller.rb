@@ -286,12 +286,12 @@ class UsersController < ApplicationController
   end
   
   def upload_cv
-    # begin
+    begin
       current_user.cv=params[:cv]
       current_user.save!
-    # rescue =>e
-    #   binding.pry
-    # end
+    rescue =>e
+      return render json: {status: :error}
+    end
     render json: {status: :ok}
   end
   

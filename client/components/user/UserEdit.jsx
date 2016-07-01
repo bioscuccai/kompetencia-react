@@ -161,10 +161,20 @@ export default React.createClass({
   onUpload(e){
     e.preventDefault();
     let formData=new FormData();
+    console.log(this.refs.cvFile.files[0]);
+    if(!this.refs.cvFile.files[0]){
+      NotificationManager.error("Hiba a CV feltöltése közben");
+      return;
+    }
     formData.append("cv", this.refs.cvFile.files[0]);
     userActions.uploadCv(formData)
     .then(data=>{
-      NotificationManager.info("CV feltöltve");
+      if(_.get(data, 'data.status')==='ok'){
+        NotificationManager.info("CV feltöltve");
+      } else {
+        NotificationManager.error("Hiba a CV feltöltése közben");
+        
+      }
     })
     .catch(data=>{
       NotificationManager.error("Hiba a CV feltöltése közben");

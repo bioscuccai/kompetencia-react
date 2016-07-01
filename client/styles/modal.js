@@ -10,8 +10,8 @@ export default {
   content : {
     position                   : 'absolute',
     top                        : '40px',
-    left                       : '40px',
-    right                      : '40px',
+    left                       : '100px',
+    right                      : '100px',
     bottom                     : '40px',
     border                     : '1px solid #ccc',
     background                 : '#fff',
