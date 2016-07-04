@@ -40,7 +40,9 @@ export default React.createClass({
       endsAt: null,
       selectedTabIndex: 0,
       dateChecked: false,
-      notStrict: false
+      notStrict: false,
+      pendingCheck: false,
+      matchAll: false
     };
   },
   
@@ -63,6 +65,10 @@ export default React.createClass({
   },
   
   render(){
+    let hideBox={
+      display: 'none'
+    };
+    
     let resultGroups=_.groupBy(this.state.results, res=>res.found.length);
     let resultHitGroups=_.keys(resultGroups).reverse();
     
@@ -119,6 +125,7 @@ export default React.createClass({
               {notStrictSearch}
               
             </div>
+            
             <div className='row'>
               <div className='column column-50'>
                 Kezdés:
@@ -145,6 +152,24 @@ export default React.createClass({
             </div>
             
           </div>
+          
+          <div>
+            <input type='checkbox' name='check_pending'
+              ref='checkPending'
+              onChange={this.onPendingChange}
+              value={this.state.pendingCheck}></input>
+            Függő kompetenciák?
+          </div>
+          
+          <div style={hideBox}>
+            <input type='checkbox' name='match_all'
+              ref='matchAll'
+              onChange={this.onMatchAll}
+              value={this.state.matchAll}>
+            </input>
+            Összes kompetencia jelen legyen? (szinttől függetlenül)
+          </div>
+          
           <div>
             <h4>Kompetencia</h4>
             <input type='text' placeholder='Kompetencia szűrő' onChange={this.onFilterChange} ref='filter'></input>
@@ -253,6 +278,18 @@ export default React.createClass({
     });
   },
   
+  onPendingChange(e){
+    this.setState({
+      pendingCheck: e.target.checked
+    });
+  },
+  
+  onMatchAll(e){
+    this.setState({
+      matchAll: e.target.checked
+    });
+  },
+  
   onQuery(e){
     e.preventDefault();
     let requested=this.state.selectedCompetences.map(competence=>{
@@ -266,7 +303,8 @@ export default React.createClass({
     });
     queryStore.fetchQuery(requested, this.state.startsAt, this.state.endsAt,
       this.state.dateChecked, this.state.notStrict,
-      this.state.selectedSkillIds);
+      this.state.selectedSkillIds,
+      this.state.pendingCheck, this.state.matchAll);
     console.log(requested);
     
     this.setState({

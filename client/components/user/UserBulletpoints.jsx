@@ -57,6 +57,19 @@ export default React.createClass({
       </div>
       
       <div>
+        <small>
+          {this.props.user.pending_competences.map(competence=>{
+            return <CompetenceBreadcrumb
+              pending={true}
+              key={`subordinate-mini-competence-${this.props.user.id}-${competence.id}`}
+              competence={competence}
+              highlight={_.get(this.props, "highlightedIds", []).indexOf(competence.id)!==-1}
+              ></CompetenceBreadcrumb>;
+          })}
+        </small>
+      </div>
+      
+      <div>
         {this.props.user.skills.filter(item=>item.confirmed).map(skill=>{
           return <SkillBreadcrumb
             skill={skill}

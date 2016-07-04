@@ -29,6 +29,8 @@ class User < ActiveRecord::Base
   
   scope :has_skills, ->(skill_ids){joins(:users_skills).where("confirmed=? AND skill_id IN (?)", true, skill_ids)}
   scope :has_level, ->(competence_id, level){joins(:assigned_competence_levels).where("assigned_competence_levels.level>=? AND assigned_competence_levels.competence_id=?", level, competence_id)}
+  scope :has_pending_level, ->(competence_id, level){joins(:pending_competence_levels).where("pending_competence_levels.level>=? AND pending_competence_levels.competence_id=?", level, competence_id)}
+  
   scope :free_between_closed, ->(start_at, ends_at){joins(:availabilities)}
   scope :free_between_open, ->(starts_at){all}
   #scope :has_availability, ->(b_starts_at, b_ends_at){where("availabilities.starts_at<=:b_starts_at AND availabilities.ends_at>=:b_ends_at", b_starts_at: b_starts_at, b_ends_at: b_ends_at)}

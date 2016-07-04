@@ -14,8 +14,7 @@
  *= require milligram/dist/milligram
  *= require Ionicons/css/ionicons
  *= require react_datetime
- *= require typeahead
- */
+*/
 
 .unchecked-tier{
   background-color: rgb(146, 146, 146)!important;
@@ -51,6 +50,14 @@
   padding: 3px;
   border-radius: 5px;
   display: inline;
+}
+
+.pending-mini{
+  background-color: rgb(255, 199, 0)!important;
+}
+
+.pending-mini.result-competence{
+  background-color: rgb(119, 254, 0)!important;
 }
 
 .result-competence{

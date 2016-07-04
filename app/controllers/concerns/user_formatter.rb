@@ -38,7 +38,14 @@ module UserFormatter
           competences: format_competence_list(u.assigned_competence_levels)
         }
       )
-      
+    end
+    
+    if !wo.include? :pending_competences
+      user.merge!(
+        {
+          pending_competences: format_competence_list(u.pending_competence_levels)
+        }
+      )
     end
     
     if !wo.include? :pending_count
