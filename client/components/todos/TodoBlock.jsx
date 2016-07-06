@@ -89,7 +89,6 @@ export default React.createClass({
   },
   
   handleTodoStoreChange(state){
-    console.log(state);
     this.setState({
       pendingSubordinates: state.pendingSubordinates,
       changedRelevant: state.changedRelevant,

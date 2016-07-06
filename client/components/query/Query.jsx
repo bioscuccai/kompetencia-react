@@ -15,6 +15,7 @@ import CompetenceQueryResult from './CompetenceQueryResult.jsx';
 import QueryResult from './QueryResult.jsx';
 import MiniSelectedCompetences from './MiniSelectedCompetences.jsx';
 import SkillCheckboxes from './SkillCheckboxes.jsx';
+import SaveQueryButton from './SaveQueryButton.jsx';
 import {animateScroll} from 'react-scroll';
 
 import {Tabs, Tab, TabList, TabPanel} from 'react-tabs';
@@ -158,16 +159,16 @@ export default React.createClass({
               ref='checkPending'
               onChange={this.onPendingChange}
               value={this.state.pendingCheck}></input>
-            Függő kompetenciák?
+            Még nem validált kompetenciák figyelembevétele
           </div>
           
-          <div style={hideBox}>
+          <div>
             <input type='checkbox' name='match_all'
               ref='matchAll'
               onChange={this.onMatchAll}
               value={this.state.matchAll}>
             </input>
-            Összes kompetencia jelen legyen? (szinttől függetlenül)
+            Összes kompetencia stimmeljen? (szinttől függetlenül) [work in progress]
           </div>
           
           <div>
@@ -200,7 +201,12 @@ export default React.createClass({
           <div>
             <button onClick={this.onQuery}>Keresés</button>
           </div>
-
+          
+          <SaveQueryButton
+            currentUser={this.context.currentUser}
+            competences={this.selectedCompetenceArray()}
+            matchAll={this.state.matchAll}></SaveQueryButton>
+          
           <div>
             <h4>Találatok</h4>
             {resultHitGroups.map(rhg=>{
@@ -290,14 +296,18 @@ export default React.createClass({
     });
   },
   
-  onQuery(e){
-    e.preventDefault();
-    let requested=this.state.selectedCompetences.map(competence=>{
+  selectedCompetenceArray(){
+    return this.state.selectedCompetences.map(competence=>{
       return {
         competence_id: competence.id,
         level: competence.selectedLevel
       };
     });
+  },
+  
+  onQuery(e){
+    e.preventDefault();
+    let requested=this.selectedCompetenceArray();
     this.setState({
       lastSkillSelection: this.state.selectedSkillIds
     });

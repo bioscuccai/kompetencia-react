@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160628191318) do
+ActiveRecord::Schema.define(version: 20160705180805) do
 
   create_table "assigned_competence_levels", force: :cascade do |t|
     t.integer  "competence_id", limit: 4
@@ -88,6 +88,12 @@ ActiveRecord::Schema.define(version: 20160628191318) do
     t.boolean  "confirmed"
   end
 
+  create_table "reports", force: :cascade do |t|
+    t.string   "name",       limit: 255, default: "", null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string   "name",          limit: 255
     t.integer  "resource_id",   limit: 4
@@ -98,6 +104,21 @@ ActiveRecord::Schema.define(version: 20160628191318) do
 
   add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
   add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
+
+  create_table "saved_queries", force: :cascade do |t|
+    t.string   "name",       limit: 255, default: "",    null: false
+    t.boolean  "match_all",              default: false, null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+  end
+
+  create_table "saved_query_competences", force: :cascade do |t|
+    t.integer  "saved_query_id", limit: 4, null: false
+    t.integer  "competence_id",  limit: 4, null: false
+    t.integer  "level",          limit: 4, null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
 
   create_table "skills", force: :cascade do |t|
     t.string   "name",        limit: 255

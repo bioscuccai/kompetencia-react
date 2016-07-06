@@ -317,3 +317,9 @@ main{
 .autocomplete-item{
   cursor: pointer;
 }
+
+.saved-query{
+  border: 1px solid lavender;
+  border-radius: 3px;
+  margin-top: 3px;
+}

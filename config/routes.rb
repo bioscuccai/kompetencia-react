@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :saved_queries
+  resources :reports
   resources :skills, only: [:index, :destroy]
   
   resources :availabilities, only: [:recent] do

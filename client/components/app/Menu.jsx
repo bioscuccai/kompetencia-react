@@ -27,11 +27,23 @@ export default React.createClass({
     
     let statsButton;
     if(this.props.currentUser.is_admin){
-      statsButton=<div className='menu-item'>
-        <Link to='/stats'>
-          <i className='icon ion-calculator'></i> Statisztikák
-        </Link>
-      </div>;
+      statsButton=<span>
+        <div className='menu-item'>
+          <Link to='/stats'>
+            <i className='icon ion-calculator'></i> Statisztikák
+          </Link>
+        </div>
+        <div className='menu-item'>
+          <Link to='/reports'>
+            <i className='icon ion-document-text'></i> Report
+          </Link>
+        </div>
+        <div className='menu-item'>
+          <Link to='/saved_queries'>
+            <i className='icon ion-funnel'></i> Mentett keresés
+          </Link>
+        </div>
+      </span>;
     }
     
     let godfatherButtons;

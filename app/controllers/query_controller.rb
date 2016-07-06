@@ -33,7 +33,7 @@ class QueryController < ApplicationController
       user_ids_=(assigned_users.map(&:id) + pending_users.map(&:id)).uniq
       proper_user_ids=[]
       user_ids_.each do |uid|
-        if assigned_users.select{|u| u.id==uid}.count + pending_users.select{|u| u.id==uid}.count == params[:competences].count
+        if assigned_users.select{|u| u.id==uid}.count + pending_users.select{|u| u.id==uid}.count >= params[:competences].count
           proper_user_ids.push uid
           result_per_user[uid]=competence_ids
         end
