@@ -37,6 +37,7 @@ export default React.createClass({
           style={modalStyle}>
           <NewSavedQuery
             onClose={this.onRequestClose}
+            matchAll={this.props.matchAll}
             competences={this.props.competences}></NewSavedQuery>
         </Modal>
       </span>;
