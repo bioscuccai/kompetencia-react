@@ -8,6 +8,6 @@ class Competence < ActiveRecord::Base
   has_many :assigned_competence_levels, dependent: :delete_all
   has_many :users, through: :assigned_competence_levels
   
-  has_many :saved_query_competences
+  has_many :saved_query_competences, dependent: :destroy
   has_many :saved_queries, through: :saved_query_competences
 end

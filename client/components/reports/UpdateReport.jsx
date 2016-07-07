@@ -11,11 +11,17 @@ export default React.createClass({
     };
   },
   
+  componentDidMount(){
+    this.setState({
+      selectedSavedQueryIds: this.props.report.savedQueries.map(item=>item.id)
+    });
+  },
+  
   render(){
     return <div>
       Név:
       <input type='text' ref='name'></input>
-      <select ref='savedQueries' multiple onChange={this.onSelectChange} className='tall-200px'>
+      <select ref='savedQueries' multiple onChange={this.onSelectChange} value={this.state.selectedSavedQueryIds}>
         {this.props.savedQueries.map(sq=>{
           return <option key={sq.id} value={sq.id}>{sq.name}</option>;
         })}
@@ -32,8 +38,5 @@ export default React.createClass({
     console.log(this.state.selectedSavedQueryIds);
     reportActions.createReport(this.refs.name.value,
     this.state.selectedSavedQueryIds);
-    if(this.props.onClose){
-      this.props.onClose();
-    }
   }
 });

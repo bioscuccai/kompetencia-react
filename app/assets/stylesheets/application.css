@@ -323,3 +323,7 @@ main{
   border-radius: 3px;
   margin-top: 3px;
 }
+
+.tall-200px{
+  height: 200px;
+}

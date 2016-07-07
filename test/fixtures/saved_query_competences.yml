@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  saved_query_id: 1
+  competence_id: 1
+  level: 1
+
+two:
+  saved_query_id: 1
+  competence_id: 1
+  level: 1

@@ -28,5 +28,33 @@ export default {
     
     success: reportActions.updateSavedQueries,
     error: reportActions.error
+  },
+  
+  fetchReport: {
+    remote(state, id){
+      return new Promise((resolve, reject) => {
+        axios.get(`/reports/${id}.json`, {responseType: 'json'})
+        .then(data=>{
+          return resolve(data.data);
+        });
+      });
+    },
+    
+    success: reportActions.updateCurrentReport,
+    error: reportActions.error
+  },
+  
+  fetchResults: {
+    remote(state, id){
+      return new Promise((resolve, reject) => {
+        axios.get(`/reports/${id}/results.json`, {responseType: 'json'})
+        .then(data=>{
+          return resolve(data.data);
+        });
+      });
+    },
+    
+    success: reportActions.updateResults,
+    error: reportActions.error
   }
 };

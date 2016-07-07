@@ -208,7 +208,7 @@ class UsersController < ApplicationController
   
   def todos
     pending_subordinates=[
-      *(PendingCompetenceLevel.joins(:user).
+      *(PendingCompetenceLevel.joins(:user).includes(:user).
         where("users.godfather_id=?", current_user.id).
         map do |cl|
           {

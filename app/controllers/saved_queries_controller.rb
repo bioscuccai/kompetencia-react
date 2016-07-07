@@ -1,6 +1,8 @@
 class SavedQueriesController < ApplicationController
   before_action :set_saved_query, only: [:show, :edit, :update, :destroy]
   skip_before_filter :verify_authenticity_token
+  before_action :restrict_admin
+  
   include CompetenceFormatter
   
   # GET /saved_queries
@@ -62,10 +64,7 @@ class SavedQueriesController < ApplicationController
   # DELETE /saved_queries/1.json
   def destroy
     @saved_query.destroy
-    respond_to do |format|
-      format.html { redirect_to saved_queries_url, notice: 'Saved query was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    render json: {status: :ok}
   end
 
   private
@@ -77,5 +76,9 @@ class SavedQueriesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def saved_query_params
       params.require(:saved_query).permit(:name, :match_all)
+    end
+    
+    def restrict_admin
+      raise CanCan::AccessDenied unless current_user.has_role?(:admin)
     end
 end

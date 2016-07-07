@@ -18,6 +18,7 @@ import UserEdit from '../user/UserEdit.jsx';
 import Stats from '../stats/Stats.jsx';
 import SavedQueries from '../reports/SavedQueries.jsx';
 import Reports from '../reports/Reports.jsx';
+import ReportResults from '../reports/ReportResults.jsx';
 
 import {Router, Route, hashHistory} from 'react-router';
 
@@ -47,6 +48,7 @@ export default React.createClass({
           <Route path='/stats' component={Stats}></Route>
           <Route path='/reports' component={Reports}></Route>
           <Route path='/saved_queries' component={SavedQueries}></Route>
+          <Route path='/report_results/:reportId' component={ReportResults}></Route>
         </Route>
       </Router>;
   }
