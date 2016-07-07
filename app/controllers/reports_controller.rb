@@ -51,12 +51,7 @@ class ReportsController < ApplicationController
   def results
     res=[]
     @report.saved_queries.each do |sq|
-      competence_params=sq.saved_query_competences.map do |c|
-        {
-          'competence_id' => c.id,
-          'level' => c.level
-        }
-      end
+      competence_params=sq.competence_query_params
       users, a, b=User.query({competences: competence_params, match_all: sq.match_all})
       res.push({
         name: sq.name,
