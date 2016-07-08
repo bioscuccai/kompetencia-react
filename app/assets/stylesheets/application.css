@@ -327,3 +327,7 @@ main{
 .tall-200px{
   height: 200px;
 }
+
+.pending-text{
+  color: rgb(231, 173, 62);
+}

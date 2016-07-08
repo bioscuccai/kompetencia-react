@@ -321,7 +321,13 @@ class UsersController < ApplicationController
     work_places.each do |wp|
       #binding.pry
       comp=Competence.find_by title: wp
-      workers[wp]=AssignedCompetenceLevel.where(competence_id: comp.id).count if comp
+      if comp
+        
+      end
+      workers[wp]={
+        assigned: AssignedCompetenceLevel.where(competence_id: comp.id).count,
+        pending: PendingCompetenceLevel.where(competence_id: comp.id).count
+      }
     end
     
     user_count=User.count
