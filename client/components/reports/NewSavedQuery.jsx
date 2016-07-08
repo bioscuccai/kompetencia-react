@@ -15,7 +15,10 @@ export default React.createClass({
   
   onSubmit(){
     console.log(this.props.competences);
-    reportActions.createSavedQuery(this.refs.name.value, this.props.matchAll, this.props.competences)
+    reportActions.createSavedQuery(this.refs.name.value,
+      this.props.matchAll,
+      this.props.showPending,
+      this.props.competences)
     .then(data=>{
       NotificationManager.info("Keresés elmentve");
       if(this.props.onClose){

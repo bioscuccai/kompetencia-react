@@ -4,11 +4,13 @@ import React from 'react';
 
 import reportActions from '../../actions/report_actions';
 import reportStore from '../../stores/report_store';
+import alt from '../../alt/alt';
 
 import SavedQuery from './SavedQuery.jsx';
 
 export default React.createClass({
   componentDidMount(){
+    alt.recycle(reportStore);
     reportStore.listen(this.handleReportStoreChange);
     reportStore.fetchSavedQueries();
   },

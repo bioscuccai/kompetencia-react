@@ -13,6 +13,7 @@ class SavedQueriesController < ApplicationController
         id: sq.id,
         name: sq.name,
         match_all: sq.match_all,
+        show_pending: sq.show_pending,
         competences: format_competence_list(sq.saved_query_competences)
       }
     end
@@ -24,20 +25,13 @@ class SavedQueriesController < ApplicationController
   def show
   end
 
-  # GET /saved_queries/new
-  def new
-    @saved_query = SavedQuery.new
-  end
-
-  # GET /saved_queries/1/edit
-  def edit
-  end
-
   # POST /saved_queries
   # POST /saved_queries.json
   def create
     ActiveRecord::Base.transaction do
-      saved_query = SavedQuery.create!(name: params[:saved_query][:name], match_all: params[:saved_query][:match_all])
+      saved_query = SavedQuery.create!(name: params[:saved_query][:name], 
+        match_all: params[:saved_query][:match_all],
+        show_pending: params[:saved_query][:show_pending])
       params[:saved_query][:competences].each do |c|
         comp=Competence.find c[:competence_id]
         SavedQueryCompetence.create!(competence: comp, saved_query: saved_query, level: c[:level].to_i)
@@ -63,7 +57,7 @@ class SavedQueriesController < ApplicationController
   # DELETE /saved_queries/1
   # DELETE /saved_queries/1.json
   def destroy
-    @saved_query.destroy
+    @saved_query.destroy!
     render json: {status: :ok}
   end
 

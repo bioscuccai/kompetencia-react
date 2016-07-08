@@ -36,6 +36,7 @@ export default React.createClass({
         <Route component={Container} props={this.props}>
           <Route path='/' component={Home}></Route>
           <Route path='/query' component={Query}></Route>
+          <Route path='/query/:queryString' component={Query}></Route>
           <Route path='/competence_types' component={CompetenceTypes}></Route>
           <Route path='/competence_tier_groups' component={CompetenceTierGroups}></Route>
           <Route path='/users' component={Users}></Route>

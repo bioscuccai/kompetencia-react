@@ -8,6 +8,7 @@ import alt from '../../alt/alt';
 import queryStore from '../../stores/query_store';
 import userStore from '../../stores/user_store';
 import competenceStore from '../../stores/competence_store';
+import queryActions from '../../actions/query_actions';
 
 import DateTime from 'react-datetime';
 
@@ -42,9 +43,25 @@ export default React.createClass({
       selectedTabIndex: 0,
       dateChecked: false,
       notStrict: false,
-      pendingCheck: false,
+      showPending: false,
       matchAll: false
     };
+  },
+  
+  parseQueryString(){
+    if(!this.props.params.queryString) return;
+    let queryObj=JSON.parse(this.props.params.queryString);
+    let compiledCompetences=queryObj.cl.map(c=>{
+      return {
+        competence_id: c.c,
+        level: c.l
+      };
+    });
+    
+    queryStore.fetchQuery(compiledCompetences, null, null,
+      null, null,
+      [],
+      queryObj.sp, queryObj.ma);
   },
   
   componentDidMount(){
@@ -57,6 +74,8 @@ export default React.createClass({
     
     competenceStore.listen(this.handleCompetenceStoreChange);
     competenceStore.fetchAllSkills();
+    
+    this.parseQueryString();
   },
   
   componentWillUnmount() {
@@ -158,7 +177,7 @@ export default React.createClass({
             <input type='checkbox' name='check_pending'
               ref='checkPending'
               onChange={this.onPendingChange}
-              value={this.state.pendingCheck}></input>
+              value={this.state.showPending}></input>
             Még nem validált kompetenciák figyelembevétele
           </div>
           
@@ -205,7 +224,8 @@ export default React.createClass({
           <SaveQueryButton
             currentUser={this.context.currentUser}
             competences={this.selectedCompetenceArray()}
-            matchAll={this.state.matchAll}></SaveQueryButton>
+            matchAll={this.state.matchAll}
+            showPending={this.state.showPending}></SaveQueryButton>
           
           <div>
             <h4>Találatok</h4>
@@ -286,7 +306,7 @@ export default React.createClass({
   
   onPendingChange(e){
     this.setState({
-      pendingCheck: e.target.checked
+      showPending: e.target.checked
     });
   },
   
@@ -314,7 +334,7 @@ export default React.createClass({
     queryStore.fetchQuery(requested, this.state.startsAt, this.state.endsAt,
       this.state.dateChecked, this.state.notStrict,
       this.state.selectedSkillIds,
-      this.state.pendingCheck, this.state.matchAll);
+      this.state.showPending, this.state.matchAll);
     console.log(requested);
     
     this.setState({

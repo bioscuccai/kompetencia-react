@@ -7,11 +7,12 @@ import axios from 'axios';
 class ReportActions{
   constructor(){
     this.generateActions("updateReports", "updateCurrentReport", "updateResults", "updateSavedQueries", "error",
-    "updateReportSucc",
+    "updateReportSucc", "updateSavedQuerySucc",
+    "deleteReportSucc", "deleteSavedQuerySucc",
     "createSavedQuerySucc", "createReportSucc");
   }
   
-  createSavedQuery(name='', matchAll=false, competences=[]){
+  createSavedQuery(name='', matchAll=false, showPending=false, competences=[]){
     return dispatch=>{
       let resp={name, matchAll, competences};
       dispatch(resp);
@@ -19,6 +20,7 @@ class ReportActions{
         saved_query: {
           name,
           match_all: matchAll,
+          show_pending: showPending,
           competences
         }
       }, {responseType: 'json'})
@@ -63,6 +65,30 @@ class ReportActions{
         return data;
       })
       .catch(this.error);
+    };
+  }
+  
+  deleteSavedQuery(id){
+    return dispatch=>{
+      let resp={id};
+      dispatch(resp);
+      return axios.delete(`/saved_queries/${id}.json`, {responseType: 'json'})
+      .then(data=>{
+        this.deleteSavedQuerySucc(_.extend({}, resp, {data: data.data}));
+        return data;
+      });
+    };
+  }
+  
+  deleteReport(id){
+    return dispatch=>{
+      let resp={id};
+      dispatch(resp);
+      return axios.delete(`/reports/${id}.json`, {responseType: 'json'})
+      .then(data=>{
+        this.deleteReportSucc(_.extend({}, _, {data: data.data}));
+        return data;
+      });
     };
   }
   

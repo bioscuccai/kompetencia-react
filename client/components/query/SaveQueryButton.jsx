@@ -38,6 +38,7 @@ export default React.createClass({
           <NewSavedQuery
             onClose={this.onRequestClose}
             matchAll={this.props.matchAll}
+            showPending={this.props.showPending}
             competences={this.props.competences}></NewSavedQuery>
         </Modal>
       </span>;

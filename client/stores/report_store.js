@@ -16,10 +16,12 @@ class ReportStore{
     this.registerAsync(reportSource);
     this.bindListeners({
       reloadReports: [
-        reportActions.CREATE_REPORT_SUCC
+        reportActions.CREATE_REPORT_SUCC,
+        reportActions.DELETE_REPORT_SUCC
       ],
       reloadSavedQueries: [
-        reportActions.CREATE_SAVED_QUERY_SUCC
+        reportActions.CREATE_SAVED_QUERY_SUCC,
+        reportActions.DELETE_SAVED_QUERY_SUCC
       ]
     });
   }

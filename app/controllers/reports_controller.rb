@@ -52,7 +52,9 @@ class ReportsController < ApplicationController
     res=[]
     @report.saved_queries.each do |sq|
       competence_params=sq.competence_query_params
-      users, a, b=User.query({competences: competence_params, match_all: sq.match_all})
+      users, a, b=User.query({competences: competence_params,
+        match_all: sq.match_all,
+        show_pending: sq.show_pending})
       res.push({
         name: sq.name,
         value: users.count
