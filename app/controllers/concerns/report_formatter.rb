@@ -10,6 +10,8 @@ module ReportFormatter
         {
           id: sq.id,
           name: sq.name,
+          match_all: sq.match_all,
+          show_pending: sq.show_pending,
           competences: format_competence_list(sq.saved_query_competences)
         }
       end
