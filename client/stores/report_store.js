@@ -17,11 +17,13 @@ class ReportStore{
     this.bindListeners({
       reloadReports: [
         reportActions.CREATE_REPORT_SUCC,
-        reportActions.DELETE_REPORT_SUCC
+        reportActions.DELETE_REPORT_SUCC,
+        reportActions.UPDATE_REPORT_SUCC
       ],
       reloadSavedQueries: [
         reportActions.CREATE_SAVED_QUERY_SUCC,
-        reportActions.DELETE_SAVED_QUERY_SUCC
+        reportActions.DELETE_SAVED_QUERY_SUCC,
+        reportActions.UPDATE_SAVED_QUERY_SUCC
       ]
     });
   }
@@ -32,6 +34,7 @@ class ReportStore{
   }
   
   reloadSavedQueries(){
+    console.log("reloading");
     this.getInstance().fetchSavedQueries();
     return false;
   }

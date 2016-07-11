@@ -43,15 +43,8 @@ class SavedQueriesController < ApplicationController
   # PATCH/PUT /saved_queries/1
   # PATCH/PUT /saved_queries/1.json
   def update
-    respond_to do |format|
-      if @saved_query.update(saved_query_params)
-        format.html { redirect_to @saved_query, notice: 'Saved query was successfully updated.' }
-        format.json { render :show, status: :ok, location: @saved_query }
-      else
-        format.html { render :edit }
-        format.json { render json: @saved_query.errors, status: :unprocessable_entity }
-      end
-    end
+    @saved_query.update!(saved_query_params)
+    render json: {status: :ok}
   end
 
   # DELETE /saved_queries/1
@@ -69,7 +62,7 @@ class SavedQueriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def saved_query_params
-      params.require(:saved_query).permit(:name, :match_all)
+      params.require(:saved_query).permit(:name, :match_all, :show_pending)
     end
     
     def restrict_admin

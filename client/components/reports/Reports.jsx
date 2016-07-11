@@ -6,6 +6,7 @@ import Modal from 'react-modal';
 
 import NewReport from './NewReport.jsx';
 import Report from './Report.jsx';
+import ReportButtons from './ReportButtons.jsx';
 
 import modalStyle from '../../styles/modal';
 
@@ -61,10 +62,18 @@ export default React.createClass({
         Új report
       </button>
       {this.state.reports.map(report=>{
-        return <Report
-            key={report.id}
-            report={report}
-          ></Report>;
+        return <div className='row' key={`report-${report.id}`}>
+          <div className='column column-80'>
+            <Report
+                report={report}
+              ></Report>
+          </div>
+          <div className='column column-20'>
+            <ReportButtons
+              report={report}
+              savedQueries={this.state.savedQueries}></ReportButtons>
+          </div>
+        </div>;
       })}
       <Modal
         isOpen={this.state.newModal}

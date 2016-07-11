@@ -13,9 +13,7 @@ class UsersController < ApplicationController
     :add_godfather, :remove_godfather,
     :make_admin, :revoke_admin, :make_godfather, :revoke_godfather,
     :notify_seen_by_godfather]
-  
-  WORK_PLACES=['SZTE', 'FEA', 'AENSYS']
-  
+
   include CompetenceFormatter
   include UserFormatter
   
@@ -125,7 +123,8 @@ class UsersController < ApplicationController
   end
   
   def show
-    @user=User.includes(users_skills: [:skill], assigned_competence_levels: [competence: [:competence_type]]).find params[:id]
+    @user=User.includes(users_skills: [:skill], assigned_competence_levels: [competence: [:competence_type]]).
+      find params[:id]
     authorize! :show, @user
     
     @tiers=CompetenceTier.all
@@ -218,6 +217,7 @@ class UsersController < ApplicationController
         end
       ),
       *(UsersSkill.joins(:user).
+        includes(:user).
         where(confirmed: false).
         where("users.godfather_id=?", current_user.id).
         map do |us| {

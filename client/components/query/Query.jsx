@@ -38,8 +38,8 @@ export default React.createClass({
       allSkills: [],
       selectedSkillIds: [],
       lastSkillSelection: [],
-      startsAt: null,
-      endsAt: null,
+      startsAt: moment().startOf("day"),
+      endsAt: moment().startOf("day").add(7, "days"),
       selectedTabIndex: 0,
       dateChecked: false,
       notStrict: false,
@@ -157,14 +157,14 @@ export default React.createClass({
             <div className='row'>
               <div className='column column-50'>
                 <DateTime
-                  defaultValue={moment().startOf("day")}
+                  value={this.state.startsAt}
                   timeFormat={false}
                   onChange={this.onStartChange}
                   closeOnSelect={true}></DateTime>
               </div>
               <div className='column column-50'>
                 <DateTime
-                  defaultValue={moment().startOf("day").add(7, "days")}
+                  value={this.state.endsAt}
                   timeFormat={false}
                   onChange={this.onEndChange}
                   closeOnSelect={true}></DateTime>

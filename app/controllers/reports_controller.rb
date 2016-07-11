@@ -34,8 +34,13 @@ class ReportsController < ApplicationController
   def update
     ActiveRecord::Base.transaction do
       @report.update!(name: params[:report][:name])
+      @report.report_saved_queries.where('saved_query_id NOT IN (?)', params[:report][:saved_query_ids].map{|sqi| sqi.to_i}).destroy_all
+      
       saved_query_ids=@report.saved_queries.map{|sq| sq.id}
-      to_delete=saved_query_ids - (params[:report][:saved_query_ids].map{|sqi| sqi.to_i})
+      to_add=params[:report][:saved_query_ids].map{|sqi| sqi.to_i} - saved_query_ids
+      to_add.each do |ta|
+        ReportSavedQuery.create!(saved_query_id: ta, report_id: @report.id)
+      end
     end
     
     render json: {status: :ok}

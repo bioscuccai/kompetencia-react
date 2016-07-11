@@ -54,14 +54,33 @@ class ReportActions{
     return dispatch=>{
       let resp={id, name, savedQueryIds};
       dispatch(resp);
-      return axios.put(`/reports/${id}`,{
+      return axios.put(`/reports/${id}.json`,{
         report: {
           name,
           saved_query_ids: savedQueryIds
         }
-      })
+      }, {responseType: 'json'})
       .then(data=>{
         this.updateReportSucc(_.extend({}, resp, {data: data.data}));
+        return data;
+      })
+      .catch(this.error);
+    };
+  }
+  
+  updateSavedQuery(id, name, matchAll=false, showPending=false){
+    return dispatch=>{
+      let resp={id, name, matchAll, showPending};
+      dispatch(resp);
+      return axios.put(`/saved_queries/${id}.json`, {
+        saved_query: {
+          name,
+          match_all: matchAll,
+          show_pending: showPending
+        },
+      }, {responseType: 'json'})
+      .then(data=>{
+        this.updateSavedQuerySucc(_.extend({}, resp, {data: data.data}));
         return data;
       })
       .catch(this.error);

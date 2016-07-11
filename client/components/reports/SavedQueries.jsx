@@ -7,6 +7,7 @@ import reportStore from '../../stores/report_store';
 import alt from '../../alt/alt';
 
 import SavedQuery from './SavedQuery.jsx';
+import SavedQueryButtons from './SavedQueryButtons.jsx';
 
 export default React.createClass({
   componentDidMount(){
@@ -38,10 +39,14 @@ export default React.createClass({
     return <div>
       <h1>Mentett keresések</h1>
       {this.state.savedQueries.map(sq=>{
-        return <SavedQuery
-          savedQuery={sq}
-          key={sq.id}
-          ></SavedQuery>;
+        return <div className='row' key={`sq-${sq.id}`}>
+          <div className='column column-80'>
+            <SavedQuery savedQuery={sq}></SavedQuery>
+          </div>
+          <div className='column column-20'>
+            <SavedQueryButtons savedQuery={sq}></SavedQueryButtons>
+          </div>
+        </div>;
       })}
     </div>;
   }
