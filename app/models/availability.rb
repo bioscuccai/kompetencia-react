@@ -23,6 +23,9 @@ class Availability < ActiveRecord::Base
   
   scope :recent, ->{active_availabilities.order(created_at: :desc).limit(30)}
   
+  def self.available?
+    
+  end
   
   def current?
     if self.ends_at.nil? && self.starts_at<Time.now

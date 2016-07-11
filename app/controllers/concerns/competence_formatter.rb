@@ -3,7 +3,7 @@ module CompetenceFormatter
   
   def format_competence_list query, level_names=nil
     level_names||=CompetenceTier.tier_names
-    formatted=query.includes(competence: [:competence_type]).map do |assigned|
+    formatted=query.map do |assigned|
       {
         id:    assigned.competence.id,
         level: assigned.level,

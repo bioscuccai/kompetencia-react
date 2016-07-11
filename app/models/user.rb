@@ -129,7 +129,7 @@ class User < ActiveRecord::Base
     res=[]
     res_with_date=[]
     
-    base_query=User.includes(:availabilities, :godfather, assigned_competence_levels: [:competence])
+    base_query=User.joins(:assigned_competence_levels, :pending_competence_levels).includes(:availabilities, :godfather, assigned_competence_levels: [:competence])
     if params[:selected_skill_ids] && params[:selected_skill_ids].count!=0
       users=base_query.has_skills(params[:selected_skill_ids]).to_a
     end
@@ -195,7 +195,7 @@ class User < ActiveRecord::Base
     
     user_ids=(users.map{|u| u.id} + res_with_date.map{|u| u.id}).uniq
     
-    users=User.includes(:assigned_competence_levels, :pending_competence_levels).where("id IN (?)", user_ids)
+    users=User.includes(:availabilities, :skills, :users_roles, :users_skills, :assigned_competence_levels, :pending_competence_levels).where("id IN (?)", user_ids)
     users.each do |u|
      #(result_per_user[u.id]).push c["competence_id"]
       (params[:competences] || []).each do |c|

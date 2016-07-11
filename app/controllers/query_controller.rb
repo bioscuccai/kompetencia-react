@@ -13,14 +13,20 @@ class QueryController < ApplicationController
   def query
     authorize! :query, :query
     users, result_per_user, user_availability_matches=User.query(params)
-    user_results=users.map do |u|
-      format_user(u).merge({
-        matched_availabilities: Availability.where("id IN (?)", user_availability_matches.fetch(u.id, [])).map{|a| format_availability a},
+    level_names=CompetenceTier.tier_names
+    #return render json: users
+    user_results=users.includes(:users_roles, :availabilities, :godfather, :roles,
+        users_skills: [:skill],
+        assigned_competence_levels: [competence: [:competence_type]],
+        pending_competence_levels: [competence: [:competence_type]]  ).
+      map do |u|
+      format_user(u, level_names: level_names).merge({
+        matched_availabilities: u.availabilities.where("id IN (?)", user_availability_matches.fetch(u.id, [])).map{|a| format_availability a},
         found: result_per_user[u.id].map do |r|
           {
             competence_id: r,
-            title: u.assigned_competence_levels.where(competence_id: r)&.first&.competence&.title,
-            level: u.assigned_competence_levels.where(competence_id: r)&.first&.level,
+            title: u.assigned_competence_levels.includes(:competence).where(competence_id: r)&.first&.competence&.title,
+            level: u.assigned_competence_levels.includes(:competence).where(competence_id: r)&.first&.level,
             wanted: params[:competences].select{|c| c["competence_id"]==r}&.first&.fetch("level")
           }
         end
