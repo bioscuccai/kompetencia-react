@@ -129,7 +129,7 @@ class User < ActiveRecord::Base
     res=[]
     res_with_date=[]
     
-    base_query=User.joins(:assigned_competence_levels, :pending_competence_levels).includes(:availabilities, :godfather, assigned_competence_levels: [:competence])
+    base_query=User.includes(:assigned_competence_levels, :pending_competence_levels).includes(:availabilities, :godfather, assigned_competence_levels: [:competence])
     if params[:selected_skill_ids] && params[:selected_skill_ids].count!=0
       users=base_query.has_skills(params[:selected_skill_ids]).to_a
     end
@@ -162,7 +162,7 @@ class User < ActiveRecord::Base
     else
       if params[:competences].present?
         params[:competences].each do |c|
-          res=base_query.has_level(c['competence_id'], c['level']).to_a
+          res=res+(base_query.has_level(c['competence_id'], c['level']).to_a)
           if params[:show_pending]
             res=res + (base_query.has_pending_level(c['competence_id'], c['level']).to_a)
           end
