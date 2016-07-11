@@ -172,6 +172,8 @@ class User < ActiveRecord::Base
       end
     end
     
+    res=res.uniq(&:id)
+    
     #datumra szures
     if params[:check_date] && params[:starts_at].present? && params[:ends_at].present?
       res_with_date=res.select do |u|
