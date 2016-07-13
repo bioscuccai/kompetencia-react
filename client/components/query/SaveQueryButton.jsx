@@ -28,7 +28,8 @@ export default React.createClass({
     if(this.props.currentUser.is_admin){
       return <span>
         <button onClick={this.onNewModal}>
-          <i className='icon ion-plus-round'></i>
+          <i className='icon ion-bookmark font-150'></i>
+          &nbsp;
           Keresés mentése
         </button>
         <Modal

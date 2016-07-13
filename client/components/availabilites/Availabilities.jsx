@@ -97,8 +97,8 @@ export default React.createClass({
             <th>Kezdés</th>
             <th>Befejezés</th>
             <th>Komment</th>
-            <th><i className='icon ion-android-time'></i></th>
-            <th>%</th>
+            <th><i className='icon ion-android-time' title='Munkaórák'></i></th>
+            <th title='Valószínűség'>%</th>
             <th>Műveletek</th>
           </tr>
         </thead>

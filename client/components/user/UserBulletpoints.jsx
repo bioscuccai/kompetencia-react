@@ -11,8 +11,8 @@ export default React.createClass({
     let godfather;
     if(this.props.user.godfather){
       godfather=<span>
-        <i className='icon ion-star'></i>
-        <a href={`/users/${_.get(this.props.user, "godfather.id")}`}>
+        <i className='icon ion-star' title='Mentor'></i>
+        <a href={`/users/${_.get(this.props.user, "godfather.id")}`} title='Mentor'>
           {_.get(this.props.user, "godfather.email")}
         </a>
       </span>;

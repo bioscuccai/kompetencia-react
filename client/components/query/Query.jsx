@@ -19,6 +19,8 @@ import SkillCheckboxes from './SkillCheckboxes.jsx';
 import SaveQueryButton from './SaveQueryButton.jsx';
 import {animateScroll} from 'react-scroll';
 
+import classNames from 'classnames';
+
 import {Tabs, Tab, TabList, TabPanel} from 'react-tabs';
 import {NotificationManager} from 'react-notifications';
 
@@ -44,7 +46,8 @@ export default React.createClass({
       dateChecked: false,
       notStrict: false,
       showPending: false,
-      matchAll: false
+      matchAll: false,
+      floaterExpanded: false
     };
   },
   
@@ -125,55 +128,87 @@ export default React.createClass({
       </div>;
     }
     
+    let floaterButtonClass=classNames({
+      icon: true,
+      'ion-arrow-shrink': this.state.floaterExpanded,
+      'ion-arrow-expand': !this.state.floaterExpanded,
+      'font-150': true
+    });
+    
+    let floaterVisibility=classNames({
+      'floater-body-hidden': !this.state.floaterExpanded
+    });
+    
     return <div>
-      <h1>Keresés</h1>
+      <div className='top-floater'>
+        <div className='clearfix'>
+          <div className='float-left'>
+            <h1 className='no-margin'>Keresés</h1>
+          </div>
+          <div className='float-right'>
 
-          <div>
-            <h4>Dátum</h4>
-            <div className='row'>
-              <div className='column column-50'>
-                <div className='row'>
-                  <div className='column column-20'>
-                    <input type='checkbox' name='check_date' id='check_date' ref='checkDate' value="1" onChange={this.onDateClick}></input>
-                  </div>
-                  <div className='column column-80'>
-                    Dátumra keresés?
-                  </div>
+            <button onClick={this.onQuery}>
+              <i className='icon ion-search font-150'></i>
+              &nbsp;
+              Keresés
+            </button>
+
+            <SaveQueryButton
+              currentUser={this.context.currentUser}
+              competences={this.selectedCompetenceArray()}
+              matchAll={this.state.matchAll}
+              showPending={this.state.showPending}></SaveQueryButton>
+
+            <button onClick={this.toggleExpand}>
+              <i className={floaterButtonClass}></i>
+            </button>
+          </div>
+        </div>
+
+        <div className={floaterVisibility}>
+          <h4>Dátum</h4>
+          <div className='row'>
+            <div className='column column-50'>
+              <div className='row'>
+                <div className='column column-20'>
+                  <input type='checkbox' name='check_date' id='check_date' ref='checkDate' value="1" onChange={this.onDateClick}></input>
+                </div>
+                <div className='column column-80'>
+                  Dátumra keresés?
                 </div>
               </div>
-              
-              {notStrictSearch}
-              
             </div>
             
-            <div className='row'>
-              <div className='column column-50'>
-                Kezdés:
-              </div>
-              <div className='column column-50'>
-                Befejezés:
-              </div>
-            </div>
-            <div className='row'>
-              <div className='column column-50'>
-                <DateTime
-                  value={this.state.startsAt}
-                  timeFormat={false}
-                  onChange={this.onStartChange}
-                  closeOnSelect={true}></DateTime>
-              </div>
-              <div className='column column-50'>
-                <DateTime
-                  value={this.state.endsAt}
-                  timeFormat={false}
-                  onChange={this.onEndChange}
-                  closeOnSelect={true}></DateTime>
-              </div>
-            </div>
+            {notStrictSearch}
             
           </div>
           
+          <div className='row'>
+            <div className='column column-50'>
+              Kezdés:
+            </div>
+            <div className='column column-50'>
+              Befejezés:
+            </div>
+          </div>
+          <div className='row'>
+            <div className='column column-50'>
+              <DateTime
+                value={this.state.startsAt}
+                timeFormat={false}
+                onChange={this.onStartChange}
+                closeOnSelect={true}></DateTime>
+            </div>
+            <div className='column column-50'>
+              <DateTime
+                value={this.state.endsAt}
+                timeFormat={false}
+                onChange={this.onEndChange}
+                closeOnSelect={true}></DateTime>
+            </div>
+          </div>
           <div>
+            
             <input type='checkbox' name='check_pending'
               ref='checkPending'
               onChange={this.onPendingChange}
@@ -187,13 +222,23 @@ export default React.createClass({
               onChange={this.onMatchAll}
               value={this.state.matchAll}>
             </input>
-            Összes kompetencia stimmeljen? (szinttől függetlenül) [work in progress]
+            Összes kompetencia stimmeljen?
           </div>
+        </div>
+        
+        <div>
+          <MiniSelectedCompetences competences={this.state.selectedCompetences}></MiniSelectedCompetences>
+        </div>
+      </div>
+      
+      
+      <h1>&nbsp;</h1>
+      
+      
           
           <div>
             <h4>Kompetencia</h4>
             <input type='text' placeholder='Kompetencia szűrő' onChange={this.onFilterChange} ref='filter'></input>
-            <MiniSelectedCompetences competences={this.state.selectedCompetences}></MiniSelectedCompetences>
             {
               filteredCompetenceTypes.map(type=>{
                 return <div key={`query-competence-type-${type}`}>
@@ -217,15 +262,7 @@ export default React.createClass({
             onChange={this.onSelectedSkillChange}
             allSkills={this.state.allSkills}></SkillCheckboxes>
           
-          <div>
-            <button onClick={this.onQuery}>Keresés</button>
-          </div>
           
-          <SaveQueryButton
-            currentUser={this.context.currentUser}
-            competences={this.selectedCompetenceArray()}
-            matchAll={this.state.matchAll}
-            showPending={this.state.showPending}></SaveQueryButton>
           
           <div>
             <h4>Találatok</h4>
@@ -361,5 +398,9 @@ export default React.createClass({
     this.setState({
       notStrict: e.target.checked
     });
+  },
+  
+  toggleExpand(){
+    this.setState({floaterExpanded: !this.state.floaterExpanded});
   }
 });

@@ -7,10 +7,11 @@ module UserFormatter
     user={
       id: u.id,
       email: u.email,
-      available: u.available?,
+      #available: u.available?,
+      available: u.availabilities.select{|a| a.current?}.count!=0,
       godfather_id: u.godfather_id,
-      is_godfather: u.has_role?(:godfather),
-      is_admin: u.has_role?(:admin),
+      is_godfather: u.has_cached_role?(:godfather),
+      is_admin: u.has_cached_role?(:admin),
       name: u.name,
       first_name: u.first_name,
       last_name: u.last_name,
@@ -37,6 +38,7 @@ module UserFormatter
       user.merge!(
         {
           competences: format_competence_list(u.assigned_competence_levels, level_names)
+          #competences: []
         }
       )
     end
@@ -45,6 +47,7 @@ module UserFormatter
       user.merge!(
         {
           pending_competences: format_competence_list(u.pending_competence_levels, level_names)
+          #pending_competences: []
         }
       )
     end

@@ -13,7 +13,7 @@ export default React.createClass({
     let strictIcon;
     if(this.props.savedQuery.match_all){
       strictIcon=<div>
-        <i className='icon ion-alert-circled' title=''></i> Összes kompetencia jelenléte stimmeljen (szint nem feltételen)
+        <i className='icon ion-alert-circled' title=''></i> Összes kompetencia jelenléte stimmeljen
       </div>;
     }
     let pendingIcon;

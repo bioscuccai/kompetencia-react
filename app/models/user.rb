@@ -118,7 +118,8 @@ class User < ActiveRecord::Base
   end
   
   def notification_relevant
-    PersonRequest.joins(:target).where("users.godfather_id=? AND (person_requests.updated_at>? OR ? IS NULL)", self.id, self.last_seen_relevant, self.last_seen_relevant)
+    #PersonRequest.joins(:target).where("users.godfather_id=? AND (person_requests.updated_at>? OR ? IS NULL)", self.id, self.last_seen_relevant, self.last_seen_relevant)
+    PersonRequest.joins(:target).where("users.godfather_id=? AND confirmed IS NULL", self.id)
   end
   
   def self.query params={}
@@ -138,8 +139,24 @@ class User < ActiveRecord::Base
     
     #minden kompetencia stimmljen
     if params[:match_all]
-      assigned_users=User.joins(:assigned_competence_levels).where("assigned_competence_levels.competence_id IN (?)", competence_ids).to_a
-      pending_users=User.joins(:pending_competence_levels).where("pending_competence_levels.competence_id IN(?)", competence_ids).to_a
+      #assigned_users=User.joins(:assigned_competence_levels).where("assigned_competence_levels.competence_id IN (?)", competence_ids).to_a
+      #pending_users=User.joins(:pending_competence_levels).where("pending_competence_levels.competence_id IN(?)", competence_ids).to_a
+      
+      assigned_users=[]
+      pending_users=[]
+      (params[:competences] || []).each do |c|
+        curr_assigned=base_query.has_level(c['competence_id'], c['level']).to_a
+        assigned_users=assigned_users + curr_assigned
+        if params[:show_pending]
+          curr_pending=base_query.has_pending_level(c['competence_id'], c['level']).to_a
+          pending_users=pending_users + curr_pending
+        end
+      end
+      
+      #binding.pry
+      
+      #assigned_users.uniq!(&:id)
+      #pending_users.uniq!(&:id)
       
       user_ids_=(assigned_users.map(&:id) + pending_users.map(&:id)).uniq
       proper_user_ids=[]

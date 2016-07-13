@@ -57,7 +57,7 @@
 }
 
 .pending-mini.result-competence{
-  background-color: rgb(119, 254, 0)!important;
+  background-color: rgb(188, 254, 0)!important;
 }
 
 .result-competence{
@@ -330,4 +330,32 @@ main{
 
 .pending-text{
   color: rgb(231, 173, 62);
+}
+
+.floater-body-hidden {
+  display: none;
+}
+
+.top-floater{
+  position: fixed;
+  width: 800px;
+  background-color: white;
+  margin-left: 30px;
+  padding: 3px;
+  border-bottom: solid black 3px;
+  border-left: solid black 1px;
+  border-right: solid black 1px;
+  border-top: solid black 1px;
+}
+
+.top-floater>h1{
+  margin: 0;
+}
+
+.no-margin{
+  margin: 0;
+}
+
+.font-150{
+  font-size: 150%;
 }

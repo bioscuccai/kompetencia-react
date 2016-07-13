@@ -85,11 +85,15 @@ class UsersController < ApplicationController
   def index
     authorize! :index, User
     @users=User.all
-    user_data=User.includes(:godfather, assigned_competence_levels: [:competence]).all.map do |u|
+    level_names=CompetenceTier.tier_names
+    user_data=User.includes(:roles, :godfather, :availabilities,
+      assigned_competence_levels: [competence: [:competence_type]],
+      pending_competence_levels: [competence: [:competence_type]],
+      users_skills: [:skill]).all.map do |u|
       #TODO: rolify-al megoldani a keresztapasagot, csak nagyon nem tetszik neki
       #hogy ugyanarra a modelre vonatkozik a resourcify es a rolify-va
       #ugyhogy marad az old-school relacio
-      format_user u
+      format_user u, level_names: level_names
     end
 
     render json: user_data

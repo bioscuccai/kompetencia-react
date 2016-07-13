@@ -37,7 +37,7 @@ export default React.createClass({
     }
     
     let reportButton;
-    if(this.props.currentUser.is_admin || this.props.currentUser.is_godfather){
+    if(this.props.currentUser.is_admin){
       reportButton=<span>
         <div className='menu-item'>
           <Link to='/reports'>

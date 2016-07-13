@@ -15,13 +15,16 @@ class QueryController < ApplicationController
     users, result_per_user, user_availability_matches=User.query(params)
     level_names=CompetenceTier.tier_names
     #return render json: users
-    user_results=users.includes(:users_roles, :availabilities, :godfather, :roles,
+
+    user_results=users.includes(:availabilities, :godfather, :roles,
         users_skills: [:skill],
         assigned_competence_levels: [competence: [:competence_type]],
-        pending_competence_levels: [competence: [:competence_type]]  ).
+        pending_competence_levels: [competence: [:competence_type]],
+        users_roles: [:role]).
       map do |u|
       format_user(u, level_names: level_names).merge({
-        matched_availabilities: u.availabilities.where("id IN (?)", user_availability_matches.fetch(u.id, [])).map{|a| format_availability a},
+        #matched_availabilities: u.availabilities.where("id IN (?)", user_availability_matches.fetch(u.id, [])).map{|a| format_availability a},
+        matched_availabilities: u.availabilities.select{|a| user_availability_matches.fetch(u.id, []).include?(a.id) },
         found: result_per_user[u.id].map do |r|
           {
             competence_id: r,
@@ -32,6 +35,7 @@ class QueryController < ApplicationController
         end
       })
     end
+    pp "rendering"
     render json: user_results
   end
 end

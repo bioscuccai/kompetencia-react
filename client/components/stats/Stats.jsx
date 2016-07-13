@@ -54,7 +54,9 @@ export default React.createClass({
               return <li key={`wp-${wp}`}>{wp}:&nbsp;
                 <strong>
                   {this.state.stats.workers[wp].assigned} /&nbsp;
-                  <span className='pending-text'>{this.state.stats.workers[wp].pending}</span>
+                  <span className='pending-text' title='Megerősítetlen'>
+                    {this.state.stats.workers[wp].pending}
+                  </span>
                 </strong></li>;
             })
           }

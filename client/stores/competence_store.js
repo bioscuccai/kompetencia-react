@@ -31,7 +31,6 @@ class CompetenceStore{
   }
   
   updateSkills(allSkills){
-    console.log(allSkills);
     this.allSkills=allSkills;
   }
   

@@ -63,8 +63,8 @@ export default React.createClass({
       <h1>Hirdetések</h1>
       <Tabs onSelect={this.onSelect}>
         <TabList>
-          <Tab>Én kértem</Tab>
-          <Tab>Tőlem kérték</Tab>
+          <Tab>Én kértem {this.state.requested.length===0 ? '' : `(${this.state.requested.length})`}</Tab>
+          <Tab>Tőlem kérték {this.state.relevant.length===0 ? '' : `(${this.state.relevant.length})`}</Tab>
           <Tab>Hirdetéseim</Tab>
         </TabList>
         
