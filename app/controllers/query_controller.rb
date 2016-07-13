@@ -35,7 +35,6 @@ class QueryController < ApplicationController
         end
       })
     end
-    pp "rendering"
     render json: user_results
   end
 end
