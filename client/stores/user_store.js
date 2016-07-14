@@ -58,6 +58,10 @@ class UserStore{
     this.godfathers=godfathers;
   }
   
+  updateSubordinates(subordinates){
+    this.subordinates=subordinates;
+  }
+  
   error(err){
     console.log(err);
   }

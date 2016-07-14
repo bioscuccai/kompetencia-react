@@ -25,7 +25,7 @@ export default React.createClass({
   },
   
   render(){
-    if(this.props.currentUser.is_admin){
+    if(this.props.currentUser.is_admin || this.props.currentUser.is_godfather){
       return <span>
         <button onClick={this.onNewModal}>
           <i className='icon ion-bookmark font-150'></i>

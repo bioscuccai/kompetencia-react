@@ -56,7 +56,7 @@ export default React.createClass({
     }
     
     return <div>
-      <div className='clearfix'>
+      <div className='clearfix modal-title'>
         <div className='float-left'>
           <h1>{this.props.profileUser.name} <small>{this.props.profileUser.email}</small></h1>
         </div>

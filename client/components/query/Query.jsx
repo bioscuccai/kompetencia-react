@@ -17,7 +17,7 @@ import QueryResult from './QueryResult.jsx';
 import MiniSelectedCompetences from './MiniSelectedCompetences.jsx';
 import SkillCheckboxes from './SkillCheckboxes.jsx';
 import SaveQueryButton from './SaveQueryButton.jsx';
-import {animateScroll} from 'react-scroll';
+import {animateScroll, Element, scroller} from 'react-scroll';
 
 import classNames from 'classnames';
 
@@ -47,7 +47,8 @@ export default React.createClass({
       notStrict: false,
       showPending: false,
       matchAll: false,
-      floaterExpanded: false
+      floaterExpanded: false,
+      onlySubordinates: false
     };
   },
   
@@ -159,70 +160,6 @@ export default React.createClass({
               matchAll={this.state.matchAll}
               showPending={this.state.showPending}></SaveQueryButton>
 
-            <button onClick={this.toggleExpand}>
-              <i className={floaterButtonClass}></i>
-            </button>
-          </div>
-        </div>
-
-        <div className={floaterVisibility}>
-          <h4>Dátum</h4>
-          <div className='row'>
-            <div className='column column-50'>
-              <div className='row'>
-                <div className='column column-20'>
-                  <input type='checkbox' name='check_date' id='check_date' ref='checkDate' value="1" onChange={this.onDateClick}></input>
-                </div>
-                <div className='column column-80'>
-                  Dátumra keresés?
-                </div>
-              </div>
-            </div>
-            
-            {notStrictSearch}
-            
-          </div>
-          
-          <div className='row'>
-            <div className='column column-50'>
-              Kezdés:
-            </div>
-            <div className='column column-50'>
-              Befejezés:
-            </div>
-          </div>
-          <div className='row'>
-            <div className='column column-50'>
-              <DateTime
-                value={this.state.startsAt}
-                timeFormat={false}
-                onChange={this.onStartChange}
-                closeOnSelect={true}></DateTime>
-            </div>
-            <div className='column column-50'>
-              <DateTime
-                value={this.state.endsAt}
-                timeFormat={false}
-                onChange={this.onEndChange}
-                closeOnSelect={true}></DateTime>
-            </div>
-          </div>
-          <div>
-            
-            <input type='checkbox' name='check_pending'
-              ref='checkPending'
-              onChange={this.onPendingChange}
-              value={this.state.showPending}></input>
-            Még nem validált kompetenciák figyelembevétele
-          </div>
-          
-          <div>
-            <input type='checkbox' name='match_all'
-              ref='matchAll'
-              onChange={this.onMatchAll}
-              value={this.state.matchAll}>
-            </input>
-            Összes kompetencia stimmeljen?
           </div>
         </div>
         
@@ -234,7 +171,72 @@ export default React.createClass({
       
       <h1>&nbsp;</h1>
       
-      
+        <h4>Dátum</h4>
+        <div className='row'>
+          <div className='column column-50'>
+            <div className='row'>
+              <div className='column column-20'>
+                <input type='checkbox' name='check_date' id='check_date' ref='checkDate' value="1" onChange={this.onDateClick}></input>
+              </div>
+              <div className='column column-80'>
+                Dátumra keresés?
+              </div>
+            </div>
+          </div>
+          
+          {notStrictSearch}
+          
+        </div>
+        
+        <div className='row'>
+          <div className='column column-50'>
+            Kezdés:
+          </div>
+          <div className='column column-50'>
+            Befejezés:
+          </div>
+        </div>
+        <div className='row'>
+          <div className='column column-50'>
+            <DateTime
+              value={this.state.startsAt}
+              timeFormat={false}
+              onChange={this.onStartChange}
+              closeOnSelect={true}></DateTime>
+          </div>
+          <div className='column column-50'>
+            <DateTime
+              value={this.state.endsAt}
+              timeFormat={false}
+              onChange={this.onEndChange}
+              closeOnSelect={true}></DateTime>
+          </div>
+        </div>
+        <div>
+          <input type='checkbox' name='check_pending'
+            ref='checkPending'
+            onChange={this.onPendingChange}
+            value={this.state.showPending}></input>
+          Még nem validált kompetenciák figyelembevétele
+        </div>
+        
+        <div>
+          <input type='checkbox' name='match_all'
+            ref='matchAll'
+            onChange={this.onMatchAll}
+            value={this.state.matchAll}>
+          </input>
+          Összes kompetencia stimmeljen?
+        </div>
+        
+        <div>
+          <input type='checkbox' name='only_subordinates'
+            ref='onlySubordinates'
+            onChange={this.onOnlySubordinates}
+            value={this.state.onlySubordinates}>
+          </input>
+          Csak a dolgozóim
+        </div>
           
           <div>
             <h4>Kompetencia</h4>
@@ -263,7 +265,7 @@ export default React.createClass({
             allSkills={this.state.allSkills}></SkillCheckboxes>
           
           
-          
+          <Element name="hitsScroll"></Element>
           <div>
             <h4>Találatok</h4>
             {resultHitGroups.map(rhg=>{
@@ -286,7 +288,10 @@ export default React.createClass({
   handleStoreChange(state){
     if(!_.isEqual(this.state.results, state.results)){
       NotificationManager.info(`${state.results.length} találat`);
-      animateScroll.scrollMore(200);
+      //animateScroll.scrollMore(200);
+      scroller.scrollTo("hitsScroll", {
+        duration: 500
+      });
     }
     this.setState({
       competences: state.competenceQuery,
@@ -371,12 +376,7 @@ export default React.createClass({
     queryStore.fetchQuery(requested, this.state.startsAt, this.state.endsAt,
       this.state.dateChecked, this.state.notStrict,
       this.state.selectedSkillIds,
-      this.state.showPending, this.state.matchAll);
-    console.log(requested);
-    
-    this.setState({
-      selectedTabIndex: 1
-    });
+      this.state.showPending, this.state.matchAll, this.state.onlySubordinates);
   },
   
   onTabSelect(index){
@@ -398,6 +398,10 @@ export default React.createClass({
     this.setState({
       notStrict: e.target.checked
     });
+  },
+  
+  onOnlySubordinates(e){
+    this.setState({onlySubordinates: e.target.checked});
   },
   
   toggleExpand(){

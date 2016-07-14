@@ -207,6 +207,12 @@ class UsersController < ApplicationController
   
   def subordinates
     @user=User.find params[:id]
+    formatted=@user.subordinates.includes(:godfather, users_skills: [:skill],
+        assigned_competence_levels: [competence: [:competence_type]],
+        pending_competence_levels: [competence: [:competence_type]]).map do |u|
+        format_user u
+    end
+    render json: formatted
   end
   
   def todos

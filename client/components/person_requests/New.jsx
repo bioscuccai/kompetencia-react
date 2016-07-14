@@ -57,9 +57,11 @@ export default React.createClass({
   
   render(){
     return <div>
-      <div className='clearfix'>
+      <div className='clearfix modal-title'>
         <div className='float-left'>
-          <UserBulletPoints user={this.props.user}></UserBulletPoints>
+          <h1>
+            {this.props.user.name}
+          </h1>
         </div>
         <div className='float-right'>
           <button className='icon-button icon-button-large' onClick={this.onClose}>
@@ -67,6 +69,7 @@ export default React.createClass({
           </button>
         </div>
       </div>
+      <UserBulletPoints user={this.props.user}></UserBulletPoints>
       
       <form onSubmit={this.onSubmit}>
         Kezdés:

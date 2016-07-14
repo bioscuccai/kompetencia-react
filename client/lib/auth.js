@@ -152,7 +152,7 @@ function canSearch(actor){
 */
 function canAddUserSkill(subject, actor){
   if(actor.admin) return true;
-  if(actor.is_godfather && subject.godfather_id===actor.godfather_id) return true;
+  if(actor.is_godfather && subject.godfather_id===actor.id) return true;
   return false;
 }
 

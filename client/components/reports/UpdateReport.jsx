@@ -5,6 +5,7 @@ import reportStore from '../../stores/report_store';
 import reportActions from '../../actions/report_actions.js';
 import _ from 'lodash';
 import {NotificationManager} from 'react-notifications';
+import CloseButton from '../CloseButton.jsx';
 
 export default React.createClass({
   getInitialState(){
@@ -21,8 +22,16 @@ export default React.createClass({
   
   render(){
     return <div>
+      <div className='clearfix modal-title'>
+        <div className='float-left'>
+          <h1>Report módosítás</h1>
+        </div>
+        <div className="float-right">
+          <CloseButton onClose={this.onClose}></CloseButton>
+        </div>
+      </div>
       Név:
-      <input type='text' ref='name'></input>
+      <input type='text' ref='name' defaultValue={this.props.report.name}></input>
       <select
         ref='savedQueries' multiple
         onChange={this.onSelectChange}
@@ -56,5 +65,9 @@ export default React.createClass({
     if(this.props.onClose){
       this.props.onClose();
     }
+  },
+  
+  onClose(){
+    if(this.props.onClose) this.props.onClose();
   }
 });

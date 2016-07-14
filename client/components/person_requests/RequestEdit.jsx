@@ -6,6 +6,7 @@ import moment from 'moment';
 require("moment/locale/hu");
 import {NotificationManager} from 'react-notifications';
 import _ from 'lodash';
+import ModalTitle from '../ModalTitle.jsx';
 
 import requestActions from '../../actions/request_actions';
 
@@ -31,6 +32,7 @@ export default React.createClass({
   
   render(){
     return <div>
+      <ModalTitle title='Kérvény módosítása' onClose={this.onClose}></ModalTitle>
       <form onSubmit={this.onSubmit}>
         <div className='row'>
           <div className='column column-50'>
@@ -82,5 +84,9 @@ export default React.createClass({
     if(this.props.onClose){
       this.props.onClose();
     }
+  },
+  
+  onClose(){
+    if(this.props.onClose) this.props.onClose();
   }
 });

@@ -7,11 +7,12 @@ import DateLabel from '../date/DateLabel.jsx';
 import requestActions from '../../actions/request_actions';
 import {NotificationManager} from 'react-notifications';
 import requestStore from '../../stores/request_store';
+import ModalTitle from '../ModalTitle.jsx';
 
 export default React.createClass({
   render(){
     return <div>
-      <h1>Kérés elfogadása</h1>
+      <ModalTitle title='Kérés elfogadás' onClose={this.onClose}></ModalTitle>
       <div>
         A következő hírdetések érintettek:
         <ul>

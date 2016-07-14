@@ -131,6 +131,11 @@ class User < ActiveRecord::Base
     res_with_date=[]
     
     base_query=User.includes(:assigned_competence_levels, :pending_competence_levels).includes(:availabilities, :godfather, assigned_competence_levels: [:competence])
+    
+    if params[:only_subordinates] && params[:subordinates_of]
+      base_query=base_query.where(godfather_id: params[:subordinates_of].id)
+    end
+    
     if params[:selected_skill_ids] && params[:selected_skill_ids].count!=0
       base_query=base_query.has_skills(params[:selected_skill_ids]).to_a
     end

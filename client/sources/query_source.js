@@ -7,9 +7,8 @@ import queryActions from '../actions/query_actions';
 export default {
   fetchQuery: {
     remote(state, competences, startsAt, endsAt, checkDate=false, notStrictSearch=false, selectedSkillIds=[],
-        showPending=false, matchAll=false){
+        showPending=false, matchAll=false, onlySubordinates=false){
       return new Promise((resolve, reject) => {
-        console.log(`notStrict: ${notStrictSearch}`);
         axios.post('/query/query', {
           competences,
           starts_at: startsAt,
@@ -18,7 +17,8 @@ export default {
           not_strict_search: notStrictSearch,
           selected_skill_ids: selectedSkillIds,
           show_pending: showPending,
-          match_all: matchAll
+          match_all: matchAll,
+          only_subordinates: onlySubordinates
         }, {
           responseType: 'json'
         })

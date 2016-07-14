@@ -1,12 +1,13 @@
 require 'csv'
 
 class ReportsController < ApplicationController
-  before_action :set_report, only: [:show, :edit, :update, :destroy, :results]
-  skip_before_filter :verify_authenticity_token
-  before_action :restrict_admin
-  
   include CompetenceFormatter
   include ReportFormatter
+  include RestrictAccess
+  
+  before_action :set_report, only: [:show, :edit, :update, :destroy, :results]
+  skip_before_filter :verify_authenticity_token
+  before_action :restrict_admin_godfather
   
   def index
     reports = Report.all.includes(:saved_queries).map{|r| format_report(r)}
@@ -49,7 +50,7 @@ class ReportsController < ApplicationController
   # DELETE /reports/1
   # DELETE /reports/1.json
   def destroy
-    @report.destroy
+    @report.destroy!
     render json: {status: :ok}
   end
   

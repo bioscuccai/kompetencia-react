@@ -6,6 +6,7 @@ import moment from 'moment';
 require("moment/locale/hu");
 import {NotificationManager} from 'react-notifications';
 import _ from 'lodash';
+import ModalTitle from '../ModalTitle.jsx';
 
 import availabilityActions from '../../actions/availability_actions';
 
@@ -26,6 +27,7 @@ export default React.createClass({
   
   render(){
     return <div>
+      <ModalTitle title='Rendelkezésreállás szerkesztő' onClose={this.onClose}></ModalTitle>
       <form onSubmit={this.onSubmit}>
         Kezdés:
         <DateTime defaultValue={new Date(this.props.availability.starts_at)}
@@ -47,7 +49,6 @@ export default React.createClass({
         </div>
         <textarea defaultValue={this.props.availability.comment} ref='comment'></textarea>
         <input type='submit' value='Mentés'></input>
-        <button onClick={this.onClose}>Bezár</button>
       </form>
     </div>;
   },

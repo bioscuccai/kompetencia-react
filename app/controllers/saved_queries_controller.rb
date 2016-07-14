@@ -1,9 +1,10 @@
 class SavedQueriesController < ApplicationController
+  include CompetenceFormatter
+  include RestrictAccess
+  
   before_action :set_saved_query, only: [:show, :edit, :update, :destroy]
   skip_before_filter :verify_authenticity_token
-  before_action :restrict_admin
-  
-  include CompetenceFormatter
+  before_action :restrict_admin_godfather
   
   # GET /saved_queries
   # GET /saved_queries.json
@@ -18,11 +19,6 @@ class SavedQueriesController < ApplicationController
       }
     end
     render json: @saved_queries
-  end
-
-  # GET /saved_queries/1
-  # GET /saved_queries/1.json
-  def show
   end
 
   # POST /saved_queries
@@ -63,9 +59,5 @@ class SavedQueriesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def saved_query_params
       params.require(:saved_query).permit(:name, :match_all, :show_pending)
-    end
-    
-    def restrict_admin
-      raise CanCan::AccessDenied unless current_user.has_role?(:admin)
     end
 end

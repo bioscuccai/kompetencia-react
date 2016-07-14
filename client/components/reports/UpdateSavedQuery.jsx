@@ -4,6 +4,7 @@ import React from 'react';
 import {NotificationManager} from 'react-notifications';
 import reportActions from '../../actions/report_actions';
 import _ from 'lodash';
+import CloseButton from '../CloseButton.jsx';
 
 export default React.createClass({
   getInitialState(){
@@ -24,6 +25,16 @@ export default React.createClass({
   
   render(){
     return <div>
+      <div className='clearfix modal-title'>
+        <div className='float-left'>
+          <h1>
+            Mentett keresés módosítás
+          </h1>
+        </div>
+        <div className='float-right'>
+          <CloseButton onClose={this.onClose}></CloseButton>
+        </div>
+      </div>
       Név:
       <input type='text' ref='name' defaultValue={this.props.savedQuery.name}></input>
       <div>
@@ -62,5 +73,9 @@ export default React.createClass({
     if(this.props.onClose){
       this.props.onClose();
     }
+  },
+  
+  onClose(){
+    if(this.props.onClose) this.props.onClose();
   }
 });

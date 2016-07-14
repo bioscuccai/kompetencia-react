@@ -4,6 +4,7 @@ import React from 'react';
 import DateTime from 'react-datetime';
 import {NotificationManager} from 'react-notifications';
 import _ from 'lodash';
+import ModalTitle from '../ModalTitle.jsx';
 
 import availabilityActions from '../../actions/availability_actions';
 
@@ -31,7 +32,7 @@ export default React.createClass({
     }
     
     return <div>
-      <h3>Új rendelkezésre állás</h3>
+      <ModalTitle title='Új rendelkezésreállás' onClose={this.onClose}></ModalTitle>
       <form onSubmit={this.onSubmit}>
         {userListWidget}
         <div>
@@ -88,5 +89,10 @@ export default React.createClass({
     this.setState({
       endsAt: md.toDate()
     });
+  },
+  
+  //TODO: atnevezni mindenhol onClose-ra
+  onClose(){
+    if(this.props.closeModal) this.props.closeModal();
   }
 });

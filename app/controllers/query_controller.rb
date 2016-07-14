@@ -12,7 +12,7 @@ class QueryController < ApplicationController
   
   def query
     authorize! :query, :query
-    users, result_per_user, user_availability_matches=User.query(params)
+    users, result_per_user, user_availability_matches=User.query(params.merge({subordinates_of: current_user}))
     level_names=CompetenceTier.tier_names
     #return render json: users
 

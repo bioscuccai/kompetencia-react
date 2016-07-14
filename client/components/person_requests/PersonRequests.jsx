@@ -28,7 +28,7 @@ export default React.createClass({
       godfatherAvailabilities: [],
       collisions: [],
       profileUser: null,
-      allUsers: [],
+      //allUsers: [],
       subordinates: []
     };
   },
@@ -37,7 +37,8 @@ export default React.createClass({
     alt.recycle(requestStore, availabilityStore, userStore);
     userStore.listen(this.handleUserStoreChange);
     userStore.fetchProfileUser(parseInt(this.props.params.profileUserId));
-    userStore.fetchAllUsers();
+    //userStore.fetchAllUsers();
+    userStore.fetchSubordinates(parseInt(this.props.params.profileUserId));
     requestStore.listen(this.handleRequestStoreChange);
     availabilityStore.listen(this.handleAvailabilityStoreChange);
     availabilityActions.setGodfatherId(parseInt(this.props.params.profileUserId));
@@ -65,7 +66,7 @@ export default React.createClass({
         <TabList>
           <Tab>Én kértem {this.state.requested.length===0 ? '' : `(${this.state.requested.length})`}</Tab>
           <Tab>Tőlem kérték {this.state.relevant.length===0 ? '' : `(${this.state.relevant.length})`}</Tab>
-          <Tab>Hirdetéseim</Tab>
+          <Tab>Hirdetéseim {this.state.godfatherAvailabilities.length===0 ? '' : `(${this.state.godfatherAvailabilities.length})`}</Tab>
         </TabList>
         
         <TabPanel>
@@ -114,8 +115,9 @@ export default React.createClass({
   handleUserStoreChange(state){
     this.setState({
       profileUser: state.profileUser,
-      allUsers: state.allUsers,
-      subordinates: state.allUsers.filter(u=>u.godfather_id===parseInt(this.props.params.profileUserId))
+      subordinates: state.subordinates
+      //allUsers: state.allUsers,
+      //subordinates: state.allUsers.filter(u=>u.godfather_id===parseInt(this.props.params.profileUserId))
     });
   },
   
