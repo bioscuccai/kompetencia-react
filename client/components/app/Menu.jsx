@@ -28,7 +28,7 @@ export default React.createClass({
     
     let statsButton;
     
-    if(this.props.currentUser.is_admin){
+    if(this.props.currentUser.is_admin || this.props.currentUser.is_godfather){
       statsButton=<div className='menu-item'>
           <Link to='/stats'>
             <i className='icon ion-calculator'></i> Statisztikák
