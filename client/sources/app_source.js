@@ -31,5 +31,18 @@ export default {
     
     success: appActions.updateStats,
     error: appActions.error
+  },
+  
+  fetchDocs: {
+    remote(state){
+      return new Promise((resolve, reject) => {
+        axios.get("/users/docs", {responseType: 'json'})
+        .then(data=>{
+          return resolve(data.data);
+        });
+      });
+    },
+    success: appActions.updateDocs,
+    error: appActions.error
   }
 };

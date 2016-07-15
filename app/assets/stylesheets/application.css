@@ -197,7 +197,19 @@ main{
 }
 
 .top-gutter-300{
+  height: 300px;
+}
+
+.top-gutter-200{
+  height: 200px;
+}
+
+.top-gutter-100{
   height: 100px;
+}
+
+.top-gutter-50{
+  height: 50px;
 }
 
 .login-screen{
@@ -259,6 +271,7 @@ main{
   border-radius: 4px;
   margin-top: 15px;
   margin-bottom: 15px;
+  padding: 3px;
 }
 
 .todo-block > h5{

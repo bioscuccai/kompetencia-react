@@ -4,6 +4,7 @@ import React from 'react';
 import {Link} from 'react-router';
 import auth from '../../lib/auth';
 import TodoBlock from '../todos/TodoBlock.jsx';
+import Docs from './menu/Docs.jsx';
 
 export default React.createClass({
   contextTypes: {
@@ -88,6 +89,11 @@ export default React.createClass({
       </div>;
     }
     
+    let mentorGuide;
+    if(this.props.currentUser.is_godfather || this.props.currentUser.is_admin){
+      
+    }
+    
     return <div>
       <TodoBlock></TodoBlock>
       <div className='menu-item'>
@@ -100,6 +106,8 @@ export default React.createClass({
       {usersButton}
       {godfatherButtons}
       {competenceButtons}
+      
+      <Docs currentUser={this.props.currentUser} docs={this.props.docs}></Docs>
     </div>;
   }
 });

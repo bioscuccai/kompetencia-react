@@ -14,13 +14,15 @@ export default React.createClass({
   },
   getInitialState(){
     return {
-      currentUser: null
+      currentUser: null,
+      docs: []
     };
   },
   
   componentDidMount(){
     appStore.listen(this.handleAppStoreChange);
     appStore.fetchCurrentUser(this.context.currentUser.id);
+    appStore.fetchDocs();
   },
   
   componentWillUnmount(){
@@ -33,13 +35,14 @@ export default React.createClass({
     }
     return <div>
       <UserHeader currentUser={this.state.currentUser}></UserHeader>
-      <Menu currentUser={this.state.currentUser}></Menu>
+      <Menu currentUser={this.state.currentUser} docs={this.state.docs}></Menu>
     </div>;
   },
   
   handleAppStoreChange(state){
     this.setState({
-      currentUser: state.currentUser
+      currentUser: state.currentUser,
+      docs: state.docs
     });
   }
 });

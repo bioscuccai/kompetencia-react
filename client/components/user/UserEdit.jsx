@@ -103,7 +103,7 @@ export default React.createClass({
           </div>
         </div>
         
-        <div className='top-gutter-300'></div>
+        <div className='top-gutter-100'></div>
         
         <div className='row'>
           <div className='column column-40'>

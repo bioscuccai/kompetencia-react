@@ -1,5 +1,6 @@
 class UsersController < ApplicationController  
   skip_before_filter :verify_authenticity_token
+  include RestrictAccess
   
   before_action :authenticate_user!, only: [:index, :assigned_competences, :add_competence, :pending_competences,
     :add_pending_competence, :accept_pending_competence, :mass_accept_pending, :reject_pending_competence,
@@ -14,6 +15,8 @@ class UsersController < ApplicationController
     :make_admin, :revoke_admin, :make_godfather, :revoke_godfather,
     :notify_seen_by_godfather]
 
+  #before_action :restrict_admin_godfather, only: [:docs]
+  
   include CompetenceFormatter
   include UserFormatter
   
@@ -354,6 +357,23 @@ class UsersController < ApplicationController
       workers: workers,
       person_request_count: person_request_count
     }
+  end
+  
+  def docs
+    d=[]
+    d.push({
+        title: 'Dolgozóknak',
+        url: ENV['WORKER_DOCS']
+      })
+    if current_user.has_role?(:admin) || current_user.has_role?(:godfather)
+      d.push *[
+        {title: 'Mentor rövid leírás', url: ENV['MENTOR_SHORT_DOCS']},
+        {title: 'Mentor leírás', url: ENV['MENTOR_DOCS']},
+        {title: 'Keresés/Report', url: ENV['REPORT_DOCS']}
+      ]
+    end
+      render json: d
+
   end
   
   private

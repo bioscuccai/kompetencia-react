@@ -9,6 +9,7 @@ class AppStore{
     this.unreadNotifications=[];
     this.currentUser=null;
     this.stats={};
+    this.docs=[];
     this.bindActions(appActions);
     this.registerAsync(appSource);
     this.bindListeners({
@@ -35,6 +36,10 @@ class AppStore{
   
   updateStats(stats){
     this.stats=stats;
+  }
+  
+  updateDocs(docs){
+    this.docs=docs;
   }
   
   error(e){

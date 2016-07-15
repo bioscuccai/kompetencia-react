@@ -100,6 +100,7 @@ Rails.application.routes.draw do
       
       get 'godfathers'
       get 'stats'
+      get 'docs'
     end
   end
   
