@@ -364,6 +364,10 @@ class UsersController < ApplicationController
     d.push({
         title: 'Dolgozóknak',
         url: ENV['WORKER_DOCS']
+      },
+      {
+        title: 'Changelog',
+        url: ENV['CHANGELOG_URL']
       })
     if current_user.has_role?(:admin) || current_user.has_role?(:godfather)
       d.push *[
