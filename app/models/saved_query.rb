@@ -5,6 +5,8 @@ class SavedQuery < ActiveRecord::Base
   has_many :report_saved_queries, dependent: :destroy
   has_many :reports, through: :report_saved_queries
   
+  belongs_to :user
+  
   def competence_query_params
     competence_params=self.saved_query_competences.map do |c|
       {

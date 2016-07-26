@@ -1,0 +1,27 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @post.title
+%p
+  %b Short text:
+  = @post.short_text
+%p
+  %b Text:
+  = @post.text
+%p
+  %b Published:
+  = @post.published
+%p
+  %b Front page:
+  = @post.front_page
+%p
+  %b Important:
+  = @post.important
+%p
+  %b User:
+  = @post.user_id
+
+= link_to 'Edit', edit_post_path(@post)
+\|
+= link_to 'Back', posts_path

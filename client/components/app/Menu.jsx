@@ -99,6 +99,7 @@ export default React.createClass({
       <div className='menu-item'>
         <Link to={`/competence_chooser/${this.props.currentUser.id}`}><i className='icon ion-trophy'></i> Kompetenciáim</Link>
       </div>
+      
       {statsButton}
       {reportButton}
       {recentButton}
@@ -106,7 +107,9 @@ export default React.createClass({
       {usersButton}
       {godfatherButtons}
       {competenceButtons}
-      
+      <div className='menu-item'>
+        <Link to={`/posts`}><i className='icon ion-ios-information-outline'></i> Bejelentések</Link>
+      </div>
       <Docs currentUser={this.props.currentUser} docs={this.props.docs}></Docs>
     </div>;
   }

@@ -5,16 +5,21 @@ import postActions from '../actions/post_actions';
 import postSource from '../sources/post_source';
 
 class PostStore{
-  contructor(){
+  constructor(){
     this.posts=[];
     this.currentPost=null;
-    this.bindActions(postActions);
     this.registerAsync(postSource);
+    this.bindActions(postActions);
+    this.bindListeners({
+      reloadPosts: [
+        postActions.createPostSucc,
+        postActions.updatePostSucc
+      ]
+    });
   }
   
   reloadPosts(){
     this.getInstance().fetchPosts();
-    return false;
   }
   
   updatePosts(posts){

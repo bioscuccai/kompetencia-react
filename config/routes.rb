@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :posts
   resources :saved_queries
   resources :reports do
     member do

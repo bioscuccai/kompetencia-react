@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160707205649) do
+ActiveRecord::Schema.define(version: 20160726174432) do
 
   create_table "assigned_competence_levels", force: :cascade do |t|
     t.integer  "competence_id", limit: 4
@@ -88,6 +88,18 @@ ActiveRecord::Schema.define(version: 20160707205649) do
     t.boolean  "confirmed"
   end
 
+  create_table "posts", force: :cascade do |t|
+    t.string   "title",      limit: 255,                   null: false
+    t.text     "short_text", limit: 65535,                 null: false
+    t.text     "text",       limit: 65535,                 null: false
+    t.boolean  "published",                default: false, null: false
+    t.boolean  "front_page",               default: false, null: false
+    t.boolean  "important",                default: false, null: false
+    t.integer  "user_id",    limit: 4,                     null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+  end
+
   create_table "report_saved_queries", force: :cascade do |t|
     t.integer  "report_id",      limit: 4, null: false
     t.integer  "saved_query_id", limit: 4, null: false
@@ -96,9 +108,11 @@ ActiveRecord::Schema.define(version: 20160707205649) do
   end
 
   create_table "reports", force: :cascade do |t|
-    t.string   "name",       limit: 255, default: "", null: false
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.string   "name",       limit: 255, default: "",    null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.boolean  "private",                default: false, null: false
+    t.integer  "user_id",    limit: 4
   end
 
   create_table "roles", force: :cascade do |t|
@@ -118,6 +132,8 @@ ActiveRecord::Schema.define(version: 20160707205649) do
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
     t.boolean  "show_pending",             default: false
+    t.boolean  "private",                  default: false, null: false
+    t.integer  "user_id",      limit: 4
   end
 
   create_table "saved_query_competences", force: :cascade do |t|

@@ -1,8 +1,15 @@
 'use strict';
 
 import React from 'react';
+import PostPreview from './PostPreview.jsx';
+import NewPostButton from './NewPostButton.jsx';
+
+import postStore from '../../stores/post_store';
 
 export default React.createClass({
+  contextTypes: {
+    currentUser: React.PropTypes.object
+  },
   getInitialState(){
     return {
       posts: [],
@@ -12,14 +19,15 @@ export default React.createClass({
   },
   
   componentDidMount(){
-    
+    postStore.listen(this.handlePostStoreChange);
+    postStore.fetchPosts();
   },
   
   componentWillUnmount(){
-    
+    postStore.unlisten(this.handlePostStoreChange);
   },
   
-  handlePostStoreChage(state){
+  handlePostStoreChange(state){
     this.setState({
       posts: state.posts
     });
@@ -27,7 +35,13 @@ export default React.createClass({
   
   render(){
     return <div>
-      
+      <NewPostButton currentUser={this.context.currentUser}></NewPostButton>
+      {this.state.posts.map(post=>{
+        return <PostPreview
+          post={post}
+          currentUser={this.context.currentUser}
+          key={`post-preview-${post.id}`}></PostPreview>;
+      })}
     </div>;
   }
 });

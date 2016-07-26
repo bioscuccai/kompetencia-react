@@ -1,0 +1,33 @@
+%h1 Listing posts
+
+%table
+  %thead
+    %tr
+      %th Title
+      %th Short text
+      %th Text
+      %th Published
+      %th Front page
+      %th Important
+      %th User
+      %th
+      %th
+      %th
+
+  %tbody
+    - @posts.each do |post|
+      %tr
+        %td= post.title
+        %td= post.short_text
+        %td= post.text
+        %td= post.published
+        %td= post.front_page
+        %td= post.important
+        %td= post.user_id
+        %td= link_to 'Show', post
+        %td= link_to 'Edit', edit_post_path(post)
+        %td= link_to 'Destroy', post, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Post', new_post_path

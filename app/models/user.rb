@@ -27,7 +27,11 @@ class User < ActiveRecord::Base
   has_many :person_requests
   has_many :targeted_requests, class_name: 'User', foreign_key: :target_id
   
+  has_many :saved_queries
+  has_many :reports
+  
   scope :has_skills, ->(skill_ids){joins(:users_skills).where("confirmed=? AND skill_id IN (?)", true, skill_ids)}
+  scope :has_skills_unconfirmed, ->(skill_ids){joins(:users_skills).where("skill_id IN (?)", skill_ids)}
   scope :has_level, ->(competence_id, level){joins(:assigned_competence_levels).where("assigned_competence_levels.level>=? AND assigned_competence_levels.competence_id=?", level, competence_id)}
   scope :has_pending_level, ->(competence_id, level){joins(:pending_competence_levels).where("pending_competence_levels.level>=? AND pending_competence_levels.competence_id=?", level, competence_id)}
   
@@ -137,7 +141,11 @@ class User < ActiveRecord::Base
     end
     
     if params[:selected_skill_ids] && params[:selected_skill_ids].count!=0
-      base_query=base_query.has_skills(params[:selected_skill_ids]).to_a
+      if params[:show_pending]
+        base_query=base_query.has_skills_unconfirmed(params[:selected_skill_ids]).to_a
+      else
+        base_query=base_query.has_skills(params[:selected_skill_ids]).to_a
+      end
     end
         
     competence_ids=params[:competences] ? params[:competences].map{|c| c['competence_id']} : []
