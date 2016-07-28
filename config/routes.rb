@@ -70,6 +70,7 @@ Rails.application.routes.draw do
       post 'accept_pending_competence'
       post 'reject_pending_competence'
       post 'mass_accept_pending'
+      post 'mass_accept_skill'
       
       post 'remove_competence'
       

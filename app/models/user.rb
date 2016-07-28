@@ -142,9 +142,9 @@ class User < ActiveRecord::Base
     
     if params[:selected_skill_ids] && params[:selected_skill_ids].count!=0
       if params[:show_pending]
-        base_query=base_query.has_skills_unconfirmed(params[:selected_skill_ids]).to_a
+        base_query=base_query.has_skills_unconfirmed(params[:selected_skill_ids])
       else
-        base_query=base_query.has_skills(params[:selected_skill_ids]).to_a
+        base_query=base_query.has_skills(params[:selected_skill_ids])
       end
     end
         
@@ -158,10 +158,10 @@ class User < ActiveRecord::Base
       assigned_users=[]
       pending_users=[]
       (params[:competences] || []).each do |c|
-        curr_assigned=base_query.has_level(c['competence_id'], c['level']).to_a
+        curr_assigned=base_query.has_level(c['competence_id'], c['level'])
         assigned_users=assigned_users + curr_assigned
         if params[:show_pending]
-          curr_pending=base_query.has_pending_level(c['competence_id'], c['level']).to_a
+          curr_pending=base_query.has_pending_level(c['competence_id'], c['level'])
           pending_users=pending_users + curr_pending
         end
       end

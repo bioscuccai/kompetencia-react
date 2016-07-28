@@ -26,7 +26,8 @@ class UserStore{
         competenceActions.ADD_SKILL_SUCC,
         competenceActions.REMOVE_SKILL_SUCC,
         competenceActions.CONFIRM_SKILL_SUCC,
-        userActions.EDIT_USER_SUCC
+        userActions.EDIT_USER_SUCC,
+        competenceActions.MASS_SKILL_SUCC
       ]
     });
     this.registerAsync(userSource);

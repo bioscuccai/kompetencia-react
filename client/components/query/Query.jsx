@@ -310,7 +310,7 @@ export default React.createClass({
   
   handleCompetenceStoreChange(state){
     this.setState({
-      allSkills: state.allSkills
+      allSkills: _.sortBy(state.allSkills, item=>item.name.trim().toUpperCase())
     });
   },
   

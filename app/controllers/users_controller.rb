@@ -10,7 +10,8 @@ class UsersController < ApplicationController
   
   before_action :set_user, only: [:assigned_competences, :add_competence, :pending_competences,
     :add_pending_competence, :accept_pending_competence,
-    :reject_pending_competence, :remove_competence, :remove_pending_competence, :mass_accept_pending,
+    :reject_pending_competence, :remove_competence, :remove_pending_competence,
+    :mass_accept_pending, :mass_accept_skill,
     :add_godfather, :remove_godfather,
     :make_admin, :revoke_admin, :make_godfather, :revoke_godfather,
     :notify_seen_by_godfather]
@@ -61,7 +62,16 @@ class UsersController < ApplicationController
     
     render json: {status: :ok}
   end
-  
+  def mass_accept_skill
+    authorize! :accept_pending_competence, @user
+    render status: 500 if !params[:skill_ids].present? && !params[:skill_ids].respond_to?(:each)
+    
+    params[:skill_ids].each do |sid|
+      UsersSkill.where(user_id: @user.id, skill_id: sid).first&.update!(confirmed: true)
+    end
+    
+    render json: {status: :ok}
+  end
   def reject_pending_competence
     authorize! :reject_pending_competence, @user
 
