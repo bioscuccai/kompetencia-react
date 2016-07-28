@@ -15,7 +15,7 @@ export default React.createClass({
     if(!auth.canAcceptCompetenceOf(this.props.profileUser, this.props.currentUser)){
       return <span></span>;
     }
-    return <button onClick={this.onMassAccept}>Mind elfogad</button>;
+    return <button onClick={this.onMassAccept}>{this.props.label || 'Mind elfogad'}</button>;
   },
   
   onMassAccept(){

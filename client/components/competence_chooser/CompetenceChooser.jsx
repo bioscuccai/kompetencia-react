@@ -186,6 +186,11 @@ export default React.createClass({
       <div>
         <input type="text" placeholder="Szűrés" ref='filter' onChange={this.onSearchChanged}/>
       </div>
+      <MassAcceptButton
+        currentUser={this.context.currentUser}
+        competences={this.state.parsedCompetences}
+        label='Összes kompetencia elfogadása'
+        profileUser={this.state.profileUser}></MassAcceptButton>
       <div>
         {
           competenceGroupNames.map(groupName=>{
@@ -198,6 +203,7 @@ export default React.createClass({
                   <MassAcceptButton
                     currentUser={this.context.currentUser}
                     competences={competenceGroups[groupName]}
+                    label='Kompetencia csoport elfogadása'
                     profileUser={this.state.profileUser}></MassAcceptButton>
                 </span>
               </h4>
