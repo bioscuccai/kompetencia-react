@@ -70,7 +70,7 @@ export default React.createClass({
       </div>
       
       <div>
-        {this.props.user.skills.filter(item=>item.confirmed).map(skill=>{
+        {this.props.user.skills.map(skill=>{
           return <SkillBreadcrumb
             skill={skill}
             key={`user-mini-skill-${this.props.user.id}-${skill.id}`}

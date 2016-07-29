@@ -7,7 +7,8 @@ export default React.createClass({
   render(){
     let skillClass=classnames({
       'skill-mini': true,
-      'skill-highlight': this.props.highlight
+      'skill-highlight': this.props.highlight,
+      'skill-mini-unconfirmed': !this.props.skill.confirmed
     });
     
     return <span className={skillClass}>
