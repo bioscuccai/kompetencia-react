@@ -65,7 +65,7 @@ export default React.createClass({
     queryStore.fetchQuery(compiledCompetences, null, null,
       null, null,
       [],
-      queryObj.sp, queryObj.ma);
+      queryObj.sp, queryObj.ma, queryObj.os);
   },
   
   componentDidMount(){

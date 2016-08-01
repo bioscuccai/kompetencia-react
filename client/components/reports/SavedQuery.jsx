@@ -57,7 +57,8 @@ export default React.createClass({
     return JSON.stringify({
       cl: comps,
       ma: this.props.savedQuery.match_all,
-      sp: this.props.savedQuery.show_pending
+      sp: this.props.savedQuery.show_pending,
+      os: this.props.savedQuery.only_subordinates
     });
   }
 });
