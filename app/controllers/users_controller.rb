@@ -62,6 +62,7 @@ class UsersController < ApplicationController
     
     render json: {status: :ok}
   end
+  
   def mass_accept_skill
     authorize! :accept_pending_competence, @user
     render status: 500 if !params[:skill_ids].present? && !params[:skill_ids].respond_to?(:each)

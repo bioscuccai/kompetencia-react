@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160726174432) do
+ActiveRecord::Schema.define(version: 20160731223534) do
 
   create_table "assigned_competence_levels", force: :cascade do |t|
     t.integer  "competence_id", limit: 4
@@ -127,13 +127,14 @@ ActiveRecord::Schema.define(version: 20160726174432) do
   add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
 
   create_table "saved_queries", force: :cascade do |t|
-    t.string   "name",         limit: 255, default: "",    null: false
-    t.boolean  "match_all",                default: false, null: false
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
-    t.boolean  "show_pending",             default: false
-    t.boolean  "private",                  default: false, null: false
-    t.integer  "user_id",      limit: 4
+    t.string   "name",              limit: 255, default: "",    null: false
+    t.boolean  "match_all",                     default: false, null: false
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+    t.boolean  "show_pending",                  default: false
+    t.boolean  "private",                       default: false, null: false
+    t.integer  "user_id",           limit: 4
+    t.boolean  "only_subordinates",             default: false, null: false
   end
 
   create_table "saved_query_competences", force: :cascade do |t|

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :reports do
     member do
       get :results
+      get :matrix
     end
   end
   resources :skills, only: [:index, :destroy]

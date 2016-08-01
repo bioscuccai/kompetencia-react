@@ -15,6 +15,7 @@ import SkillSelector from './SkillSelector.jsx';
 import UserBulletpoints from '../user/UserBulletpoints.jsx';
 import UserSkillList from '../skill/UserSkillList.jsx';
 import MassAcceptButton from './MassAcceptButton.jsx';
+import MassAcceptSkillButton from './MassAcceptSkillButton.jsx';
 
 import Loading from '../Loading.jsx';
 
@@ -186,11 +187,19 @@ export default React.createClass({
       <div>
         <input type="text" placeholder="Szűrés" ref='filter' onChange={this.onSearchChanged}/>
       </div>
-      <MassAcceptButton
-        currentUser={this.context.currentUser}
-        competences={this.state.parsedCompetences}
-        label='Összes kompetencia elfogadása'
-        profileUser={this.state.profileUser}></MassAcceptButton>
+      
+      <div>
+        <MassAcceptButton
+          currentUser={this.context.currentUser}
+          competences={this.state.parsedCompetences}
+          label='Összes kompetencia elfogadása'
+          profileUser={this.state.profileUser}></MassAcceptButton>
+        <MassAcceptSkillButton
+          currentUser={this.context.currentUser}
+          profileUser={this.state.profileUser}
+          ></MassAcceptSkillButton>
+      </div>
+      
       <div>
         {
           competenceGroupNames.map(groupName=>{

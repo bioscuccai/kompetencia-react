@@ -9,7 +9,7 @@ class CompetenceActions{
     this.generateActions("error", "updateAllCompetences", "updateCompetences", "updatePendingCompetences", "updateSkills",
   
     "setLevelSucc", "setPendingLevelSucc", "acceptPendingSucc", "rejectPendingSucc", "removeAssignedSucc",
-    "addSkillSucc", "removeSkillSucc", "confirmSkillSucc", "massAcceptPendingSucc", "massSkillSucc");
+    "addSkillSucc", "removeSkillSucc", "confirmSkillSucc", "massAcceptPendingSucc", "massAcceptSkillSucc");
   }
   
   //ezen keresztul szol a store-nak, hogy frissitse az user kompetenciait miutan visszajelzett a szero

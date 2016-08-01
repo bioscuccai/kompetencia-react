@@ -15,6 +15,7 @@ class SavedQueriesController < ApplicationController
         name: sq.name,
         match_all: sq.match_all,
         show_pending: sq.show_pending,
+        only_subordinates: sq.only_subordinates,
         competences: format_competence_list(sq.saved_query_competences)
       }
     end
@@ -27,7 +28,8 @@ class SavedQueriesController < ApplicationController
     ActiveRecord::Base.transaction do
       saved_query = SavedQuery.create!(name: params[:saved_query][:name], 
         match_all: params[:saved_query][:match_all],
-        show_pending: params[:saved_query][:show_pending])
+        show_pending: params[:saved_query][:show_pending],
+        only_subordinates: params[:saved_query][:only_subordinates])
       params[:saved_query][:competences].each do |c|
         comp=Competence.find c[:competence_id]
         SavedQueryCompetence.create!(competence: comp, saved_query: saved_query, level: c[:level].to_i)
@@ -58,6 +60,6 @@ class SavedQueriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def saved_query_params
-      params.require(:saved_query).permit(:name, :match_all, :show_pending)
+      params.require(:saved_query).permit(:name, :match_all, :show_pending, :only_subordinates)
     end
 end

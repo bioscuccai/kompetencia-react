@@ -5,7 +5,7 @@ class ReportsController < ApplicationController
   include ReportFormatter
   include RestrictAccess
   
-  before_action :set_report, only: [:show, :edit, :update, :destroy, :results]
+  before_action :set_report, only: [:show, :edit, :update, :destroy, :results, :matrix]
   skip_before_filter :verify_authenticity_token
   before_action :restrict_admin_godfather
   
@@ -60,7 +60,9 @@ class ReportsController < ApplicationController
       competence_params=sq.competence_query_params
       users, a, b=User.query({competences: competence_params,
         match_all: sq.match_all,
-        show_pending: sq.show_pending})
+        show_pending: sq.show_pending,
+        only_subordinates: sq.only_subordinates,
+        subordinates_of: current_user})
       res.push({
         name: sq.name,
         value: users.count
@@ -70,6 +72,37 @@ class ReportsController < ApplicationController
       format.csv{send_data csv_convert(res)}
       format.json{render json: res}
     end
+  end
+  
+  def matrix
+    competence_ids=@report.saved_queries.map do |sq|
+      sq.saved_query_competences.map do |sqc|
+        sqc.competence_id
+      end
+    end
+    competence_ids=competence_ids.flatten.uniq
+    
+    competences=Competence.where('id IN (?)', competence_ids)
+    
+    competence_results=competences.map do |c|
+      max_level=c&.competence_type&.competence_tier_group&.competence_tiers.count
+      if max_level
+        {
+          title: c.title,
+          levels: (0...max_level).map do |l|
+            {
+              title: c&.competence_type&.competence_tier_group&.competence_tiers.find_by(level: l)&.title,
+              assigned: AssignedCompetenceLevel.where(level: l, competence_id: c.id).count,
+              pending:  PendingCompetenceLevel.where(level: l, competence_id: c.id).count
+            }
+          end
+        }
+      else
+        nil
+      end
+    end
+    
+    render json: competence_results.compact
   end
   
   private

@@ -22,13 +22,19 @@ export default React.createClass({
         <i className='icon ion-ios-timer-outline'></i> Megerösítetlen kompetenciák
       </div>;
     }
-    
+    let subordinateIcon;
+    if(this.props.savedQuery.only_subordinates){
+      subordinateIcon=<div>
+        <i className='icon ion-person-stalker'></i> Csak a dolgozóim
+      </div>;
+    }
     return <div className='saved-query'>
       <Link to={`/query/${this.compileQueryString()}`}>
         <h4>{this.props.savedQuery.name}</h4>
       </Link>
       {strictIcon}
       {pendingIcon}
+      {subordinateIcon}
       {this.props.savedQuery.competences.map(competence=>{
         return <CompetenceBreadcrumb
           key={`sq-${this.props.savedQuery.id}-comp-${competence.id}`}

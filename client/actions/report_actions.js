@@ -9,10 +9,11 @@ class ReportActions{
     this.generateActions("updateReports", "updateCurrentReport", "updateResults", "updateSavedQueries", "error",
     "updateReportSucc", "updateSavedQuerySucc",
     "deleteReportSucc", "deleteSavedQuerySucc",
-    "createSavedQuerySucc", "createReportSucc");
+    "createSavedQuerySucc", "createReportSucc",
+    "updateMatrix");
   }
   
-  createSavedQuery(name='', matchAll=false, showPending=false, competences=[]){
+  createSavedQuery(name='', matchAll=false, showPending=false, onlySubordinates=false, competences=[]){
     return dispatch=>{
       let resp={name, matchAll, competences};
       dispatch(resp);
@@ -21,6 +22,7 @@ class ReportActions{
           name,
           match_all: matchAll,
           show_pending: showPending,
+          only_subordinates: onlySubordinates,
           competences
         }
       }, {responseType: 'json'})
@@ -68,7 +70,7 @@ class ReportActions{
     };
   }
   
-  updateSavedQuery(id, name, matchAll=false, showPending=false){
+  updateSavedQuery(id, name, matchAll=false, showPending=false, onlySubordinates=false){
     return dispatch=>{
       let resp={id, name, matchAll, showPending};
       dispatch(resp);
@@ -76,7 +78,8 @@ class ReportActions{
         saved_query: {
           name,
           match_all: matchAll,
-          show_pending: showPending
+          show_pending: showPending,
+          only_subordinates: onlySubordinates
         },
       }, {responseType: 'json'})
       .then(data=>{
@@ -113,6 +116,7 @@ class ReportActions{
   
   error(e){
     console.log(e);
+    return e;
   }
 }
 

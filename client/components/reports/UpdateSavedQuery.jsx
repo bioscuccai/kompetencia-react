@@ -10,14 +10,16 @@ export default React.createClass({
   getInitialState(){
     return {
       matchAll: false,
-      showPending: false
+      showPending: false,
+      onlySubordinates: false
     };
   },
   
   componentDidMount(){
     this.setState({
       matchAll: this.props.savedQuery.match_all,
-      showPending: this.props.savedQuery.show_pending
+      showPending: this.props.savedQuery.show_pending,
+      onlySubordinates: this.props.savedQuery.only_subordinates
     }, ()=>{
       console.log(this.state);
     });
@@ -45,6 +47,10 @@ export default React.createClass({
         Függő kompetenciák
         <input type='checkbox' onChange={this.onShowPendingChange} checked={this.state.showPending}></input>
       </div>
+      <div>
+        Csak a dolgozóim
+        <input type='checkbox' onChange={this.onOnlySubordinatesChange} checked={this.state.onlySubordinates}></input>
+      </div>
       <button onClick={this.onUpdate}>Mentés</button>
     </div>;
   },
@@ -57,9 +63,13 @@ export default React.createClass({
     this.setState({showPending: e.target.checked});
   },
   
+  onOnlySubordinatesChange(e){
+    this.setState({onlySubordinates: e.target.checked});
+  },
+  
   onUpdate(){
     reportActions.updateSavedQuery(this.props.savedQuery.id, this.refs.name.value,
-      this.state.matchAll, this.state.showPending)
+      this.state.matchAll, this.state.showPending, this.state.onlySubordinates)
     .then(data=>{
       if(_.get(data, "data.status")==="ok"){
         NotificationManager.info("Sikeres módosítás");

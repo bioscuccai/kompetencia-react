@@ -56,5 +56,19 @@ export default {
     
     success: reportActions.updateResults,
     error: reportActions.error
+  },
+  
+  fetchMatrix: {
+    remote(state, id){
+      return new Promise((resolve, reject) => {
+        axios.get(`/reports/${id}/matrix.json`, {responseType: 'json'})
+        .then(data=>{
+          return resolve(data.data);
+        });
+      });
+    },
+    
+    success: reportActions.updateMatrix,
+    error: reportActions.error
   }
 };

@@ -29,6 +29,7 @@ export default React.createClass({
     reportActions.createSavedQuery(this.refs.name.value,
       this.props.matchAll,
       this.props.showPending,
+      this.props.onlySubordinates,
       this.props.competences)
     .then(data=>{
       NotificationManager.info("Keresés elmentve");

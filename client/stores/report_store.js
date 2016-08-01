@@ -12,6 +12,8 @@ class ReportStore{
     this.currentReport=null;
     this.results=[];
     
+    this.matrix=null;
+    
     this.bindActions(reportActions);
     this.registerAsync(reportSource);
     this.bindListeners({
@@ -53,6 +55,10 @@ class ReportStore{
   
   updateResults(results){
     this.results=results;
+  }
+  
+  updateMatrix(matrix){
+    this.matrix=matrix;
   }
 }
 

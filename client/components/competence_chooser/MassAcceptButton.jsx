@@ -9,13 +9,19 @@ import competenceActions from '../../actions/competence_actions';
 
 export default React.createClass({
   render(){
-    if(this.props.competences.filter(competence=>competence.isPending).length===0){
+    if(!this.props.profileUser){
+      return <span></span>;
+    }
+    let pending=this.props.competences.filter(competence=>competence.isPending);
+    if(pending.length===0){
       return <span></span>;
     }
     if(!auth.canAcceptCompetenceOf(this.props.profileUser, this.props.currentUser)){
       return <span></span>;
     }
-    return <button onClick={this.onMassAccept}>{this.props.label || 'Mind elfogad'}</button>;
+    return <button onClick={this.onMassAccept}>
+      <i className='icon ion-checkmark-round'></i>
+      {this.props.label || 'Mind elfogad'} ({pending.length})</button>;
   },
   
   onMassAccept(){

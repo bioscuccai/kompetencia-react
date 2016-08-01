@@ -38,7 +38,7 @@ export default React.createClass({
             <input type='checkbox' onChange={this.publishedChanged} checked={this.state.published}></input> Publikus
           </div>
           <div>
-            <input type='checkbox' onChange={this.frontPageChanged} checked={this.state.frontPage}></input> Főoldalon megjelenjen
+            <input type='checkbox' onChange={this.frontPageChanged} checked={this.state.frontPage}></input> Főoldalon megjelenjen (TODO)
           </div>
           <div>
             <input type='checkbox' onChange={this.importantChanged} checked={this.state.important}></input> Kiemelt (TODO)

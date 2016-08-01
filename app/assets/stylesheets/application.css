@@ -386,3 +386,8 @@ main{
 .skill-mini-unconfirmed.skill-highlight{
   background-color: rgb(129, 182, 96);
 }
+
+.max-width-250{
+  width: 250px;
+  max-width: 250px;
+}

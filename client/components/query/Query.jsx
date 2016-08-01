@@ -158,6 +158,7 @@ export default React.createClass({
               currentUser={this.context.currentUser}
               competences={this.selectedCompetenceArray()}
               matchAll={this.state.matchAll}
+              onlySubordinates={this.state.onlySubordinates}
               showPending={this.state.showPending}></SaveQueryButton>
 
           </div>

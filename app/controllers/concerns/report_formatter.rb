@@ -12,6 +12,7 @@ module ReportFormatter
           name: sq.name,
           match_all: sq.match_all,
           show_pending: sq.show_pending,
+          only_subordinates: sq.only_subordinates,
           competences: format_competence_list(sq.saved_query_competences),
           private: sq.private,
           user_id: sq.user_id

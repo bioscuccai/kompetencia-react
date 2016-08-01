@@ -28,6 +28,10 @@ export default React.createClass({
             <i className='icon ion-arrow-right-b'></i>
             Végrehajtás
           </Link>
+          <Link to={`/matrix/${this.props.report.id}`} className='button'>
+            <i className='icon ion-pie-graph'></i>
+            Mátrix (WIP)
+          </Link>
         </h4>
         <blockquote>
           {this.props.report.saved_queries.map(sq=>{
