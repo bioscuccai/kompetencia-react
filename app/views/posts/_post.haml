@@ -1,0 +1,13 @@
+.login-screen{style: 'padding: 3px'}
+  %h3
+    -#=link_to post.title, post_path(post)
+    =post.title
+  
+  %div
+    %small
+      %i.icon.ion-clock
+      =post.created_at.to_s(:long)
+  
+  %h5= markdown.render(post.short_text).html_safe
+  
+  %div= markdown.render(post.text).html_safe

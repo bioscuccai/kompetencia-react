@@ -65,3 +65,4 @@ gem 'bullet'
 gem 'dotenv-rails'
 gem 'paperclip'
 gem 'whenever', require: false
+gem 'redcarpet'

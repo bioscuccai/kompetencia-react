@@ -5,8 +5,8 @@ class PostsController < ApplicationController
   include RestrictAccess
   include PostFormatter
   
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
-  before_action :restrict_admin, only: [:update, :delete, :create]
+  before_action :set_post, only: [:show, :update, :destroy]
+  before_action :restrict_admin, only: [:update, :edit, :delete, :create]
   
   # GET /posts
   # GET /posts.json
@@ -22,11 +22,14 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
-    render json: format_post(@post)
-  end
-
-  # GET /posts/1/edit
-  def edit
+    respond_to do |format|
+      format.html do
+        markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
+        @short_text=markdown.render @post.short_text
+        @text=markdown.render @post.text
+      end
+      format.json {render json: format_post(@post)}
+    end
   end
 
   # POST /posts

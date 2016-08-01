@@ -60,3 +60,24 @@
     
   </div>
 </div>
+<div class='row'>
+  <div class='column column-10'>
+    
+  </div>
+  
+  <div class='column column-80'>
+    <% markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML) %>
+    <% posts=Post.where(front_page: true, published: true).order(created_at: :desc) %>
+    <% if posts.count>0 %>
+      <div style='height: 30px'></div>
+    <% end %>
+    <% posts.each do |post|  %>
+      <%= render partial: 'posts/post', locals: {markdown: markdown, post: post} %>
+    <% end %>
+  </div>
+  
+  
+  <div class='column column-10'>
+    
+  </div>
+</div>

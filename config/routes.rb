@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :posts
+  resources :posts, only: [:show, :index, :create, :update, :destroy]
   resources :saved_queries
   resources :reports do
     member do
