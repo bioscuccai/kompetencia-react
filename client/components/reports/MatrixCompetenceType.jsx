@@ -21,7 +21,13 @@ export default React.createClass({
               <td>{comp.title}</td>
               {comp.levels.map((cl,i )=>{
                 return <th key={`cl-${comp.id}-${i}`}>
-                  {cl.assigned}
+                  {cl.assigned}&nbsp;
+                  /&nbsp;
+                  <span
+                    className='pending-user-competence'
+                    title='Megerősítetlen'>
+                    {cl.pending}
+                  </span>
                 </th>;
               })}
             </tr>;
