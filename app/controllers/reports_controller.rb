@@ -84,25 +84,56 @@ class ReportsController < ApplicationController
     
     competences=Competence.where('id IN (?)', competence_ids)
     
-    competence_results=competences.map do |c|
-      max_level=c&.competence_type&.competence_tier_group&.competence_tiers.count
-      if max_level
-        {
-          title: c.title,
-          levels: (0...max_level).map do |l|
-            {
-              title: c&.competence_type&.competence_tier_group&.competence_tiers.find_by(level: l)&.title,
-              assigned: AssignedCompetenceLevel.where(level: l, competence_id: c.id).count,
-              pending:  PendingCompetenceLevel.where(level: l, competence_id: c.id).count
-            }
-          end
-        }
-      else
-        nil
-      end
+    # competence_tier_groups=competences.map{|c| c&.competence_type&.competence_tier_group}.compact.uniq
+    # pp competence_tier_groups
+    
+    competence_types=competences.map{|c| c&.competence_type}.compact.uniq
+    
+    ct_resp=competence_types.map do |ct|
+      ct_competences=competences.select{|c| c.competence_type_id==ct.id}
+      {
+        id: ct.id,
+        competence_type: ct.title,
+        tiers: ct&.competence_tier_group&.competence_tiers.map do |cti|
+          {
+            title: cti.title,
+            level: cti.level
+          }
+        end,
+        competences: ct_competences.map do |c|
+          {
+            id: c.id,
+            title: c.title,
+            levels: (0...c&.competence_type&.competence_tier_group&.competence_tiers.count).map do |l|
+              {
+                assigned: AssignedCompetenceLevel.where(level: l, competence_id: c.id).count,
+                pending:  PendingCompetenceLevel.where(level: l, competence_id: c.id).count
+              }
+            end
+          }
+        end
+      }
     end
     
-    render json: competence_results.compact
+    # competence_results=competences.map do |c|
+    #   max_level=c&.competence_type&.competence_tier_group&.competence_tiers.count
+    #   if max_level
+    #     {
+    #       title: c.title,
+    #       levels: (0...max_level).map do |l|
+    #         {
+    #           title: c&.competence_type&.competence_tier_group&.competence_tiers.find_by(level: l)&.title,
+    #           assigned: AssignedCompetenceLevel.where(level: l, competence_id: c.id).count,
+    #           pending:  PendingCompetenceLevel.where(level: l, competence_id: c.id).count
+    #         }
+    #       end
+    #     }
+    #   else
+    #     nil
+    #   end
+    # end
+    
+    render json: ct_resp
   end
   
   private

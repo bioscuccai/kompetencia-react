@@ -4,7 +4,7 @@ import React from 'react';
 import reportStore from '../../stores/report_store';
 import alt from '../../alt/alt';
 import Loading from '../Loading.jsx';
-import MatrixCompetence from './MatrixCompetence.jsx';
+import MatrixCompetenceType from './MatrixCompetenceType.jsx';
 
 export default React.createClass({
   getInitialState(){
@@ -24,6 +24,7 @@ export default React.createClass({
   },
   
   handleReportStoreChange(state){
+    console.log(state.matrix);
     this.setState({
       matrix: state.matrix
     });
@@ -39,11 +40,12 @@ export default React.createClass({
         Csak az adott reporthoz tartozó mentett keresések kompetenciát jeleníti meg szintekre lebontva.
         Tehát a módosítók, mint például az erős keresés és a saját dolgozókra szűrés még nincs implementálva.
       </ul>
-      {this.state.matrix.map(comp=>{
-        return <MatrixCompetence
-          key={`mat-comp-${comp.title}`}
-          competence={comp}
-          ></MatrixCompetence>;
+      {this.state.matrix.map(compType=>{
+        console.log(compType);
+        return <MatrixCompetenceType
+          key={`mat-comp-${compType.id}`}
+          competenceType={compType}
+          ></MatrixCompetenceType>;
       })}
     </div>;
   }
