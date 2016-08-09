@@ -21,7 +21,7 @@ class ReportsController < ApplicationController
 
   def create
     ActiveRecord::Base.transaction do
-      report=Report.create!(name: params[:report][:name])
+      report=Report.create!(name: params[:report][:name], unpublished: params[:report][:unpublished])
       params[:report][:saved_query_ids].each do |sqi|
         saved_query=SavedQuery.find sqi
         ReportSavedQuery.create!(report: report, saved_query: saved_query)
@@ -34,7 +34,7 @@ class ReportsController < ApplicationController
   # PATCH/PUT /reports/1.json
   def update
     ActiveRecord::Base.transaction do
-      @report.update!(name: params[:report][:name])
+      @report.update!(name: params[:report][:name], unpublished: params[:report][:unpublished])
       @report.report_saved_queries.where('saved_query_id NOT IN (?)', params[:report][:saved_query_ids].map{|sqi| sqi.to_i}).destroy_all
       
       saved_query_ids=@report.saved_queries.map{|sq| sq.id}
@@ -144,7 +144,7 @@ class ReportsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def report_params
-      params.require(:report).permit(:name)
+      params.require(:report).permit(:name, :unpublised)
     end
     
     def csv_convert res

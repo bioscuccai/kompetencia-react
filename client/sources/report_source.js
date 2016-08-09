@@ -7,6 +7,8 @@ export default {
       return new Promise((resolve, reject) => {
         axios.get('/reports.json', {responseType: 'json'})
         .then(data=>{
+          console.log('fetch');
+          console.log(data.data);
           return resolve(data.data);
         });
       });

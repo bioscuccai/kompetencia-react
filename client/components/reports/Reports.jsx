@@ -47,7 +47,8 @@ export default React.createClass({
   },
   
   handleReportStoreChange(state){
-    console.log(state);
+    console.log("state reports");
+    console.log(state.reports);
     this.setState({
       savedQueries: state.savedQueries,
       reports: state.reports

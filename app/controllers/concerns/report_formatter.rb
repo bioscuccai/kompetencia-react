@@ -6,6 +6,7 @@ module ReportFormatter
     {
       id: report.id,
       name: report.name,
+      unpublished: report.unpublished,
       saved_queries: report.saved_queries.map do |sq|
         {
           id: sq.id,
@@ -14,7 +15,6 @@ module ReportFormatter
           show_pending: sq.show_pending,
           only_subordinates: sq.only_subordinates,
           competences: format_competence_list(sq.saved_query_competences),
-          private: sq.private,
           user_id: sq.user_id
         }
       end

@@ -11,7 +11,8 @@ export default React.createClass({
     return {
       matchAll: false,
       showPending: false,
-      onlySubordinates: false
+      onlySubordinates: false,
+      unpublished: false
     };
   },
   
@@ -19,7 +20,8 @@ export default React.createClass({
     this.setState({
       matchAll: this.props.savedQuery.match_all,
       showPending: this.props.savedQuery.show_pending,
-      onlySubordinates: this.props.savedQuery.only_subordinates
+      onlySubordinates: this.props.savedQuery.only_subordinates,
+      unpublished: this.props.savedQuery.unpublished
     }, ()=>{
       console.log(this.state);
     });
@@ -51,6 +53,10 @@ export default React.createClass({
         Csak a dolgozóim
         <input type='checkbox' onChange={this.onOnlySubordinatesChange} checked={this.state.onlySubordinates}></input>
       </div>
+      <div>
+        Csak én láthatom
+        <input type='checkbox' onChange={this.onUnpublishedChange} checked={this.state.unpublished}></input>
+      </div>
       <button onClick={this.onUpdate}>Mentés</button>
     </div>;
   },
@@ -67,9 +73,13 @@ export default React.createClass({
     this.setState({onlySubordinates: e.target.checked});
   },
   
+  onUnpublishedChange(e){
+    this.setState({unpublished: e.target.checked});
+  },
+  
   onUpdate(){
     reportActions.updateSavedQuery(this.props.savedQuery.id, this.refs.name.value,
-      this.state.matchAll, this.state.showPending, this.state.onlySubordinates)
+      this.state.matchAll, this.state.showPending, this.state.onlySubordinates, this.state.unpublished)
     .then(data=>{
       if(_.get(data, "data.status")==="ok"){
         NotificationManager.info("Sikeres módosítás");

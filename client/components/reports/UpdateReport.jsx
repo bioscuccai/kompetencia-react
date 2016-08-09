@@ -10,13 +10,19 @@ import CloseButton from '../CloseButton.jsx';
 export default React.createClass({
   getInitialState(){
     return {
-      selectedSavedQueryIds: []
+      selectedSavedQueryIds: [],
+      unpublished: false
     };
+  },
+  
+  onUnpublishedChange(e){
+    this.setState({unpublished: e.target.value});
   },
   
   componentDidMount(){
     this.setState({
-      selectedSavedQueryIds: this.props.report.saved_queries.map(item=>item.id)
+      selectedSavedQueryIds: this.props.report.saved_queries.map(item=>item.id),
+      unpublished: this.props.report.unpublished
     });
   },
   
@@ -41,6 +47,10 @@ export default React.createClass({
           return <option key={sq.id} value={sq.id}>{sq.name}</option>;
         })}
       </select>
+      <div>
+        Csak én láthatom
+        <input type='checkbox' onChange={this.onUnpublishedChange} checked={this.state.unpublished}></input>
+      </div>
       <button onClick={this.onHandleSave}>Mentés</button>
     </div>;
   },

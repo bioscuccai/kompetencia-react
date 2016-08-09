@@ -35,7 +35,10 @@ export default React.createClass({
   
   render(){
     return <div>
-      <NewPostButton currentUser={this.context.currentUser}></NewPostButton>
+      <div>
+        <NewPostButton currentUser={this.context.currentUser}></NewPostButton>
+      </div>
+      <h1>Bejelentések</h1>
       {this.state.posts.map(post=>{
         return <PostPreview
           post={post}

@@ -13,7 +13,7 @@ class ReportActions{
     "updateMatrix");
   }
   
-  createSavedQuery(name='', matchAll=false, showPending=false, onlySubordinates=false, competences=[]){
+  createSavedQuery(name='', matchAll=false, showPending=false, onlySubordinates=false, unpublished=false, competences=[]){
     return dispatch=>{
       let resp={name, matchAll, competences};
       dispatch(resp);
@@ -34,14 +34,15 @@ class ReportActions{
     };
   }
   
-  createReport(name, savedQueryIds){
+  createReport(name, unpublished=false, savedQueryIds=[]){
     return dispatch=>{
       let resp={name, savedQueryIds};
       dispatch(resp);
       return axios.post('/reports.json', {
         report: {
           name: name,
-          saved_query_ids: savedQueryIds
+          saved_query_ids: savedQueryIds,
+          unpublished
         }
       }, {responseType: 'json'})
       .then(data=>{
@@ -52,14 +53,15 @@ class ReportActions{
     };
   }
   
-  updateReport(id, name, savedQueryIds){
+  updateReport(id, name, unpublished=false, savedQueryIds=[]){
     return dispatch=>{
       let resp={id, name, savedQueryIds};
       dispatch(resp);
       return axios.put(`/reports/${id}.json`,{
         report: {
           name,
-          saved_query_ids: savedQueryIds
+          saved_query_ids: savedQueryIds,
+          unpublished
         }
       }, {responseType: 'json'})
       .then(data=>{
@@ -70,7 +72,7 @@ class ReportActions{
     };
   }
   
-  updateSavedQuery(id, name, matchAll=false, showPending=false, onlySubordinates=false){
+  updateSavedQuery(id, name, matchAll=false, showPending=false, onlySubordinates=false, unpublished=false){
     return dispatch=>{
       let resp={id, name, matchAll, showPending};
       dispatch(resp);
@@ -79,7 +81,8 @@ class ReportActions{
           name,
           match_all: matchAll,
           show_pending: showPending,
-          only_subordinates: onlySubordinates
+          only_subordinates: onlySubordinates,
+          unpublished
         },
       }, {responseType: 'json'})
       .then(data=>{

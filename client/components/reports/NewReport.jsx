@@ -10,8 +10,13 @@ import _ from 'lodash';
 export default React.createClass({
   getInitialState(){
     return {
-      selectedSavedQueryIds: []
+      selectedSavedQueryIds: [],
+      unpublished: false
     };
+  },
+  
+  onUnpublishedChange(e){
+    this.setState({unpublished: e.target.checked});
   },
   
   render(){
@@ -33,6 +38,10 @@ export default React.createClass({
           return <option key={sq.id} value={sq.id}>{sq.name}</option>;
         })}
       </select>
+      <div>
+        Csak én láthatom
+        <input type='checkbox' onChange={this.onUnpublishedChange} checked={this.state.unpublished}></input>
+      </div>
       <button onClick={this.onHandleSave}>Mentés</button>
     </div>;
   },
@@ -44,7 +53,8 @@ export default React.createClass({
   onHandleSave(){
     console.log(this.state.selectedSavedQueryIds);
     reportActions.createReport(this.refs.name.value,
-    this.state.selectedSavedQueryIds)
+      this.state.unpublished,
+      this.state.selectedSavedQueryIds)
     .then(data=>{
       if(_.get(data, "data.status")==='ok'){
         NotificationManager.info("Report létrehozva");

@@ -36,7 +36,6 @@ class ReportStore{
   }
   
   reloadSavedQueries(){
-    console.log("reloading");
     this.getInstance().fetchSavedQueries();
     return false;
   }

@@ -28,6 +28,12 @@ export default React.createClass({
         <i className='icon ion-person-stalker'></i> Csak a dolgozóim
       </div>;
     }
+    let unpublishedIcon;
+    if(this.props.savedQuery.unpublished){
+      unpublishedIcon=<div>
+        <i className='icon ion-android-hand'></i> Csak én látom
+      </div>;
+    }
     return <div className='saved-query'>
       <Link to={`/query/${this.compileQueryString()}`}>
         <h4>{this.props.savedQuery.name}</h4>
@@ -35,6 +41,7 @@ export default React.createClass({
       {strictIcon}
       {pendingIcon}
       {subordinateIcon}
+      {unpublishedIcon}
       {this.props.savedQuery.competences.map(competence=>{
         return <CompetenceBreadcrumb
           key={`sq-${this.props.savedQuery.id}-comp-${competence.id}`}

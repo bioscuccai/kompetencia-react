@@ -6,6 +6,18 @@ import {NotificationManager} from 'react-notifications';
 import CloseButton from '../CloseButton.jsx';
 
 export default React.createClass({
+  getInitialState(){
+    return {
+      unpublished: true
+    };
+  },
+  
+  onUnpublishedChange(e){
+    this.setState({
+      unpublished: e.target.checked
+    });
+  },
+  
   render(){
     return <div>
       <div className='clearfix modal-title'>
@@ -18,8 +30,14 @@ export default React.createClass({
           <CloseButton onClose={this.onClose}></CloseButton>
         </div>
       </div>
-      Név:
-      <input type='text' ref='name'></input>
+      <div>
+        Név:
+        <input type='text' ref='name'></input>
+      </div>
+      <div>
+        Csak én láthatom
+        <input type='checkbox' onChange={this.onUnpublishedChange} checked={this.state.unpublished}></input>
+      </div>
       <button onClick={this.onSubmit}>Mentés</button>
     </div>;
   },
@@ -30,6 +48,7 @@ export default React.createClass({
       this.props.matchAll,
       this.props.showPending,
       this.props.onlySubordinates,
+      this.props.unpublished,
       this.props.competences)
     .then(data=>{
       NotificationManager.info("Keresés elmentve");
