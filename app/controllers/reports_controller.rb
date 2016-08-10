@@ -10,7 +10,7 @@ class ReportsController < ApplicationController
   before_action :restrict_admin_godfather
   
   def index
-    reports = Report.all.includes(:saved_queries).map{|r| format_report(r)}
+    reports = Report.visible_for(current_user.id).includes(:saved_queries).map{|r| format_report(r)}
     render json: reports
   end
 
@@ -21,7 +21,7 @@ class ReportsController < ApplicationController
 
   def create
     ActiveRecord::Base.transaction do
-      report=Report.create!(name: params[:report][:name], unpublished: params[:report][:unpublished])
+      report=Report.create!(name: params[:report][:name], unpublished: params[:report][:unpublished], user_id: current_user.id)
       params[:report][:saved_query_ids].each do |sqi|
         saved_query=SavedQuery.find sqi
         ReportSavedQuery.create!(report: report, saved_query: saved_query)

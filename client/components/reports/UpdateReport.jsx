@@ -16,7 +16,7 @@ export default React.createClass({
   },
   
   onUnpublishedChange(e){
-    this.setState({unpublished: e.target.value});
+    this.setState({unpublished: e.target.checked});
   },
   
   componentDidMount(){
@@ -61,7 +61,8 @@ export default React.createClass({
   
   onHandleSave(){
     reportActions.updateReport(this.props.report.id, this.refs.name.value,
-    this.state.selectedSavedQueryIds)
+      this.state.unpublished,
+      this.state.selectedSavedQueryIds)
     .then(data=>{
       if(_.get(data, "data.status")==="ok"){
         NotificationManager.info("Report módosítva");

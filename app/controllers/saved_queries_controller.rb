@@ -31,7 +31,8 @@ class SavedQueriesController < ApplicationController
         match_all: params[:saved_query][:match_all],
         show_pending: params[:saved_query][:show_pending],
         only_subordinates: params[:saved_query][:only_subordinates],
-        unpublished: params[:saved_query][:unpublished])
+        unpublished: params[:saved_query][:unpublished],
+        user_id: current_user.id)
       params[:saved_query][:competences].each do |c|
         comp=Competence.find c[:competence_id]
         SavedQueryCompetence.create!(competence: comp, saved_query: saved_query, level: c[:level].to_i)

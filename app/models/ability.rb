@@ -18,6 +18,10 @@ class Ability
         user.has_authority_over?(availability.user)
       end
       
+      can [:update, :destroy], Report do |report|
+        report.user_id == user.id || user.has_role?(:admin)
+      end
+      
       can [:remove_godfather, :add_competence, :accept_pending_competence, :accept_competence,
         :reject_pending_competence, :remove_competence, :remove_pending_competence], User do |u|
         user.has_authority_over?(u)

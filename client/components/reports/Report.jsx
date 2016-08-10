@@ -22,8 +22,17 @@ export default React.createClass({
   },
   
   render(){
+    let unpublishedIcon;
+    if(this.props.report.unpublished){
+      unpublishedIcon=<small>(
+        <i className='icon ion-android-hand'></i>
+        Privát
+      )</small>;
+    }
     return <div>
         <h4>{this.props.report.name}&nbsp;
+          {unpublishedIcon}
+          &nbsp;
           <Link to={`/report_results/${this.props.report.id}`} className='button'>
             <i className='icon ion-arrow-right-b'></i>
             Végrehajtás
