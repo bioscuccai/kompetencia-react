@@ -54,7 +54,7 @@ export default React.createClass({
         <input type='checkbox' onChange={this.onOnlySubordinatesChange} checked={this.state.onlySubordinates}></input>
       </div>
       <div>
-        Csak én láthatom
+        Csak én láthatom (WIP)
         <input type='checkbox' onChange={this.onUnpublishedChange} checked={this.state.unpublished}></input>
       </div>
       <button onClick={this.onUpdate}>Mentés</button>

@@ -8,7 +8,7 @@ import CloseButton from '../CloseButton.jsx';
 export default React.createClass({
   getInitialState(){
     return {
-      unpublished: true
+      unpublished: false
     };
   },
   
@@ -35,7 +35,7 @@ export default React.createClass({
         <input type='text' ref='name'></input>
       </div>
       <div>
-        Csak én láthatom
+        Csak én láthatom (WIP)
         <input type='checkbox' onChange={this.onUnpublishedChange} checked={this.state.unpublished}></input>
       </div>
       <button onClick={this.onSubmit}>Mentés</button>
@@ -43,12 +43,12 @@ export default React.createClass({
   },
   
   onSubmit(){
-    console.log(this.props.competences);
+    console.log(this.state);
     reportActions.createSavedQuery(this.refs.name.value,
       this.props.matchAll,
       this.props.showPending,
       this.props.onlySubordinates,
-      this.props.unpublished,
+      this.state.unpublished,
       this.props.competences)
     .then(data=>{
       NotificationManager.info("Keresés elmentve");

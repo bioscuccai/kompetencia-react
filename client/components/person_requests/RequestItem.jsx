@@ -63,7 +63,7 @@ export default React.createClass({
             </small>
           </div>
         </Link>
-        <div><small><img src='/godfather.gif' className='godfather-icon'/>({_.get(this.props.request, "target.godfather.email")})</small></div>
+        <div><small><i className='icon ion-star'></i>({_.get(this.props.request, "target.godfather.email")})</small></div>
       </td>
       <td>
         <h5>{this.props.request.title}</h5>
@@ -115,8 +115,12 @@ export default React.createClass({
       if(_.get(data, "data.status")==="ok"){
         NotificationManager.info("Siker");
       } else {
-        NotificationManager.error("Hiba");
+        NotificationManager.error("Hiba történt");
       }
+    })
+    .catch(err=>{
+      NotificationManager.error("Hiba történt! Részletek a konzolban");
+      console.log(JSON.stringify(err, null, 2));
     });
   }
 });

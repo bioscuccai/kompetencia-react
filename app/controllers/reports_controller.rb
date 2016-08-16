@@ -10,7 +10,8 @@ class ReportsController < ApplicationController
   before_action :restrict_admin_godfather
   
   def index
-    reports = Report.visible_for(current_user.id).includes(:saved_queries).map{|r| format_report(r)}
+    reports = Report.includes(:saved_queries).map{|r| format_report(r)}
+    #reports = Report.visible_for(current_user.id).includes(:saved_queries).map{|r| format_report(r)}
     render json: reports
   end
 

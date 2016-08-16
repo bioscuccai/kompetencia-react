@@ -39,7 +39,7 @@ export default React.createClass({
         })}
       </select>
       <div>
-        Csak én láthatom
+        Csak én láthatom (WIP)
         <input type='checkbox' onChange={this.onUnpublishedChange} checked={this.state.unpublished}></input>
       </div>
       <button onClick={this.onHandleSave}>Mentés</button>

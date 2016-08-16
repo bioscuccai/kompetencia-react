@@ -27,6 +27,7 @@ class SavedQueriesController < ApplicationController
   # POST /saved_queries.json
   def create
     ActiveRecord::Base.transaction do
+      binding.pry
       saved_query = SavedQuery.create!(name: params[:saved_query][:name], 
         match_all: params[:saved_query][:match_all],
         show_pending: params[:saved_query][:show_pending],

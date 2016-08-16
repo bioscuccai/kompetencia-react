@@ -23,7 +23,8 @@ class ReportActions{
           match_all: matchAll,
           show_pending: showPending,
           only_subordinates: onlySubordinates,
-          competences
+          competences,
+          unpublished
         }
       }, {responseType: 'json'})
       .then(data=>{
