@@ -67,10 +67,14 @@
   
   <div class='column column-80'>
     <% markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML) %>
-    <% posts=Post.where(front_page: true, published: true).order(created_at: :desc) %>
+    <% posts=Post.only_front_page.only_published.only_important.order(created_at: :desc) %>
     <% if posts.count>0 %>
       <div style='height: 30px'></div>
     <% end %>
+    <% posts.each do |post|  %>
+      <%= render partial: 'posts/post', locals: {markdown: markdown, post: post} %>
+    <% end %>
+    <% posts=Post.only_front_page.only_published.only_not_important.order(created_at: :desc).limit(10) %>
     <% posts.each do |post|  %>
       <%= render partial: 'posts/post', locals: {markdown: markdown, post: post} %>
     <% end %>

@@ -14,7 +14,8 @@ class PostsController < ApplicationController
     if current_user.has_role? :admin
       @posts = Post.order(created_at: :desc)
     else
-      @posts = Post.where(published: true).order(created_at: :desc)
+      @posts = [*Post.only_published.only_important.order(created_at: :desc).to_a,
+        *Post.only_published.only_not_important.order(created_at: :desc).to_a]
     end
     render json: @posts.map{|p| format_post(p)}
   end

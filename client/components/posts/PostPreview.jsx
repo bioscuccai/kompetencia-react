@@ -8,10 +8,14 @@ import UpdatePostButton from './UpdatePostButton.jsx';
 
 export default React.createClass({
   render(){
+    let flag;
+    if(this.props.post.important){
+      flag=<i className='icon ion-flag' title='Kiemelt'></i>;
+    }
     return <div>
       <h1>
         <Link to={`/posts/${this.props.post.id}`}>
-          {this.props.post.title}
+          {flag} {this.props.post.title}
         </Link>
         <UpdatePostButton currentUser={this.props.currentUser} post={this.props.post}></UpdatePostButton>
       </h1>

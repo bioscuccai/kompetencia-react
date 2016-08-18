@@ -1,6 +1,8 @@
 .login-screen{style: 'padding: 3px'}
   %h3
     -#=link_to post.title, post_path(post)
+    - if post.important
+      %i.icon.ion-flag
     =post.title
   
   %div
