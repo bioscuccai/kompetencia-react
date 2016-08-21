@@ -1,9 +1,11 @@
 "use strict";
 
 import React from 'react';
+import _ from 'lodash';
 import userStore from '../../stores/user_store';
 import UserItem from './UserItem.jsx';
 import Loading from '../Loading.jsx';
+import Sort from '../Sort.jsx';
 import alt from '../../alt/alt';
 
 export default React.createClass({
@@ -13,6 +15,7 @@ export default React.createClass({
   
   getInitialState(){
     return {
+      sortBy: 'name',
       allUsers: [],
       filteredUsers: [],
       profileUser: null //ide az aktualis user kerul
@@ -44,6 +47,13 @@ export default React.createClass({
     });
   },
   
+  onSortChange(order, asc){
+    this.setState({
+      sortBy: order,
+      filteredUsers: _.orderBy(this.state.filteredUsers, [item=>_.deburr((item[order] || '').toLowerCase())], [asc ? 'asc' : 'desc'])
+    });
+  },
+  
   render(){
     if(!this.state.profileUser){
       return <Loading></Loading>;
@@ -51,6 +61,10 @@ export default React.createClass({
     
     return <div>
       <h1>Felhasználók</h1>
+      <Sort
+        fields={[{name: 'Név', value: 'name'}, {name: 'Mentor', value: 'godfather_name'}]}
+        onChange={this.onSortChange}
+        ></Sort>
       <input type='text' ref='filter' placeholder='Szűrő' onChange={this.onFilterChange}></input>
       <table>
         <thead>

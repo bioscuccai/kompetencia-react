@@ -10,6 +10,7 @@ module UserFormatter
       #available: u.available?,
       available: u.availabilities.select{|a| a.current?}.count!=0,
       godfather_id: u.godfather_id,
+      godfather_name: u&.godfather&.name,
       is_godfather: u.has_cached_role?(:godfather),
       is_admin: u.has_cached_role?(:admin),
       name: u.name,

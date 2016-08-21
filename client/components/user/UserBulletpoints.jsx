@@ -13,7 +13,8 @@ export default React.createClass({
       godfather=<span>
         <i className='icon ion-star' title='Mentor'></i>
         <a href={`/users/${_.get(this.props.user, "godfather.id")}`} title='Mentor'>
-          {_.get(this.props.user, "godfather.email")}
+          {this.props.user.godfather_name}
+          <small>({_.get(this.props.user, "godfather.email")})</small>
         </a>
       </span>;
     }

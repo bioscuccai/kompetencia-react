@@ -11,6 +11,7 @@ import competenceStore from '../../stores/competence_store';
 import queryActions from '../../actions/query_actions';
 
 import DateTime from 'react-datetime';
+import Sort from '../Sort.jsx';
 
 import CompetenceQueryResult from './CompetenceQueryResult.jsx';
 import QueryResult from './QueryResult.jsx';
@@ -37,6 +38,7 @@ export default React.createClass({
       filteredCompetences: [], //szurt kompetenciak
       selectedCompetences: [], //kivalasztott kompetenciak
       results: [],
+      sortedResults: [],
       allSkills: [],
       selectedSkillIds: [],
       lastSkillSelection: [],
@@ -48,7 +50,9 @@ export default React.createClass({
       showPending: false,
       matchAll: false,
       floaterExpanded: false,
-      onlySubordinates: false
+      onlySubordinates: false,
+      sortBy: 'relevance',
+      asc: false
     };
   },
   
@@ -269,21 +273,45 @@ export default React.createClass({
           <Element name="hitsScroll"></Element>
           <div>
             <h4>Találatok</h4>
-            {resultHitGroups.map(rhg=>{
-              return <div key={`hits-${rhg}`}>
-                  {resultGroups[rhg].map(result=>{
-                    return <QueryResult
-                      allUsers={this.state.allUsers}
-                      currentUser={this.context.currentUser}
-                      result={result}
-                      highlightedSkillIds={this.state.lastSkillSelection}
-                      key={`result-${result.id}`}></QueryResult>;
-                  })}
-              </div>;
+            <Sort
+              fields={[
+                {name: 'Relevancia', value: 'relevance'},
+                {name: 'Név', value: 'name'},
+                {name: 'Mentor', value: 'godfather_name'}
+              ]}
+              initialIndex={0}
+              initialDirection='desc'
+              onChange={this.onSortChange}>
+              
+            </Sort>
+            {this.state.sortedResults.map(result=>{
+              return <QueryResult
+                allUsers={this.state.allUsers}
+                currentUser={this.context.currentUser}
+                result={result}
+                highlightedSkillIds={this.state.lastSkillSelection}
+                key={`result-${result.id}`}></QueryResult>;
             })}
+
           </div>
 
     </div>;
+  },
+  
+  sortedResultsBy(results, order, asc){
+    return _.orderBy(results, [item=>{
+      if(_.isString(item[order])){
+        return _.deburr(item[order]).toLowerCase();
+      }
+      return item[order];
+    }
+    ], [asc ? 'asc' : 'desc']);
+  },
+  
+  onSortChange(order, asc){
+    this.setState({
+      sortedResults: this.sortedResultsBy(this.state.results, order, asc)
+    });
   },
   
   handleStoreChange(state){
@@ -298,7 +326,8 @@ export default React.createClass({
       competences: state.competenceQuery,
       selectedCompetences: state.competenceQuery.filter(e=>!_.isNil(e.selectedLevel)),
       filteredCompetences: this.filterResults(state.competenceQuery),
-      results: state.results
+      results: state.results,
+      sortedResults: this.sortedResultsBy(state.results, this.state.sortBy, this.state.asc)
     });
   },
   

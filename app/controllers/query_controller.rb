@@ -21,9 +21,11 @@ class QueryController < ApplicationController
         assigned_competence_levels: [competence: [:competence_type]],
         pending_competence_levels: [competence: [:competence_type]],
         users_roles: [:role]).
-      map do |u|
+      map.with_index do |u, index|
       format_user(u, level_names: level_names).merge({
         #matched_availabilities: u.availabilities.where("id IN (?)", user_availability_matches.fetch(u.id, [])).map{|a| format_availability a},
+        original_index: index,
+        relevance: result_per_user[u.id].count,
         matched_availabilities: u.availabilities.select{|a| user_availability_matches.fetch(u.id, []).include?(a.id) },
         found: result_per_user[u.id].map do |r|
           {
