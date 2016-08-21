@@ -38,14 +38,13 @@ export default React.createClass({
   },
   
   render(){
-    console.log('render');
     return <div>
       <h1>Friss hirdetések</h1>
       <Sort
         fields={[
           {name: 'Kezdés', value: 'starts_at'},
           {name: 'Név', value: 'name'},
-          {name: 'Mentor', value: 'godfather'}
+          {name: 'Mentor', value: 'godfather_name'}
         ]}
         onChange={this.onSortChange}
         initialIndex={0}

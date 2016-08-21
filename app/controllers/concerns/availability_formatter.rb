@@ -9,6 +9,7 @@ module AvailabilityFormatter
       user_id: a.user_id,
       godfather_name: a.user&.godfather&.name,
       user: format_user(a.user, without: ignore_from_user),
+      name: a&.user&.name,
       #title: a.title,
       comment: a.comment,
       starts_at: a.starts_at,
