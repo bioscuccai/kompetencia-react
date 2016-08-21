@@ -13,7 +13,7 @@ export default React.createClass({
   componentDidMount(){
     this.setState({
       selectedValue: this.props.fields[this.props.initialIndex || 0].value,
-      asc: this.props.initialDirection || true
+      asc: !!this.props.initialDirection
     });
   },
   
