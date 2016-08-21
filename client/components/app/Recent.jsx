@@ -48,7 +48,7 @@ export default React.createClass({
         ]}
         onChange={this.onSortChange}
         initialIndex={0}
-        initialDirection='desc'>
+        initialDirection={false}>
       </Sort>
       {sorter.sorted(this.state.recentAvailabilities, this.state.sortBy, this.state.asc).map(availability=>{
         return <AnnouncedAvailability 

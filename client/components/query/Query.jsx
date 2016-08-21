@@ -280,7 +280,7 @@ export default React.createClass({
                 {name: 'Mentor', value: 'godfather_name'}
               ]}
               initialIndex={0}
-              initialDirection='desc'
+              initialDirection={false}
               onChange={this.onSortChange}>
               
             </Sort>
