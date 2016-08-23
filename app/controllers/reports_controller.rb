@@ -134,7 +134,10 @@ class ReportsController < ApplicationController
     #   end
     # end
     
-    render json: ct_resp
+    respond_to do |format|
+      format.json{render json: ct_resp}
+      format.csv{send_data csv_matrix(ct_resp)}
+    end
   end
   
   private
@@ -153,6 +156,22 @@ class ReportsController < ApplicationController
         csv<<[:name, :value]
         res.each do |r|
           csv<<[r[:name], r[:value]]
+        end
+      end
+    end
+    
+    def csv_matrix ct_resp
+      CSV.generate do |csv|
+        ct_resp.each do |ct|
+          csv<<[ct[:competence_type]]
+          tiers=ct[:tiers].map{|tier| ["#{tier[:title]} megerősített", "#{tier[:title]} megerősítetlen"]}.flatten
+          csv<<[nil, *tiers]
+          competences=ct[:competences].each do |comp|
+            levels=comp[:levels].map do |cl|
+              [cl[:assigned], cl[:pending]]
+            end
+            csv<<[comp[:title], *levels].flatten
+          end
         end
       end
     end

@@ -35,7 +35,13 @@ export default React.createClass({
       return <Loading></Loading>;
     }
     return <div>
-      <h1>Mátrix</h1>
+      <div className='clearfix'>
+        <h1 className='float-left'>Mátrix</h1>
+        <a href={`/reports/${this.props.params.reportId}/matrix.csv`} className='button float-right'>
+          <i className='icon ion-android-download'></i>
+          Letöltés
+        </a>
+      </div>
       <ul>
         Csak az adott reporthoz tartozó mentett keresések kompetenciát jeleníti meg szintekre lebontva.
         Tehát a módosítók, mint például az erős keresés és a saját dolgozókra szűrés még nincs implementálva.
