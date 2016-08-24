@@ -90,6 +90,8 @@ class ReportsController < ApplicationController
     
     competence_types=competences.map{|c| c&.competence_type}.compact.uniq
     
+    subordinate_ids=User.where(godfather_id: current_user.id).map(&:id)
+    
     ct_resp=competence_types.map do |ct|
       ct_competences=competences.select{|c| c.competence_type_id==ct.id}
       {
@@ -106,10 +108,17 @@ class ReportsController < ApplicationController
             id: c.id,
             title: c.title,
             levels: (0...c&.competence_type&.competence_tier_group&.competence_tiers.count).map do |l|
-              {
-                assigned: AssignedCompetenceLevel.where(level: l, competence_id: c.id).count,
-                pending:  PendingCompetenceLevel.where(level: l, competence_id: c.id).count
-              }
+              if params[:only_subordinates]
+                {
+                  assigned: AssignedCompetenceLevel.where(level: l, competence_id: c.id, user_id: subordinate_ids).count,
+                  pending:  PendingCompetenceLevel.where(level: l, competence_id: c.id, user_id: subordinate_ids).count
+                }
+              else
+                {
+                  assigned: AssignedCompetenceLevel.where(level: l, competence_id: c.id).count,
+                  pending:  PendingCompetenceLevel.where(level: l, competence_id: c.id).count
+                }
+              end
             end
           }
         end

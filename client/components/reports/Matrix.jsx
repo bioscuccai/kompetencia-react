@@ -9,7 +9,8 @@ import MatrixCompetenceType from './MatrixCompetenceType.jsx';
 export default React.createClass({
   getInitialState(){
     return {
-      matrix: null
+      matrix: null,
+      onlySubordinates: false
     };
   },
   
@@ -30,6 +31,15 @@ export default React.createClass({
     });
   },
   
+  onOnlySubordinatesChange(e){
+    let newCheckboxState=e.target.checked;
+    this.setState({
+      onlySubordinates: newCheckboxState
+    }, ()=>{
+      reportStore.fetchMatrix(this.props.params.reportId, newCheckboxState);
+    });
+  },
+  
   render(){
     if(!this.state.matrix){
       return <Loading></Loading>;
@@ -44,8 +54,13 @@ export default React.createClass({
       </div>
       <ul>
         Csak az adott reporthoz tartozó mentett keresések kompetenciát jeleníti meg szintekre lebontva.
-        Tehát a módosítók, mint például az erős keresés és a saját dolgozókra szűrés még nincs implementálva.
+        Tehát a módosítók, mint például az erős keresés még nincs implementálva.
       </ul>
+      <div>
+        <input type='checkbox'
+          onChange={this.onOnlySubordinatesChange}
+          checked={this.state.onlySubordinates}></input> Csak saját dolgozók
+      </div>
       {this.state.matrix.map(compType=>{
         console.log(compType);
         return <MatrixCompetenceType

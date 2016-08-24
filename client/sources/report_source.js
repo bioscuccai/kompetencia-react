@@ -61,9 +61,9 @@ export default {
   },
   
   fetchMatrix: {
-    remote(state, id){
+    remote(state, id, onlySubordinates = false){
       return new Promise((resolve, reject) => {
-        axios.get(`/reports/${id}/matrix.json`, {responseType: 'json'})
+        axios.get(`/reports/${id}/matrix.json${onlySubordinates ? '?only_subordinates=1' : ''}`, {responseType: 'json'})
         .then(data=>{
           return resolve(data.data);
         });
