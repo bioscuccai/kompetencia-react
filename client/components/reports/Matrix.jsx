@@ -47,7 +47,7 @@ export default React.createClass({
     return <div>
       <div className='clearfix'>
         <h1 className='float-left'>Mátrix</h1>
-        <a href={`/reports/${this.props.params.reportId}/matrix.csv`} className='button float-right'>
+        <a href={`/reports/${this.props.params.reportId}/matrix.csv${this.state.onlySubordinates ? '?only_subordinates=1' : ''}`} className='button float-right'>
           <i className='icon ion-android-download'></i>
           Letöltés
         </a>
