@@ -53,16 +53,16 @@ class User < ActiveRecord::Base
   
   def add_competence(competence, level)
     ActiveRecord::Base.transaction do
-      self.assigned_competence_levels.where(competence: competence).delete_all
-      self.pending_competence_levels.where(competence: competence).delete_all
+      self.assigned_competence_levels.where(competence: competence).destroy_all
+      self.pending_competence_levels.where(competence: competence).destroy_all
       self.assigned_competence_levels.create(competence: competence, level: level)
     end
   end
   
   def add_pending_competence(competence, level)
     ActiveRecord::Base.transaction do
-      #self.assigned_competence_levels.where(competence: competence).delete_all
-      self.pending_competence_levels.where(competence: competence).delete_all
+      #self.assigned_competence_levels.where(competence: competence).destroy_all
+      self.pending_competence_levels.where(competence: competence).destroy_all
       self.pending_competence_levels.create(competence: competence, level: level)
     end
   end
@@ -75,21 +75,21 @@ class User < ActiveRecord::Base
   
   def remove_competence(competence)
     ActiveRecord::Base.transaction do
-      self.assigned_competence_levels.where(competence: competence).delete_all
-      self.pending_competence_levels.where(competence: competence).delete_all
+      self.assigned_competence_levels.where(competence: competence).destroy_all
+      self.pending_competence_levels.where(competence: competence).destroy_all
     end
   end
   
   def remove_pending_competence(competence)
-    self.pending_competence_levels.where(competence: competence).delete_all
+    self.pending_competence_levels.where(competence: competence).destroy_all
   end
   
   def accept_pending_competence(competence_id)
     competence=Competence.find competence_id
     level=self.pending_competence_levels.where(competence: competence).first.level
     ActiveRecord::Base.transaction do
-      self.pending_competence_levels.where(competence: competence).delete_all
-      self.assigned_competence_levels.where(competence: competence).delete_all
+      self.pending_competence_levels.where(competence: competence).destroy_all
+      self.assigned_competence_levels.where(competence: competence).destroy_all
       self.assigned_competence_levels.create(level: level, competence: competence)
     end
   end

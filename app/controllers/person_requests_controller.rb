@@ -18,7 +18,7 @@ class PersonRequestsController < ApplicationController
     ActiveRecord::Base.transaction do
       collisions=Availability.where(user_id: @person_request.target_id).where('ends_at IS NOT NULL').collisions_two(@person_request.starts_at, @person_request.ends_at)
       collisions.update_all(active: false)
-      @person_request.update(confirmed: true)
+      @person_request.update(confirmed: true, trigger_notification_mail: true)
     end
     render json: {status: :ok}
   end
@@ -26,14 +26,14 @@ class PersonRequestsController < ApplicationController
   def accept_no_collision
     authorize! :accept_no_collision, @person_request
     
-    @person_request.update!(confirmed: true)
+    @person_request.update!(confirmed: true, trigger_notification_mail: true)
     render json: {status: :ok}
   end
   
   def reject
     authorize! :reject, @person_request
     
-    @person_request.update!(confirmed: false)
+    @person_request.update!(confirmed: false, trigger_notification_mail: true)
     render json: {status: :ok}
   end
   
@@ -82,7 +82,8 @@ class PersonRequestsController < ApplicationController
   def update
     authorize! :update, @person_request
     
-    @person_request.user_id=@user.id
+    #@person_request.user_id=@user.id
+    #@person_request.update!(person_request_params.merge(trigger_notification_mail: (@person_request.user_id==current_user.id)))
     @person_request.update!(person_request_params)
     render json: {status: :ok}
   end

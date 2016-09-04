@@ -1,4 +1,4 @@
-%h1
+%h3
   ="Kedves #{@user.name}!"
 
 %div
@@ -10,12 +10,12 @@
       -@pending_users.each do |user|
         %li=user.name
   - if @requested.count>0
-    %h5 Módosult dolgozó kérvények
+    %h5 Módosult kérvények
     %ul
       -@requested.each do |req|
         %li=req.title
   - if @relevant.count>0
-    %h5 Módosult hirdetések
+    %h5 Új hirdetések
     %ul
       -@relevant.each do |rel|
         %li=rel.title

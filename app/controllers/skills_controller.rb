@@ -46,7 +46,6 @@ class SkillsController < ApplicationController
       can_destroy=true if current_user.has_role?(:godfather) && @user.godfather_id == current_user.id
       can_destroy=true if current_user.id==@user.id
       raise CanCan::AccessDenied if !can_destroy
-      
       UsersSkill.where(user_id: params[:user_id], skill_id: params[:id]).destroy_all
     else
       raise CanCan::AccessDenied if !current_user.has_role?(:admin)
