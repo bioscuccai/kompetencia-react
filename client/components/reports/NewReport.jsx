@@ -11,7 +11,8 @@ export default React.createClass({
   getInitialState(){
     return {
       selectedSavedQueryIds: [],
-      unpublished: false
+      unpublished: false,
+      name: ""
     };
   },
   
@@ -31,8 +32,10 @@ export default React.createClass({
           <CloseButton onClose={this.onClose}></CloseButton>
         </div>
       </div>
-      Név:
-      <input type='text' ref='name'></input>
+      <p>Megnevezés:</p>
+      <input type='text' ref='name' placeholder='Megnevezés' value={this.state.name}
+        onChange={e=>this.setState({name: e.target.value})}></input>
+      <p>Hozzátartozó mentett keresések:</p>
       <select ref='savedQueries' multiple onChange={this.onSelectChange} className='tall-200px'>
         {this.props.savedQueries.map(sq=>{
           return <option key={sq.id} value={sq.id}>{sq.name}</option>;
@@ -42,7 +45,7 @@ export default React.createClass({
         Csak én láthatom (WIP)
         <input type='checkbox' onChange={this.onUnpublishedChange} checked={this.state.unpublished}></input>
       </div>
-      <button onClick={this.onHandleSave}>Mentés</button>
+      <button onClick={this.onHandleSave} disabled={this.state.selectedSavedQueryIds.length===0 || this.state.name.length===0}>Mentés</button>
     </div>;
   },
   
@@ -52,7 +55,7 @@ export default React.createClass({
   
   onHandleSave(){
     console.log(this.state.selectedSavedQueryIds);
-    reportActions.createReport(this.refs.name.value,
+    reportActions.createReport(this.state.name,
       this.state.unpublished,
       this.state.selectedSavedQueryIds)
     .then(data=>{
