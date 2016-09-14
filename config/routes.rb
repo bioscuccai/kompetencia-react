@@ -109,6 +109,9 @@ Rails.application.routes.draw do
   
   get 'query' => 'query#index'
   post 'query/query' => 'query#query'
+
+  get 'email_dummy/collect_sendable' => 'email_dummy#collect_sendable'
+  get 'email_dummy/delete_pending_store' => 'email_dummy#delete_pending_store'
   
   root 'users#landing'
 end

@@ -22,6 +22,7 @@ import ReportResults from '../reports/ReportResults.jsx';
 import Posts from '../posts/Posts.jsx';
 import Post from '../posts/Post.jsx';
 import Matrix from '../reports/Matrix.jsx';
+import EmailDummies from '../email_dummy/EmailDummies.jsx';
 
 import {Router, Route, hashHistory} from 'react-router';
 
@@ -56,6 +57,7 @@ export default React.createClass({
           <Route path='/matrix/:reportId' component={Matrix}></Route>
           <Route path='/posts' component={Posts}></Route>
           <Route path='/posts/:postId' component={Post}></Route>
+          <Route path='/email_dummies' component={EmailDummies}></Route>          
         </Route>
       </Router>;
   }

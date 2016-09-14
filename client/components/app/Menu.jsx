@@ -88,7 +88,14 @@ export default React.createClass({
         <Link to='/'><i className='icon ion-android-calendar'></i> Friss hirdetések</Link>
       </div>;
     }
-    
+
+    let emailButton;
+    if(this.props.currentUser.is_admin){
+      emailButton=<div className='menu-item'>
+        <Link to='/email_dummies'><i className='icon ion-email'></i> E-mailek</Link>
+      </div>;
+    }
+
     let mentorGuide;
     if(this.props.currentUser.is_godfather || this.props.currentUser.is_admin){
       
@@ -107,6 +114,7 @@ export default React.createClass({
       {usersButton}
       {godfatherButtons}
       {competenceButtons}
+      {emailButton}
       <div className='menu-item'>
         <Link to={`/posts`}><i className='icon ion-ios-information-outline'></i> Bejelentések</Link>
       </div>
