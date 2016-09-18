@@ -50,6 +50,11 @@ export default React.createClass({
             <i className='icon ion-funnel'></i> Mentett keresés
           </Link>
         </div>
+        <div className='menu-item'>
+          <Link to='/global_matrix'>
+            <i className='icon ion-ios-grid-view'></i> Teljes mátrix
+          </Link>
+        </div>
       </span>;
     }
     

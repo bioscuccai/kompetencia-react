@@ -20,6 +20,8 @@ class UsersController < ApplicationController
   
   include CompetenceFormatter
   include UserFormatter
+
+  ACCEPTED_FREQUENCIES=['1week', '1day', '3hour', '12hour']
   
   def assigned_competences
     render json: format_competence_list(@user.assigned_competence_levels)
@@ -304,8 +306,12 @@ class UsersController < ApplicationController
       sign_in(u, bypass: true)
     end
     
+    unless ACCEPTED_FREQUENCIES.include? params[:freq]
+      return render json: {status: :error}
+    end
+
     current_user.update!(first_name: params[:first_name], last_name: params[:last_name],
-      godfather_id: params[:godfather_id], receive_email: params[:receive_email])
+      godfather_id: params[:godfather_id], receive_email: params[:receive_email], mail_frequency: params[:freq])
     render json: {status: :ok}
   end
   

@@ -17,6 +17,7 @@ module UserFormatter
       first_name: u.first_name,
       last_name: u.last_name,
       cv: u.cv.exists? ? u.cv.url : nil,
+      mail_frequency: u.mail_frequency,
       last_change: [
         u.users_skills.sort_by(&:updated_at).reverse.first&.updated_at,
         u.assigned_competence_levels.sort_by(&:updated_at).reverse.first&.updated_at,

@@ -107,7 +107,7 @@ class UserActions{
     };
   }
   
-  editUser(firstName, lastName, currentPassword, newPassword, newPasswordConfirmation, godfatherId, receiveEmail, userId){
+  editUser(firstName, lastName, currentPassword, newPassword, newPasswordConfirmation, godfatherId, receiveEmail, freq, userId){
     return dispatch=>{
       let resp={firstName, lastName, currentPassword, newPassword, newPasswordConfirmation, userId};
       return axios.post(`/users/change`, {
@@ -117,6 +117,7 @@ class UserActions{
         last_name: lastName,
         first_name: firstName,
         godfather_id: godfatherId,
+        freq,
         receive_email: receiveEmail
       }, {
         responseType: 'json'

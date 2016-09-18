@@ -83,7 +83,21 @@ export default React.createClass({
             <input type='checkbox' ref='receiveEmail' defaultChecked={this.state.profileUser.receive_email}></input>
           </div>
         </div>
-        
+
+        <div className="row">
+          <div className="column column-40">
+            Értesítő e-mail sűrűség:
+          </div>
+          <div className="column column-60">
+            <select name="freq" id="freq" ref="freq" defaultValue={this.state.profileUser.mail_frequency}>
+              <option value="3hour">3 óra</option>
+              <option value="12hour">12 óra</option>
+              <option value="1day">1 nap</option>
+              <option value="1week">1 hét</option>
+            </select>
+          </div>
+        </div>
+
         <h2>Jelszó csere</h2>
         <div className='row'>
           <div className='column column-40'>
@@ -93,7 +107,7 @@ export default React.createClass({
             <input type='password' ref='newPassword'></input>
           </div>
         </div>
-        
+
         <div className='row'>
           <div className='column column-40'>
             Új jelszó mégegyszer:
@@ -146,6 +160,7 @@ export default React.createClass({
       this.refs.newPassword.value, this.refs.newPasswordConfirmation.value,
       parseInt(this.refs.godfatherId.value),
       this.refs.receiveEmail.checked,
+      this.refs.freq.value,
       this.context.currentUser.id
     )
     .then(data=>{

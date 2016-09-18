@@ -66,3 +66,4 @@ gem 'dotenv-rails'
 gem 'paperclip'
 gem 'whenever', require: false
 gem 'redcarpet'
+gem 'clockwork'

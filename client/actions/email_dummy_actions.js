@@ -7,7 +7,8 @@ import axios from 'axios';
 
 class EmaiLDummyActions {
   constructor(){
-    this.generateActions('error', 'updateEmails', 'deletePendingStoreSucc');
+    this.generateActions('error', 'updateEmails',  'updateMailStatus',
+      'deletePendingStoreSucc', 'enableMailSucc', 'disableMailSucc');
   }
 
   deletePendingStore(){
@@ -18,6 +19,30 @@ class EmaiLDummyActions {
         return data;
       })
     }
+  }
+
+  enableMail(){
+    return dispatch=>{
+      return axios.get('/email_dummy/enable_mail')
+      .then(data=>{
+        this.enableMailSucc();
+        return data;
+      })
+    }
+  }
+
+  disableMail(){
+    return dispatch=>{
+      return axios.get('/email_dummy/disable_mail')
+      .then(data=>{
+        this.disableMailSucc();
+        return data;
+      })
+    }
+  }
+
+  error(err){
+    console.log(err);
   }
 
 }

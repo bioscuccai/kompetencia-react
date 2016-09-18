@@ -53,6 +53,9 @@ GEM
     chronic (0.10.2)
     climate_control (0.0.3)
       activesupport (>= 3.0)
+    clockwork (2.0.0)
+      activesupport
+      tzinfo
     cocaine (0.5.8)
       climate_control (>= 0.0.3, < 1.0)
     coderay (1.1.1)
@@ -243,6 +246,7 @@ DEPENDENCIES
   bullet
   byebug
   cancancan
+  clockwork
   database_cleaner
   devise
   dotenv-rails
@@ -271,4 +275,4 @@ DEPENDENCIES
   whenever
 
 BUNDLED WITH
-   1.11.2
+   1.12.5

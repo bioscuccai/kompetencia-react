@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   resources :posts, only: [:show, :index, :create, :update, :destroy]
   resources :saved_queries
   resources :reports do
+    collection do
+      get 'global_matrix'
+    end
     member do
       get :results
       get :matrix
@@ -112,6 +115,9 @@ Rails.application.routes.draw do
 
   get 'email_dummy/collect_sendable' => 'email_dummy#collect_sendable'
   get 'email_dummy/delete_pending_store' => 'email_dummy#delete_pending_store'
+  get 'email_dummy/enable_mail' => 'email_dummy#enable_mail'
+  get 'email_dummy/disable_mail' => 'email_dummy#disable_mail'
+  get 'email_dummy/mail_status' => 'email_dummy#mail_status'
   
   root 'users#landing'
 end

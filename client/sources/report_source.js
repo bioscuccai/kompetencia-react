@@ -72,5 +72,19 @@ export default {
     
     success: reportActions.updateMatrix,
     error: reportActions.error
+  },
+
+  fetchGlobalMatrix: {
+    remote(state, onlySubordinates = false){
+      return new Promise((resolve, reject) => {
+        axios.get(`/reports/global_matrix.json${onlySubordinates ? '?only_subordinates=1' : ''}`, {responseType: 'json'})
+        .then(data=>{
+          return resolve(data.data);
+        });
+      });
+    },
+    
+    success: reportActions.updateMatrix,
+    error: reportActions.error
   }
 };

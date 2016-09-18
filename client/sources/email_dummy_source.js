@@ -16,5 +16,19 @@ export default {
 
     success: emailDummyActions.updateEmails,
     error: emailDummyActions.error
+  },
+
+  fetchMailStatus: {
+    remote(state){
+      return new Promise((resolve, reject)=>{
+        axios.get('/email_dummy/mail_status')
+        .then(data=>{
+          resolve(data.data);
+        })
+      });
+    },
+
+    success: emailDummyActions.updateMailStatus,
+    error: emailDummyActions.error
   }
 }
