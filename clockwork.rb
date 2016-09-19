@@ -11,7 +11,7 @@ module Clockwork
     if !$redis.exists "mail:enabled"
       puts '!!!Mail disabled'
     elsif started[freq].nil?
-      puts 'Skipping first round for #{freq}'
+      puts "Skipping first round for #{freq}"
       started[freq]=true
     else
       puts "Mail frequency: #{freq}"
@@ -22,6 +22,7 @@ module Clockwork
       end
     end
   end
+  every(5.minutes, '5min')
   every(3.hours, '3hour')
   every(12.hours, '12hour')
   every(1.days, '1day')

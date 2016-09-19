@@ -21,7 +21,7 @@ class UsersController < ApplicationController
   include CompetenceFormatter
   include UserFormatter
 
-  ACCEPTED_FREQUENCIES=['1week', '1day', '3hour', '12hour']
+  ACCEPTED_FREQUENCIES=['5min','1week', '1day', '3hour', '12hour']
   
   def assigned_competences
     render json: format_competence_list(@user.assigned_competence_levels)

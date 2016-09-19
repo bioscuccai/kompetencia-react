@@ -90,6 +90,7 @@ export default React.createClass({
           </div>
           <div className="column column-60">
             <select name="freq" id="freq" ref="freq" defaultValue={this.state.profileUser.mail_frequency}>
+              <option value="5min">5 perc</option>
               <option value="3hour">3 óra</option>
               <option value="12hour">12 óra</option>
               <option value="1day">1 nap</option>
