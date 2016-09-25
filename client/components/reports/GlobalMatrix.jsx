@@ -5,19 +5,21 @@ import reportStore from '../../stores/report_store';
 import alt from '../../alt/alt';
 import Loading from '../Loading.jsx';
 import MatrixCompetenceType from './MatrixCompetenceType.jsx';
+import csvUrl from '../../lib/csv_url';
 
 export default React.createClass({
   getInitialState(){
     return {
       matrix: null,
-      onlySubordinates: false
+      onlySubordinates: true,
+      addCompetences: false
     };
   },
   
   componentDidMount(){
     alt.recycle(reportStore);
     reportStore.listen(this.handleReportStoreChange);
-    reportStore.fetchGlobalMatrix(false);
+    reportStore.fetchGlobalMatrix(true);
   },
   
   componentWillUnmount(){
@@ -45,15 +47,31 @@ export default React.createClass({
       return <Loading></Loading>;
     }
     return <div>
-      <h1>Mátrix</h1>
+    <div className="clearfix">
+      <h1 className='float-left'>Mátrix</h1>
+      <a href={csvUrl(`/reports/global_matrix.csv`, {
+          onlySubordinates: this.state.onlySubordinates,
+          addCompetences: this.state.addCompetences
+        }) } className='button float-right'>
+        <i className='icon ion-android-download'></i>
+          Letöltés
+      </a>
+    </div>
       <div>
         <input type='checkbox'
           onChange={this.onOnlySubordinatesChange}
-          checked={this.state.onlySubordinates}></input> Csak saját dolgozók
+          checked={this.state.onlySubordinates}/> Csak saját dolgozók
+      </div>
+      <div>
+        <input type="checkbox" checked={this.state.addCompetences}
+        onChange={(e)=>this.setState({
+          addCompetences: e.target.checked
+        })}/>  Függő és konfirmált kompetenciák összevonása
       </div>
       {this.state.matrix.map(compType=>{
         console.log(compType);
         return <MatrixCompetenceType
+          addCompetences={this.state.addCompetences}
           key={`mat-comp-${compType.id}`}
           competenceType={compType}
           ></MatrixCompetenceType>;

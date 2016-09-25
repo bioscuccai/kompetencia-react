@@ -61,7 +61,7 @@ export default {
   },
   
   fetchMatrix: {
-    remote(state, id, onlySubordinates = false){
+    remote(state, id, onlySubordinates = false, addCompetences = false){
       return new Promise((resolve, reject) => {
         axios.get(`/reports/${id}/matrix.json${onlySubordinates ? '?only_subordinates=1' : ''}`, {responseType: 'json'})
         .then(data=>{
@@ -75,7 +75,7 @@ export default {
   },
 
   fetchGlobalMatrix: {
-    remote(state, onlySubordinates = false){
+    remote(state, onlySubordinates = false, addCompetences = false){
       return new Promise((resolve, reject) => {
         axios.get(`/reports/global_matrix.json${onlySubordinates ? '?only_subordinates=1' : ''}`, {responseType: 'json'})
         .then(data=>{

@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import MatrixField from './MatrixField.jsx';
 
 export default React.createClass({
   render(){
@@ -21,13 +22,10 @@ export default React.createClass({
               <td>{comp.title}</td>
               {comp.levels.map((cl,i )=>{
                 return <th key={`cl-${comp.id}-${i}`}>
-                  {cl.assigned}&nbsp;
-                  /&nbsp;
-                  <span
-                    className='pending-user-competence'
-                    title='Megerősítetlen'>
-                    {cl.pending}
-                  </span>
+                  <MatrixField
+                    competence={cl}
+                    addCompetences={this.props.addCompetences}>
+                  </MatrixField>
                 </th>;
               })}
             </tr>;

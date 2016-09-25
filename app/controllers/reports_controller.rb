@@ -115,7 +115,7 @@ class ReportsController < ApplicationController
     
     respond_to do |format|
       format.json{render json: ct_resp}
-      format.csv{send_data csv_matrix(ct_resp)}
+      format.csv{send_data(params[:add_competences] ? csv_matrix_sum(ct_resp) : csv_matrix(ct_resp))}
     end
   end
 
@@ -127,7 +127,7 @@ class ReportsController < ApplicationController
 
     respond_to do |format|
       format.json{render json: ct_resp}
-      format.csv{send_data csv_matrix(ct_resp)}
+      format.csv{send_data(params[:add_competences] ? csv_matrix_sum(ct_resp) : csv_matrix(ct_resp))}
     end
   end
   
@@ -160,6 +160,22 @@ class ReportsController < ApplicationController
           competences=ct[:competences].each do |comp|
             levels=comp[:levels].map do |cl|
               [cl[:assigned], cl[:pending]]
+            end
+            csv<<[comp[:title], *levels].flatten
+          end
+        end
+      end
+    end
+
+    def csv_matrix_sum ct_resp
+      CSV.generate do |csv|
+        ct_resp.each do |ct|
+          csv<<[ct[:competence_type]]
+          tiers=ct[:tiers].map{|tier| ["#{tier[:title]}"]}.flatten
+          csv<<[nil, *tiers]
+          competences=ct[:competences].each do |comp|
+            levels=comp[:levels].map do |cl|
+              [cl[:assigned]+cl[:pending]]
             end
             csv<<[comp[:title], *levels].flatten
           end
