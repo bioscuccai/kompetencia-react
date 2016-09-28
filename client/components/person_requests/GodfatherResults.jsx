@@ -13,6 +13,10 @@ export default React.createClass({
       newModal: false
     };
   },
+
+  componentDidMount(){
+    Modal.setAppElement("body");
+  },
   
   render(){
     return <div>

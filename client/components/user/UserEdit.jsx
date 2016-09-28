@@ -156,6 +156,10 @@ export default React.createClass({
   
   onSubmit(e){
     e.preventDefault();
+    if(!this.refs.currentPassword.value){
+      NotificationManager.error('A módosításhoz szükséges a régi jelszó!');
+      return;
+    }
     userActions.editUser(this.refs.firstName.value, this.refs.lastName.value,
       this.refs.currentPassword.value,
       this.refs.newPassword.value, this.refs.newPasswordConfirmation.value,
