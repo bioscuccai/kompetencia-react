@@ -51,6 +51,7 @@ export default React.createClass({
             {name: 'Mentor', value: 'godfather_name'}
           ]}
           onChange={this.onSubordinateSortChange}
+          initialDirection={true}
           ></Sort>
         {this.sortUsers(this.state.subordinates, this.state.subordinatesSortBy, this.state.subordinatesAsc).map(user=>{
         return <SubordinateItem
@@ -64,6 +65,7 @@ export default React.createClass({
             {name: 'Mentor', value: 'godfather_name'}
           ]}
           onChange={this.onNewSortChange}
+          initialDirection={true}
           ></Sort>
       <input type='text' ref='filter' placeholder='Szűrés' onChange={this.onFilterChange}></input>
       {this.sortUsers(this.state.filteredNotSubordinates, this.state.newSortBy, this.state.newAsc).map(user=>{
