@@ -94,7 +94,8 @@ export default React.createClass({
         <Modal isOpen={this.state.detailModal}
           onRequestClose={this.onDetailRequestClose}
           style={this.modalStyle}>
-          <RequestDetail request={this.props.request}></RequestDetail>
+          <RequestDetail request={this.props.request}
+          onClose={this.onDetailRequestClose}></RequestDetail>
           <button onClick={this.onDetailRequestClose}>Bezár</button>
         </Modal>
         

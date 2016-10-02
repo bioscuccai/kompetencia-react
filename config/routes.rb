@@ -30,11 +30,8 @@ Rails.application.routes.draw do
   
   resources :competence_tiers, only: [:index, :update, :create, :destroy]
   
-  resources :competences, only: [:index, :update, :create, :destroy] do
-    collection do
-      get 'all'
-    end
-  end
+  resources :competences, only: [:index, :update, :create, :destroy]
+
   devise_for :users
   
   resources :users do

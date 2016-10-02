@@ -7,7 +7,7 @@ export default React.createClass({
   render(){
     return <div className='clearfix modal-title'>
       <div className='float-left'>
-        <h1>
+        <h1 style={{margin: 0}}>
           {this.props.title}
         </h1>
       </div>

@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
   validates_attachment_content_type :cv, :content_type=> ["application/x-download", "application/pdf; charset=binary", "application/pdf", "application/x-pdf", "application/acrobat", "applications/vnd.pdf", "text/pdf", "text/x-pdf"]
   
   def availabilities_between(b_starts_at, b_ends_at)
-    Availability.where("user_id=:user_id AND availabilities.starts_at>=:b_starts_at AND availabilities.ends_at<=:b_ends_at", user_id: self.id, b_starts_at: b_starts_at, b_ends_at: b_ends_at)
+    Availability.where("user_id=:user_id AND availabilities.starts_at<=:b_starts_at AND availabilities.ends_at>=:b_ends_at", user_id: self.id, b_starts_at: b_starts_at, b_ends_at: b_ends_at)
   end
   
   def availabilities_between_not_strict(b_starts_at, b_ends_at)

@@ -69,6 +69,7 @@
   border-radius: 15px;
   margin-top: 5px;
   margin-bottom: 5px;
+  padding: 5px;
 }
 
 .other-godfather{
@@ -271,7 +272,7 @@ main{
   border-radius: 4px;
   margin-top: 15px;
   margin-bottom: 15px;
-  padding: 3px;
+  padding: 6px;
 }
 
 .todo-block > h5{
@@ -390,4 +391,12 @@ main{
 .max-width-250{
   width: 250px;
   max-width: 250px;
+}
+
+.inactive-availability {
+  opacity: 0.5;
+}
+
+.close-button {
+  margin: 10px;
 }

@@ -4,7 +4,7 @@ import React from 'react';
 
 export default React.createClass({
   render(){
-    return <button className='icon-button icon-button-large' onClick={this.onClose}>
+    return <button className='icon-button icon-button-large close-button' onClick={this.onClose}>
       <i className='icon ion-close'></i>
     </button>;
   },

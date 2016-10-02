@@ -15,7 +15,8 @@ class AvailabilitiesController < ApplicationController
   end
   
   def recent
-    @availabilities=Availability.recent.map do |a|
+    @availabilities=Availability.recent.includes(user: [assigned_competence_levels: [competence: [:competence_type]],
+      pending_competence_levels: [competence: [:competence_type]]]).map do |a|
       format_availability a
     end
     render json: @availabilities

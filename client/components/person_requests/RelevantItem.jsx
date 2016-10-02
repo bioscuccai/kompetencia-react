@@ -132,7 +132,8 @@ export default React.createClass({
           isOpen={this.state.detailModal}
           onRequestClose={this.onRequestClose}
           style={modalStyle}>
-          <RequestDetail request={this.props.request}></RequestDetail>
+          <RequestDetail request={this.props.request}
+          onClose={this.onRequestClose}></RequestDetail>
         </Modal>
       </td>
     </tr>;

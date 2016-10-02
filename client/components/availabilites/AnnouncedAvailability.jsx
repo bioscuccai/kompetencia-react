@@ -1,6 +1,7 @@
 "use strict";
 
 import React from 'react';
+import classNames from 'classnames';
 import UserBulletpoints from '../user/UserBulletpoints.jsx';
 import DateLabel from '../date/DateLabel.jsx';
 import auth from '../../lib/auth';
@@ -45,7 +46,12 @@ export default React.createClass({
           </Modal>
         </span>;
     }
-    return <div className='row profile-item'>
+    let visibiltyClass=classNames({
+      row: true,
+      'profile-item': true,
+      'inactive-availability': Date.parse(this.props.availability.ends_at)<(new Date()) 
+    });
+    return <div className={visibiltyClass}>
       <div className='column column-60'>
         <UserBulletpoints user={this.props.availability.user}></UserBulletpoints>
       </div>

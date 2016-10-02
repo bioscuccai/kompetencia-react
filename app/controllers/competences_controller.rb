@@ -4,14 +4,7 @@ class CompetencesController < ApplicationController
   before_action :set_competence, only: [:show, :edit, :update, :destroy]
   skip_before_filter :verify_authenticity_token
 
-  # GET /competences
-  # GET /competences.json
   def index
-    @competences = Competence.all
-  end
-
-  #az api-nak specko formatumban kell, az eredeti buidert meg nem piszkaljuk
-  def all
     competences=Competence.includes(competence_type: [:competence_tier_group]).all.map do |competence|
       {
         id: competence.id,

@@ -12,7 +12,6 @@ module ApplicationHelper
   def render_react_tag(tag, props={}, selector="holder")
     ("<script type='text/javascript'>\n"+
     "$(function(){"+
-    "console.log('rendering');"+
     "renderTag('#{tag}', #{props.to_json}, '#{selector}');"+
     "});"+
     "</script>").html_safe

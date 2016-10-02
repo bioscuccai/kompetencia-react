@@ -16,7 +16,15 @@ class SkillsController < ApplicationController
     else
       @skills = Skill.all
     end
-    render json: @skills
+
+    formatted = @skills.map do |sk|
+      {
+        id: sk.id,
+        name: sk.name,
+        description: sk.description
+      }
+    end
+    render json: formatted
   end
 
   def create

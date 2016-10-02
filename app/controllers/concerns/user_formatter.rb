@@ -39,7 +39,7 @@ module UserFormatter
     if !wo.include? :competences
       user.merge!(
         {
-          competences: format_competence_list(u.assigned_competence_levels, level_names)
+          competences: format_competence_list(u.assigned_competence_levels, level_names, wo: [:meta])
           #competences: []
         }
       )
@@ -48,7 +48,7 @@ module UserFormatter
     if !wo.include? :pending_competences
       user.merge!(
         {
-          pending_competences: format_competence_list(u.pending_competence_levels, level_names)
+          pending_competences: format_competence_list(u.pending_competence_levels, level_names, wo: [:meta])
           #pending_competences: []
         }
       )

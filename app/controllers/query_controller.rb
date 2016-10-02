@@ -30,8 +30,9 @@ class QueryController < ApplicationController
         found: result_per_user[u.id].map do |r|
           {
             competence_id: r,
-            title: u.assigned_competence_levels.includes(:competence).where(competence_id: r)&.first&.competence&.title,
-            level: u.assigned_competence_levels.includes(:competence).where(competence_id: r)&.first&.level,
+            title: u.assigned_competence_levels.select{|acl| acl.competence_id==r}&.first&.competence&.title,
+            level: u.assigned_competence_levels.select{|acl| acl.competence_id==r}&.first&.level,
+
             wanted: params[:competences].select{|c| c["competence_id"]==r}&.first&.fetch("level")
           }
         end

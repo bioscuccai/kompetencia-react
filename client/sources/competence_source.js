@@ -8,7 +8,7 @@ export default {
   fetchAllCompetences: {
     remote(state){
       return new Promise((resolve, reject)=>{
-        axios.get("/competences/all", {
+        axios.get("/competences", {
           responseType: 'json'
         })
         .then(data=>{

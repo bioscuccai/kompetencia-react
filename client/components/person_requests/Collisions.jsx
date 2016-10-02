@@ -14,7 +14,7 @@ export default React.createClass({
     return <div>
       <ModalTitle title='Kérés elfogadás' onClose={this.onClose}></ModalTitle>
       <div>
-        A következő hírdetések érintettek:
+        A következő {this.props.collisions.length} hirdetés érintett:
         <ul>
           {this.props.collisions.map(coll=>{
             return <li key={`coll-${coll.id}`}>
@@ -24,18 +24,19 @@ export default React.createClass({
         </ul>
       </div>
       <div>
-        <button onClick={this.onAccept} className='accept-background'>
-          <i className='icon ion-checkmark'></i> Elfogadás + hírdetések kikapcsolása
+        <div>
+          <button onClick={this.onAccept} className='accept-background'>
+            <i className='icon ion-checkmark'></i> Elfogadás + hírdetések kikapcsolása
+          </button>
+          <button onClick={this.onAcceptNoCollision} className='accept-background'>
+            <i className='icon ion-checkmark'></i> Elfogadás + hírdetések kinthagyása
         </button>
-        <button onClick={this.onAcceptNoCollision} className='accept-background'>
-          <i className='icon ion-checkmark'></i> Elfogadás + hírdetések kinthagyása
-        </button>
-        <button onClick={this.onReject} className='reject-background'>
-          <i className=''></i>Elutasít
-        </button>
-        <button onClick={this.onClose}>
-          <i className='icon ion-close'></i> Mégsem
-        </button>
+        </div>
+        <div>
+          <button onClick={this.onReject} className='reject-background'>
+            <i className=''></i>Elutasít
+          </button>
+        </div>
       </div>
     </div>;
   },

@@ -3,11 +3,12 @@
 import React from 'react';
 import DateLabel from '../date/DateLabel.jsx';
 import UserBulletpoints from '../user/UserBulletpoints.jsx';
+import ModalTitle from '../ModalTitle.jsx';
 
 export default React.createClass({
   render(){
     return <div>
-      <h1>{this.props.request.title}</h1>
+      <ModalTitle title={this.props.request.title} onClose={this.onClose}></ModalTitle>
       <p className='comment'>{this.props.request.comment}</p>
       <div className='row'>
         <div className='column column-20'>
@@ -39,5 +40,9 @@ export default React.createClass({
         </div>
       </div>
     </div>;
+  },
+
+  onClose(){
+    if(this.props.onClose) this.props.onClose();
   }
 });
