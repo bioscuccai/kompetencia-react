@@ -20,7 +20,7 @@ export default React.createClass({
   
   render(){
     return <div>
-      <h3>Meghírdetett</h3>
+      <h3>Meghirdetett</h3>
       <table>
         <thead>
           <tr>
