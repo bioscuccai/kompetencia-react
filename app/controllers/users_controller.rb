@@ -311,7 +311,8 @@ class UsersController < ApplicationController
     end
 
     current_user.update!(first_name: params[:first_name], last_name: params[:last_name],
-      godfather_id: params[:godfather_id], receive_email: params[:receive_email], mail_frequency: params[:freq])
+      godfather_id: params[:godfather_id], receive_email: params[:receive_email],
+      mail_frequency: params[:freq], mail_for_expired_availabilities: params[:mail_for_expired_availabilities])
     render json: {status: :ok}
   end
   

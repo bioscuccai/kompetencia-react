@@ -5,10 +5,16 @@ import React from 'react';
 import DateLabel from '../date/DateLabel.jsx';
 import AvailabilityButtons from '../availabilites/AvailabilityButtons.jsx';
 import {Link} from 'react-router';
+import classNames from 'classnames';
+import moment from 'moment';
 
 export default React.createClass({
   render(){
-    return <tr className={this.props.availability.active? "" : "inactive-availability"}>
+    let classes = classNames({
+      'expired-availability': moment().isAfter(this.props.availability.ends_at),
+      'inactive-availability': !this.props.availability.active
+    });
+    return <tr className={classes}>
       <td>
         <Link to={`/users/${this.props.availability.user.id}`}>
           {this.props.availability.user.name}
@@ -16,6 +22,7 @@ export default React.createClass({
         </Link>
       </td>
       <td>
+        <i className="icon ion-calendar"></i>&nbsp;
         <DateLabel date={this.props.availability.starts_at}></DateLabel>
         &mdash;
         <DateLabel date={this.props.availability.ends_at}></DateLabel>

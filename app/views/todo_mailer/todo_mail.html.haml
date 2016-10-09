@@ -19,3 +19,8 @@
     %ul
       -@relevant.each do |rel|
         %li=rel.title
+  - if @expired_availabilities.count>0
+    %h5 Lejárt feladott hirdetések
+    %ul
+      -@expired_availabilities.each do |ex|
+        %li="#{ex.user.name} (#{ex.comment} - #{ex.ends_at.strftime('%F')})"

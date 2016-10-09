@@ -84,6 +84,15 @@ export default React.createClass({
           </div>
         </div>
 
+        <div className='row'>
+          <div className='column column-40'>
+            E-mail lejárt feladott hirdetésekről:
+          </div>
+          <div className='column column-60'>
+            <input type='checkbox' ref='mailForExpiredAvailabilities' defaultChecked={this.state.profileUser.mail_for_expired_availabilities}></input>
+          </div>
+        </div>
+
         <div className="row">
           <div className="column column-40">
             Értesítő e-mail sűrűség:
@@ -166,6 +175,7 @@ export default React.createClass({
       parseInt(this.refs.godfatherId.value),
       this.refs.receiveEmail.checked,
       this.refs.freq.value,
+      this.refs.mailForExpiredAvailabilities.checked,
       this.context.currentUser.id
     )
     .then(data=>{

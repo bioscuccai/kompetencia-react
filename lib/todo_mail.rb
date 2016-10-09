@@ -55,6 +55,14 @@ module TodoMail
 
     godfathers.each do |gf|
       subordinate_ids=gf.subordinates.map(&:id)
+
+      expired_availabilities=[]
+      if gf.mail_for_expired_availabilities
+        expired_availabilities=Availability.includes(:user).for_godfather(gf.id)
+          .where("ends_at > ? OR ? IS NULL", gf.last_expired_availability_check, gf.last_expired_availability_check)
+        gf.update_column(:last_expired_availability_check, Time.now)
+      end
+
       #person requests
       gf_new_requests=new_person_requests
         .where("(person_requests.updated_at > ? OR ?) AND users.godfather_id = ?", gf.last_seen_relevant, gf.last_seen_relevant.nil?, gf.id)
@@ -78,11 +86,12 @@ module TodoMail
         godfather: gf,
         pending_subordinates: pending_subordinates,
         updated_requests: gf_updated_requests,
-        new_requests: gf_new_requests
+        new_requests: gf_new_requests,
+        expired_availabilities: expired_availabilities
       })
     end
     mails=mails.select do |m|
-      m[:pending_subordinates].count!=0 || m[:updated_requests].count!=0 || m[:new_requests].count!=0
+      m[:pending_subordinates].count!=0 || m[:updated_requests].count!=0 || m[:new_requests].count!=0 || m[:expired_availabilities].count!=0
     end
     mails
   end
@@ -90,7 +99,7 @@ module TodoMail
   def self.send_mail mail
     p ("sending mail for #{mail[:godfather].name}")
     TodoMailer
-      .todo_mail(mail[:godfather], mail[:pending_subordinates], mail[:updated_requests], mail[:new_requests])
+      .todo_mail(mail[:godfather], mail[:pending_subordinates], mail[:updated_requests], mail[:new_requests], mail[:expired_availabilities])
       .deliver_now
   end
 end

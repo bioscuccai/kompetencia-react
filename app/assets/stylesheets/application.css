@@ -121,8 +121,9 @@ strong{
   padding: 0px!important;
 }
 
+
 .inactive-availability >td:not(.availability-buttons){
-  color: rgb(124, 124, 124);
+  color: rgb(64, 64, 64);
   font-style: italic;
   font-size: 75%;
 }
@@ -393,7 +394,7 @@ main{
   max-width: 250px;
 }
 
-.inactive-availability {
+.expired-availability {
   opacity: 0.5;
 }
 

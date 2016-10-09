@@ -49,7 +49,7 @@ export default React.createClass({
     let visibiltyClass=classNames({
       row: true,
       'profile-item': true,
-      'inactive-availability': Date.parse(this.props.availability.ends_at)<(new Date()) 
+      'expired-availability': Date.parse(this.props.availability.ends_at)<(new Date()) 
     });
     return <div className={visibiltyClass}>
       <div className='column column-60'>
